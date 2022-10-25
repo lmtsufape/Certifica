@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('unidade_adminstrativas', function (Blueprint $table) {
-            $table->id()->primary()->unique();
-            $table->string('descricao', 300);
+        Schema::create('unidade_administrativas', function (Blueprint $table) {
+            $table->id();
+            $table->string('descricao');
             $table->integer('setor_id');
-            
-            $table->foreign('setor_id', 'fk_coordenacao_setor')->references('id')->on('setor');
+            $table->foreign('setor_id')->references('id')->on('setors');
             $table->timestamps();
         });
     }

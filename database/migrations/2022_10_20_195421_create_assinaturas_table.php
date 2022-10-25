@@ -14,12 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('assinaturas', function (Blueprint $table) {
-            $table->id()->primary()->unique();
-            $table->integer('id_usuario');
+            $table->id();
+            $table->integer('usuario_id');
             $table->string('img_assinatura', 300);
-            
-            $table->foreign('id_usuario', 'fk_assinatura_usuario1')->references('id_usuario')->on('usuario');
-        
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->timestamps();
         });
     }

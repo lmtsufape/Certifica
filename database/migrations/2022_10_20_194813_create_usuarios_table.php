@@ -14,15 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id()->primary()->unique();
-            $table->integer('id_tipo_perfil');
+            $table->id();
+            $table->integer('tipo_perfil_id');
             $table->string('nome', 150);
             $table->string('email');
             $table->string('senha', 32);
             $table->string('CPF', 14);
-            
-            $table->foreign('id_tipo_perfil', 'fk_usuario_tipo_perfil1')->references('id_tipo_perfil')->on('perfil');
-        
+            $table->foreign('tipo_perfil_id')->references('id')->on('perfils');
             $table->timestamps();
         });
     }

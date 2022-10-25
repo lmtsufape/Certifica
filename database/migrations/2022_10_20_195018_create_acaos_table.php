@@ -13,20 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('acaos', function (Blueprint $table) {
-            $table->id()->primary()->unique();
-            $table->integer('natureza_id_natureza');
-            $table->integer('usuario_id_usuario');
-            $table->integer('id_status');
+        Schema::create('acaos', function (Blueprint $table) 
+        {
+            $table->id();
+            $table->integer('natureza_id');
+            $table->integer('usuario_id');
             $table->tinyInteger('status');
             $table->string('titulo');
             $table->date('data_inicio');
             $table->date('data_fim')->nullable();
-            
-            $table->foreign('id_status', 'fk_acao_status1')->references('id_status')->on('status');
-            $table->foreign('natureza_id_natureza', 'fk_natureza_has_usuario_natureza1')->references('id_natureza')->on('natureza');
-            $table->foreign('usuario_id_usuario', 'fk_natureza_has_usuario_usuario1')->references('id_usuario')->on('usuario');
-        
+            $table->foreign('natureza_id')->references('id')->on('naturezas');
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->timestamps();
         });
     }

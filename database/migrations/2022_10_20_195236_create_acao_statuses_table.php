@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('acao_statuses', function (Blueprint $table) {
-            $table->id()->primary()->unique();
-            $table->integer('acao_id_acao');
-            $table->integer('status_id_status');
-            
-            $table->foreign('acao_id_acao', 'fk_acao_status_acao1')->references('id_acao')->on('acao');
-            $table->foreign('status_id_status', 'fk_acao_status_status1')->references('id_status')->on('status');
-        
+            $table->id();
+            $table->integer('acao_id');
+            $table->integer('status_id');
+            $table->foreign('acao_id')->references('id')->on('acaos');
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }

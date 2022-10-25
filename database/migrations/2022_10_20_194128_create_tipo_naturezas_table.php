@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tipo_naturezas', function (Blueprint $table) {
-            $table->id()->primary()->unique();
+            $table->id();
             $table->string('descricao', 50);
             $table->timestamps();
         });

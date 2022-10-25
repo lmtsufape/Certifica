@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('perfils', function (Blueprint $table) {
-            $table->id()->primary()->unique();
+            $table->id();
             $table->string('perfil', 50);
             $table->timestamps();
         });

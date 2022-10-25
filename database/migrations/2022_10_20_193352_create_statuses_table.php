@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id()->primary()->unique();
+        Schema::create('statuses', function (Blueprint $table) 
+        {
+            $table->id();
             $table->tinyInteger('estado_atual');
             $table->timestamps();
         });
