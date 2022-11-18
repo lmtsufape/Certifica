@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Participante;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
 
@@ -25,7 +26,7 @@ class ParticipanteController extends Controller
      */
     public function create()
     {
-        //
+        return view('participante.participante_create');
     }
 
     /**
@@ -34,9 +35,10 @@ class ParticipanteController extends Controller
      * @param  \App\Http\Requests\StoreParticipanteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreParticipanteRequest $request)
+    public function store(Request $request)
     {
-        //
+        Participante::create($request->all);
+
     }
 
     /**
