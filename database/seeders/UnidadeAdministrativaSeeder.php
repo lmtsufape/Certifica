@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\AssinaturaCoordenacao;
+use App\Models\UnidadeAdministrativa;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AssinaturaCoordenacaoSeeder extends Seeder
+class UnidadeAdministrativaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class AssinaturaCoordenacaoSeeder extends Seeder
      */
     public function run()
     {
-        AssinaturaCoordenacao::factory()->count(3)->create();
+        UnidadeAdministrativa::factory()->count(3)->create();
     }
 }

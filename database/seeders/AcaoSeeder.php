@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Acao;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class AcaoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Acao::factory()->count(3)->create();
     }
 }
