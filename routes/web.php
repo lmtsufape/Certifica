@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ParticipanteController;
 use \App\Http\Controllers\AcaoController;
 use App\Http\Controllers\UnidadeAdminstrativaController;
-use App\Models\UnidadeAdminstrativa;
+use App\Models\UnidadeAdministrativa;
 
 /*
 |--------------------------------------------------------------------------
