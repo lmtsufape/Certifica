@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('participantes', function (Blueprint $table)
         {
             $table->id();
-            $table->string('nome', 150);
-            $table->string('email', 150)->nullable();
-            $table->string('cpf', 14)->nullable();
+            $table->string('nome');
+            $table->string('email')->unique();
+            $table->string('cpf')->unique();
             $table->boolean('ativo');
-            #$table->string('chave_validacao', 300)->nullable();
+
             $table->unsignedInteger('atividade_id')->index();
             $table->foreign('atividade_id')->references('id')->on('atividades');
             $table->timestamps();

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('atividades', function (Blueprint $table) 
+        Schema::create('atividades', function (Blueprint $table)
         {
             $table->id();
-            $table->tinyInteger('status');
+            $table->boolean('status');
             $table->string('descricao');
             $table->string('info')->nullable();
             $table->date('data_inicio');

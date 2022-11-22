@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('setors', function (Blueprint $table) {
+        Schema::create('unidade_administrativas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao');
-            $table->string('tel_setor');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('setors');
+        Schema::dropIfExists('unidade_administrativas');
     }
 };

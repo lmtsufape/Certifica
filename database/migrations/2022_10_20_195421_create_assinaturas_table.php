@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assinaturas', function (Blueprint $table) {
+        Schema::create('assinaturas', function (Blueprint $table)
+        {
             $table->id();
-            $table->integer('usuario_id');
-            $table->string('img_assinatura', 300);
+            $table->string('img_assinatura');
+            $table->unsignedInteger('usuario_id')->index();
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->timestamps();
         });

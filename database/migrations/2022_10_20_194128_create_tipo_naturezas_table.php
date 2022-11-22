@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tipo_naturezas', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao', 50);
+            $table->string('descricao');
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class TipoNaturezaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'descricao' => $this->faker->text(),
         ];
     }
 }

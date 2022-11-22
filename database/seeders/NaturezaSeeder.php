@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Natureza;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class NaturezaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Natureza::factory()->count(3)->create();
     }
 }

@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AssinaturaCoordenacao extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
+
     protected $table = 'assinatura_coordenacaos';
-    
+
     protected $fillable = ['cargo', 'nome', 'unidade_administrativa_id'];
 
 }

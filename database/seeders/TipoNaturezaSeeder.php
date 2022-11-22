@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TipoNatureza;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class TipoNaturezaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        TipoNatureza::factory()->count(3)->create();
     }
 }

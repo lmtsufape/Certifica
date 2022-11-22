@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Setor;
+use App\Models\UnidadeAdministrativa;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SetorPolicy
+class UnidadeAdministrativaPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class SetorPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Setor  $setor
+     * @param  \App\Models\UnidadeAdministrativa  $unidadeAdministrativa
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Setor $setor)
+    public function view(User $user, UnidadeAdministrativa $unidadeAdministrativa)
     {
         //
     }
@@ -48,10 +48,10 @@ class SetorPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Setor  $setor
+     * @param  \App\Models\UnidadeAdministrativa  $unidadeAdministrativa
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Setor $setor)
+    public function update(User $user, UnidadeAdministrativa $unidadeAdministrativa)
     {
         //
     }
@@ -60,10 +60,10 @@ class SetorPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Setor  $setor
+     * @param  \App\Models\UnidadeAdministrativa  $unidadeAdministrativa
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Setor $setor)
+    public function delete(User $user, UnidadeAdministrativa $unidadeAdministrativa)
     {
         //
     }
@@ -72,10 +72,10 @@ class SetorPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Setor  $setor
+     * @param  \App\Models\UnidadeAdministrativa  $unidadeAdministrativa
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Setor $setor)
+    public function restore(User $user, UnidadeAdministrativa $unidadeAdministrativa)
     {
         //
     }
@@ -84,10 +84,10 @@ class SetorPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Setor  $setor
+     * @param  \App\Models\UnidadeAdministrativa  $unidadeAdministrativa
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Setor $setor)
+    public function forceDelete(User $user, UnidadeAdministrativa $unidadeAdministrativa)
     {
         //
     }

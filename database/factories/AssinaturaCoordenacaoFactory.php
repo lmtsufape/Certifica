@@ -17,7 +17,10 @@ class AssinaturaCoordenacaoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'cargo' => $this->faker->text(15),
+            'nome' => $this->faker->name(),
+            'img_assinatura' => $this->faker->text(),
+            'unidade_administrativa_id' => rand(1, 3),
         ];
     }
 }

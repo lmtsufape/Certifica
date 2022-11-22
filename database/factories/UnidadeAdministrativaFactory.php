@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Setor>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UnidadeAdministrativa>
  */
-class SetorFactory extends Factory
+class UnidadeAdministrativaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class SetorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'descricao' => $this->faker->text(),
         ];
     }
 }

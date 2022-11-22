@@ -17,7 +17,11 @@ class ParticipanteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nome' => $this->faker->name(),
+            'email' => $this->faker->email(),
+            'cpf' => rand(10000000000, 99999999999),
+            'ativo' => $this->faker->boolean(),
+            'atividade_id' => rand(1, 3),
         ];
     }
 }

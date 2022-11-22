@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-            $table->integer('tipo_perfil_id');
-            $table->string('nome', 150);
-            $table->string('email');
-            $table->string('senha', 32);
-            $table->string('CPF', 14);
-            $table->foreign('tipo_perfil_id')->references('id')->on('perfils');
+            $table->string('nome');
+            $table->string('cpf')->unique();
+            $table->string('telefone');
+            $table->string('email')->unique();
+            $table->string('senha');
+
+            $table->unsignedInteger('perfil_id')->index();
+            $table->foreign('perfil_id')->references('id')->on('perfils');
             $table->timestamps();
         });
     }
