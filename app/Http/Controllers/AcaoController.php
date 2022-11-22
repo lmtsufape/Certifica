@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acao;
-use App\Http\Requests\StoreAcaoRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
 
 class AcaoController extends Controller
@@ -25,7 +25,7 @@ class AcaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('acao.create');
     }
 
     /**
@@ -34,9 +34,24 @@ class AcaoController extends Controller
      * @param  \App\Http\Requests\StoreAcaoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAcaoRequest $request)
+    public function store(Request $request)
     {
-        //
+        
+        #Acao::create($request->all());
+
+        $acao = new Acao();
+
+        $acao->natureza_id = $request->natureza_id;
+        $acao->usuario_id = $request->usuario_id;
+        $acao->titulo = $request->titulo;
+        $acao->data_inicio = $request->data_inicio;
+        $acao->data_fim = $request->data_fim;
+        $acao->status = $request->status;
+
+        $acao->save();
+
+        return redirect(Route('home'));
+
     }
 
     /**
