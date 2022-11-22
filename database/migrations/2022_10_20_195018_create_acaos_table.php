@@ -16,13 +16,16 @@ return new class extends Migration
         Schema::create('acaos', function (Blueprint $table) 
         {
             $table->id();
-            $table->integer('natureza_id');
-            $table->integer('usuario_id');
+           
             $table->tinyInteger('status');
             $table->string('titulo');
             $table->date('data_inicio');
             $table->date('data_fim')->nullable();
+
+            
+            $table->integer('natureza_id');
             $table->foreign('natureza_id')->references('id')->on('naturezas');
+            $table->integer('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->timestamps();
         });
