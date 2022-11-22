@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ramsey\Uuid\Type\Integer;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Natureza>
@@ -17,7 +18,9 @@ class NaturezaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'descricao' => $this->faker->text(),
+            'unidade_administrativa_id' => rand(1, 3),
+            'tipo_natureza_id' => rand(1, 3),
         ];
     }
 }
