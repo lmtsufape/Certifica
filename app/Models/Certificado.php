@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Certificado extends Model
 {
-    
+    use HasFactory;
 }
