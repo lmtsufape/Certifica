@@ -13,16 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('unidade_administrativas', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('cpf')->unique();
-            $table->string('telefone');
-            $table->string('email')->unique();
-            $table->string('senha');
-
-            $table->unsignedInteger('perfil_id')->index();
-            $table->foreign('perfil_id')->references('id')->on('perfils');
+            $table->string('descricao');
             $table->timestamps();
         });
     }
@@ -34,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuarios');
+        Schema::dropIfExists('unidade_administrativas');
     }
 };

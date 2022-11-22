@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('perfils', function (Blueprint $table) {
             $table->id();
-            $table->string('perfil', 50);
+            $table->string('nome');
             $table->timestamps();
         });
     }

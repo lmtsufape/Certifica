@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assinatura_coordenacaos', function (Blueprint $table) 
+        Schema::create('assinatura_coordenacaos', function (Blueprint $table)
         {
             $table->id();
             $table->string('cargo');
             $table->string('nome');
+            $table->string('img_assinatura');
             $table->unsignedInteger('unidade_administrativa_id')->index();
             $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
