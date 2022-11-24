@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ParticipanteController;
 use \App\Http\Controllers\AcaoController;
 use \App\Http\Controllers\CertificadoModeloController;
+use \App\Http\Controllers\CertificadoController;
 use \App\Http\Controllers\TipoNaturezaController;
 use \App\Http\Controllers\AssinaturaController;
 use App\Http\Controllers\UnidadeAdminstrativaController;
@@ -63,6 +64,18 @@ Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class,
 Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
 
 Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
+
+
+
+Route::get('/certificado/create', [CertificadoController::class, 'create'])->name('certificado.create');
+Route::post('/store_certificado', [CertificadoController::class, 'store'])->name('certificado.store');
+
+Route::get('/certificados', [CertificadoController::class, 'show'])->name('certificado.show');
+
+Route::get('/certificado/{id}/edit', [CertificadoController::class, 'edit'])->name('certificado.edit');
+Route::put('/certificado/{id}/update', [CertificadoController::class, 'update'])->name('certificado.update');
+
+Route::get('/certificado/delete/{id}', [CertificadoController::class, 'destroy'])->name('certificado.delete');
 
 
 
