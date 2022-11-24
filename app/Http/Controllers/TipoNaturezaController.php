@@ -15,7 +15,9 @@ class TipoNaturezaController extends Controller
      */
     public function index()
     {
-        //
+        $tipoNaturezas = TipoNatureza::query()->get();
+        return view('tipo_natureza.tipo_natureza_consult',['tipo_natureza' => $tipoNaturezas]);
+
     }
 
     /**
@@ -25,7 +27,7 @@ class TipoNaturezaController extends Controller
      */
     public function create()
     {
-        //
+        return view('tipo_natureza.tipo_natureza_create');
     }
 
     /**
@@ -36,7 +38,16 @@ class TipoNaturezaController extends Controller
      */
     public function store(StoreTipoNaturezaRequest $request)
     {
-        //
+        #TipoNatureza::create($request->all());
+
+        $tipo_natureza = new TipoNatureza();
+
+        $tipo_natureza->descricao = $request->descricao;
+        
+
+        $tipo_natureza->save();
+
+        return redirect(Route('home'));
     }
 
     /**
@@ -45,9 +56,10 @@ class TipoNaturezaController extends Controller
      * @param  \App\Models\TipoNatureza  $tipoNatureza
      * @return \Illuminate\Http\Response
      */
-    public function show(TipoNatureza $tipoNatureza)
+    public function show(TipoNatureza $tipo_naturezas)
     {
-        //
+        $tipo_naturezas = TipoNatureza::query()->get();
+        return view('tipo_natureza.tipo_natureza_consult',['tipo_naturezas' => $tipo_naturezas]);
     }
 
     /**
@@ -56,9 +68,10 @@ class TipoNaturezaController extends Controller
      * @param  \App\Models\TipoNatureza  $tipoNatureza
      * @return \Illuminate\Http\Response
      */
-    public function edit(TipoNatureza $tipoNatureza)
+    public function edit($id)
     {
-        //
+        $tipo_natureza = TipoNatureza::query()->findOrFail($id);
+        return view('tipo_natureza.tipo_natureza_edit', ['tipo_natureza' => $tipo_natureza]);
     }
 
     /**
@@ -68,9 +81,15 @@ class TipoNaturezaController extends Controller
      * @param  \App\Models\TipoNatureza  $tipoNatureza
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTipoNaturezaRequest $request, TipoNatureza $tipoNatureza)
+    public function update(UpdateTipoNaturezaRequest $request, $id)
     {
-        //
+        $tipo_natureza = TipoNatureza::query()->findOrFail($id);
+        
+        $tipo_natureza->update([
+            'descricao' => $request->descricao
+        ]);
+        
+        return redirect(Route('home'));
     }
 
     /**
@@ -79,8 +98,12 @@ class TipoNaturezaController extends Controller
      * @param  \App\Models\TipoNatureza  $tipoNatureza
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoNatureza $tipoNatureza)
+    public function destroy($id)
     {
-        //
+        $tipo_natureza = TipoNatureza::query()->findOrFail($id);
+
+        $tipo_natureza->delete();
+
+        return redirect(Route('home'));
     }
 }

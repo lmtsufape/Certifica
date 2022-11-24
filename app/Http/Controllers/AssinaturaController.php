@@ -15,7 +15,9 @@ class AssinaturaController extends Controller
      */
     public function index()
     {
-        //
+        $assinaturas = Assinatura::query()->get();
+        return view('assinatura.assinatura_consult',['assinaturas' => $assinaturas]);
+
     }
 
     /**
@@ -25,7 +27,7 @@ class AssinaturaController extends Controller
      */
     public function create()
     {
-        //
+        return view('assinatura.assinatura_create');
     }
 
     /**
@@ -36,7 +38,16 @@ class AssinaturaController extends Controller
      */
     public function store(StoreAssinaturaRequest $request)
     {
-        //
+        #TipoNatureza::create($request->all());
+
+        $assinatura = new Assinatura();
+
+        $assinatura->usuario_id = $request->usuario_id;
+        $assinatura->img_assinatura = $request->img_assinatura;
+
+        $assinatura->save();
+
+        return redirect(Route('home'));
     }
 
     /**
@@ -47,7 +58,8 @@ class AssinaturaController extends Controller
      */
     public function show(Assinatura $assinatura)
     {
-        //
+        $assinaturas = Assinatura::query()->get();
+        return view('assinatura.assinatura_consult',['assinaturas' => $assinaturas]);
     }
 
     /**
@@ -56,9 +68,10 @@ class AssinaturaController extends Controller
      * @param  \App\Models\Assinatura  $assinatura
      * @return \Illuminate\Http\Response
      */
-    public function edit(Assinatura $assinatura)
+    public function edit($id)
     {
-        //
+        $assinatura = Assinatura::query()->findOrFail($id);
+        return view('assinatura.assinatura_edit', ['assinatura' => $assinatura]);
     }
 
     /**
@@ -68,9 +81,16 @@ class AssinaturaController extends Controller
      * @param  \App\Models\Assinatura  $assinatura
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAssinaturaRequest $request, Assinatura $assinatura)
+    public function update(UpdateAssinaturaRequest $request, $id)
     {
-        //
+        $assinatura = Assinatura::query()->findOrFail($id);
+        
+        $assinatura->update([
+            'img_assinatura' => $request->img_assinatura,
+            'ususario_id' => $request->usuario_id
+        ]);
+        
+        return redirect(Route('home'));
     }
 
     /**
@@ -79,8 +99,12 @@ class AssinaturaController extends Controller
      * @param  \App\Models\Assinatura  $assinatura
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assinatura $assinatura)
+    public function destroy($id)
     {
-        //
+        $assinatura = Assinatura::query()->findOrFail($id);
+
+        $assinatura->delete();
+
+        return redirect(Route('home'));
     }
 }
