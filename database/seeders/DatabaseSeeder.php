@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
        $this->call([AcaoSeeder::class]);
        $this->call([AssinaturaCoordenacaoSeeder::class]);
        $this->call([AtividadeSeeder::class]);
+       $this->call([ParticipanteSeeder::class]);
     }
 }
