@@ -16,11 +16,17 @@ use App\Models\UnidadeAdministrativa;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/participante_create', [ParticipanteController::class, 'create'])->name('participante.create');
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/participante_create', [ParticipanteController::class, 'create'])->name('participante.create');
+Route::post('/participante_store', [ParticipanteController::class, 'store'])->name('participante.store');
+Route::get('/participante_index', [ParticipanteController::class, 'index'])->name('participante.index');
+Route::get('/participante_edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
+Route::post('/participante_update', [ParticipanteController::class, 'update'])->name('participante.update');
+Route::get('/instituicao/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
+
 
 Route::get('/acaos', [AcaoController::class, 'create'])->name('acao.create');
 Route::post('/acaos_store', [AcaoController::class, 'store'])->name('acao.store');

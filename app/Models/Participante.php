@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Participante extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $table = 'participantes';
 
