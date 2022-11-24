@@ -16,7 +16,9 @@ class ParticipanteController extends Controller
      */
     public function index()
     {
-        //
+        $participantes = Participante::all()->sortBy('id');
+
+        return view('participante.participante_index', ['participantes' => $participantes]);
     }
 
     /**
@@ -37,8 +39,9 @@ class ParticipanteController extends Controller
      */
     public function store(Request $request)
     {
-        Participante::create($request->all);
+        Participante::create($request->all());
 
+        return redirect(Route('participante.index'));
     }
 
     /**
@@ -47,9 +50,9 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function show(Participante $participante)
+    public function show()
     {
-        //
+
     }
 
     /**
@@ -58,9 +61,11 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function edit(Participante $participante)
+    public function edit($id)
     {
-        //
+        $participante = Participante::findOrFail($id);
+
+        return view('participante.participante_edit', ['participante' => $participante]);
     }
 
     /**
@@ -70,9 +75,19 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateParticipanteRequest $request, Participante $participante)
+    public function update(Request $request)
     {
-        //
+        $participante = Participante::find($request->id);
+
+        $participante->nome = $request->nome;
+        $participante->email = $request->email;
+        $participante->cpf = $request->cpf;
+        $participante->ativo = $request->ativo;
+        $participante->atividade_id = $request->atividade_id;
+
+        $participante->update();
+
+        return redirect(Route('participante.index'));
     }
 
     /**
@@ -81,8 +96,11 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Participante $participante)
+    public function delete($participante_id)
     {
-        //
+        $participante = Participante::find($participante_id);
+        $participante->delete();
+
+        return redirect(Route('participante.index'));
     }
 }
