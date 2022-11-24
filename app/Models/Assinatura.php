@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Assinatura extends Model
 {
     use HasFactory;
+    protected $table = 'assinaturas';
+
+    protected $fillable = ['usuario_id', 'img_assinatura'];
 }
