@@ -77,7 +77,7 @@ class ParticipanteController extends Controller
      */
     public function update(Request $request)
     {
-        $participante = Participante::find($request->id);
+        $participante = Participante::findOrFail($request->id);
 
         $participante->nome = $request->nome;
         $participante->email = $request->email;
@@ -98,7 +98,7 @@ class ParticipanteController extends Controller
      */
     public function delete($participante_id)
     {
-        $participante = Participante::find($participante_id);
+        $participante = Participante::findOrFail($participante_id);
         $participante->delete();
 
         return redirect(Route('participante.index'));
