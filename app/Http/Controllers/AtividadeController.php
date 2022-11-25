@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Atividade;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreAtividadeRequest;
 use App\Http\Requests\UpdateAtividadeRequest;
 
@@ -15,7 +16,9 @@ class AtividadeController extends Controller
      */
     public function index()
     {
-        //
+        $atividades = Atividade::all()->sortBy('id');
+
+        return view('atividade.atividade_index', ['atividades' => $atividades]);
     }
 
     /**
@@ -25,7 +28,7 @@ class AtividadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('atividade.atividade_create');
     }
 
     /**
@@ -34,9 +37,11 @@ class AtividadeController extends Controller
      * @param  \App\Http\Requests\StoreAtividadeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAtividadeRequest $request)
+    public function store(Request $request)
     {
-        //
+        Atividade::create($request->all());
+
+        return redirect(Route('atividade.index'));
     }
 
     /**
@@ -56,9 +61,11 @@ class AtividadeController extends Controller
      * @param  \App\Models\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function edit(Atividade $atividade)
+    public function edit($id)
     {
-        //
+        $atividade = Atividade::findOrFail($id);
+
+        return view('atividade.atividade_edit', ['atividade' => $atividade]);
     }
 
     /**
@@ -68,9 +75,21 @@ class AtividadeController extends Controller
      * @param  \App\Models\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAtividadeRequest $request, Atividade $atividade)
+    public function update(Request $request)
     {
-        //
+        $atividade = Atividade::find($request->id);
+
+        $atividade->status = $request->status;
+        $atividade->descricao = $request->descricao;
+        $atividade->info = $request->info;
+        $atividade->data_inicio = $request->data_inicio;
+        $atividade->data_fim = $request->data_fim;
+        $atividade->carga_horaria = $request->carga_horaria;
+        $atividade->acao_id = $request->acao_id;
+
+        $atividade->update();
+
+        return redirect(Route('atividade.index'));
     }
 
     /**
@@ -79,8 +98,11 @@ class AtividadeController extends Controller
      * @param  \App\Models\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Atividade $atividade)
+    public function delete($atividade_id)
     {
-        //
+        $atividade = Atividade::find($atividade_id);
+        $atividade->delete();
+
+        return redirect(Route('atividade.index'));
     }
 }

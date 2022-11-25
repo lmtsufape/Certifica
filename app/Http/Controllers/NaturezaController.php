@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Natureza;
+use App\Models\UnidadeAdministrativa;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreNaturezaRequest;
 use App\Http\Requests\UpdateNaturezaRequest;
 
@@ -15,7 +17,9 @@ class NaturezaController extends Controller
      */
     public function index()
     {
-        //
+        $naturezas = Natureza::all()->sortBy('id');
+
+        return view('natureza.natureza_index', ['naturezas' => $naturezas]);
     }
 
     /**
@@ -25,7 +29,7 @@ class NaturezaController extends Controller
      */
     public function create()
     {
-        //
+        return view('natureza.natureza_create');
     }
 
     /**
@@ -34,9 +38,11 @@ class NaturezaController extends Controller
      * @param  \App\Http\Requests\StoreNaturezaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNaturezaRequest $request)
+    public function store(Request $request)
     {
-        //
+        Natureza::create($request->all());
+
+        return redirect(Route('natureza.index'));
     }
 
     /**
@@ -56,9 +62,11 @@ class NaturezaController extends Controller
      * @param  \App\Models\Natureza  $natureza
      * @return \Illuminate\Http\Response
      */
-    public function edit(Natureza $natureza)
+    public function edit($id)
     {
-        //
+        $natureza = Natureza::findOrFail($id);
+
+        return view('natureza.natureza_edit', ['natureza' => $natureza]);
     }
 
     /**
@@ -68,9 +76,17 @@ class NaturezaController extends Controller
      * @param  \App\Models\Natureza  $natureza
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNaturezaRequest $request, Natureza $natureza)
+    public function update(Request $request)
     {
-        //
+        $natureza = Natureza::find($request->id);
+
+        $natureza->descricao = $request->descricao;
+        $natureza->tipo_natureza_id = $request->tipo_natureza_id;
+        $natureza->unidade_administrativa_id = $request->unidade_administrativa_id;
+
+        $natureza->update();
+
+        return redirect(Route('natureza.index'));
     }
 
     /**
@@ -79,8 +95,11 @@ class NaturezaController extends Controller
      * @param  \App\Models\Natureza  $natureza
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Natureza $natureza)
+    public function delete($natureza_id)
     {
-        //
+        $natureza = Natureza::find($natureza_id);
+        $natureza->delete();
+
+        return redirect(Route('natureza.index'));
     }
 }
