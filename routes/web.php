@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AtividadeController;
+use App\Http\Controllers\NaturezaController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ParticipanteController;
 use \App\Http\Controllers\AcaoController;
@@ -29,7 +31,21 @@ Route::post('/participante_store', [ParticipanteController::class, 'store'])->na
 Route::get('/participante_index', [ParticipanteController::class, 'index'])->name('participante.index');
 Route::get('/participante_edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
 Route::post('/participante_update', [ParticipanteController::class, 'update'])->name('participante.update');
-Route::get('/instituicao/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
+Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
+
+Route::get('/natureza_create', [NaturezaController::class, 'create'])->name('natureza.create');
+Route::post('/natureza_store', [NaturezaController::class, 'store'])->name('natureza.store');
+Route::get('/natureza_index', [NaturezaController::class, 'index'])->name('natureza.index');
+Route::get('/natureza_edit/{natureza_id}', [NaturezaController::class, 'edit'])->name('natureza.edit');
+Route::post('/natureza_update', [NaturezaController::class, 'update'])->name('natureza.update');
+Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
+
+Route::get('/atividade_create', [AtividadeController::class, 'create'])->name('atividade.create');
+Route::post('/atividade_store', [AtividadeController::class, 'store'])->name('atividade.store');
+Route::get('/atividade_index', [AtividadeController::class, 'index'])->name('atividade.index');
+Route::get('/atividade_edit/{atividade_id}', [AtividadeController::class, 'edit'])->name('atividade.edit');
+Route::post('/atividade_update', [AtividadeController::class, 'update'])->name('atividade.update');
+Route::get('/atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
 Route::get('/acaos', [AcaoController::class, 'create'])->name('acao.create');

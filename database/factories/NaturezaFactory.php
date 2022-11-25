@@ -18,9 +18,9 @@ class NaturezaFactory extends Factory
     public function definition()
     {
         return [
-            'descricao' => $this->faker->text(),
-            'unidade_administrativa_id' => rand(1, 3),
+            'descricao' => $this->faker->text(10),
             'tipo_natureza_id' => rand(1, 3),
+            'unidade_administrativa_id' => rand(1, 3),
         ];
     }
 }
