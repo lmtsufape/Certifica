@@ -78,7 +78,7 @@ class NaturezaController extends Controller
      */
     public function update(Request $request)
     {
-        $natureza = Natureza::find($request->id);
+        $natureza = Natureza::findOrFail($request->id);
 
         $natureza->descricao = $request->descricao;
         $natureza->tipo_natureza_id = $request->tipo_natureza_id;
@@ -97,7 +97,7 @@ class NaturezaController extends Controller
      */
     public function delete($natureza_id)
     {
-        $natureza = Natureza::find($natureza_id);
+        $natureza = Natureza::findOrFail($natureza_id);
         $natureza->delete();
 
         return redirect(Route('natureza.index'));

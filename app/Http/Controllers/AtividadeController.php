@@ -77,7 +77,7 @@ class AtividadeController extends Controller
      */
     public function update(Request $request)
     {
-        $atividade = Atividade::find($request->id);
+        $atividade = Atividade::findOrFail($request->id);
 
         $atividade->status = $request->status;
         $atividade->descricao = $request->descricao;
@@ -100,7 +100,7 @@ class AtividadeController extends Controller
      */
     public function delete($atividade_id)
     {
-        $atividade = Atividade::find($atividade_id);
+        $atividade = Atividade::findOrFail($atividade_id);
         $atividade->delete();
 
         return redirect(Route('atividade.index'));
