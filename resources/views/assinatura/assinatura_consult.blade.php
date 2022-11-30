@@ -20,6 +20,16 @@
                 <td>{{$assinatura->id}}</td>
                 <td>{{$assinatura->usuario_id}}</td>
                 <td>{{$assinatura->img_assinatura}}</td>
+                <td>
+                    <div class="dropdown">
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('assinatura.edit', ['id' => $assinatura->id]) }}">Editar</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('assinatura.delete', ['id' => $assinatura->id]) }}">Apagar</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -14,10 +14,21 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($tipo_naturezas as $natureza)
+            @foreach($tipo_naturezas as $tipo_natureza)
             <tr>
-                <td>{{$natureza->id}}</td>
-                <td>{{$natureza->descricao}}</td>
+                <td>{{$tipo_natureza->id}}</td>
+                <td>{{$tipo_natureza->descricao}}</td>
+
+                <td>
+                    <div class="dropdown">
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('tipo_natureza.edit', ['id' => $tipo_natureza->id]) }}">Editar</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('tipo_natureza.delete', ['id' => $tipo_natureza->id]) }}">Apagar</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             @endforeach
         </tbody>

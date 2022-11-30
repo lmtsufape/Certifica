@@ -28,6 +28,16 @@
                 <td>{{$certificado->img_fundo}}</td>
                 <td>{{$certificado->texto}}</td>
                 <td>{{$certificado->logo}}</td>
+                <td>
+                    <div class="dropdown">
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('certificado.edit', ['id' => $certificado->id]) }}">Editar</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('certificado.delete', ['id' => $certificado->id]) }}">Apagar</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             @endforeach
         </tbody>

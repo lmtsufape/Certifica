@@ -15,7 +15,7 @@
                         <input name="img_assinatura" type="text" class="form-control" id="img_assinatura" placeholder="Link...">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary">Editar</button>
                 </div>
             </div>
             <div class="col-md-3"></div>

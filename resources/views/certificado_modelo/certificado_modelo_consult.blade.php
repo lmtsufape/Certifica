@@ -10,8 +10,11 @@
         <tr>
             
             <th  scope="col" style="padding-left: 10px">ID</th>
-            <th  scope="col" style="padding-left: 10px">unidade_administrativa_id</th>
-            <th  scope="col" style="padding-left: 10px">ID unidade_administrativa_id assinatura_equerda assinatura_direita data_posicao texto_posicao</th>
+            <th  scope="col" style="padding-left: 10px">unidade_administrativa_id </th>
+            <th  scope="col" style="padding-left: 10px">assinatura_equerda</th>
+            <th  scope="col" style="padding-left: 10px">assinatura_direita</th>
+            <th  scope="col" style="padding-left: 10px">data_posicao</th>
+            <th  scope="col" style="padding-left: 10px">texto_posicao</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +26,16 @@
                 <td>{{$certificado_modelo->assinatura_direita}}</td>
                 <td>{{$certificado_modelo->data_posicao}}</td>
                 <td>{{$certificado_modelo->texto_posicao}}</td>
+                <td>
+                    <div class="dropdown">
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('certificado_modelo.edit', ['id' => $certificado_modelo->id]) }}">Editar</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('certificado_modelo.delete', ['id' => $certificado_modelo->id]) }}">Apagar</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
             @endforeach
         </tbody>

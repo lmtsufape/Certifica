@@ -15,8 +15,8 @@ class TipoNaturezaController extends Controller
      */
     public function index()
     {
-        $tipoNaturezas = TipoNatureza::query()->get();
-        return view('tipo_natureza.tipo_natureza_consult',['tipo_natureza' => $tipoNaturezas]);
+        $tipo_naturezas = TipoNatureza::query()->get();
+        return view('tipo_natureza.tipo_natureza_consult',['tipo_naturezas' => $tipo_naturezas]);
 
     }
 
