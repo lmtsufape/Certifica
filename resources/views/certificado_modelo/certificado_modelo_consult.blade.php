@@ -2,7 +2,7 @@
 
 @section('content')
     <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-        <h2>CONSULTAR ASSINATURAS</h2>
+        <h2>CONSULTAR CERTIFICADOS MODELOS</h2>
     </div>
 
     <table id="tableMateriais" class="table table-hover table-responsive-md">

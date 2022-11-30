@@ -38,9 +38,10 @@ class CertificadoModeloController extends Controller
      */
     public function store(StoreCertificadoModeloRequest $request)
     {
-        #TipoNatureza::create($request->all());
+        CertificadoModelo::create($request->all());
+        return redirect(Route('home'));
 
-        $certificado_modelo = new CertificadoModelo();
+        /*$certificado_modelo = new CertificadoModelo();
 
         $certificado_modelo->unidade_administrativa_id = $request->unidade_administrativa_id;
         $certificado_modelo->assinatura_esquerda = $request->assinatura_esquerda;
@@ -48,9 +49,8 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->data_posicao = $request->data_posicao;
         $certificado_modelo->texto_posicao = $request->texto_posicao;
 
-        $certificado_modelo->save();
+        $certificado_modelo->save();*/
 
-        return redirect(Route('home'));
     }
 
     /**

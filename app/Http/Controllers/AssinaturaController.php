@@ -38,16 +38,10 @@ class AssinaturaController extends Controller
      */
     public function store(StoreAssinaturaRequest $request)
     {
-        #TipoNatureza::create($request->all());
+        
+        Assinatura::create($request->all());
 
-        $assinatura = new Assinatura();
-
-        $assinatura->usuario_id = $request->usuario_id;
-        $assinatura->img_assinatura = $request->img_assinatura;
-
-        $assinatura->save();
-
-        return redirect(Route('home'));
+        return redirect(Route('assinatura.index'));
     }
 
     /**

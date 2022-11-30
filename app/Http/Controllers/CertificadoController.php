@@ -38,9 +38,10 @@ class CertificadoController extends Controller
      */
     public function store(StoreCertificadoRequest $request)
     {
-        #Certificado::create($request->all());
+        Certificado::create($request->all());
+        return redirect(Route('certificado.index'));
 
-        $certificado = new Certificado();
+        /*$certificado = new Certificado();
 
         $certificado->atividade_id = $request->atividade_id;
         $certificado->certificado_modelo_id = $request->certificado_modelo_id;
@@ -49,9 +50,7 @@ class CertificadoController extends Controller
         $certificado->texto = $request->texto;
         $certificado->logo = $request->logo;
 
-        $certificado->save();
-
-        return redirect(Route('home'));
+        $certificado->save();*/
     }
 
     /**

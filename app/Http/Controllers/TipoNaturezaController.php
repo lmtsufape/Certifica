@@ -38,16 +38,9 @@ class TipoNaturezaController extends Controller
      */
     public function store(StoreTipoNaturezaRequest $request)
     {
-        #TipoNatureza::create($request->all());
+        TipoNatureza::create($request->all());
 
-        $tipo_natureza = new TipoNatureza();
-
-        $tipo_natureza->descricao = $request->descricao;
-        
-
-        $tipo_natureza->save();
-
-        return redirect(Route('home'));
+        return redirect(Route('tipo_natureza.index'));
     }
 
     /**

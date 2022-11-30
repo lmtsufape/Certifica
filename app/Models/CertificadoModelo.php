@@ -9,6 +9,6 @@ class CertificadoModelo extends Model
 {
     use HasFactory;
     protected $table = 'certificado_modelos';
-    protected $fillable = ['unidade_adiministrativa_id', 'texto_posicao',
+    protected $fillable = ['unidade_administrativa_id', 'texto_posicao',
      'data_posicao', 'assinatura_direita', 'assinatura_esquerda'];
 }
