@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Atividade;
 use App\Models\Participante;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
@@ -28,7 +29,9 @@ class ParticipanteController extends Controller
      */
     public function create()
     {
-        return view('participante.participante_create');
+        $atividades = Atividade::all()->sortBy('id');
+
+        return view('participante.participante_create', ['atividades' => $atividades]);
     }
 
     /**
@@ -65,7 +68,11 @@ class ParticipanteController extends Controller
     {
         $participante = Participante::findOrFail($id);
 
-        return view('participante.participante_edit', ['participante' => $participante]);
+        $atividades = Atividade::all()->sortBy('id');
+        $ativ = Atividade::findOrFail($participante->atividade_id);
+
+        return view('participante.participante_edit', ['participante' => $participante, 'atividades' => $atividades,
+                                                            'ativ' => $ativ]);
     }
 
     /**
