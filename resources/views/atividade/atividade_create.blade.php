@@ -45,7 +45,16 @@
                         <input name="carga_horaria" type="text" class="form-control" id="carga_horaria_atividade" placeholder="Cargas Horário">
                     </div>
 
-                    <input type="hidden" name="acao_id" value="{{ rand(1, 3) }}">
+                    <div class="form-group">
+                        <label for="atividade_acao">Ação</label>
+
+                        <select name="acao_id" id="acao" class="form-control">
+                            <option value="" selected hidden>Escolher...</option>
+                            @foreach($acaos as $acao)
+                                <option value="{{ $acao->id }}">{{ $acao->titulo }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </div>
