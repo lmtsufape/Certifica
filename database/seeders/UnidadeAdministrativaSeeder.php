@@ -15,6 +15,8 @@ class UnidadeAdministrativaSeeder extends Seeder
      */
     public function run()
     {
-        UnidadeAdministrativa::factory()->count(3)->create();
+        UnidadeAdministrativa::factory()->create(['descricao' => 'BCC']);
+        UnidadeAdministrativa::factory()->create(['descricao' => 'Letras']);
+        UnidadeAdministrativa::factory()->create(['descricao' => 'Pedagogia']);
     }
 }

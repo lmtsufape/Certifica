@@ -17,7 +17,7 @@ class UnidadeAdministrativaFactory extends Factory
     public function definition()
     {
         return [
-            'descricao' => $this->faker->text(),
+            'descricao' => '',
         ];
     }
 }
