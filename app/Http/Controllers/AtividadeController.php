@@ -67,6 +67,7 @@ class AtividadeController extends Controller
     public function edit($id)
     {
         $atividade = Atividade::findOrFail($id);
+
         $atividade_acao = Acao::findOrFail($atividade->acao_id);
         $acaos = Acao::all()->sortBy('id');
 

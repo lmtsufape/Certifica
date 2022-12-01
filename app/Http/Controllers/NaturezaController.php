@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Natureza;
+use App\Models\TipoNatureza;
 use App\Models\UnidadeAdministrativa;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreNaturezaRequest;
@@ -29,7 +30,10 @@ class NaturezaController extends Controller
      */
     public function create()
     {
-        return view('natureza.natureza_create');
+        $tipo_naturezas = TipoNatureza::all()->sortBy('id');
+        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
+
+        return view('natureza.natureza_create', ['tipo_naturezas' => $tipo_naturezas, 'unidade_administrativas' => $unidade_administrativas]);
     }
 
     /**
@@ -66,7 +70,15 @@ class NaturezaController extends Controller
     {
         $natureza = Natureza::findOrFail($id);
 
-        return view('natureza.natureza_edit', ['natureza' => $natureza]);
+        $tipo_natu = TipoNatureza::findOrFail($natureza->tipo_natureza_id);
+        $tipo_naturezas = TipoNatureza::all()->sortBy('id');
+
+        $uni_administrativa = UnidadeAdministrativa::findOrFail($natureza->unidade_administrativa_id);
+        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
+
+        return view('natureza.natureza_edit', ['natureza' => $natureza, 'tipo_natu' => $tipo_natu,
+                                                    'tipo_naturezas' => $tipo_naturezas, 'uni_administrativa' => $uni_administrativa,
+                                                    'unidade_administrativas' => $unidade_administrativas]);
     }
 
     /**
