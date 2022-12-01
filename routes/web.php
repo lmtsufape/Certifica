@@ -52,52 +52,75 @@ Route::get('/acaos', [AcaoController::class, 'create'])->name('acao.create');
 Route::post('/acaos_store', [AcaoController::class, 'store'])->name('acao.store');
 
 
-Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
-Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
 
-Route::get('/tipo_naturezas', [TipoNaturezaController::class, 'index'])->name('tipo_natureza.index');
-
-Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
-Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
-
-Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
-
-
-
-Route::get('/assinatura/create', [AssinaturaController::class, 'create'])->name('assinatura.create');
-Route::post('/store_assinatura', [AssinaturaController::class, 'store'])->name('assinatura.store');
-
-Route::get('/assinaturas', [AssinaturaController::class, 'index'])->name('assinatura.index');
-
-Route::get('/assinatura/{id}/edit', [AssinaturaController::class, 'edit'])->name('assinatura.edit');
-Route::put('/assinatura/{id}/update', [AssinaturaController::class, 'update'])->name('assinatura.update');
-
-Route::get('/assinatura/delete/{id}', [AssinaturaController::class, 'destroy'])->name('assinatura.delete');
+Route::middleware(['tipo_natureza_middleware'])->group(function () {
+    
+    Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
+    Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
+    
+    Route::get('/tipo_naturezas', [TipoNaturezaController::class, 'index'])->name('tipo_natureza.index');
+    
+    Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
+    Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
+    
+    Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');    
+});
 
 
 
+Route::middleware(['assinatura_middleware'])->group(function () {
+    
+    Route::get('/assinatura/create', [AssinaturaController::class, 'create'])->name('assinatura.create');
+    Route::post('/store_assinatura', [AssinaturaController::class, 'store'])->name('assinatura.store');
+    
+    Route::get('/assinaturas', [AssinaturaController::class, 'index'])->name('assinatura.index');
+    
+    Route::get('/assinatura/{id}/edit', [AssinaturaController::class, 'edit'])->name('assinatura.edit');
+    Route::put('/assinatura/{id}/update', [AssinaturaController::class, 'update'])->name('assinatura.update');
+    
+    Route::get('/assinatura/delete/{id}', [AssinaturaController::class, 'destroy'])->name('assinatura.delete');
 
-Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
-Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
-
-Route::get('/certificado_modelos', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
-
-Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
-Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
-
-Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
+});
 
 
 
-Route::get('/certificado/create', [CertificadoController::class, 'create'])->name('certificado.create');
-Route::post('/store_certificado', [CertificadoController::class, 'store'])->name('certificado.store');
 
-Route::get('/certificados', [CertificadoController::class, 'index'])->name('certificado.index');
 
-Route::get('/certificado/{id}/edit', [CertificadoController::class, 'edit'])->name('certificado.edit');
-Route::put('/certificado/{id}/update', [CertificadoController::class, 'update'])->name('certificado.update');
+Route::middleware(['certificado_modelo_middleware'])->group(function () {
 
-Route::get('/certificado/delete/{id}', [CertificadoController::class, 'destroy'])->name('certificado.delete');
+    Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
+    Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
+    
+    Route::get('/certificado_modelos', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
+    
+    Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
+    Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
+    
+    Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');    
+
+});
+
+
+
+ 
+Route::middleware(['certificado_middleware'])->group(function () {
+
+    Route::get('/certificado/create', [CertificadoController::class, 'create'])->name('certificado.create');
+    Route::post('/store_certificado', [CertificadoController::class, 'store'])->name('certificado.store');
+
+    Route::get('/certificados', [CertificadoController::class, 'index'])->name('certificado.index');
+
+    Route::get('/certificado/{id}/edit', [CertificadoController::class, 'edit'])->name('certificado.edit');
+    Route::put('/certificado/{id}/update', [CertificadoController::class, 'update'])->name('certificado.update');
+
+    Route::get('/certificado/delete/{id}', [CertificadoController::class, 'destroy'])->name('certificado.delete');
+
+ 
+    Route::get('/profile', function () {
+        //
+    })->withoutMiddleware([EnsureTokenIsValid::class]);
+
+});
 
 
 
