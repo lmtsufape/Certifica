@@ -12,6 +12,20 @@ class Participante extends Model
 
     protected $table = 'participantes';
 
-    protected $fillable = ['nome', 'email', 'cpf', 'ativo', 'atividade_id'];
+    protected $fillable = [
+        'nome',
+        'email',
+        'cpf',
+        'ativo',
+        'atividade_id'
+    ];
+
+    public static $rules = [
+        'nome' => 'required|min:5',
+        'email' => 'required|email',
+        'cpf' => 'required|min:11|max:11',
+        'ativo' => 'required',
+        'atividade_id' => 'require',
+    ];
 
 }

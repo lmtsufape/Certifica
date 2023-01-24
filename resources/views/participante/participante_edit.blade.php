@@ -40,7 +40,16 @@
                         </select>
                     </div>
 
-                    <input type="hidden" name="atividade_id" value="1">
+                    <div class="form-group">
+                        <label for="participante_atividade">Atividade</label>
+
+                        <select name="atividade_id" id="participante_atividade" class="form-control">
+                            <option value="{{ $ativ->id }}" selected hidden>{{ $ativ->descricao }}</option>
+                            @foreach($atividades as $atividade)
+                                <option value="{{ $atividade->id }}">{{ $atividade->descricao }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                 </div>

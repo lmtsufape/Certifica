@@ -52,7 +52,16 @@
                                value="{{ $atividade->carga_horaria }}">
                     </div>
 
-                    <input type="hidden" name="acao_id" value="{{ $atividade->acao_id }}">
+                    <div class="form-group">
+                        <label for="atividade_acao">Ação</label>
+
+                        <select name="acao_id" id="acao" class="form-control">
+                            <option value="{{ $atividade->acao_id }}" selected hidden>{{ $atividade_acao->titulo }}</option>
+                            @foreach($acaos as $acao)
+                                <option value="{{ $acao->id }}">{{ $acao->titulo }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
