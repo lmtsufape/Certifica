@@ -50,6 +50,7 @@ Route::get('/atividade/{atividade_id}/delete', [AtividadeController::class, 'del
 
 Route::get('/acaos', [AcaoController::class, 'create'])->name('acao.create');
 Route::post('/acaos_store', [AcaoController::class, 'store'])->name('acao.store');
+Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
 
 
 Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
