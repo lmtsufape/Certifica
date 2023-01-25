@@ -18,6 +18,9 @@ class AcaoController extends Controller
         //
     }
 
+    public function list(){
+        return view('acao.list');
+    }
     /**
      * Show the form for creating a new resource.
      *
