@@ -18,7 +18,7 @@ class AcaoFactory extends Factory
     {
         return [
             'status' => $this->faker->boolean(),
-            'titulo' => $this->faker->text(),
+            'titulo' => $this->faker->text(10),
             'data_inicio' => '2022-10-10',
             'data_fim' => '2022-10-20',
             'natureza_id' => rand(1, 3),

@@ -18,7 +18,7 @@
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
             <th scope="col">CPF</th>
-            <th scope="col">Ativo</th>
+            <th scope="col">Status</th>
             <th scope="col">Atividade ID</th>
         </tr>
         </thead>

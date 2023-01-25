@@ -12,6 +12,24 @@ class Atividade extends Model
 
     protected $table = 'atividades';
 
-    protected $fillable = ['status', 'descricao', 'info', 'data_inicio', 'data_fim', 'carga_horaria', 'acao_id'];
+    protected $fillable = [
+        'status',
+        'descricao',
+        'info',
+        'data_inicio',
+        'data_fim',
+        'carga_horaria',
+        'acao_id'
+    ];
+
+    public static $rules = [
+        'status' => 'required',
+        'descricao' => 'required|min:5',
+        'info' => 'required|min:10',
+        'data_inicio' => 'required|date',
+        'data_fim' => 'required|date',
+        'carga_horaria' => 'required',
+        'acao_id' => 'required',
+    ];
 
 }

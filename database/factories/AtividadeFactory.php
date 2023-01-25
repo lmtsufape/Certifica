@@ -18,7 +18,7 @@ class AtividadeFactory extends Factory
     {
         return [
             'status' => rand(0, 1),
-            'descricao' => $this->faker->text(20),
+            'descricao' => $this->faker->text(10),
             'info' => $this->faker->text(20),
             'data_inicio' => '2022-10-10',
             'data_fim' => '2022-10-20',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acao;
 use App\Models\Atividade;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAtividadeRequest;
@@ -28,7 +29,9 @@ class AtividadeController extends Controller
      */
     public function create()
     {
-        return view('atividade.atividade_create');
+        $acaos = Acao::all()->sortBy('id');
+
+        return view('atividade.atividade_create', ['acaos' => $acaos]);
     }
 
     /**
@@ -65,7 +68,10 @@ class AtividadeController extends Controller
     {
         $atividade = Atividade::findOrFail($id);
 
-        return view('atividade.atividade_edit', ['atividade' => $atividade]);
+        $atividade_acao = Acao::findOrFail($atividade->acao_id);
+        $acaos = Acao::all()->sortBy('id');
+
+        return view('atividade.atividade_edit', ['atividade' => $atividade, 'atividade_acao' => $atividade_acao, 'acaos' => $acaos]);
     }
 
     /**
