@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\NaturezaController;
+use App\Http\Controllers\UnidadeAdministrativaController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ParticipanteController;
 use \App\Http\Controllers\AcaoController;
@@ -48,58 +49,46 @@ Route::post('/atividade_update', [AtividadeController::class, 'update'])->name('
 Route::get('/atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
-Route::get('/acaos', [AcaoController::class, 'create'])->name('acao.create');
+Route::get('/acaos_create', [AcaoController::class, 'create'])->name('acao.create');
 Route::post('/acaos_store', [AcaoController::class, 'store'])->name('acao.store');
 Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
 
 
 Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
 Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
-
 Route::get('/tipo_naturezas', [TipoNaturezaController::class, 'show'])->name('tipo_natureza.show');
-
 Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
 Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
-
 Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
-
 
 
 Route::get('/assinatura/create', [AssinaturaController::class, 'create'])->name('assinatura.create');
 Route::post('/store_assinatura', [AssinaturaController::class, 'store'])->name('assinatura.store');
-
 Route::get('/assinaturas', [AssinaturaController::class, 'show'])->name('assinatura.show');
-
 Route::get('/assinatura/{id}/edit', [AssinaturaController::class, 'edit'])->name('assinatura.edit');
 Route::put('/assinatura/{id}/update', [AssinaturaController::class, 'update'])->name('assinatura.update');
-
 Route::get('/assinatura/delete/{id}', [AssinaturaController::class, 'destroy'])->name('assinatura.delete');
-
-
 
 
 Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
 Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
-
 Route::get('/certificado_modelos', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
-
 Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
 Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
-
 Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
-
 
 
 Route::get('/certificado/create', [CertificadoController::class, 'create'])->name('certificado.create');
 Route::post('/store_certificado', [CertificadoController::class, 'store'])->name('certificado.store');
-
 Route::get('/certificados', [CertificadoController::class, 'show'])->name('certificado.show');
-
 Route::get('/certificado/{id}/edit', [CertificadoController::class, 'edit'])->name('certificado.edit');
 Route::put('/certificado/{id}/update', [CertificadoController::class, 'update'])->name('certificado.update');
-
 Route::get('/certificado/delete/{id}', [CertificadoController::class, 'destroy'])->name('certificado.delete');
 
 
-
-Route::get('/unidade_administrativa',[UnidadeAdminstrativaController::class, 'create'])->name('unidade_administrativa.create');
+Route::get('/unidade_administrativa/create',[UnidadeAdministrativaController::class, 'create'])->name('unidade_administrativa.create');
+Route::post('/unidade_administrativa/store',[UnidadeAdministrativaController::class, 'store'])->name('unidade_administrativa.store');
+Route::get('/unidade_administrativa/index', [UnidadeAdministrativaController::class, 'index'])->name('unidade_administrativa.index');
+Route::get('/unidade_administrativa_edit/{unidade_administrativa_id}', [UnidadeAdministrativaController::class, 'edit'])->name('unidade_administrativa.edit');
+Route::post('/unidade_administrativa/update', [UnidadeAdministrativaController::class, 'update'])->name('unidade_administrativa.update');
+Route::get('/unidade_administrativa/{unidade_administrativa_id}/delete', [UnidadeAdministrativaController::class, 'delete'])->name('unidade_administrativa.delete');
