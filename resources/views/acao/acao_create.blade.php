@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{Route('acao.store')}}" method="POST" enctype="multipart/form-data" >
-    @csrf 
-    <input type="hidden" name="natureza_id" value="1">
-    <input type="hidden" name="usuario_id" value="1">
+    <form action="{{Route('acao.store')}}" method="POST" enctype="multipart/form-data" >
+        @csrf
+        <input type="hidden" name="natureza_id" value="1">
+        <input type="hidden" name="usuario_id" value="1">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
