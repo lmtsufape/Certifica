@@ -49,8 +49,13 @@ Route::post('/atividade_update', [AtividadeController::class, 'update'])->name('
 Route::get('/atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
-Route::get('/acaos_create', [AcaoController::class, 'create'])->name('acao.create');
-Route::post('/acaos_store', [AcaoController::class, 'store'])->name('acao.store');
+Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
+Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
+Route::get('/acao/index', [AcaoController::class, 'index'])->name('acao.index');
+Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
+Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');
+Route::get('/acao/{acao_id}/delete', [AcaoController::class, 'delete'])->name('acao.delete');
+
 Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
 
 
