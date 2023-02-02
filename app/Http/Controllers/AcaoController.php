@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acao;
+use App\Models\Natureza;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
 
@@ -30,7 +31,9 @@ class AcaoController extends Controller
      */
     public function create()
     {
-        return view('acao.acao_create');
+        $naturezas = Natureza::all()->sortBy('id');
+
+        return view('acao.acao_create', ['naturezas' => $naturezas]);
     }
 
     /**
