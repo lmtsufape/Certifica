@@ -15,11 +15,12 @@ class AtividadeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($acao_id)
     {
-        $atividades = Atividade::all()->sortBy('id');
+        $atividades = Atividade::all()->where('acao_id', $acao_id);
+        $acao = Acao::find($acao_id);
 
-        return view('atividade.atividade_index', ['atividades' => $atividades]);
+        return view('atividade.atividade_index', ['atividades' => $atividades, 'acao' => $acao]);
     }
 
     /**
@@ -27,11 +28,11 @@ class AtividadeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($acao_id)
     {
-        $acaos = Acao::all()->sortBy('id');
+        $acao = Acao::findOrFail($acao_id);
 
-        return view('atividade.atividade_create', ['acaos' => $acaos]);
+        return view('atividade.atividade_create', ['acao' => $acao]);
     }
 
     /**
@@ -44,7 +45,7 @@ class AtividadeController extends Controller
     {
         Atividade::create($request->all());
 
-        return redirect(Route('atividade.index'));
+        return redirect(Route('acao.index'));
     }
 
     /**

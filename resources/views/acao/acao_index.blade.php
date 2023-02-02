@@ -41,6 +41,12 @@
                         <div>
                             <a class="dropdown-item" href ="{{ route('acao.delete', ['acao_id' => $acao->id]) }}">Apagar</a>
                         </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">Nova Atividade</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">Atividades</a>
+                        </div>
                     </div>
                 </td>
             </tr>

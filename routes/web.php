@@ -41,9 +41,9 @@ Route::get('/natureza_edit/{natureza_id}', [NaturezaController::class, 'edit'])-
 Route::post('/natureza_update', [NaturezaController::class, 'update'])->name('natureza.update');
 Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
-Route::get('/atividade_create', [AtividadeController::class, 'create'])->name('atividade.create');
+Route::get('/atividade_create/{acao_id}', [AtividadeController::class, 'create'])->name('atividade.create');
 Route::post('/atividade_store', [AtividadeController::class, 'store'])->name('atividade.store');
-Route::get('/atividade_index', [AtividadeController::class, 'index'])->name('atividade.index');
+Route::get('/atividade_index/{acao_id}', [AtividadeController::class, 'index'])->name('atividade.index');
 Route::get('/atividade_edit/{atividade_id}', [AtividadeController::class, 'edit'])->name('atividade.edit');
 Route::post('/atividade_update', [AtividadeController::class, 'update'])->name('atividade.update');
 Route::get('/atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
