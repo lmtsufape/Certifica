@@ -8,6 +8,8 @@
     <form action="{{Route('atividade.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <input type="hidden" name="acao_id" value="{{ $acao->id }}">
+
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -42,18 +44,12 @@
 
                     <div class="form-group">
                         <label for="carga_horaria_atividade">Carga Horária</label>
-                        <input name="carga_horaria" type="text" class="form-control" id="carga_horaria_atividade" placeholder="Cargas Horário">
+                        <input name="carga_horaria" type="text" class="form-control" id="carga_horaria_atividade" placeholder="Carga Horária">
                     </div>
 
                     <div class="form-group">
                         <label for="atividade_acao">Ação</label>
-
-                        <select name="acao_id" id="acao" class="form-control">
-                            <option value="" selected hidden>Escolher...</option>
-                            @foreach($acaos as $acao)
-                                <option value="{{ $acao->id }}">{{ $acao->titulo }}</option>
-                            @endforeach
-                        </select>
+                        <input name="titulo" type="disabled" class="form-control" id="acao_titulo" value="{{ $acao->titulo }}" disabled>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Cadastrar</button>

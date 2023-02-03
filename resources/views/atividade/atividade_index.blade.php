@@ -6,8 +6,7 @@
 
 @section('content')
     <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-        <h2>Atividades <a class="btn btn-primary" href="{{ route('atividade.create') }}"
-                             role="button">Cadastrar</a> </h2>
+        <h2>Atividades {{ $acao->titulo }}</h2>
 
     </div>
 
@@ -21,7 +20,6 @@
             <th scope="col">Inicio</th>
             <th scope="col">Fim</th>
             <th scope="col">Carga Horária</th>
-            <th scope="col">Ação ID</th>
 
         </tr>
         </thead>
@@ -40,7 +38,6 @@
                 <td>{{ $atividade->data_inicio }}</td>
                 <td>{{ $atividade->data_fim }}</td>
                 <td>{{ $atividade->carga_horaria }}</td>
-                <td>{{ $atividade->acao_id }}</td>
 
                 <td>
                     <div class="dropdown">
