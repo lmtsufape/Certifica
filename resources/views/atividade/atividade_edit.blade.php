@@ -10,6 +10,8 @@
 
         <input type="hidden" name="id" value="{{ $atividade->id }}">
 
+        <input type="hidden" name="acao_id" value="{{ $acao->id }}">
+
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -54,13 +56,7 @@
 
                     <div class="form-group">
                         <label for="atividade_acao">Ação</label>
-
-                        <select name="acao_id" id="acao" class="form-control">
-                            <option value="{{ $atividade->acao_id }}" selected hidden>{{ $atividade_acao->titulo }}</option>
-                            @foreach($acaos as $acao)
-                                <option value="{{ $acao->id }}">{{ $acao->titulo }}</option>
-                            @endforeach
-                        </select>
+                        <input name="titulo" type="disabled" class="form-control" id="acao_titulo" value="{{ $acao->titulo }}" disabled>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Atualizar</button>

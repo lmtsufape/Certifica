@@ -17,7 +17,7 @@ class AtividadeController extends Controller
      */
     public function index($acao_id)
     {
-        $atividades = Atividade::all()->where('acao_id', $acao_id);
+        $atividades = Atividade::all()->where('acao_id', $acao_id)->sortBy('id');
         $acao = Acao::find($acao_id);
 
         return view('atividade.atividade_index', ['atividades' => $atividades, 'acao' => $acao]);
@@ -65,14 +65,13 @@ class AtividadeController extends Controller
      * @param  \App\Models\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($atividade_id)
     {
-        $atividade = Atividade::findOrFail($id);
+        $atividade = Atividade::findOrFail($atividade_id);
 
-        $atividade_acao = Acao::findOrFail($atividade->acao_id);
-        $acaos = Acao::all()->sortBy('id');
+        $acao = Acao::findOrFail($atividade->acao_id);
 
-        return view('atividade.atividade_edit', ['atividade' => $atividade, 'atividade_acao' => $atividade_acao, 'acaos' => $acaos]);
+        return view('atividade.atividade_edit', ['atividade' => $atividade, 'acao' => $acao]);
     }
 
     /**
@@ -96,7 +95,7 @@ class AtividadeController extends Controller
 
         $atividade->update();
 
-        return redirect(Route('atividade.index'));
+        return redirect(Route('atividade.index', ['acao_id' => $request->acao_id]));
     }
 
     /**
@@ -110,6 +109,7 @@ class AtividadeController extends Controller
         $atividade = Atividade::findOrFail($atividade_id);
         $atividade->delete();
 
-        return redirect(Route('atividade.index'));
+
+        return redirect(Route('atividade.index', ['acao_id' => $atividade->acao_id]));
     }
 }
