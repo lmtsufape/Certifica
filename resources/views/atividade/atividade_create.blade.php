@@ -49,7 +49,7 @@
 
                     <div class="form-group">
                         <label for="atividade_acao">Ação</label>
-                        <input name="titulo" type="disabled" class="form-control" id="acao_titulo" value="{{ $acao->titulo }}" disabled>
+                        <input name="titulo" type="text" class="form-control" id="acao_titulo" value="{{ $acao->titulo }}" disabled>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
