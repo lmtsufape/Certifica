@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->unsignedInteger('perfil_id')->index();
+            $table->foreign('perfil_id')->references('id')->on('perfils');
             $table->timestamps();
         });
     }
