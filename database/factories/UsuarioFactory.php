@@ -23,7 +23,7 @@ class UsuarioFactory extends Factory
             'telefone' => rand(10000000000, 99999999999),
             'email' => $this->faker->unique()->safeEmail(),
             'senha' => Hash::make('password'),
-            'perfil_id' => rand(1, 3),
+            'perfil_id' => '1',
         ];
     }
 }
