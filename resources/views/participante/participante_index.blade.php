@@ -6,9 +6,8 @@
 
 @section('content')
     <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-        <h2>Participantes <a class="btn btn-primary" href="{{ route('participante.create') }}"
-            role="button">Cadastrar</a> </h2>
-
+        <h2>Atividade: {{ $atividade->descricao }}</h2>
+        <h2>Participantes cadastrados</h2>
     </div>
 
     <table class="table">
