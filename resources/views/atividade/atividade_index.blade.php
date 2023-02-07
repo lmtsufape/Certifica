@@ -6,8 +6,8 @@
 
 @section('content')
     <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-        <h2>Atividades {{ $acao->titulo }}</h2>
-
+        <h2>Ação: {{ $acao->titulo }}</h2>
+        <h3>Atividades cadastradas</h3>
     </div>
 
     <table class="table">
@@ -46,6 +46,12 @@
                         </div>
                         <div>
                             <a class="dropdown-item" href ="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">Apagar</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('participante.create', ['atividade_id' => $atividade->id]) }}">Novo Participante</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">Participantes</a>
                         </div>
                     </div>
                 </td>

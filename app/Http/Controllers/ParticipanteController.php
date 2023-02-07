@@ -15,11 +15,12 @@ class ParticipanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($atividade_id)
     {
-        $participantes = Participante::all()->sortBy('id');
+        $participantes = Participante::all()->where('atividade_id', $atividade_id)->sortBy('id');
+        $atividade = Atividade::find($atividade_id);
 
-        return view('participante.participante_index', ['participantes' => $participantes]);
+        return view('participante.participante_index', ['participantes' => $participantes, 'atividade' => $atividade]);
     }
 
     /**
@@ -27,11 +28,11 @@ class ParticipanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($atividade_id)
     {
-        $atividades = Atividade::all()->sortBy('id');
+        $atividade = Atividade::findOrFail($atividade_id);
 
-        return view('participante.participante_create', ['atividades' => $atividades]);
+        return view('participante.participante_create', ['atividade' => $atividade]);
     }
 
     /**
@@ -44,7 +45,8 @@ class ParticipanteController extends Controller
     {
         Participante::create($request->all());
 
-        return redirect(Route('participante.index'));
+
+        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]));
     }
 
     /**
@@ -64,15 +66,13 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($participante_id)
     {
-        $participante = Participante::findOrFail($id);
+        $participante = Participante::findOrFail($participante_id);
 
-        $atividades = Atividade::all()->sortBy('id');
-        $ativ = Atividade::findOrFail($participante->atividade_id);
+        $atividade = Atividade::findOrFail($participante->atividade_id);
 
-        return view('participante.participante_edit', ['participante' => $participante, 'atividades' => $atividades,
-                                                            'ativ' => $ativ]);
+        return view('participante.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
     }
 
     /**
@@ -94,7 +94,7 @@ class ParticipanteController extends Controller
 
         $participante->update();
 
-        return redirect(Route('participante.index'));
+        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]));
     }
 
     /**
@@ -108,6 +108,6 @@ class ParticipanteController extends Controller
         $participante = Participante::findOrFail($participante_id);
         $participante->delete();
 
-        return redirect(Route('participante.index'));
+        return redirect(Route('participante.index', ['atividade_id' => $participante->atividade_id]));
     }
 }

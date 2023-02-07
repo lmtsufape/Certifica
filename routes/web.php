@@ -27,11 +27,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/participante_create', [ParticipanteController::class, 'create'])->name('participante.create');
-Route::post('/participante_store', [ParticipanteController::class, 'store'])->name('participante.store');
-Route::get('/participante_index', [ParticipanteController::class, 'index'])->name('participante.index');
-Route::get('/participante_edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
-Route::post('/participante_update', [ParticipanteController::class, 'update'])->name('participante.update');
+Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
+Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante.store');
+Route::get('/participante/index/{atividade_id}', [ParticipanteController::class, 'index'])->name('participante.index');
+Route::get('/participante/edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
+Route::post('/participante/update', [ParticipanteController::class, 'update'])->name('participante.update');
 Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
 
 Route::get('/natureza_create', [NaturezaController::class, 'create'])->name('natureza.create');
@@ -41,17 +41,17 @@ Route::get('/natureza_edit/{natureza_id}', [NaturezaController::class, 'edit'])-
 Route::post('/natureza_update', [NaturezaController::class, 'update'])->name('natureza.update');
 Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
-Route::get('/atividade_create/{acao_id}', [AtividadeController::class, 'create'])->name('atividade.create');
-Route::post('/atividade_store', [AtividadeController::class, 'store'])->name('atividade.store');
-Route::get('/atividade_index/{acao_id}', [AtividadeController::class, 'index'])->name('atividade.index');
-Route::get('/atividade_edit/{atividade_id}', [AtividadeController::class, 'edit'])->name('atividade.edit');
-Route::post('/atividade_update', [AtividadeController::class, 'update'])->name('atividade.update');
-Route::get('/atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
+Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
+Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
+Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade.index');
+Route::get('atividade/{atividade_id}/edit', [AtividadeController::class, 'edit'])->name('atividade.edit');
+Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade.update');
+Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
 Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
 Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
-Route::get('/acao/index', [AcaoController::class, 'index'])->name('acao.index');
+Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
 Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
 Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');
 Route::get('/acao/{acao_id}/delete', [AcaoController::class, 'delete'])->name('acao.delete');

@@ -8,6 +8,7 @@
     <form action="{{Route('participante.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <input type="hidden" name="atividade_id" value="{{ $atividade->id }}">
         <input type="hidden" name="id" value="{{$participante->id}}">
 
         <div class="row">
@@ -42,12 +43,7 @@
 
                     <div class="form-group">
                         <label for="participante_atividade">Atividade</label>
-
-                        <select name="atividade_id" id="participante_atividade" class="form-control">
-                            <option value="{{ $ativ->id }}" selected hidden>{{ $ativ->descricao }}</option>
-                            @foreach($atividades as $atividade)
-                                <option value="{{ $atividade->id }}">{{ $atividade->descricao }}</option>
-                            @endforeach
+                        <input name="atividade" type="text" class="form-control" id="acao_titulo" value="{{ $atividade->descricao }}" disabled>
                         </select>
                     </div>
 

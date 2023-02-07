@@ -8,6 +8,8 @@
     <form action="{{Route('participante.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <input type="hidden" name="atividade_id" value="{{ $atividade->id }}">
+
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -37,13 +39,7 @@
 
                     <div class="form-group">
                         <label for="participante_atividade">Atividade</label>
-
-                        <select name="atividade_id" id="participante_atividade" class="form-control">
-                            <option value="" selected hidden>Escolher...</option>
-                            @foreach($atividades as $atividade)
-                                <option value="{{ $atividade->id }}">{{ $atividade->descricao }}</option>
-                            @endforeach
-                        </select>
+                        <input name="atividade" type="text" class="form-control" id="acao_titulo" value="{{ $atividade->descricao }}" disabled>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
