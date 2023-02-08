@@ -15,6 +15,10 @@ class PerfilSeeder extends Seeder
      */
     public function run()
     {
-        Perfil::factory()->count(3)->create();
+        Perfil::factory()->create(['nome' => 'Administrador']);
+        Perfil::factory()->create(['nome' => 'Coordenador']);
+        Perfil::factory()->create(['nome' => 'Unidade Administrativa']);
+        Perfil::factory()->create(['nome' => 'Participante']);
+        Perfil::factory()->create(['nome' => 'Gestor Institucional']);
     }
 }

@@ -22,7 +22,7 @@ class AcaoFactory extends Factory
             'data_inicio' => '2022-10-10',
             'data_fim' => '2022-10-20',
             'natureza_id' => rand(1, 3),
-            'usuario_id' => rand(1, 3),
+            'usuario_id' => '1',
         ];
     }
 }
