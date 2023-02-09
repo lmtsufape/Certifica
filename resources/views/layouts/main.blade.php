@@ -7,10 +7,12 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{asset ('css/main/style.css') }}">
     <link rel="stylesheet" href="{{asset ('css/main/util.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/layouts/menu.css') }}">
 </head>
 <body>
     <section>
         @include('layouts.components.barra-brasil')
+        @include('layouts.components.header')
         @yield('header')
     </section>
 
