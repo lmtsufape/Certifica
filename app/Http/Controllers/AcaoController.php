@@ -45,7 +45,7 @@ class AcaoController extends Controller
     public function store(Request $request)
     {
         $acao = new Acao();
-
+        
         $acao->natureza_id = $request->natureza_id;
         $acao->usuario_id = $request->usuario_id;
         $acao->titulo = $request->titulo;
