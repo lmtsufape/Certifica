@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+
+.home-page-home {
+    margin-top: 70px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.home-page-welcome-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 36px;
+
+    color: #000000;
+}
+
+.home-page-form-grid {
+    width: 475px;/*<--Lembrar de deixar dinamico-->*/
+    height: 450px;/*<--Lembrar de deixar dinamico-->*/
+    margin-top: 10%;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+
+
+}
+
+.home-page-form-title {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+
+    color: #000000;
+}
+
+.home-page-form-submet-button{
+    width: 80%;
+    height: 46px;
+    background: #000000;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+}
+
+.form-input-icons{
+    align-items: center;
+    justify-content: center;
+}
+.text-input-icons{
+    width: 344px;
+    height: 48.38px;
+    left: 763px;
+    top: 292.12px;
+
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.text-input-icon-arroba{
+    padding-left: 1.9em;
+
+    background-image: url('https://cdn-icons-png.flaticon.com/512/158/158708.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.text-input-icon-lock{
+    padding-left: 1.9em;
+
+    background-image: url('https://cdn-icons-png.flaticon.com/512/5790/5790501.png');
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.secundary-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    text-decoration-line: underline;
+    position: relative;
+    left: 110px;
+
+    color: #303030;
+}
+
+
+.form-input-icons-icon{
+    float:left;
+}
+
+footer{
+    margin-top: 70px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    background: #303030;
+}
+
+
+
