@@ -24,7 +24,7 @@ use App\Models\UnidadeAdministrativa;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('home/home-page');
 })->name('home');
 
 Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
