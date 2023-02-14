@@ -45,16 +45,14 @@
   </div>
 
   <div class="form-group d-flex justify-content-end pb-4">
-    <a href="" class="text-grey">Esqueceu sua senha?</a>
+    @if (Route::has('password.request'))
+        <a href="{{ route('password.request') }}" class="text-grey">Esqueceu sua senha?</a>
+    @endif
+
   </div>
 
   <div class="form-group pb-5">
     <button type="submit" class="btn home-page-form-submet-button text-white">Entrar</button>
-    @if (Route::has('password.request'))
-        <a class="btn btn-link" href="{{ route('password.request') }}">
-            {{ __('Forgot Your Password?') }}
-        </a>
-    @endif
   </div>
 
   <div class="form-group">
