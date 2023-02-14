@@ -9,6 +9,12 @@ html, body {
     min-height: 100%;
 }
 
+div .border-right{
+    border-right-width: thin;
+    border-right-color: #FFFFFF;
+    border-right-style: solid;
+    padding-top: 10%;
+}
 
 .home-page-home {
     margin-top: 70px;

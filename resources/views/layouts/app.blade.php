@@ -35,6 +35,9 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset ('css/app.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/main/style.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/main/util.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/layouts/menu.css') }}">
 
 </head>
 <body>
