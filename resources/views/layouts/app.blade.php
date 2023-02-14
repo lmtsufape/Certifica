@@ -40,7 +40,8 @@
     <link rel="stylesheet" href="{{asset ('css/layouts/menu.css') }}">
 
 </head>
-<body>
+<body >
+
 
     <section>
         @include('layouts.components.header-bootstrap')
