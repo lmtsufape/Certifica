@@ -36,18 +36,17 @@ div .border-right{
 }
 
 .home-page-form-grid {
-    width: 475px;/*<--Lembrar de deixar dinamico-->*/
-    height: 450px;/*<--Lembrar de deixar dinamico-->*/
-    margin-top: 10%;
     background: #FFFFFF;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 
-    display: flex;
+    /*display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
+    width: 175px;/*<--Lembrar de deixar dinamico-->*/
+    /*height: 450px;/*<--Lembrar de deixar dinamico-->*/
 
 
 }
@@ -56,13 +55,14 @@ div .border-right{
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
+    font-size: 20px;
     line-height: 24px;
 
     color: #000000;
 }
 
 .home-page-form-submet-button{
-    width: 80%;
+    width: 100%;
     height: 46px;
     background: #000000;
     border-radius: 5px;
@@ -85,22 +85,22 @@ div .border-right{
     border-radius: 5px;
 }
 
-.text-input-icon-arroba{
-    padding-left: 1.9em;
-
+.input-icon-lock{
+    padding-left: 2.2em;
+    background: #FFFFFF;
     background-image: url('https://cdn-icons-png.flaticon.com/512/158/158708.png');
     background-size: 20px 20px;
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: 3% 50%;
 }
 
-.text-input-icon-lock{
-    padding-left: 1.9em;
-
-    background-image: url('https://cdn-icons-png.flaticon.com/512/5790/5790501.png');
+.input-icon-arroba{
+    padding-left: 2.2em;
+    background: #FFFFFF;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/215/215521.png');
     background-size: 20px 20px;
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: 3% 50%;
 }
 
 .secundary-text {

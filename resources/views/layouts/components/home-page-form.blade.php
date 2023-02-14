@@ -1,26 +1,39 @@
-<form class="home-page-form-grid" action="" method="" enctype="">
+<form class="home-page-form-grid p-5 text-center">
 
-    <div class="">
-        <label class="home-page-form-title fs-20">Entre na sua conta</label>
-    </div>
+  <div class="form-group pb-5 home-page-form-title">
+    <label for="entreNaSuaConta">Entre na sua conta</label>
+  </div>
 
-    <div class="form-input-icons">
-        <input name="email" type="email" class="text-input-icons text-input-icon-lock" id="email_participante" placeholder="example@gmail.com">
-    </div>
+  <div class="form-group pb-3">
+    <input
+    type="email"
+    class="form-control input-icon-arroba"
+    id="exampleInputEmail1"
+    aria-describedby="emailHelp"
+    placeholder="Insira seu e-mail"
+    >
+  </div>
 
-    <div class="form-input-icons">
-        <input name="senha" type="password" class="text-input-icons text-input-icon-arroba" id="senha" placeholder="Senha...">
-    </div>
+  <div class="form-group pb-3">
+    <input
+    type="password"
+    class="form-control input-icon-lock"
+    id="exampleInputPassword1"
+    placeholder="Digite sua senha"
+    >
+  </div>
 
-    <div class=""> <a href="#" class="secundary-text fs-14 lh-1">Esqueceu sua senha ?</a></div>
+  <div class="form-group d-flex justify-content-end pb-4">
+    <a href="" class="text-grey">Esqueceu sua senha?</a>
+  </div>
 
+  <div class="form-group pb-5">
+    <button type="submit" class="btn home-page-form-submet-button text-white">Entrar</button>
+  </div>
 
-    <button type="submit" class="home-page-form-submet-button text-white"><p class="">Entrar</p></button>
+  <div class="form-group">
+    <label for="naoPossuiConta_criarConta">Não possui conta? <a href="" class="tdl-nl text-yellow">Criar conta</a></label>
+  </div>
 
-    <div class="">
-        <span class="pos-relative m-l-175">
-            Não possui conta ? <a href="#" class="tdl-nl text-yellow">Criar conta</a>
-        </span>
-    </div>
 
 </form>
