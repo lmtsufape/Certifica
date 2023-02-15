@@ -1,26 +1,63 @@
-<form class="home-page-form-grid" action="" method="" enctype="">
+<form method="POST" action="{{ route('login') }}" class="home-page-form-grid p-5 text-center">
 
-    <div class="">
-        <label class="home-page-form-title fs-20">Entre na sua conta</label>
-    </div>
+  <div class="form-group pb-5 home-page-form-title">
+    <label for="entreNaSuaConta">Entre na sua conta</label>
+  </div>
 
-    <div class="form-input-icons">
-        <input name="email" type="email" class="text-input-icons text-input-icon-lock" id="email_participante" placeholder="example@gmail.com">
-    </div>
-
-    <div class="form-input-icons">
-        <input name="senha" type="password" class="text-input-icons text-input-icon-arroba" id="senha" placeholder="Senha...">
-    </div>
-
-    <div class=""> <a href="#" class="secundary-text fs-14 lh-1">Esqueceu sua senha ?</a></div>
-
-
-    <button type="submit" class="home-page-form-submet-button text-white"><p class="">Entrar</p></button>
-
-    <div class="">
-        <span class="pos-relative m-l-175">
-            Não possui conta ? <a href="#" class="tdl-nl text-yellow">Criar conta</a>
+  <div class="form-group pb-3">
+    <input
+    id="email"
+    type="email"
+    name="email"
+    value="{{ old('email') }}"
+    required
+    autocomplete="email"
+    autofocus
+    class="
+     form-control
+     @error('email') is-invalid @enderror
+     input-icon-arroba"
+    aria-describedby="emailHelp"
+    placeholder="Insira seu e-mail"
+    >
+    @error('email')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
         </span>
-    </div>
+    @enderror
+
+  </div>
+
+  <div class="form-group pb-3">
+    <input
+    id="password"
+    type="password"
+    class="form-control input-icon-lock @error('password') is-invalid @enderror"
+    name="password"
+    required autocomplete="current-password"
+    placeholder="Digite sua senha"
+    >
+    @error('password')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
+  </div>
+
+  <div class="form-group d-flex justify-content-end pb-4">
+    @if (Route::has('password.request'))
+        <a href="{{ route('password.request') }}" class="text-grey">Esqueceu sua senha?</a>
+    @endif
+
+  </div>
+
+  <div class="form-group pb-5">
+    <button type="submit" class="btn home-page-form-submet-button text-white">Entrar</button>
+  </div>
+
+  <div class="form-group">
+    <label for="naoPossuiConta_criarConta">Não possui conta? <a href="" class="tdl-nl text-yellow">Criar conta</a></label>
+  </div>
+
 
 </form>

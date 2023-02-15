@@ -5,7 +5,8 @@
 }
 /*Config geral*/
 .Menu-layout-geral{
-    margin: 75px auto;
+    margin-left: 5%;
+    margin-top: 1%;
     width: 80%;
     display: flex;
     align-items: center;
