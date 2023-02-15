@@ -35,24 +35,26 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset ('css/app.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/main/style.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/main/util.css') }}">
+    <link rel="stylesheet" href="{{asset ('css/layouts/menu.css') }}">
 
 </head>
-<body>
-    <div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;">
-        <ul id="menu-barra-temp" style="list-style:none;">
-            <li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED">
-                <a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal
-                    do Governo Brasileiro</a>
-            </li>
-        </ul>
-    </div>
+<body >
 
-    @include('layouts.components.navbar')
 
-    <main class="py-4">
-        @yield('content')
-    </main>
+    <section>
+        @include('layouts.components.header-bootstrap')
+    </section>
 
-    @include('layouts.components.footer')
+    <section>
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </section>
+    <section>
+        @include('layouts.components.footer')
+    </section>
+
 </body>
 </html>
