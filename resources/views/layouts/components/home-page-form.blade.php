@@ -1,5 +1,5 @@
 <form method="POST" action="{{ route('login') }}" class="home-page-form-grid p-5 text-center">
-
+    @csrf
   <div class="form-group pb-5 home-page-form-title">
     <label for="entreNaSuaConta">Entre na sua conta</label>
   </div>
