@@ -60,8 +60,8 @@ Route::group(['middleware' => 'checkCoordenador'], function () {
     Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
     Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');
     Route::get('/acao/{acao_id}/delete', [AcaoController::class, 'delete'])->name('acao.delete');
-    Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
 });
+Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
 
 Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
 Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
