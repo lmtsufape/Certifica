@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email' => 'coordenador@admin.teste',
             'email_verified_at' => now(),
             'password' => Hash::make('password'), // password
-            'perfil_id' => '1',
+            'perfil_id' => '2',
         ];
     }
 
