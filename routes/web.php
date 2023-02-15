@@ -3,6 +3,7 @@
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\NaturezaController;
 use App\Http\Controllers\UnidadeAdministrativaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ParticipanteController;
 use \App\Http\Controllers\AcaoController;
@@ -10,7 +11,6 @@ use \App\Http\Controllers\CertificadoModeloController;
 use \App\Http\Controllers\CertificadoController;
 use \App\Http\Controllers\TipoNaturezaController;
 use \App\Http\Controllers\AssinaturaController;
-use App\Http\Controllers\UnidadeAdminstrativaController;
 use App\Models\UnidadeAdministrativa;
 
 /*
@@ -23,6 +23,9 @@ use App\Models\UnidadeAdministrativa;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Auth::routes();
+
 Route::get('/', function () {
     return view('auth/login');
 })->name('home');
@@ -41,6 +44,7 @@ Route::get('/natureza_edit/{natureza_id}', [NaturezaController::class, 'edit'])-
 Route::post('/natureza_update', [NaturezaController::class, 'update'])->name('natureza.update');
 Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
+
 Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
 Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
 Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade.index');
@@ -49,15 +53,15 @@ Route::post('atividade/update', [AtividadeController::class, 'update'])->name('a
 Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
-Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
-Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
-Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
-Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
-Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');
-Route::get('/acao/{acao_id}/delete', [AcaoController::class, 'delete'])->name('acao.delete');
-
-Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
-
+Route::group(['middleware' => 'checkCoordenador'], function () {
+    Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
+    Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
+    Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
+    Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
+    Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');
+    Route::get('/acao/{acao_id}/delete', [AcaoController::class, 'delete'])->name('acao.delete');
+    Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
+});
 
 Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
 Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
