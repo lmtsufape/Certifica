@@ -1,1 +1,102 @@
 /*Global em list view*/
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.listar-acoes-view{
+    width: 80%;
+    height: 70vh;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+}
+
+button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/*section superior */
+.tittle-page-box{
+    height: 80px;
+}
+.tittle-page{
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+}
+.text-button-box{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 30px;
+}
+.text-button{
+    margin: 10px 0 0 7px;
+
+}
+
+/*section filtro */
+.filter-box{
+    margin: 0 0 10px 0 ;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    background: #303030;
+    border-radius: 5px;
+    padding: 0 20px ;
+    font-size: 14px;
+}
+.tittles-filter-box{
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+}
+.campos {
+    background: #FFFFFF;
+    border: 0.266071px solid rgba(48, 48, 48, 0.3);
+    border-radius: 5.32143px;
+    height: 32px;
+}
+.w-buscar {
+    width: 80%;
+}
+.w-natureza{
+    width: 50%;
+}
+.w-date{
+    width: 100%;
+}
+/*section lista */
+.list-box{
+    height: 30vh;
+    margin: 25px 0;
+}
+.container-tittles{
+    background-color: #303030;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    height: 44px;
+    padding: 0 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.acao {
+    height: 7vh;
+    font-size: 14px;
+    padding: 0 40px;
+    border: 0.5px solid #CFCFCF;
+}
+/*classes que servem como variaveis */
+
+
+.select {
+    width: 50%;
+    color: black;
+}
+
+
