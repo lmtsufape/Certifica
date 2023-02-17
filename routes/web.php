@@ -60,7 +60,16 @@ Route::group(['middleware' => 'checkCoordenador'], function () {
     Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
     Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');
     Route::get('/acao/{acao_id}/delete', [AcaoController::class, 'delete'])->name('acao.delete');
+    Route::get('/acao/submeter/{acao_id}', [AcaoController::class, 'submeter_acao'])->name('acao.submeter');
 });
+
+Route::group(['middleware' => 'checkGestorInstitucional'], function () {
+    Route::get('/gestor/acoes', [AcaoController::class, 'acoes_submetidas'])->name('gestor.acoes_submetidas');
+    Route::get('/gestor/analisar_acao/{acao_id}', [AcaoController::class, 'analisar_acao'])->name('gestor.analisar_acao');
+    Route::get('/gestor/analisar_acao/participantes/{atividade_id}', [ParticipanteController::class, 'participantes_atividade'])->name('gestor.participantes_atividade');
+    Route::post('/gestor/acao/update', [AcaoController::class, 'acao_update'])->name('gestor.acao_update');
+});
+
 Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
 
 Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');

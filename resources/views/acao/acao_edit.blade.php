@@ -7,10 +7,10 @@
 @section('content')
     <form action="{{Route('acao.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="id" value="{{$acao->id}}">
+        <input type="hidden" name="id" value="{{ $acao->id }}">
 
-        <input type="hidden" name="natureza_id" value="1">
-        <input type="hidden" name="usuario_id" value="1">
+        <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
 
         <div class="row">
             <div class="col-md-3"></div>
@@ -35,14 +35,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ativo">Status</label>
-                        <select name="status" class="form-control" id="status_acaos">
-                            <option value="0">Sim</option>
-                            <option value="1">Não</option>
+                        <label for="acao_natureza">Natureza</label>
+
+                        <select name="natureza_id" id="natureza" class="form-control">
+                            <option value=" {{ $acao->natureza_id }}" selected hidden>{{ $natureza->descricao }}</option>
+                            @foreach($naturezas as $natureza)
+                                <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
+                            @endforeach
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Editar</button>
+                    <button type="submit" class="btn btn-primary">Atualizar</button>
                 </div>
             </div>
             <div class="col-md-3"></div>

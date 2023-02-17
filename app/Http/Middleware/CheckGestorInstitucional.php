@@ -7,7 +7,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckCoordenador
+class CheckGestorInstitucional
 {
     /**
      * Handle an incoming request.
@@ -21,7 +21,7 @@ class CheckCoordenador
         if (!Auth::check()) {
             return redirect(route('home'))->with('error', 'Você precisa estar logado para acessar essa página!');
         }
-        if (Auth::user()->perfil_id == 2) {
+        if (Auth::user()->perfil_id == 3) {
             return $next($request);
         } else {
             return redirect(route('home'))->with('error', 'Você não possui privilégios para acessar essa página!');
