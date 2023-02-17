@@ -15,7 +15,13 @@
                 </a>
 
             </div>
+            @if (isset(Auth::user()->name ))
+            <div class="col p-l-30">
 
+                    <strong>{{ Auth::user()->name }}</strong>
+
+            </div>
+            @endif
         </div>
     <!-- END nav -->
 </header>
