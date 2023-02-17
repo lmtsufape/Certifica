@@ -1,73 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 *{
     margin: 0;
     padding: 0;
 }
-/*Config geral*/
-.Menu-layout-geral{
-    margin-left: 5%;
-    margin-top: 1%;
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+.header-layout {
+    padding: 0 40px;
+    height: 70px;
 }
 
-.tittle-box,
-.user-box {
-    display: flex;
-    align-items: center;
-}
-/*logo div*/
-
-.logo-box{
-    margin: 0 9px 0 0;
-    background-color: #FEDA1E;
+.container-clipe{
     width: 44.25px;
     height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #FEDA1E;
     border-radius: 10px;
 }
 
-.tittle-box{
-    flex: 5;
-}
-.tittle{
-    font-size: 25px;
-    font-family: 'Archivo Black';
-    font-family: 'Archivo Black';
-    font-style: normal;
+.tittle {
+    padding: auto 0;
+    height: 100%;
     font-weight: 400;
     font-size: 25px;
     line-height: 27px;
-
 }
 
+.user-box {
+    height: 100%;
+}
 
-/*user div*/
-.user-box{
-    flex: 1;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.profile-box{
-
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-.profile-icon{
-    margin: 0 14px 0 0;
-    width: 30px;
-    height: 30px;
-}
-.profile-name{
+.user-name {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
     font-size: 14px;
+    line-height: 17px;
 }
-.button-exit-box{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.icon-user{
+    margin: 0 14px;
+}
+.exit-box{
+    height: 100%;
+    padding: 4px;
 }

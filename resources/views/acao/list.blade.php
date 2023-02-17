@@ -1,3 +1,6 @@
+@extends('layouts.components.header')
+
+@section('menu-content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,4 +81,4 @@
     </section>
 </body>
 </html>
-
+@endsection
