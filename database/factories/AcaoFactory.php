@@ -17,12 +17,12 @@ class AcaoFactory extends Factory
     public function definition()
     {
         return [
-            'status' => $this->faker->boolean(),
-            'titulo' => $this->faker->text(10),
-            'data_inicio' => '2022-10-10',
-            'data_fim' => '2022-10-20',
-            'natureza_id' => rand(1, 3),
-            'usuario_id' => '1',
+            'titulo' => '',
+            'data_inicio' => '',
+            'data_fim' => '',
+            'natureza_id' => '',
+            'usuario_id' => '',
+            'unidade_administrativa_id' => '',
         ];
     }
 }
