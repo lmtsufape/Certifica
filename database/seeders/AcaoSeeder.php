@@ -15,6 +15,8 @@ class AcaoSeeder extends Seeder
      */
     public function run()
     {
-        Acao::factory()->count(3)->create();
+        Acao::factory()->create(['titulo' => 'Integra BCC', 'data_inicio' => '2022-01-01',
+                                'data_fim' => '2022-01-05', 'natureza_id' => '1', 'usuario_id' => '1',
+                                'unidade_administrativa_id' => '1']);
     }
 }

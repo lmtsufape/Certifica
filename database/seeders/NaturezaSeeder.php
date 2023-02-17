@@ -15,6 +15,11 @@ class NaturezaSeeder extends Seeder
      */
     public function run()
     {
-        Natureza::factory()->count(3)->create();
+        Natureza::factory()->create(['descricao' => 'Projeto de ensino', 'tipo_natureza_id' => '1',
+                                    'unidade_administrativa_id' => '1']);
+        Natureza::factory()->create(['descricao' => 'Projeto de extensão', 'tipo_natureza_id' => '1',
+                                    'unidade_administrativa_id' => '1']);
+        Natureza::factory()->create(['descricao' => 'Projeto de pesquisa', 'tipo_natureza_id' => '1',
+                                    'unidade_administrativa_id' => '1']);
     }
 }
