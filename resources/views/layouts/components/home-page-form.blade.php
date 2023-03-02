@@ -56,7 +56,7 @@
   </div>
 
   <div class="form-group">
-    <label for="naoPossuiConta_criarConta">Não possui conta? <a href="" class="tdl-nl text-yellow">Criar conta</a></label>
+    <label for="naoPossuiConta_criarConta">Não possui conta? <a href="" class="tdl-nl text-red-certifica">Criar conta</a></label>
   </div>
 
 

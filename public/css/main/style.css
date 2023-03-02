@@ -64,7 +64,7 @@ div .border-right{
 .home-page-form-submet-button{
     width: 100%;
     height: 46px;
-    background: #000000;
+    background: #B3093F;
     border-radius: 5px;
     font-family: 'Inter', sans-serif;
     font-style: normal;
@@ -119,6 +119,11 @@ div .border-right{
     float:left;
 }
 
+header{
+    border-bottom: 1px solid #30303047;
+    box-shadow: 1px 1px 1px  #30303047;
+}
+
 footer{
     margin-top: 70px;
     height: 200px;
@@ -127,8 +132,16 @@ footer{
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    background: #303030;
+    background: #B3093F;
 }
 
+footer .text-icons {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-decoration-line: none;
+}
 
 
