@@ -89,7 +89,8 @@ class ParticipanteController extends Controller
         $participante->nome = $request->nome;
         $participante->email = $request->email;
         $participante->cpf = $request->cpf;
-        $participante->ativo = $request->ativo;
+        $participante->titulo = $request->titulo;
+        $participante->carga_horaria = $request->carga_horaria;
         $participante->atividade_id = $request->atividade_id;
 
         $participante->update();

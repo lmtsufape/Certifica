@@ -86,11 +86,9 @@ class AtividadeController extends Controller
         $atividade = Atividade::findOrFail($request->id);
 
         $atividade->status = $request->status;
-        $atividade->descricao = $request->descricao;
-        $atividade->info = $request->info;
+        $atividade->info = $request->descricao;
         $atividade->data_inicio = $request->data_inicio;
         $atividade->data_fim = $request->data_fim;
-        $atividade->carga_horaria = $request->carga_horaria;
         $atividade->acao_id = $request->acao_id;
 
         $atividade->update();
