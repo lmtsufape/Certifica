@@ -15,21 +15,8 @@
             <div class="col-md-6">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="status_atividade">Status</label>
-                        <select name="status" class="form-control" id="status_atividade">
-                            <option value="0">Ativo</option>
-                            <option value="1">Inativo</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
                         <label for="descricao_atividade">Descricao</label>
                         <input name="descricao" type="text" class="form-control" id="descricao_atividade" placeholder="Monitoria, Extensão, etc">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="info_atividade">Informações</label>
-                        <input name="info" type="text" class="form-control" id="info_atividade" placeholder="Informações">
                     </div>
 
                     <div class="form-group">
@@ -40,11 +27,6 @@
                     <div class="form-group">
                         <label for="fim_atividade">Fim</label>
                         <input name="data_fim" type="date" class="form-control" id=fim_atividade" >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="carga_horaria_atividade">Carga Horária</label>
-                        <input name="carga_horaria" type="text" class="form-control" id="carga_horaria_atividade" placeholder="Carga Horária">
                     </div>
 
                     <div class="form-group">
