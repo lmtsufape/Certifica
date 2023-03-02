@@ -17,9 +17,13 @@
     border-radius: 10px;
 }
 
-.tittle {
-    padding: auto 0;
-    height: 100%;
+.tittle-box{
+    flex: 5;
+}
+.tittle{
+    font-size: 25px;
+    font-family: 'Archivo Black';
+    font-style: normal;
     font-weight: 400;
     font-size: 25px;
     line-height: 27px;

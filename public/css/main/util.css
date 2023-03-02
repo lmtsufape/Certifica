@@ -2229,6 +2229,7 @@
 /* ------------------------------------ */
 .text-white {color: white;}
 .text-black {color: black;}
+.text-red-certifica {color: #B3093F;}
 .text-yellow{color:#FDC80B;}
 .text-grey{color:#303030;}
 
@@ -2358,6 +2359,7 @@
 */
 .bgwhite {background-color: white;}
 .bgblack {background-color: black;}
+.bgtext {background-color: crimson;}
 
 
 

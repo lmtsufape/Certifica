@@ -44,7 +44,7 @@
 
 
     <section>
-        @include('layouts.components.header-bootstrap')
+        @include('layouts.components.header')
     </section>
 
     <section>

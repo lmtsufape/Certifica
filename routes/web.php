@@ -30,6 +30,14 @@ Route::get('/', function () {
     return view('auth/login');
 })->name('home');
 
+Route::get(
+    'logout',
+    function(Request $request){
+        Auth::logout();
+        Session::flush();
+        return redirect(route('home'));
+    })->name('login.logout');
+
 Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
 Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante.store');
 Route::get('/participante/index/{atividade_id}', [ParticipanteController::class, 'index'])->name('participante.index');
