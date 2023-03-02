@@ -17,8 +17,8 @@
             <th scope="col">Nome</th>
             <th scope="col">E-mail</th>
             <th scope="col">CPF</th>
-            <th scope="col">Status</th>
-            <th scope="col">Atividade ID</th>
+            <th scope="col">Título</th>
+            <th scope="col">Carga Horária</th>
         </tr>
         </thead>
 
@@ -29,12 +29,8 @@
                 <td>{{ $participante->nome }}</td>
                 <td>{{ $participante->email }}</td>
                 <td>{{ $participante->cpf }}</td>
-                @if($participante->ativo == 0)
-                    <td> Ativo </td>
-                @else
-                    <td> Inativo </td>
-                @endif
-                <td>{{ $participante->atividade_id }}</td>
+                <td>{{ $participante->titulo }}</td>
+                <td>{{ $participante->carga_horaria }}h</td>
 
                 <td>
                     <div class="dropdown">

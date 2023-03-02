@@ -20,7 +20,8 @@ class ParticipanteFactory extends Factory
             'nome' => '',
             'email' => '',
             'cpf' => '',
-            'ativo' => '',
+            'titulo' => '',
+            'carga_horaria' => '',
             'atividade_id' => '',
         ];
     }

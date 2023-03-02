@@ -34,11 +34,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ativo">Ativo</label>
-                        <select name="ativo" class="form-control" id="ativo_participante">
-                            <option value="0">Sim</option>
-                            <option value="1">Não</option>
-                        </select>
+                        <label for="info_atividade">Título</label>
+                        <input name="titulo" type="text" class="form-control" id="titulo_atividade" placeholder="ex: Palestra Redes Naurais"
+                               value="{{ $participante->titulo }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carga_horaria_atividade">Carga Horária</label>
+                        <input name="carga_horaria" type="text" class="form-control" id="carga_horaria_atividade" placeholder="Cargas Horária"
+                               value="{{ $participante->carga_horaria }}">
                     </div>
 
                     <div class="form-group">

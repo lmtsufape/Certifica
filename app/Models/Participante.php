@@ -16,7 +16,8 @@ class Participante extends Model
         'nome',
         'email',
         'cpf',
-        'ativo',
+        'titulo',
+        'carga_horaria',
         'atividade_id'
     ];
 
@@ -24,7 +25,8 @@ class Participante extends Model
         'nome' => 'required|min:5',
         'email' => 'required|email',
         'cpf' => 'required|min:11|max:11',
-        'ativo' => 'required',
+        'titulo' => 'required',
+        'carga_horaria' => 'required',
         'atividade_id' => 'require',
     ];
 
