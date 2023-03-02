@@ -4,7 +4,9 @@
     <form action="{{Route('acao.store')}}" method="POST" enctype="multipart/form-data" >
         @csrf
 
-        <input type="hidden" name="usuario_id" value="1">
+        <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
+
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -22,14 +24,6 @@
                     <div class="form-group">
                         <label for="data_fim">Data de término</label>
                         <input name="data_fim" type="date" class="form-control" id="data_fim" placeholder="dd/mm/aaaa">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ativo">Status</label>
-                        <select name="status" class="form-control" id="exampleFormControlSelect1">
-                            <option value="1">Em andamento</option>
-                            <option value="0">Encerrada</option>
-                        </select>
                     </div>
 
                     <div class="form-group">

@@ -11,6 +11,5 @@ class Acao extends Model
 
     protected $table = 'acaos';
 
-    protected $fillable = ['natureza_id', 'usuario_id', 'status',
-     'titulo', 'data_inicio', 'data_fim'];
+    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'natureza_id', 'usuario_id', 'unidade_administrativa_id'];
 }

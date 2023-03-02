@@ -16,15 +16,16 @@ return new class extends Migration
         Schema::create('acaos', function (Blueprint $table)
         {
             $table->id();
-            $table->boolean('status');
+            $table->string('status')->nullable();
             $table->string('titulo');
             $table->date('data_inicio');
             $table->date('data_fim')->nullable();
-
             $table->unsignedInteger('natureza_id')->index();
             $table->foreign('natureza_id')->references('id')->on('naturezas');
             $table->unsignedInteger('usuario_id')->index();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->foreign('usuario_id')->references('id')->on('users');
+            $table->unsignedInteger('unidade_administrativa_id')->index();
+            $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
         });
     }

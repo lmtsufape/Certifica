@@ -110,4 +110,12 @@ class ParticipanteController extends Controller
 
         return redirect(Route('participante.index', ['atividade_id' => $participante->atividade_id]));
     }
+
+    public function participantes_atividade($atividade_id)
+    {
+        $participantes = Participante::all()->where('atividade_id', $atividade_id)->sortBy('id');
+        $atividade = Atividade::find($atividade_id);
+
+        return view('gestor_institucional.participantes_acao', ['participantes' => $participantes, 'atividade' => $atividade]);
+    }
 }

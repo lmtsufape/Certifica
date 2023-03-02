@@ -31,6 +31,10 @@
 
             @endif
             </div>
-
+            <div class="exit-box col-1 d-flex align-items-end justify-content-center"><img src="/images/layouts/menu/exit.svg" alt="" srcset=""></div>
         </div>
-</header>
+    </header>
+    @yield('menu-content')
+</html>
+
+

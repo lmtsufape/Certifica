@@ -47,6 +47,16 @@
                         <div>
                             <a class="dropdown-item" href ="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">Atividades</a>
                         </div>
+
+                        @if($acao->status == null)
+                            <div>
+                                <a class="dropdown-item" href ="{{ route('acao.submeter', ['acao_id' => $acao->id]) }}">Submeter</a>
+                            </div>
+                        @else
+                            <div>
+                                <a class="dropdown-item"> Submetida </a>
+                            </div>
+                        @endif
                     </div>
                 </td>
             </tr>

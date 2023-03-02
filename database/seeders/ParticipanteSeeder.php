@@ -15,6 +15,11 @@ class ParticipanteSeeder extends Seeder
      */
     public function run()
     {
-        Participante::factory()->count(3)->create();
+        Participante::factory()->create(['nome' => 'Douglas Filipe', 'email' => 'douglas@teste.com', 'cpf' => '23171780003',
+                                        'ativo' => 0, 'atividade_id' => '1']);
+        Participante::factory()->create(['nome' => 'Luiz Gustavo', 'email' => 'luiz@teste.com', 'cpf' => '21269842064',
+                                        'ativo' => 0, 'atividade_id' => '1']);
+        Participante::factory()->create(['nome' => 'Ana Paula', 'email' => 'ana@teste.com', 'cpf' => '56488699083',
+                                        'ativo' => 0, 'atividade_id' => '1']);
     }
 }

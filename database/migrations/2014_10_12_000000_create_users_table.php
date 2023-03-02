@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('profile_photo_path', 2048)->nullable();
             $table->unsignedInteger('perfil_id')->index();
             $table->foreign('perfil_id')->references('id')->on('perfils');
+            $table->unsignedInteger('unidade_administrativa_id')->index()->nullable();
+            $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
         });
     }
