@@ -34,12 +34,9 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Status</th>
             <th scope="col">Descrição</th>
-            <th scope="col">Informações</th>
             <th scope="col">Inicio</th>
             <th scope="col">Fim</th>
-            <th scope="col">Carga Horária</th>
 
         </tr>
         </thead>
@@ -48,16 +45,9 @@
         @foreach($atividades as $atividade)
             <tr>
                 <td></td>
-                @if($atividade->status == 0)
-                    <td> Ativo </td>
-                @else
-                    <td> Inativo </td>
-                @endif
                 <td>{{ $atividade->descricao }}</td>
-                <td>{{ $atividade->info }}</td>
                 <td>{{ $atividade->data_inicio }}</td>
                 <td>{{ $atividade->data_fim }}</td>
-                <td>{{ $atividade->carga_horaria }}</td>
 
                 <td>
                     <div class="dropdown">
@@ -82,11 +72,11 @@
                 <div class="col-md-4"></div>
 
                 <div class="col-md-2">
-                    <button name="action" type="submit" class="btn btn-danger" value="negar">Negar</button>
+                    <button name="action" type="submit" class="btn btn-danger" value="negar">Devolver</button>
                 </div>
 
                 <div class="col-md-2">
-                    <button name="action" type="submit" class="btn btn-primary" value="aprovar">Aprovar</button>
+                    <button name="action" type="submit" class="btn btn-success" value="aprovar">Aprovar</button>
                 </div>
 
                 <div class="col-md-4"></div>
