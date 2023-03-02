@@ -36,11 +36,11 @@
                 <span class="textoRodape text-white">Contato:</span>
                 <div class="row justify-content-center text-center mt-4">
                     <a href="https://www.facebook.com/LMTSUFAPE/" target="_blank" class="col-md-1 p-0"> <img height="40"
-                                                                                                             src="{{asset('images/facebook_logo.png')}}"></a>
+                                                                                                             src="{{asset('images/icons/facebook-yellow.svg')}}"></a>
                     <a href="https://www.instagram.com/lmts_ufape/" target="_blank" class="col-md-1 p-0 mx-2"> <img
-                            height="40" src="{{asset('images/instagram_logo.png')}}"></a>
+                            height="40" src="{{asset('images/icons/instagram-yellow.svg')}}"></a>
                     <a href="mailto:lmts@ufrpe.br" class="col-md-1 p-0"> <img height="40"
-                                                                              src="{{asset('images/google_logo.png')}}"></a>
+                                                                              src="{{asset('images/icons/letter-yellow.svg')}}"></a>
                 </div>
             </div>
         </div>
