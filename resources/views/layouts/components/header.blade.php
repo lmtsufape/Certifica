@@ -16,7 +16,6 @@
 
             <div class="d-flex flex-row justify-content-around">
             @if (isset(Auth::user()->name ))
-
                     <div class="align-self-center">
                         <img class="profile-icon" src="/images/layouts/menu/profile.svg" alt="">
                     </div>
@@ -28,10 +27,8 @@
                     <div class="button-exit-box align-self-center">
                         <img src="/images/layouts/menu/exit.svg" alt="">
                     </div>
-
             @endif
             </div>
-            <div class="exit-box col-1 d-flex align-items-end justify-content-center"><img src="/images/layouts/menu/exit.svg" alt="" srcset=""></div>
         </div>
     </header>
     @yield('menu-content')
