@@ -16,12 +16,9 @@ return new class extends Migration
         Schema::create('atividades', function (Blueprint $table)
         {
             $table->id();
-            $table->boolean('status');
             $table->string('descricao');
-            $table->string('info')->nullable();
             $table->date('data_inicio');
             $table->date('data_fim')->nullable();
-            $table->integer('carga_horaria');
             $table->unsignedInteger('acao_id')->index();
             $table->foreign('acao_id')->references('id')->on('acaos');
             $table->timestamps();

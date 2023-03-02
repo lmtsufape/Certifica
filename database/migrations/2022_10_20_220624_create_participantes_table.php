@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('cpf')->unique();
-            $table->boolean('ativo');
+            $table->string('titulo')->nullable();
+            $table->integer('carga_horaria');
 
             $table->unsignedInteger('atividade_id')->index();
             $table->foreign('atividade_id')->references('id')->on('atividades');
