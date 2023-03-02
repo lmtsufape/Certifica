@@ -17,12 +17,9 @@ class AtividadeFactory extends Factory
     public function definition()
     {
         return [
-            'status' => '',
             'descricao' => '',
-            'info' => '',
             'data_inicio' => '',
             'data_fim' => '',
-            'carga_horaria' => '',
             'acao_id' => '',
         ];
     }
