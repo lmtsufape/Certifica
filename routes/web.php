@@ -41,6 +41,9 @@ Route::get(
 
 Route::group(['middleware' => 'checkAdministrador'], function ()
 {
+    Route::get('/administrador', [UsuarioController::class, 'home_administrador'])->name('administrador.index');
+
+
     Route::get('/unidade_administrativa/index', [UnidadeAdministrativaController::class, 'index'])->name('unidade_administrativa.index');
 
     Route::get('/unidade_administrativa/create',[UnidadeAdministrativaController::class, 'create'])->name('unidade_administrativa.create');
@@ -52,7 +55,7 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/unidade_administrativa/{unidade_administrativa_id}/delete', [UnidadeAdministrativaController::class, 'delete'])->name('unidade_administrativa.delete');
 
 
-    Route::get('/tipo_natureza/index', [TipoNaturezaController::class, 'show'])->name('tipo_natureza.show');
+    Route::get('/tipo_natureza/index', [TipoNaturezaController::class, 'show'])->name('tipo_natureza.index');
 
     Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
     Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
@@ -114,9 +117,13 @@ Route::group(['middleware' => 'checkCoordenador', 'middleware' => 'checkGestorIn
 
 Route::group(['middleware' => 'checkGestorInstitucional'], function () {
     Route::get('/gestor', [UsuarioController::class, 'home_gestor'])->name('home.gestor');
+
     Route::get('/gestor/acoes', [AcaoController::class, 'acoes_submetidas'])->name('gestor.acoes_submetidas');
+
     Route::get('/gestor/analisar_acao/{acao_id}', [AcaoController::class, 'analisar_acao'])->name('gestor.analisar_acao');
+
     Route::get('/gestor/analisar_acao/participantes/{atividade_id}', [ParticipanteController::class, 'participantes_atividade'])->name('gestor.participantes_atividade');
+
     Route::post('/gestor/acao/update', [AcaoController::class, 'acao_update'])->name('gestor.acao_update');
 });
 
