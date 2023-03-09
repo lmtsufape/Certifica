@@ -83,4 +83,13 @@ class UsuarioController extends Controller
     {
         //
     }
+
+    public function home_administrador()
+    {
+        return view('administrador.administrador_index');
+    }
+    public function home_gestor()
+    {
+        return view('gestor_institucional.gestor_index');
+    }
 }

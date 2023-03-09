@@ -19,7 +19,7 @@ class AcaoController extends Controller
      */
     public function index()
     {
-        $acaos = Acao::all()->sortBy('id');
+        $acaos = Acao::all()->where('usuario_id', Auth::user()->id)->sortBy('id');
 
         return view('acao.acao_index', ['acaos' => $acaos]);
     }
