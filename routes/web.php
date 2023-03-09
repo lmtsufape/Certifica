@@ -3,6 +3,7 @@
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\NaturezaController;
 use App\Http\Controllers\UnidadeAdministrativaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ParticipanteController;
@@ -61,7 +62,7 @@ Route::post('atividade/update', [AtividadeController::class, 'update'])->name('a
 Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
-Route::group(['middleware' => 'checkCoordenador'], function () {
+Route::group(['middleware' => 'checkCoordenador', 'middleware' => 'checkGestorInstitucional'], function () {
     Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
     Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
     Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
@@ -72,6 +73,7 @@ Route::group(['middleware' => 'checkCoordenador'], function () {
 });
 
 Route::group(['middleware' => 'checkGestorInstitucional'], function () {
+    Route::get('/gestor', [UsuarioController::class, 'home_gestor'])->name('home.gestor');
     Route::get('/gestor/acoes', [AcaoController::class, 'acoes_submetidas'])->name('gestor.acoes_submetidas');
     Route::get('/gestor/analisar_acao/{acao_id}', [AcaoController::class, 'analisar_acao'])->name('gestor.analisar_acao');
     Route::get('/gestor/analisar_acao/participantes/{atividade_id}', [ParticipanteController::class, 'participantes_atividade'])->name('gestor.participantes_atividade');
