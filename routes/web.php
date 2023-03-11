@@ -13,6 +13,8 @@ use \App\Http\Controllers\CertificadoController;
 use \App\Http\Controllers\TipoNaturezaController;
 use \App\Http\Controllers\AssinaturaController;
 use App\Models\UnidadeAdministrativa;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +29,7 @@ use App\Models\UnidadeAdministrativa;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get(
     'logout',
