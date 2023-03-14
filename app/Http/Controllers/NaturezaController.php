@@ -8,6 +8,8 @@ use App\Models\UnidadeAdministrativa;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreNaturezaRequest;
 use App\Http\Requests\UpdateNaturezaRequest;
+use App\Validates\NaturezaValidator;
+use Illuminate\Validation\ValidationException;
 
 class NaturezaController extends Controller
 {
@@ -44,9 +46,15 @@ class NaturezaController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            NaturezaValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('natureza.create'))->withErrors($exception->validator)->withInput();
+        }
+
         Natureza::create($request->all());
 
-        return redirect(Route('natureza.index'));
+        return redirect(route('natureza.index'))->with(['mensagem' => 'Natureza cadastrada com sucesso!']);
     }
 
     /**
