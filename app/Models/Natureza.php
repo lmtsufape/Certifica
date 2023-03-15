@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Natureza extends Model
 {
     use HasFactory;
@@ -29,4 +30,8 @@ class Natureza extends Model
         'tipo_natureza_id' => 'O tipo da natureza é obrigatório',
         'unidade_administrativa_id' => 'Unidade Adiministrativa é obricatória',
     ];
+
+    public function tipoNatureza(){
+        return $this->belongsTo('App\Models\TipoNatureza');
+    }
 }

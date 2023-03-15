@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\TipoNatureza;
 use App\Http\Requests\StoreTipoNaturezaRequest;
 use App\Http\Requests\UpdateTipoNaturezaRequest;
+use App\Validates\TipoNaturezaValidator;
+use Illuminate\Validation\ValidationException;
+
 
 class TipoNaturezaController extends Controller
 {
@@ -38,16 +41,15 @@ class TipoNaturezaController extends Controller
      */
     public function store(StoreTipoNaturezaRequest $request)
     {
-        #TipoNatureza::create($request->all());
+        try {
+            TipoNaturezaValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('tipo_natureza.create'))->withErrors($exception->validator)->withInput();
+        }
 
-        $tipo_natureza = new TipoNatureza();
+        TipoNatureza::create($request->all());
 
-        $tipo_natureza->descricao = $request->descricao;
-        
-
-        $tipo_natureza->save();
-
-        return redirect(Route('home'));
+        return redirect(route('tipo_natureza.index'))->with(['mensagem' => 'Tipo de Natureza cadastrada com sucesso!']);
     }
 
     /**
@@ -83,13 +85,19 @@ class TipoNaturezaController extends Controller
      */
     public function update(UpdateTipoNaturezaRequest $request, $id)
     {
-        $tipo_natureza = TipoNatureza::query()->findOrFail($id);
+        try{
+            TipoNaturezaValidator::validate($request->all());
+        } catch (ValidationException $exception){
+            return redirect(route('tipo_natureza.edit', ['id'=>$id]))->withErrors($exception->validator)->withInput();
+        }
+
+        $tipo_natureza = TipoNatureza::findOrFail($id);
         
         $tipo_natureza->update([
             'descricao' => $request->descricao
         ]);
         
-        return redirect(Route('home'));
+        return redirect(Route('tipo_natureza.index'))->with(['mensagem' => 'Tipo de Natureza atualizado com sucesso']);
     }
 
     /**
@@ -100,10 +108,15 @@ class TipoNaturezaController extends Controller
      */
     public function destroy($id)
     {
-        $tipo_natureza = TipoNatureza::query()->findOrFail($id);
+        $tipo_natureza = TipoNatureza::findOrFail($id);
+
+        if ($tipo_natureza->naturezas()->first()){
+            return redirect(route('tipo_natureza.index'))
+                            ->with(['error_mensage' => 'Tipo de Natureza não pode ser excluida. Tipo de Natureza vinculada a uma Natureza']);
+        }
 
         $tipo_natureza->delete();
 
-        return redirect(Route('home'));
+        return redirect(route('tipo_natureza.index'))->with(['mensagem' => 'Tipo de Natureza excluída com sucesso!']);
     }
 }
