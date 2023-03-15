@@ -1,21 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{Route('tipo_natureza.store')}}" method="POST" enctype="multipart/form-data" >
-    @csrf 
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="descricao">Descrição</label>
-                        <input name="descricao" type="text" class="form-control" id="descricao" placeholder="Descricao...">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
-                </div>
+<div class='container'>
+    <div class="row" >
+        @if($errors->any())
+        <div class="col-md-12" style="margin-top: 30px;">
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $erro)
+                    <li>{{$erro}}</li>
+                @endforeach
             </div>
-            <div class="col-md-3"></div>
         </div>
-    </form>
+        @endif
+    </div>
+
+    <div class='row justify-content-center'>
+        <h2 class='col-5'>CADASTRAR TIPO DE NATUREZA</h2>
+    </div>
+    <div>
+        <form action="{{Route('tipo_natureza.store')}}" method="POST" enctype="multipart/form-data" >
+            @csrf 
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <div class="row form-group">
+                        <label class='form-label' for="descricao">Descrição</label>
+                        <div class='col-10'>
+                            <input name="descricao" type="text" class="form-control col-4" id="descricao" placeholder="Descricao...">
+                        </div>
+                        <div class='col-2'>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                    </div>
+                      
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>
 @endsection

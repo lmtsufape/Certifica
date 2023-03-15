@@ -1,6 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<div class='container'>
+    <div class="row" >
+        @if($errors->any())
+        <div class="col-md-12" style="margin-top: 30px;">
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </div>
+        </div>
+        @endif
+    </div>
+
+</div>
 <form action="{{Route('tipo_natureza.update', ['id' => $tipo_natureza->id])}}" method="POST" enctype="multipart/form-data" >
     @csrf
     @method('put') 
