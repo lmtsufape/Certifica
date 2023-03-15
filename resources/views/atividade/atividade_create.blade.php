@@ -16,7 +16,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="descricao_atividade">Descricao</label>
-                        <input name="descricao" type="text" class="form-control" id="descricao_atividade" placeholder="Monitoria, Extensão, etc">
+                        <select name="descricao" id="descricao_atividade" class="form-control">
+                            <option value="" selected hidden>Escolher...</option>
+                            @foreach($descricoes as $descricao)
+                                <option value="{{ $descricao }}">{{ $descricao }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
