@@ -5,7 +5,19 @@
 @endsection
 
 @section('content')
-    <form action="{{Route('acao.update')}}" method="POST" enctype="multipart/form-data">
+    <div class='container'>
+        <div class="row">   
+            @if($errors->any())
+                <dic class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach    
+                </dic>
+            @endif
+        </div>
+    </div>
+
+    <form action="{{route('acao.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="id" value="{{ $acao->id }}">
 

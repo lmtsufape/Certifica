@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class='container'>
+        <div class='row'>
+            @if ($errors->any())
+                <div class='alert alert-danger'>
+                    @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    </div>
     <form action="{{Route('acao.store')}}" method="POST" enctype="multipart/form-data" >
         @csrf
 

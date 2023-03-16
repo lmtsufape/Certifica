@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Validates;
+
 use Illuminate\Support\Facades\Validator;
-use App\Models\Natureza;
+use App\Models\Atividade;
 use Illuminate\Validation\ValidationException;
 
-class NaturezaValidator {
+class AtividadeValidator {
 
     public static function validate($data) {
-        $validator = Validator::make($data, Natureza::$rules, Natureza::$mensages);
+        $validator = Validator::make($data, Atividade::$rules, Atividade::$mensages);
 
         if(!$validator->errors()->isEmpty()){
-            throw new ValidationException($validator, "Erro na validação dos dados");
+            throw new ValidationException($validator,"Erro na validação dos dados da atividade");
         }
 
         return $validator;
     }
-
 }

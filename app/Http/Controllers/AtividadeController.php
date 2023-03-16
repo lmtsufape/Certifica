@@ -7,6 +7,8 @@ use App\Models\Atividade;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAtividadeRequest;
 use App\Http\Requests\UpdateAtividadeRequest;
+use App\Validates\AtividadeValidator;
+use Illuminate\Validation\ValidationException; 
 
 class AtividadeController extends Controller
 {
@@ -43,9 +45,15 @@ class AtividadeController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            AtividadeValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
+        }
+
         Atividade::create($request->all());
 
-        return redirect(Route('acao.index'));
+        return redirect(route('atividade.index', ['acao_id' => $request->acao_id]))->with(['mensagem' => "Atividade cadastrada com sucesso."]);
     }
 
     /**
@@ -83,17 +91,26 @@ class AtividadeController extends Controller
      */
     public function update(Request $request)
     {
+        try {
+            AtividadeValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('atividade.edit', ['atividade_id' => $request->id]))
+                            ->withErrors($exception->validator)->withInput();
+        }
+
+
         $atividade = Atividade::findOrFail($request->id);
 
-        $atividade->status = $request->status;
-        $atividade->info = $request->descricao;
+        //$atividade->status = $request->status;
+        $atividade->descricao = $request->descricao;
         $atividade->data_inicio = $request->data_inicio;
         $atividade->data_fim = $request->data_fim;
         $atividade->acao_id = $request->acao_id;
 
         $atividade->update();
 
-        return redirect(Route('atividade.index', ['acao_id' => $request->acao_id]));
+        return redirect(Route('atividade.index', ['acao_id' => $request->acao_id]))
+                                ->with(['mensagem'=>'Atividade editada com sucesso']);
     }
 
     /**
@@ -108,6 +125,7 @@ class AtividadeController extends Controller
         $atividade->delete();
 
 
-        return redirect(Route('atividade.index', ['acao_id' => $atividade->acao_id]));
+        return redirect(Route('atividade.index', ['acao_id' => $atividade->acao_id]))
+                                ->with(['mensagem' => 'Atividade excluida com sucesso']);
     }
 }
