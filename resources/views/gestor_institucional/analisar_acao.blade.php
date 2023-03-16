@@ -23,6 +23,13 @@
                 <td> {{ $acao->titulo }} </td>
                 <td> {{ $acao->data_inicio }} </td>
                 <td> {{ $acao->data_fim }} </td>
+                <td>
+                    <div class="dropdown">
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -52,7 +59,10 @@
                 <td>
                     <div class="dropdown">
                         <div>
-                            <a class="dropdown-item" href ="{{ route('gestor.participantes_atividade', ['atividade_id' => $atividade->id]) }}">Participantes</a>
+                            <a class="dropdown-item" href ="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">Editar</a>
+                        </div>
+                        <div>
+                            <a class="dropdown-item" href ="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">Participantes</a>
                         </div>
                     </div>
                 </td>

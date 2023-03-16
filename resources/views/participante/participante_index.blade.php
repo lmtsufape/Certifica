@@ -37,9 +37,13 @@
                         <div>
                             <a class="dropdown-item" href ="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">Editar</a>
                         </div>
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">Apagar</a>
-                        </div>
+
+                        @if(Auth::user()->perfil_id == 2)
+                            <div>
+                                <a class="dropdown-item" href ="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">Apagar</a>
+                            </div>
+                        @endif
+
                     </div>
                 </td>
             </tr>
