@@ -7,6 +7,8 @@ use App\Models\Participante;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
+use App\Validates\ParticipanteValidator;
+use Illuminate\Validation\ValidationException;
 
 class ParticipanteController extends Controller
 {
@@ -43,10 +45,19 @@ class ParticipanteController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            ParticipanteValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('participante.create', ['atividade_id' => $request->atividade_id]))
+                            ->withErrors($exception->validator)->withInput();
+        }
+
+
         Participante::create($request->all());
 
 
-        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]));
+        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
+                                ->with(['mensagem' => 'Participante cadastrado com sucesso']);
     }
 
     /**
@@ -84,6 +95,13 @@ class ParticipanteController extends Controller
      */
     public function update(Request $request)
     {
+        try {
+            ParticipanteValidator::validate($request->all(), Participante::$editRules);
+        } catch (ValidationException $exception) {
+            return redirect(route('participante.edit', ['participante_id'=>$request->id]))
+                            ->withErrors($exception->validator)->withInput();
+        }
+
         $participante = Participante::findOrFail($request->id);
 
         $participante->nome = $request->nome;
@@ -95,7 +113,8 @@ class ParticipanteController extends Controller
 
         $participante->update();
 
-        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]));
+        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
+                        ->with(['mensagem' =>'Participante editado com sucesso']);
     }
 
     /**
@@ -109,7 +128,7 @@ class ParticipanteController extends Controller
         $participante = Participante::findOrFail($participante_id);
         $participante->delete();
 
-        return redirect(Route('participante.index', ['atividade_id' => $participante->atividade_id]));
+        return redirect(Route('participante.index', ['atividade_id' => $participante->atividade_id]))->with(['mensagem' => 'Participante excluido com sucesso']);
     }
 
     public function participantes_atividade($atividade_id)
