@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header-container{
+    border: 1px solid black;
+    width: 100%;
+    height: 90px;
+    padding: 0 153px 14px 0;
+}
+
+
+.nome-user{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 10px 0 0 12px;
+}
+.seta-icon{
+    width: 16px;
+    margin: 0 0 0 16px;
+}
+.sino-icon{
+    width: 24px;
+}
+.profile-icon{
+    width: 30px;
+    margin: 0 0 0 26px;
+}

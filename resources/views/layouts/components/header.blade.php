@@ -1,36 +1,33 @@
-<header>
-    <!-- @include('layouts.components.barra-brasil') -->
-    <div class="d-flex p-3 flex-row  justify-content-between align-content-center flex-wrap">
-
-        <div class="d-flex flex-column m-l-30">
-            <a href="/" >
-                <div class="tittle-box">
-                    <div class="logo-box">
-                        <img class="icon" src="/images/layouts/menu/arquivo da logo" alt="">Logo</img>
-                    </div>
-                </div>
-            </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/components/header.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+    <div class="header-container d-flex flex-row-reverse align-items-end">
+        <div>
+            <img class="seta-icon" src="/images/acoes/create/seta.svg" alt="">
         </div>
-
-        <div class="d-flex flex-row align-items-center justify-content-between">
-            @if (isset(Auth::user()->name ))
-                <div class="align-self-center">
-                    <img class="profile-icon" src="/images/layouts/menu/profile.svg" alt="">
-                </div>
-
-                <div class=" align-self-center mt-3">
-                    <p class="profile-name">Olá, {{ Auth::user()->name }}</p>
-                </div>
-
-                <div class=" align-self-center">
-                    <a method="POST" href="{{ route('login.logout') }}">
-                        <img src="/images/layouts/menu/exit.svg">
-                    </a>
-
-                </div>
-            @endif
+        <div class="nome-user">
+            Olá, nome
+        </div>
+        <div>
+            <img class="profile-icon" src="/images/acoes/create/profile.svg" alt="">
+        </div>
+        <div>
+            <img class="sino-icon" src="/images/acoes/create/sino.svg" alt="">
         </div>
     </div>
-</header>
+
+
+    <div>
+        @yield('content-header')
+    </div>
+</body>
+</html>
 
 
