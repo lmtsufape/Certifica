@@ -12,5 +12,5 @@
 
     <a class="btn btn-primary" href=" {{ route('natureza.index') }} " role="button"> Naturezas </a>
 
-    <a class="btn btn-primary" href="#" role="button"> Usuários </a>
+    <a class="btn btn-primary" href=" {{ route('usuario.index') }} " role="button"> Usuários </a>
 @endsection
