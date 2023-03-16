@@ -39,6 +39,7 @@ Route::get(
         return redirect(route('home'));
     })->name('login.logout');
 
+
 Route::group(['middleware' => 'checkAdministrador'], function ()
 {
     Route::get('/administrador', [UsuarioController::class, 'home_administrador'])->name('administrador.index');
@@ -127,7 +128,7 @@ Route::group(['middleware' => 'checkGestorInstitucional'], function () {
     Route::post('/gestor/acao/update', [AcaoController::class, 'acao_update'])->name('gestor.acao_update');
 });
 
-Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
+Route::get('/acao/list', [AcaoController::class, 'list'])->name('acao.list');
 
 
 Route::get('/assinatura/create', [AssinaturaController::class, 'create'])->name('assinatura.create');
