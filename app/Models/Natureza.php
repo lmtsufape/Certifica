@@ -25,7 +25,7 @@ class Natureza extends Model
         'unidade_administrativa_id' => 'required',
     ];
 
-    public static $messages = [
+    public static $mensages = [
         'descricao' => 'A descrição é obrigatória e deve ter no mínimo 10 caracteres',
         'tipo_natureza_id' => 'O tipo da natureza é obrigatório',
         'unidade_administrativa_id' => 'Unidade Adiministrativa é obricatória',

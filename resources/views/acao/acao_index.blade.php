@@ -5,9 +5,37 @@
 @endsection
 
 @section('content')
+<div class='container'>
+    <div class='row'>
+        @if(session('mensagem'))
+            <div class='alert alert-success'>
+                <p>{{session('mensagem')}}</p>
+            </div>
+        @endif
+    </div>
+
+    <div class='row'>
+        @if(session('error_mensage'))
+            <div class='alert alert-danger'>
+                <p>{{session('error_mensage')}}</p>
+            </div>
+        @endif
+    </div>
+
+    <div class='row'>
+        @if($errors->any())
+            <div class='alert alert-danger'>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
+
     <div style="border-block-end: #949494 2px solid; padding-block-end: 5px; margin-block-end: 10px">
         <h2>Ações <a class="btn btn-primary" href="{{ route('acao.create') }}"
-                     role="button">Cadastrar</a> </h2>
+                    role="button">Cadastrar</a> </h2>
     </div>
     <table class="table">
         <thead class="thead-dark">
@@ -63,4 +91,5 @@
         @endforeach
         </tbody>
     </table>
+</div>
 @endsection

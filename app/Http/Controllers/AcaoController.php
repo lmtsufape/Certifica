@@ -9,6 +9,8 @@ use App\Models\SubmeterAcao;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Validates\AcaoValidator;
+use Illuminate\Validation\ValidationException;
 
 class AcaoController extends Controller
 {
@@ -47,6 +49,13 @@ class AcaoController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            AcaoValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('acao.create'))->withErrors($exception->validator)->withInput();
+        }
+
+
         $acao = new Acao();
 
         $acao->titulo = $request->titulo;
@@ -59,9 +68,7 @@ class AcaoController extends Controller
 
         $acao->save();
 
-        return redirect(Route('acao.index'));
-
-
+        return redirect(Route('acao.index'))->with(['mensagem' => 'Ação cadastrada com sucesso']);
     }
 
     /**
@@ -99,6 +106,14 @@ class AcaoController extends Controller
      */
     public function update(Request $request)
     {
+        try {
+            AcaoValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+
+            return redirect(route('acao.edit', ['acao_id' => $request->id]))->withErrors($exception->validator)->withInput();
+        }
+
+
         $acao = Acao::findOrFail($request->id);
 
         $acao->titulo = $request->titulo;
@@ -110,7 +125,7 @@ class AcaoController extends Controller
 
         $acao->update();
 
-        return redirect(Route('acao.index'));
+        return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
     }
 
     /**
@@ -122,9 +137,15 @@ class AcaoController extends Controller
     public function delete($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
+
+        if($acao->atividades()->first()){
+            return redirect(route('acao.index'))->with(['error_mensage' => 'A ação no pode ser excluída. 
+                                                                Existe uma ou mais atividades vinculadas a ação.']);
+        }
+
         $acao->delete();
 
-        return redirect(Route('acao.index'));
+        return redirect(Route('acao.index'))->with(['mensagem' => 'Ação excluída com sucesso']);
     }
 
     public function submeter_acao($acao_id)
