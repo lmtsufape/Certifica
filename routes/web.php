@@ -28,7 +28,7 @@ use App\Models\UnidadeAdministrativa;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('auth.login');
 })->name('home');
 
 Route::get(
@@ -78,12 +78,12 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
 });
-
+Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
 Route::group(['middleware' => 'checkCoordenador', 'middleware' => 'checkGestorInstitucional'], function ()
 {
     Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
 
-    Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
+
     Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
 
     Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
