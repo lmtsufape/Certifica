@@ -17,12 +17,13 @@ div .border-right{
 }
 
 .home-page-home {
-    margin-top: 70px;
+    margin-top: 26px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    height: 59vh;
 }
 
 .home-page-welcome-text {
@@ -126,7 +127,7 @@ header{
 
 footer{
     margin-top: 70px;
-    height: 200px;
+    height: 159px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
