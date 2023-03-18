@@ -31,8 +31,11 @@ class AtividadeController extends Controller
     public function create($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
+        $descricoes = ['Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
+                        'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
 
-        return view('atividade.atividade_create', ['acao' => $acao]);
+
+        return view('atividade.atividade_create', ['acao' => $acao, 'descricoes' => $descricoes]);
     }
 
     /**
@@ -71,7 +74,10 @@ class AtividadeController extends Controller
 
         $acao = Acao::findOrFail($atividade->acao_id);
 
-        return view('atividade.atividade_edit', ['atividade' => $atividade, 'acao' => $acao]);
+        $descricoes = ['Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
+            'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
+
+        return view('atividade.atividade_edit', ['atividade' => $atividade, 'acao' => $acao, 'descricoes' => $descricoes]);
     }
 
     /**

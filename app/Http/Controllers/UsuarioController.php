@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\Perfil;
+use App\Models\UnidadeAdministrativa;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -15,7 +19,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        return view('usuario.usuario_index', ['usuarios' => User::all()->sortBy('id')]);
     }
 
     /**
@@ -25,7 +29,10 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        $perfils = Perfil::all()->sortBy('id');
+        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
+
+        return view('usuario.usuario_create', ['perfils' => $perfils, 'unidade_administrativas' => $unidade_administrativas]);
     }
 
     /**
@@ -34,9 +41,19 @@ class UsuarioController extends Controller
      * @param  \App\Http\Requests\StoreUsuarioRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUsuarioRequest $request)
+    public function store(Request $request)
     {
-        //
+        $usuario = new User();
+
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->password);
+        $usuario->perfil_id = $request->perfil_id;
+        $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+
+        $usuario->save();
+
+        return redirect(Route('usuario.index'));
     }
 
     /**
@@ -45,7 +62,7 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuario $usuario)
+    public function show()
     {
         //
     }
@@ -56,9 +73,18 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(Usuario $usuario)
+    public function edit($id)
     {
-        //
+        $usuario = User::findOrFail($id);
+
+        $perfil = Perfil::findOrFail($usuario->perfil_id);
+        $unidade_administrativa = UnidadeAdministrativa::findOrFail($usuario->unidade_administrativa_id);
+
+        $perfils = Perfil::all()->sortBy('id');
+        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
+
+        return view('usuario.usuario_edit', ['usuario' => $usuario, 'perfils' => $perfils, 'perf' => $perfil,
+            'unidade_administrativas' => $unidade_administrativas, 'un_administrativa' => $unidade_administrativa]);
     }
 
     /**
@@ -68,9 +94,18 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUsuarioRequest $request, Usuario $usuario)
+    public function update(Request $request)
     {
-        //
+        $usuario = User::findOrFail($request->id);
+
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->perfil_id = $request->perfil_id;
+        $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+
+        $usuario->update();
+
+        return redirect(Route('usuario.index'));
     }
 
     /**
@@ -79,9 +114,12 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function delete($usuario_id)
     {
-        //
+        $usuario = User::findOrFail($usuario_id);
+        $usuario->delete();
+
+        return redirect(Route('usuario.index'));
     }
 
     public function home_administrador()

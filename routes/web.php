@@ -77,12 +77,24 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
 
     Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
-});
-Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
-Route::group(['middleware' => 'checkCoordenador', 'middleware' => 'checkGestorInstitucional'], function ()
-{
-    Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
 
+    Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
+
+    Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
+    Route::post('/usuario/store', [UsuarioController::class, 'store'])->name('usuario.store');
+
+    Route::get('/usuario/edit/{usuario_id}', [UsuarioController::class, 'edit'])->name('usuario.edit');
+    Route::post('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
+
+    Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
+
+});
+
+Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
+{
+    Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
+
+    Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
 
     Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
 
