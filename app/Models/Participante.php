@@ -22,12 +22,29 @@ class Participante extends Model
     ];
 
     public static $rules = [
-        'nome' => 'required|min:5',
+        'nome' => 'required|min:10',
+        'email' => 'required|email',
+        'cpf' => 'required|min:11|max:11|unique:App\Models\Participante,cpf',
+        'titulo' => 'required',
+        'carga_horaria' => 'required',
+        'atividade_id' => 'required',
+    ];
+
+    public static $editRules = [
+        'nome' => 'required|min:10',
         'email' => 'required|email',
         'cpf' => 'required|min:11|max:11',
         'titulo' => 'required',
         'carga_horaria' => 'required',
-        'atividade_id' => 'require',
+        'atividade_id' => 'required',
     ];
 
+    public static $messages = [
+        'nome.*'        => 'O nome do participante é obrigatório e deve ter no mínimo 10 caractéres',
+        'email.*'       => 'O e-mail é obrigatório e deve ser um endereço de e-mail válido',
+        'cpf.min'         => 'O CPF é obrigatório e deve ser um número de CPF válido',
+        'cpf.unique'    => 'Já existe um participante cadastrado com esse CPF',
+        'titulo'        => 'O título é obrigatório',
+        'carga_horaria' => 'A carga horária é obrigatória',
+    ];
 }
