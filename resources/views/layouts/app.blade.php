@@ -13,9 +13,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-            crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
@@ -33,18 +31,12 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset ('css/app.css') }}">
-    <link rel="stylesheet" href="{{asset ('css/main/style.css') }}">
-    <link rel="stylesheet" href="{{asset ('css/main/util.css') }}">
-    <link rel="stylesheet" href="{{asset ('css/layouts/menu.css') }}">
-
 </head>
 <body >
 
 
     <section>
-        @include('layouts.components.header')
+
     </section>
 
     <section>
@@ -52,9 +44,5 @@
             @yield('content')
         </main>
     </section>
-    <section>
-        @include('layouts.components.footer')
-    </section>
-
 </body>
 </html>

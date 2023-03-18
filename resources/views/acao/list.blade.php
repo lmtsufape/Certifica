@@ -1,6 +1,7 @@
 @extends('layouts.components.header')
 
-@section('menu-content')
+
+@section('content-header')
 <!DOCTYPE html>
 <html lang="en">
 <head>

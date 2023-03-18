@@ -1,46 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.components.geral')
 
-@section('content')
-    <form action="{{Route('acao.store')}}" method="POST" enctype="multipart/form-data" >
-        @csrf
+@section('content-geral')
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/css/acoes/create.css">
+        <title>Criar Ação</title>
+    </head>
+    <body>
+        <form class="view-create-acao" action="{{Route('acao.store')}}" method="POST" enctype="multipart/form-data" >
+            @csrf
 
-        <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
+            <input type="hidden" name="usuario_id" value="{}">
+            <input type="hidden" name="unidade_administrativa_id" value="{}">
 
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="titulo">Título da Ação</label>
-                        <input name="titulo" type="text" class="form-control" id="titulo" placeholder="Título">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="data_inicio">Data de início</label>
-                        <input name="data_inicio" type="date" class="form-control" id="data_inicio" placeholder="dd/mm/aaaa">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="data_fim">Data de término</label>
-                        <input name="data_fim" type="date" class="form-control" id="data_fim" placeholder="dd/mm/aaaa">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="acao_natureza">Natureza</label>
-
-                        <select name="natureza_id" id="natureza" class="form-control">
-                            <option value="" selected hidden>Escolher...</option>
-                            @foreach($naturezas as $natureza)
-                                <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-    </form>
+            [menu aqui]
+        </form>
+    </body>
+    </html>
 @endsection

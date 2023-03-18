@@ -28,7 +28,7 @@ use App\Models\UnidadeAdministrativa;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('auth.login');
 })->name('home');
 
 Route::get(
@@ -38,6 +38,7 @@ Route::get(
         Session::flush();
         return redirect(route('home'));
     })->name('login.logout');
+
 
 Route::group(['middleware' => 'checkAdministrador'], function ()
 {
@@ -91,9 +92,10 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
 
 Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 {
+    Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
+
     Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
 
-    Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
     Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
 
     Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
@@ -138,7 +140,7 @@ Route::group(['middleware' => 'checkGestorInstitucional'], function () {
     Route::post('/gestor/acao/update', [AcaoController::class, 'acao_update'])->name('gestor.acao_update');
 });
 
-Route::get('/acao_list', [AcaoController::class, 'list'])->name('acao.list');
+Route::get('/acao/list', [AcaoController::class, 'list'])->name('acao.list');
 
 
 Route::get('/assinatura/create', [AssinaturaController::class, 'create'])->name('assinatura.create');
