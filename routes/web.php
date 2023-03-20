@@ -32,7 +32,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('auth.login');
 });
 
 Route::get(
@@ -93,6 +93,7 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
 
 });
+
 
 Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 {
