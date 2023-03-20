@@ -17,8 +17,8 @@ return new class extends Migration
         {
             $table->id();
             $table->string('img_assinatura');
-            $table->unsignedInteger('usuario_id')->index();
-            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->unsignedInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

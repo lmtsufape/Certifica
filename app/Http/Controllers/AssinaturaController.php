@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Assinatura;
 use App\Http\Requests\StoreAssinaturaRequest;
 use App\Http\Requests\UpdateAssinaturaRequest;
+use App\Models\User;
+use App\Validates\AssinaturaValidator;
+use Illuminate\Validation\ValidationException;
 
 class AssinaturaController extends Controller
 {
@@ -27,7 +30,8 @@ class AssinaturaController extends Controller
      */
     public function create()
     {
-        return view('assinatura.assinatura_create');
+        $users  = User::orderBy('name')->get();
+        return view('assinatura.assinatura_create', ['users' => $users]);
     }
 
     /**
@@ -39,15 +43,23 @@ class AssinaturaController extends Controller
     public function store(StoreAssinaturaRequest $request)
     {
         #TipoNatureza::create($request->all());
+        #validate
+        try {
+            AssinaturaValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('assinatura.create'))->withErrors($exception->validator)->withInput();
+        }
 
+
+        
         $assinatura = new Assinatura();
-
-        $assinatura->usuario_id = $request->usuario_id;
-        $assinatura->img_assinatura = $request->img_assinatura;
-
+        
+        #$ext = $request->img_assinatura->getClientOriginalExtension();
+        $assinatura->user_id = $request->user_id;
+        $assinatura->img_assinatura = $request->img_assinatura->store('public/Assinaturas');
         $assinatura->save();
 
-        return redirect(Route('home'));
+        return redirect(Route('assinatura.show'));
     }
 
     /**

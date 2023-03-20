@@ -40,7 +40,7 @@ class Acao extends Model
         return $this->belongsTo('App\Models\Natureza');
     }
  
-    public function usuario(){
+    public function user(){
         return $this->belongsTo('App\Models\User');
     }
  
