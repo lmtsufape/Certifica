@@ -26,12 +26,15 @@ class HomeController extends Controller
     {
         if(Auth::user()->perfil_id == 1){
             return view('administrador.index'); //admin
-
+            
         } else if(Auth::user()->perfil_id == 2){
             return view('coordenador.index'); //cordenador
-
+            
         } else if (Auth::user()->perfil_id == 3){
             return view('gestor_institucional.index'); //gestor
         }
+        
+        return view('auth.login');
+        
     }
 }
