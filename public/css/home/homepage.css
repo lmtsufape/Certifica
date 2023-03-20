@@ -1,0 +1,47 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.home-page-container{
+    padding: 5vh 0 0 0 ;
+    width: 100%;
+    height: 57.7vh;
+    color: black;
+}
+
+.form-homepage{
+    border: 1px solid black;
+    width: 60vh;
+    height: 50vh;
+    padding: 54px 60px;
+}
+
+.input-home-form{
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 100%;
+    font-size: 12px;
+    height: 40px;
+    margin: 0 0 15px 0;
+}
+.button-homepage{
+    border: 1px solid transparent;
+    background: #972E3F;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    width: 100%;
+    height: 40px;
+}
+.container-text-homeform{
+    width: 100%;
+}
+
+.text-homepage{
+    font-size: 14px;
+}
+
+.esqueceu-senha-link{
+    color: #303030;
+}

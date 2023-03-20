@@ -41,18 +41,21 @@
 
 <body>
     <div class="header-container d-flex flex-row-reverse align-items-end">
-        <div>
-            <img class="seta-icon" src="/images/acoes/create/seta.svg" alt="">
-        </div>
-        <div class="nome-user">
-            Olá, nome
-        </div>
-        <div>
-            <img class="profile-icon" src="/images/acoes/create/profile.svg" alt="">
-        </div>
-        <div>
-            <img class="sino-icon" src="/images/acoes/create/sino.svg" alt="">
-        </div>
+        @if(Auth::check())
+            <div>
+                <img class="seta-icon" src="/images/acoes/create/seta.svg" alt="">
+            </div>
+                <div class="nome-user">
+                    Olá, {{Auth::user()->name}}
+                </div>
+            
+            <div>
+                <img class="profile-icon" src="/images/acoes/create/profile.svg" alt="">
+            </div>
+            <div>
+                <img class="sino-icon" src="/images/acoes/create/sino.svg" alt="">
+            </div>
+        @endif
     </div>
 
 
