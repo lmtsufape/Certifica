@@ -1,7 +1,8 @@
-@extends('layouts.components.geral')
+@extends('layouts.app')
 
 
-@section('content-geral')
+
+@section('content')
     <!DOCTYPE html>
     <html lang="en">
     <head>
