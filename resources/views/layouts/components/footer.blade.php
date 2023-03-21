@@ -17,14 +17,14 @@
                 </div>
 
                 <div class="col-md-12 d-flex flex-row" style="margin-bottom: 1rem;">
-                        <div class="col-5">
-                            <a href="http://ufape.edu.br/" target="_blank"><img
-                                    src="{{ asset('images/layouts/footer/ufape.svg') }}" alt="Logo" width="44px;" height="67px;" style="float: right"></a>
-                        </div>
-                        <div class="col-5">
-                            <a href="http://lmts.uag.ufrpe.br/" target="_blank"><img
-                                    src="{{ asset('images/layouts/footer/lmts.svg') }}" alt="Logo" width="54px"></a>
-                        </div>
+                    <div class="col-5">
+                        <a href="http://ufape.edu.br/" target="_blank"><img
+                                src="{{ asset('images/layouts/footer/ufape.svg') }}" alt="Logo" width="44px;" height="67px;" style="float: right"></a>
+                    </div>
+                    <div class="col-5">
+                        <a href="http://lmts.uag.ufrpe.br/" target="_blank"><img
+                                src="{{ asset('images/layouts/footer/lmts.svg') }}" alt="Logo" width="54px"></a>
+                    </div>
                 </div>
 
             </div>
@@ -37,7 +37,7 @@
                         <a href="mailto:lmts@ufape.br" class="text-icons">
                             <img idth="18px" height="15px" src="{{asset('images/layouts/footer/mail.svg')}}">
                             lmts@ufape.edu.br
-                            </a>
+                        </a>
                     </div>
                     <div class="text-icons d-flex aling-self-start">
                         <a href="https://www.instagram.com/lmts_ufape/" target="_blank" class="text-icons">
@@ -59,5 +59,3 @@
         </div>
     </div>
 </footer>
-
-
