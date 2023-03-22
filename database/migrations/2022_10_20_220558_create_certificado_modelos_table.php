@@ -15,11 +15,9 @@ return new class extends Migration
     {
         Schema::create('certificado_modelos', function (Blueprint $table) {
             $table->id();
-            $table->string('texto_posicao');
-            $table->string('data_posicao');
-            $table->string('assinatura_direita');
-            $table->string('assinatura_esquerda');
-
+            $table->string('descricao');
+            $table->string('imagem');
+            $table->text('texto');
             $table->unsignedInteger('unidade_administrativa_id')->index();
             $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
