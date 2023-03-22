@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\CertificadoModelo;
 use App\Http\Requests\StoreCertificadoModeloRequest;
 use App\Http\Requests\UpdateCertificadoModeloRequest;
+use App\Models\UnidadeAdministrativa;
+use App\Validates\CertificadoModeloValidator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
+
 
 class CertificadoModeloController extends Controller
 {
@@ -16,7 +21,7 @@ class CertificadoModeloController extends Controller
     public function index()
     {
         $certificado_modelos = CertificadoModelo::query()->get();
-        return view('certificado_modelo.certificado_modelo_consult',['certificado_modelos' => $certificado_modelos]);
+        return view('certificado_modelo.certificado_modelo_index',['certificado_modelos' => $certificado_modelos]);
 
     }
 
@@ -27,7 +32,8 @@ class CertificadoModeloController extends Controller
      */
     public function create()
     {
-        return view('certificado_modelo.certificado_modelo_create');
+        $unidades = UnidadeAdministrativa::orderBy('descricao')->get();
+        return view('certificado_modelo.certificado_modelo_create', ['unidades'=>$unidades]);
     }
 
     /**
@@ -39,18 +45,24 @@ class CertificadoModeloController extends Controller
     public function store(StoreCertificadoModeloRequest $request)
     {
         #TipoNatureza::create($request->all());
+        #validate  
+        try {
+            CertificadoModeloValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('certificado_modelo.create'))->withErrors($exception->validator)->withInput();
+        }
 
         $certificado_modelo = new CertificadoModelo();
 
-        $certificado_modelo->unidade_administrativa_id = $request->unidade_administrativa_id;
-        $certificado_modelo->assinatura_esquerda = $request->assinatura_esquerda;
-        $certificado_modelo->assinatura_direita = $request->assinatura_direita;
-        $certificado_modelo->data_posicao = $request->data_posicao;
-        $certificado_modelo->texto_posicao = $request->texto_posicao;
-
+        $certificado_modelo->unidade_administrativa_id  = $request->unidade_adm;
+        $certificado_modelo->descricao                  = $request->descricao;
+        $certificado_modelo->texto                      = $request->texto;
+        $certificado_modelo->imagem                     = $request->imagem->store('public/modelos');
+   
         $certificado_modelo->save();
 
-        return redirect(Route('home'));
+        $certificado_modelos = CertificadoModelo::all();
+        return redirect(route('certificado_modelo.index'))->with(['mensagem'=>'Modelo de certificado cadastrado com sucesso']);                  
     }
 
     /**
@@ -59,10 +71,12 @@ class CertificadoModeloController extends Controller
      * @param  \App\Models\Assinatura  $assinatura
      * @return \Illuminate\Http\Response
      */
-    public function show(CertificadoModelo $certificado_modelo)
+    public function show($id)
     {
-        $certificado_modelos = CertificadoModelo::query()->get();
-        return view('certificado_modelo.certificado_modelo_consult',['certificado_modelos' => $certificado_modelos]);
+        $modelo = CertificadoModelo::find($id);
+        $img    = Storage::url($modelo->imagem);
+        
+        return view('certificado_modelo.certificado_modelo_show',['modelo' => $modelo, 'imagem' =>  $img]);
     }
 
     /**
@@ -72,9 +86,12 @@ class CertificadoModeloController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $certificado_modelo = CertificadoModelo::query()->findOrFail($id);
-        return view('certificado_modelo.certificado_modelo_edit', ['certificado_modelo' => $certificado_modelo]);
+    {                     
+        $unidades = UnidadeAdministrativa::orderBy('descricao')->get();
+        $modelo = CertificadoModelo::find($id);
+        $img    = Storage::url($modelo->imagem);
+        
+        return view('certificado_modelo.certificado_modelo_edit',['modelo' => $modelo, 'imagem' =>  $img, 'unidades'=>$unidades]);
     }
 
     /**
@@ -86,18 +103,29 @@ class CertificadoModeloController extends Controller
      */
     public function update(UpdateCertificadoModeloRequest $request, $id)
     {
-        $certificado_modelo = CertificadoModelo::query()->findOrFail($id);
-        
-        $certificado_modelo->update([
-            'data_posicao' => $request->data_posicao,
-            'assinatura_direita' => $request->assinatura_direita,
-            'assinatura_esquerda' => $request->assinatura_esquerda,
-            'unidade_administrativa_id' => $request->unidade_administrativa_id,
-            'texto_posicao' => $request->texto_posicao
+        try {
+            if(isset($request->imagem)){
+                CertificadoModeloValidator::validate($request->all());
+            }else{
+                CertificadoModeloValidator::validate($request->all(), CertificadoModelo::$edit_rules);
+            }
+        } catch (ValidationException $exception) {
+            return redirect(route('certificado_modelo.edit', ['id'=>$id]))->withErrors($exception->validator)->withInput();
+        }
 
-        ]);
+        $modelo = CertificadoModelo::find($id);
         
-        return redirect(Route('home'));
+        if(isset($request->imagem)){ //caso a imagem tenha sido mudada
+            $modelo->imagem = $request->imagem->store('public/modelos');
+        }
+
+        $modelo->unidade_administrativa_id = $request->unidade_adm;
+        $modelo->descricao                 = $request->descricao;
+        $modelo->texto                     = $request->texto;
+
+        $modelo->save();
+
+        return redirect(route('certificado_modelo.index'))->with(['mensagem'=>"Modelo atualizado com sucesso"]);
     }
 
     /**
@@ -112,6 +140,13 @@ class CertificadoModeloController extends Controller
 
         $certificado_modelo->delete();
 
-        return redirect(Route('home'));
+        return redirect(Route('certificado_modelo.index'))->with(['mensagem' => 'Modelo excluido com sucesso']);
+    }
+
+    public function showImg($id){
+        $modelo = CertificadoModelo::find($id);
+        $img    = Storage::url($modelo->imagem);
+        
+        return view('certificado_modelo.certificado_modelo_img',['modelo' => $modelo, 'imagem' =>  $img]);
     }
 }
