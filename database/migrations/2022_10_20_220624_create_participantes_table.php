@@ -17,8 +17,8 @@ return new class extends Migration
         {
             $table->id();
             $table->string('nome');
-            $table->string('email')->unique();
-            $table->string('cpf')->unique();
+            $table->string('email');
+            $table->string('cpf');
             $table->string('titulo')->nullable();
             $table->integer('carga_horaria');
 
