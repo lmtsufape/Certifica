@@ -32,13 +32,17 @@
         @endif
     </div>
 
-
-    <div style="border-block-end: #949494 2px solid; padding-block-end: 5px; margin-block-end: 10px">
-        <h2>Ações <a class="btn btn-primary" href="{{ route('acao.create') }}"
-                    role="button">Cadastrar</a> </h2>
+    <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+        <h2>Ações</h2>
     </div>
-    <table class="table">
-        <thead class="thead-dark">
+    <div class='row justify-content-end' style="padding-bottom: 5px; margin-bottom: 10px">
+        <div class='col col-1'>
+            <a href="{{route('acao.create')}}" class="btn btn-success">Cadastrar</a>
+        </div>
+    </div>
+
+    <table class="table table-hover table-responsive-md">
+        <thead style="background-color: #151631; color: white; border-radius: 15px">
         <tr>
             <th scope="col">#</th>
             <th scope="col">Título</th>
@@ -46,8 +50,10 @@
             <th scope="col">data fim</th>
             <th scope="col">Status</th>
             <th scope="col">Ação ID</th>
+            <th scope="col">Ações</th>
         </tr>
         </thead>
+
         <tbody>
         @foreach($acaos as $acao)
             <tr>
@@ -62,30 +68,15 @@
                 @endif
                 <td>{{ $acao->id }}</td>
                 <td>
-                    <div class="dropdown">
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
-                        </div>
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('acao.delete', ['acao_id' => $acao->id]) }}">Apagar</a>
-                        </div>
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">Nova Atividade</a>
-                        </div>
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">Atividades</a>
-                        </div>
+                    <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
+                    <a class="btn btn-danger" href ="{{ route('acao.delete', ['acao_id' => $acao->id]) }}">Apagar</a>
+                    <a class="btn btn-primary" href ="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">Atividades</a>
 
-                        @if($acao->status == null)
-                            <div>
-                                <a class="dropdown-item" href ="{{ route('acao.submeter', ['acao_id' => $acao->id]) }}">Submeter</a>
-                            </div>
-                        @else
-                            <div>
-                                <a class="dropdown-item"> Submetida </a>
-                            </div>
-                        @endif
-                    </div>
+                    @if($acao->status == null)
+                        <a class="btn btn-success" href ="{{ route('acao.submeter', ['acao_id' => $acao->id]) }}">Submeter</a>
+                    @else
+                        <a class="btn btn-warning"> Submetida </a>
+                    @endif
                 </td>
             </tr>
         @endforeach
