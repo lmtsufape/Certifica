@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('descricao');
             $table->string('imagem');
             $table->text('texto');
-            $table->unsignedInteger('unidade_administrativa_id')->index();
+            $table->unsignedInteger('unidade_administrativa_id')->nullable()->index();
             $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
 

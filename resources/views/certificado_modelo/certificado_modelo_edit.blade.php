@@ -47,6 +47,7 @@
                     <div class="form-group">
                         <label for="unidade_adm">Unidade Administrativa</label>
                         <select name="unidade_adm" id="unidade_adm" class="form-select">
+                            <option value='' selected></option>
                             @foreach($unidades as $unidade)
                                 @if($unidade->id === $modelo->unidade_administrativa_id)
                                     <option value='{{$unidade->id}}' selected>{{$unidade->descricao}}</option>
@@ -58,7 +59,7 @@
                     </div>
                     <div class="row justify-content-end" style='margin-top: 5px;'>
                         <div class="col-2">
-                            <button type="submit" class="btn btn-primary">Atualizar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                         <div class="col-2">
                             <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}" class='btn btn-primary' style='margin-left: 10px'>Voltar</a>

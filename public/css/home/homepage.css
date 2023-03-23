@@ -13,8 +13,7 @@
 .form-homepage{
     border: 1px solid black;
     width: 60vh;
-    height: 50vh;
-    padding: 54px 60px;
+    padding: 20px 60px;
 }
 
 .input-home-form{
@@ -24,6 +23,7 @@
     font-size: 12px;
     height: 40px;
     margin: 0 0 15px 0;
+    padding-left: 10px;
 }
 .button-homepage{
     border: 1px solid transparent;

@@ -32,7 +32,7 @@
             @foreach($certificado_modelos as $modelo)
             <tr>
                 <td>{{$modelo->descricao}}</td>
-                <td>{{$modelo->unidadeAdministrativa->descricao}}</td>
+                <td>@if($modelo->unidadeAdministrativa) {{$modelo->unidadeAdministrativa->descricao}} @endif</td>
                 <td>
                     <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}" class="btn btn-sm btn-outline-secondary">Detalhes</a>
                     <a href="{{route('certificado_modelo.delete', ['id' => $modelo->id])}}" class="btn btn-sm btn-outline-danger">Excluir</a>

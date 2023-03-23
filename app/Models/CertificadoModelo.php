@@ -25,7 +25,6 @@ class CertificadoModelo extends Model
     public static $edit_rules = [
         'descricao'                     => 'required',
         'texto'                         => 'required',
-        'unidade_administrativa_id'     => 'required',
     ];
 
     public static $messages = [
@@ -33,7 +32,6 @@ class CertificadoModelo extends Model
         'imagem.required'                 => 'A imagem de fundo é obrigatória',
         'imagem.image'                    => 'A imagem de fundo deve ser um arquivo do tipo imagem',
         'texto.*'                         => 'O texto padrão é obrigatório',
-        'unidade_administrativa_id.*'     => 'O certificado deve estar vinculado a uma únidade adiministrativa', 
     ];
 
 
