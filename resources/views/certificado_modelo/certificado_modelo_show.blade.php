@@ -29,7 +29,7 @@
                     
                     <div class="form-group">
                         <label for="nome">Descrição:</label>
-                        <input name="descricao" type="text" class="form-control" id="descricao" value="{{$modelo->descricao}}">
+                        <input name="descricao" type="text" class="form-control" id="descricao" value="{{$modelo->descricao}}" disabled>
                     </div>
                     
                     <div class="form-group">
@@ -41,7 +41,7 @@
                     
                     <div class="form-group">
                         <label for="texto">Texto padrão:</label>
-                        <textarea  name="texto" type="text" class="form-control" id="texto" rows='5'>{{$modelo->texto}}</textarea>
+                        <textarea  name="texto" type="text" class="form-control" id="texto" rows='5' disabled>{{$modelo->texto}}</textarea>
                     </div>
                     
 
