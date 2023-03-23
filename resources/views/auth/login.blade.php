@@ -1,14 +1,10 @@
 @extends('layouts.app')
 
-
+@section('css')
+<link rel="stylesheet" href="/css/home/homepage.css">
+@endsection
 
 @section('content')
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Entrar</title>
-        <link rel="stylesheet" href="/css/home/homepage.css">
-    </head>
     <section class="container d-flex flex-row justify-content-center align-items-center home-page-container">
         <form class="form-homepage" method="POST" action="{{route('login') }}">
             @csrf
@@ -29,13 +25,13 @@
                 placeholder="Digite sua senha"
                 autofocus
             id="">
+            <div>
+                <button class="button-homepage" type="submit">Entrar</button>
+            </div>
             <div class="container-text-homeform">
                 <a class="esqueceu-senha-link" href="{{ route('password.request') }}">
                     <p class="text-end text-homepage">Esqueceu sua senha ?</p>
                 </a>
-            </div>
-            <div>
-                <button class="button-homepage" type="submit">Entrar</button>
             </div>
             <div class="container-text-homeform">
                 <p class="text-homepage">Não possui conta? <a class="criar-conta-link" href="{{ route('register') }}">Criar Conta</a></p>
