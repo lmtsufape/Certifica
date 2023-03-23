@@ -31,6 +31,7 @@ class User extends Authenticatable
         'email',
         'password',
         'perfil_id',
+        'cpf',
     ];
 
     /**
