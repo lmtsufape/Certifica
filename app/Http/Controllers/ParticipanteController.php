@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Participante;
 use Illuminate\Http\Request;
@@ -20,9 +21,11 @@ class ParticipanteController extends Controller
     public function index($atividade_id)
     {
         $participantes = Participante::all()->where('atividade_id', $atividade_id)->sortBy('id');
-        $atividade = Atividade::find($atividade_id);
+        $atividade = Atividade::findOrFail($atividade_id);
+        $acao = Acao::findOrFail($atividade->acao_id);
 
-        return view('participante.participante_index', ['participantes' => $participantes, 'atividade' => $atividade]);
+        return view('participante.participante_index', ['participantes' => $participantes, 'atividade' => $atividade,
+                                                            'acao' => $acao]);
     }
 
     /**
@@ -40,7 +43,7 @@ class ParticipanteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreParticipanteRequest  $request
+     * @param \App\Http\Requests\StoreParticipanteRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +52,7 @@ class ParticipanteController extends Controller
             ParticipanteValidator::validate($request->all());
         } catch (ValidationException $exception) {
             return redirect(route('participante.create', ['atividade_id' => $request->atividade_id]))
-                            ->withErrors($exception->validator)->withInput();
+                ->withErrors($exception->validator)->withInput();
         }
 
 
@@ -57,13 +60,13 @@ class ParticipanteController extends Controller
 
 
         return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
-                                ->with(['mensagem' => 'Participante cadastrado com sucesso']);
+            ->with(['mensagem' => 'Participante cadastrado com sucesso']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Participante  $participante
+     * @param \App\Models\Participante $participante
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -74,7 +77,7 @@ class ParticipanteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Participante  $participante
+     * @param \App\Models\Participante $participante
      * @return \Illuminate\Http\Response
      */
     public function edit($participante_id)
@@ -89,8 +92,8 @@ class ParticipanteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateParticipanteRequest  $request
-     * @param  \App\Models\Participante  $participante
+     * @param \App\Http\Requests\UpdateParticipanteRequest $request
+     * @param \App\Models\Participante $participante
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -98,8 +101,8 @@ class ParticipanteController extends Controller
         try {
             ParticipanteValidator::validate($request->all(), Participante::$editRules);
         } catch (ValidationException $exception) {
-            return redirect(route('participante.edit', ['participante_id'=>$request->id]))
-                            ->withErrors($exception->validator)->withInput();
+            return redirect(route('participante.edit', ['participante_id' => $request->id]))
+                ->withErrors($exception->validator)->withInput();
         }
 
         $participante = Participante::findOrFail($request->id);
@@ -114,13 +117,13 @@ class ParticipanteController extends Controller
         $participante->update();
 
         return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
-                        ->with(['mensagem' =>'Participante editado com sucesso']);
+            ->with(['mensagem' => 'Participante editado com sucesso']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Participante  $participante
+     * @param \App\Models\Participante $participante
      * @return \Illuminate\Http\Response
      */
     public function delete($participante_id)

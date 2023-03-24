@@ -6,15 +6,19 @@
 
 @section('content')
     <div class='container'>
-        <div class="row">   
+        <div class="row">
             @if($errors->any())
                 <dic class="alert alert-danger">
                     @foreach ($errors->all() as $error)
                         <li>{{$error}}</li>
-                    @endforeach    
+                    @endforeach
                 </dic>
             @endif
         </div>
+    </div>
+
+    <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+        <h2>Ações</h2>
     </div>
 
     <form action="{{route('acao.update')}}" method="POST" enctype="multipart/form-data">
@@ -57,7 +61,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                    <button type="submit" class="btn btn-success">Atualizar</button>
                 </div>
             </div>
             <div class="col-md-3"></div>
