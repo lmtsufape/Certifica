@@ -5,43 +5,42 @@
 @endsection
 
 @section('content')
-    <div style="border-block-end: #949494 2px solid; padding-block-end: 5px; margin-block-end: 10px">
-        <h2>Unidades Administrativas <a class="btn btn-primary" href="{{ route('unidade_administrativa.create') }}"
-                                        role="button">Cadastrar</a> </h2>
+    <div class="container">
+        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+            <h2>Unidades Administrativas</h2>
+        </div>
+        <div class='row justify-content-end' style="padding-bottom: 5px; margin-bottom: 10px">
+            <div class='col col-1'>
+                <a href="{{route('unidade_administrativa.create')}}" class="btn btn-success">Cadastrar</a>
+            </div>
+        </div>
 
-    </div>
-
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">ID</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        @foreach($unidade_administrativas as $unidade_administrativa)
+        <table class="table table-hover table-responsive-md">
+            <thead style="background-color: #151631; color: white; border-radius: 15px">
             <tr>
-                <td></td>
-                <td>{{ $unidade_administrativa->descricao }}</td>
-
-                <td>{{ $unidade_administrativa->id }}</td>
-
-                <td>
-                    <div class="dropdown">
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('unidade_administrativa.edit', ['unidade_administrativa_id' => $unidade_administrativa->id]) }}">Editar</a>
-                        </div>
-                        <div>
-                            <a class="dropdown-item" href ="{{ route('unidade_administrativa.delete', ['unidade_administrativa_id' => $unidade_administrativa->id]) }}">Apagar</a>
-                        </div>
-                    </div>
-                </td>
+                <th scope="col"></th>
+                <th scope="col">Descrição</th>
+                <th scope="col"></th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
 
+            <tbody>
+            @foreach($unidade_administrativas as $unidade_administrativa)
+                <tr>
+                    <td></td>
+                    <td>{{ $unidade_administrativa->descricao }}</td>
+
+                    <td>
+                        <a class="btn btn-secondary"
+                           href="{{ route('unidade_administrativa.edit', ['unidade_administrativa_id' => $unidade_administrativa->id]) }}">Editar</a>
+
+                        <a class="btn btn-danger"
+                           href="{{ route('unidade_administrativa.delete', ['unidade_administrativa_id' => $unidade_administrativa->id]) }}">Apagar</a>
+
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection
