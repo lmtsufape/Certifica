@@ -32,9 +32,10 @@
             @endif
         </div>
 
-        <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
             <h2>Ações</h2>
         </div>
+
         <div class='row justify-content-end' style="padding-bottom: 5px; margin-bottom: 10px">
             <div class='col col-1'>
                 <a href="{{route('acao.create')}}" class="btn btn-success">Cadastrar</a>
@@ -44,13 +45,12 @@
         <table class="table table-hover table-responsive-md">
             <thead style="background-color: #151631; color: white; border-radius: 15px">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Título</th>
                 <th scope="col">Data início</th>
                 <th scope="col">data fim</th>
-                <th scope="col">Status</th>
-                <th scope="col">Ação ID</th>
-                <th scope="col">Ações</th>
+                <th class="text-center" scope="col">Ações</th>
+                <th class="text-center" scope="col">Status</th>
             </tr>
             </thead>
 
@@ -61,21 +61,18 @@
                     <td>{{ $acao->titulo }}</td>
                     <td>{{ $acao->data_inicio }}</td>
                     <td>{{ $acao->data_fim }}</td>
-                    @if($acao->status == 0)
-                        <td> Ativo </td>
-                    @else
-                        <td> Inativo </td>
-                    @endif
-                    <td>{{ $acao->id }}</td>
-                    <td>
-                        <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
-                        <a class="btn btn-danger" href ="{{ route('acao.delete', ['acao_id' => $acao->id]) }}">Apagar</a>
+                    <td class="text-center">
+                        @if($acao->status == null)
+                            <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
+                            <a class="btn btn-danger" href ="{{ route('acao.delete', ['acao_id' => $acao->id]) }}">Apagar</a>
+                        @endif
                         <a class="btn btn-primary" href ="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">Atividades</a>
-
+                    </td>
+                    <td class="text-center">
                         @if($acao->status == null)
                             <a class="btn btn-success" href ="{{ route('acao.submeter', ['acao_id' => $acao->id]) }}">Submeter</a>
                         @else
-                            <a class="btn btn-warning"> Submetida </a>
+                            <a class="btn btn-warning">{{ $acao->status }}</a>
                         @endif
                     </td>
                 </tr>

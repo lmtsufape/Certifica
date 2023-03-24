@@ -139,7 +139,7 @@ class AcaoController extends Controller
         $acao = Acao::findOrFail($acao_id);
 
         if($acao->atividades()->first()){
-            return redirect(route('acao.index'))->with(['error_mensage' => 'A ação no pode ser excluída. 
+            return redirect(route('acao.index'))->with(['error_mensage' => 'A ação no pode ser excluída.
                                                                 Existe uma ou mais atividades vinculadas a ação.']);
         }
 
@@ -179,9 +179,9 @@ class AcaoController extends Controller
     {
         $acao = Acao::findOrFail($request->id);
 
-        if($request->action == 'negar')
+        if($request->action == 'reprovar')
         {
-           $status = 'Negada';
+           $status = 'Reprovada';
         } else
         {
             $status = 'Aprovada';
