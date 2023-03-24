@@ -14,26 +14,30 @@
         @endif
     </div>
 
-    <div class='row justify-content-center'>
-        <h2 class='col-5'>CADASTRAR TIPO DE NATUREZA</h2>
+    <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+        <h2>Cadastrar Tipo de Natureza</h2>
     </div>
+
     <div>
         <form action="{{Route('tipo_natureza.store')}}" method="POST" enctype="multipart/form-data" >
-            @csrf 
-            <div class="row justify-content-center">
+            @csrf
+            <div class="row">
+                <div class="col-md-3"></div>
+
                 <div class="col-6">
-                    <div class="row form-group">
-                        <label class='form-label' for="descricao">Descrição</label>
-                        <div class='col-10'>
-                            <input name="descricao" type="text" class="form-control col-4" id="descricao" placeholder="Descricao...">
-                        </div>
-                        <div class='col-2'>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <div class="form-row">
+                        <div class="form-gorup">
+                            <label class='form-label' for="descricao">Descrição</label>
+                            <div class='col-10'>
+                                <input name="descricao" type="text" class="form-control col-4" id="descricao" placeholder="Descricao...">
+                            </div>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
                         </div>
                     </div>
-                      
+
                 </div>
-                
+
+                <div class="col-md-3"></div>
             </div>
         </form>
     </div>
