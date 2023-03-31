@@ -125,6 +125,8 @@ header{
 }
 
 footer{
+    position: fixed;
+    bottom: 0px;
     height: 140px;
     display: flex;
     flex-direction: row;
