@@ -13,19 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('certificados', function (Blueprint $table) 
+        Schema::create('certificados', function (Blueprint $table)
         {
             $table->id();
-            $table->string('logo');
             $table->string('texto');
             $table->string('img_fundo');
-            $table->string('assinatura_esquerda');
-
+            $table->date('data_inicio');
+            $table->date('data_fim')->nullable();
+            $table->string('cpf_participante');
             $table->unsignedInteger('atividade_id')->index();
             $table->foreign('atividade_id')->references('id')->on('atividades');
-            $table->unsignedInteger('certificado_modelo_id')->index();
-            $table->foreign('certificado_modelo_id')->references('id')->on('certificado_modelos');
-            
+
             $table->timestamps();
         });
     }

@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Atividade;
 use App\Models\Certificado;
 use App\Http\Requests\StoreCertificadoRequest;
 use App\Http\Requests\UpdateCertificadoRequest;
+use App\Models\CertificadoModelo;
+use App\Models\Participante;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CertificadoController extends Controller
 {
@@ -15,8 +20,6 @@ class CertificadoController extends Controller
      */
     public function index()
     {
-        $certificados = Certificado::query()->get();
-        return view('certificado.certificado_consult',['certificados' => $certificados]);
 
     }
 
@@ -25,9 +28,23 @@ class CertificadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function gerar_certificado($participante_id)
     {
-        return view('certificado.certificado_create');
+        $modelo = CertificadoModelo::findOrFail(2);
+        $participante = Participante::findOrFail($participante_id);
+        $atividade = Atividade::findOrFail($participante->atividade_id);
+
+        $nomePDF = '';
+        $pdf = null;
+
+        $data_inicio = date('d/m/Y', strtotime($atividade->data_inicio));
+        $data_fim = date('d/m/Y', strtotime($atividade->data_fim));
+
+        $pdf = Pdf::loadView('/certificado/gerar_certificado');
+
+        $nomePDF = 'certificado.pdf';
+
+        return $pdf->setPaper('a4')->stream($nomePDF);
     }
 
     /**
@@ -38,20 +55,7 @@ class CertificadoController extends Controller
      */
     public function store(StoreCertificadoRequest $request)
     {
-        #Certificado::create($request->all());
 
-        $certificado = new Certificado();
-
-        $certificado->atividade_id = $request->atividade_id;
-        $certificado->certificado_modelo_id = $request->certificado_modelo_id;
-        $certificado->assinatura_esquerda = $request->assinatura_esquerda;
-        $certificado->img_fundo = $request->img_fundo;
-        $certificado->texto = $request->texto;
-        $certificado->logo = $request->logo;
-
-        $certificado->save();
-
-        return redirect(Route('home'));
     }
 
     /**
@@ -62,8 +66,6 @@ class CertificadoController extends Controller
      */
     public function show(Certificado $certificado)
     {
-        $certificados = Certificado::query()->get();
-        return view('certificado.certificado_consult',['certificados' => $certificados]);
     }
 
     /**
@@ -74,8 +76,6 @@ class CertificadoController extends Controller
      */
     public function edit($id)
     {
-        $certificado = Certificado::query()->findOrFail($id);
-        return view('certificado.certificado_edit', ['certificado' => $certificado]);
     }
 
     /**
@@ -87,19 +87,6 @@ class CertificadoController extends Controller
      */
     public function update(UpdateCertificadoRequest $request, $id)
     {
-        $certificado = Certificado::query()->findOrFail($id);
-        
-        $certificado->update([
-            'atividade_id' => $request->atividade_id,
-            'certificado_modelo_id' => $request->certificado_modelo_id,
-            'assinatura_esquerda' => $request->assinatura_esquerda,
-            'img_fundo' => $request->img_fundo,
-            'texto' => $request->texto,
-            'logo' => $request->logo
-
-        ]);
-        
-        return redirect(Route('home'));
     }
 
     /**
@@ -110,10 +97,5 @@ class CertificadoController extends Controller
      */
     public function destroy($id)
     {
-        $certificado = Certificado::query()->findOrFail($id);
-
-        $certificado->delete();
-
-        return redirect(Route('home'));
     }
 }
