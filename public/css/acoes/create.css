@@ -1,4 +1,116 @@
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
 .view-create-acao{
-    height: 57vh;
+    height: 60vh;
+}
+
+/*Spacing vars*/
+.spacing-row1{
+    margin: 0 12px 0 0;
+}
+.spacing-row2{
+    margin: 0 8px 0 0;
+}
+.spacing-row3{
+    margin: 0 15px 0 0;
+}
+
+/*Bootstrap*/
+.row{
+    margin: 20px 0 0 0;
+}
+/*gerais estrutura*/
+.form{
+    height: 40vh;
+    width: 55%;
+    padding: 5px;
+}
+.input-create-box{
+    border: 1px solid #CFCFCF;
+    border-radius: 5px;
+    height: 6vh;
+}
+.observacoes-input{
+    margin: -15px 0 0 -55px;
+    height: 90%;
+    background-color: transparent;
+}
+.input-create-box-3{
+    border: 1px solid #CFCFCF;
+    border-radius: 5px;
+    height: 12vh;
+}
+.tittle-input{
+    position: relative;
+    bottom: 20px;
+    left: 15px;
+    height: max-content;
+    font-size: 14px;
+    background-color: white;
+    padding: 0 2px;
+    color: #303030;
+}
+.tittle-input-2{
+    position: relative;
+    bottom: 20px;
+    left: 20px;
+    height: max-content;
+    font-size: 14px;
+    background-color: white;
+    padding: 0 2px;
+    color: #303030;
+}
+.select-form{
+    width: 75%;
+    border: none;
+    height: 100%;
+    text-align: start;
+    margin: 0 0 0 -45px;
+}
+input{   
+    font: 16px;
+    margin: 5px 0 0 -15px;
+    border: none;
+}
+.input-nprocesso{
+    margin: 5px 0 0 -55px;
+}
+.input-nedital{
+    margin: 5px 0 0 -35px;
+}
+input:focus,.select-form:focus{
+    box-shadow: 0 0 0 0;
+    border: none;
+    outline: 0;
+}
+
+.submit{
+    background: #009846;
+    border: 1px solid #009846;
+    border-radius: 10px;
+    width: 170px;
+    height: 40px;
+    color: white;
+    margin: 0;
+}
+
+.cancel{
+    background: white;
+    border-radius: 10px;
+    width: 170px;
+    height: 40px;
+    border: 0.5px solid #9B979E;
+    text-decoration: none;
+    color: black;
+       
+}
+.cancel:hover {
+    color: black;
 }
