@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/*bootstrap manipulation*/
+.row{
+    width: 100%; 
+    height: 100%;
+}
+.col{
+    height: 100%;
+}
+
+/*gerais view*/
+
+.box-coordenador-index{
+    padding: 50px 0px 50px 80px;
+}
+.index-coordenador-view {
+    height: 55vh;
+    width: 100%;
+    border-top: 1px solid rgba(48, 48, 48, 0.28);
+}
+
+.box-opt{
+    width: 150px;
+    height: 168px;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 0 20px 0 0;
+}
+.padding-listar{
+    padding: 40px 0 0 0;
+}
+
+.icon-opt{
+    width: 50%;
+}
+
+.link-opt{
+    text-decoration: none;
+    color: #972E3F;
+}
+.link-opt:hover{
+    color: #972E3F;
+}
+/*Box infos coordenador*/
+.icon-titulo{
+    width: 20px;
+    margin: 0 10px 0 0;
+}
+.box-infos{
+    border-radius: 10px;
+    width: 50%;
+    height: 45%;
+    font-weight: bold;
+}
+.tittle-box{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #972E3F;
+    color: white;
+}
+.square{
+    width: 73px;
+    height: 53px;
+}
+.aprovado{
+    background-color: #EDFDF3;
+}
+.analise{
+    background-color: #F3F4F8;
+}
+.devolvido{
+    background-color: #FFE3EC;
+}
+
