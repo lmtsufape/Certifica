@@ -58,7 +58,7 @@
                                    href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">Apagar</a>
                             @endif
                         @elseif($acao->status == "Aprovada")
-                            <a class="btn btn-success"
+                            <a class="btn btn-success" target="_blank"
                                href="{{ route('participante.certificado', ['participante_id' => $participante->id]) }}">Certificado</a>
                         @endif
                     </td>

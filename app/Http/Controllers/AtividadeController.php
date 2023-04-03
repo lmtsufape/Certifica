@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreAtividadeRequest;
 use App\Http\Requests\UpdateAtividadeRequest;
 use App\Validates\AtividadeValidator;
-use Illuminate\Validation\ValidationException; 
+use Illuminate\Validation\ValidationException;
 
 class AtividadeController extends Controller
 {
@@ -34,7 +34,7 @@ class AtividadeController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
         $descricoes = ['Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-                        'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
+                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
 
 
         return view('atividade.atividade_create', ['acao' => $acao, 'descricoes' => $descricoes]);
