@@ -129,6 +129,8 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::post('/participante/update', [ParticipanteController::class, 'update'])->name('participante.update');
 
     Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
+
+    Route::get('/participante/certificado{participante_id}', [CertificadoController::class, 'gerar_certificado'])->name('participante.certificado');
 });
 
 Route::group(['middleware' => 'checkGestorInstitucional'], function () {

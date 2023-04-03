@@ -8,7 +8,7 @@
     <section class="container d-flex flex-row justify-content-center align-items-center home-page-container">
         <form class="form-homepage" method="POST" action="{{route('login') }}">
             @csrf
-            <h4 class="text-center">Titulo</h4>
+            <h4 class="text-center">Login</h4>
 
             <input
                 class="input-home-form"
