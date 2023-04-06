@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title')
-    Ações
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/list.css">
 @endsection
 
 @section('content')
@@ -32,52 +32,88 @@
             @endif
         </div>
 
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Ações</h2>
-        </div>
+        <section class="view-list-acoes">
 
-        <div class='row justify-content-end' style="padding-bottom: 5px; margin-bottom: 10px">
-            <div class='col col-1'>
-                <a href="{{route('acao.create')}}" class="btn btn-success">Cadastrar</a>
+            <div class="container">
+
+                <div class="row d-flex align-items-center justify-content-end">
+                    <a class="criar-acao-button" href={{ route('acao.create') }}>
+                        <img src="/images/acoes/listView/criar.svg" alt=""> Criar ação
+                    </a>
+                </div>
+
+                <div class="row head-table search-box d-flex align-items-center justify-content-center">
+                    <div class="col-4 d-flex flex-column align-items-start justify-content-center">
+                        <span>Buscar ação</span>
+                        <input class="input-box w-75" type="text" name="" id="">
+                    </div>
+                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                        <span>Status</span>
+                        <select class="input-box w-75" name="" id="">
+                            <option value="">1</option>
+                            <option value="">1</option>
+                            <option value="">1</option>
+                        </select>
+                    </div>
+                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                        <span>Natureza</span>
+                        <select class="input-box w-75" name="" id="">
+                            <option value="">1</option>
+                            <option value="">1</option>
+                            <option value="">1</option>
+                        </select>
+                    </div>
+                    <div class="col-2 d-flex flex-column align-items-start justify-content-center">
+                        <span>Data</span>
+                        <input class="input-box w-75" type="date" name="" id="">
+                    </div>
+                </div>  
             </div>
-        </div>
+            <div class="container">
+                <div class="row head-table d-flex align-items-center justify-content-center">
+                    <div class="col-3"><span class="spacing-col">Título</span></div>
+                    <div class="col-3"><span class="spacing-col">Data</span> <span></span> </div>
+                    <div class="col-2"><span>Status</span></div>
+                    <div class="col-2 text-center"><span>Natureza</span></div>
+                    <div class="col-2 text-center"><span>Atividades</span></div>
+                </div>
+            </div> 
+            <div class="list container overflow-scroll">
+                <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-3"><span class="spacing-col">Integra BCC</span></div>
+                    <div class="col-3"><span class="spacing-col">Jan 6, 2022</span></div>
+                    <div class="col-2"><span>Aprovado</span></div>
+                    <div class="col-2 text-center"><span>Projeto de ensino</span></div>
+                    <div class="col-2 d-flex align-items-center justify-content-evenly">
+                        <span><img src="/images/acoes/listView/ficha.svg" alt=""></span>
+                        <span><img src="/images/acoes/listView/lixoIcon.svg" alt=""></span>
+                        <span><img src="/images/acoes/listView/editar.svg" alt=""></span>
+                    </div>
+                </div>
+                <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-3" ><span class="spacing-col">Integra BCC</span></div>
+                    <div class="col-3" ><span class="spacing-col">Out 2,2023 - Out 5,2022 </span></div>
+                    <div class="col-2" ><span>Em análise</span></div>
+                    <div class="col-2 text-center" ><span>Outros</span></div>
+                    <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
+                </div>
+                <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-3" ><span class="spacing-col">Saúde Mental </span></div>
+                    <div class="col-3" ><span class="spacing-col">Fev 8, 2022</span></div>
+                    <div class="col-2" ><span>Devolvido</span></div>
+                    <div class="col-2 text-center" ><span>Projeto de extensão</span></div>
+                    <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
+                </div>
 
-        <table class="table table-hover table-responsive-md">
-            <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Título</th>
-                <th scope="col">Data início</th>
-                <th scope="col">data fim</th>
-                <th class="text-center" scope="col">Ações</th>
-                <th class="text-center" scope="col">Status</th>
-            </tr>
-            </thead>
+                <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-3" ><span class="spacing-col">Saúde Mental </span></div>
+                    <div class="col-3" ><span class="spacing-col">Fev 8, 2022</span></div>
+                    <div class="col-2" ><span>Devolvido</span></div>
+                    <div class="col-2 text-center" ><span>Projeto de extensão</span></div>
+                    <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
+                </div>
+          
+            </div>
 
-            <tbody>
-            @foreach($acaos as $acao)
-                <tr>
-                    <td></td>
-                    <td>{{ $acao->titulo }}</td>
-                    <td>{{ $acao->data_inicio }}</td>
-                    <td>{{ $acao->data_fim }}</td>
-                    <td class="text-center">
-                        @if($acao->status == null)
-                            <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
-                            <a class="btn btn-danger" href ="{{ route('acao.delete', ['acao_id' => $acao->id]) }}">Apagar</a>
-                        @endif
-                        <a class="btn btn-primary" href ="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">Atividades</a>
-                    </td>
-                    <td class="text-center">
-                        @if($acao->status == null)
-                            <a class="btn btn-success" href ="{{ route('acao.submeter', ['acao_id' => $acao->id]) }}">Submeter</a>
-                        @else
-                            <a class="btn btn-warning">{{ $acao->status }}</a>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+        </section>
 @endsection
