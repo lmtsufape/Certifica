@@ -71,20 +71,26 @@
             </div>
             <div class="container">
                 <div class="row head-table d-flex align-items-center justify-content-center">
-                    <div class="col-3"><span class="spacing-col">Título</span></div>
-                    <div class="col-3"><span class="spacing-col">Data</span> <span></span> </div>
+                    <div class="col-2"><span class="spacing-col">Título</span></div>
+                    <div class="col-2"><span class="spacing-col">Data</span> <span></span> </div>
                     <div class="col-2"><span>Status</span></div>
                     <div class="col-2 text-center"><span>Natureza</span></div>
+                    <div class="col-2 text-center"><span>Anexo</span></div>
                     <div class="col-2 text-center"><span>Atividades</span></div>
                 </div>
             </div> 
             <div class="list container overflow-scroll">
                 @foreach($acaos as $acao)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-3"><span class="spacing-col">{{$acao->titulo}}</span></div>
-                    <div class="col-3"><span class="spacing-col">{{date('d-m-Y', strtotime($acao->data_inicio)) ." - ".date('d-m-Y', strtotime($acao->data_fim))}}</span></div>
+                    <div class="col-2"><span class="spacing-col">{{$acao->titulo}}</span></div>
+                    <div class="col-2"><span class="spacing-col">{{date('d-m-Y', strtotime($acao->data_inicio)) ." - ".date('d-m-Y', strtotime($acao->data_fim))}}</span></div>
                     <div class="col-2"><span>{{$acao->status}}</span></div>
                     <div class="col-2 text-center"><span>{{$acao->natureza->descricao}}</span></div>
+                    <div class="col-2 text-center"><span>
+                        @if($acao->anexo != null)
+                        <a href="{{ route('anexo.dowload', ['acao_id' => $acao->id])}}">Anexo</a>
+                        @endif
+                    </span></div>
                     <div class="col-2 d-flex align-items-center justify-content-evenly">
                         <span><a href="{{Route('atividade.index', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/ficha.svg" alt="Visualizar"></a></span>
                         <span><a href="{{Route('acao.delete', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
