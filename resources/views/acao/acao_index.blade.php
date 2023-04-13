@@ -79,7 +79,23 @@
                 </div>
             </div> 
             <div class="list container overflow-scroll">
+                @foreach($acaos as $acao)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-3"><span class="spacing-col">{{$acao->titulo}}</span></div>
+                    <div class="col-3"><span class="spacing-col">{{date('d-m-Y', strtotime($acao->data_inicio)) ." - ".date('d-m-Y', strtotime($acao->data_fim))}}</span></div>
+                    <div class="col-2"><span>{{$acao->status}}</span></div>
+                    <div class="col-2 text-center"><span>{{$acao->natureza->descricao}}</span></div>
+                    <div class="col-2 d-flex align-items-center justify-content-evenly">
+                        <span><a href="{{Route('atividade.index', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/ficha.svg" alt="Visualizar"></a></span>
+                        <span><a href="{{Route('acao.delete', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                        <span><a href="{{Route('acao.edit', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
+                    </div>
+                </div>
+                @endforeach
+
+
+
+                <!-- <div class="row linha-table d-flex align-items-center justify-content-center">
                     <div class="col-3"><span class="spacing-col">Integra BCC</span></div>
                     <div class="col-3"><span class="spacing-col">Jan 6, 2022</span></div>
                     <div class="col-2"><span>Aprovado</span></div>
@@ -111,7 +127,7 @@
                     <div class="col-2" ><span>Devolvido</span></div>
                     <div class="col-2 text-center" ><span>Projeto de extensão</span></div>
                     <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
-                </div>
+                </div> -->
           
             </div>
 
