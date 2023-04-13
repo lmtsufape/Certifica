@@ -8,6 +8,7 @@ use App\Models\Natureza;
 use App\Models\SubmeterAcao;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Validates\AcaoValidator;
 use Illuminate\Validation\ValidationException;
@@ -191,7 +192,14 @@ class AcaoController extends Controller
 
         $acao->update();
 
-        return redirect(Route('gestor.acoes_submetidas'));
+        if($status == 'Aprovada')
+        {
+            return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
+        } else
+        {
+            return redirect(Route('gestor.acoes_submetidas'));
+        }
+
     }
 
 
