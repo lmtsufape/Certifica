@@ -90,6 +90,16 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
 
     Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
 
+
+    Route::get('/certificado_modelo/index', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
+    Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
+    Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
+    Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
+    Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
+    Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
+    Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
+    Route::get('certificado_modelo/{id}/img',[CertificadoModeloController::class, 'showImg'])->name('certificado_modelo.show_img');
+
 });
 
 
@@ -130,7 +140,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
 
-    Route::get('/participante/certificado{participante_id}', [CertificadoController::class, 'gerar_certificado'])->name('participante.certificado');
+    Route::get('/participante/certificado{participante_id}', [CertificadoController::class, 'ver_certificado'])->name('participante.certificado');
 });
 
 Route::group(['middleware' => 'checkGestorInstitucional'], function () {
@@ -143,6 +153,11 @@ Route::group(['middleware' => 'checkGestorInstitucional'], function () {
     Route::get('/gestor/analisar_acao/participantes/{atividade_id}', [ParticipanteController::class, 'participantes_atividade'])->name('gestor.participantes_atividade');
 
     Route::post('/gestor/acao/update', [AcaoController::class, 'acao_update'])->name('gestor.acao_update');
+
+    Route::get('/tipo_certificado_modelo/create', [CertificadoModeloController::class, 'create_tipo_certificado'])->name('tipo_certificado_modelo.create');
+    Route::post('/store_tipo_certificado_modelo', [CertificadoModeloController::class, 'store_tipo_certificado'])->name('tipo_certificado_modelo.store');
+
+    Route::get('/gestor/gerar_certificados{acao_id}', [CertificadoController::class, 'gerar_certificados'])->name('gestor.gerar_certificados');
 });
 
 Route::get('/acao/list', [AcaoController::class, 'list'])->name('acao.list');
@@ -155,14 +170,6 @@ Route::get('/assinatura/{id}/edit', [AssinaturaController::class, 'edit'])->name
 Route::put('/assinatura/{id}/update', [AssinaturaController::class, 'update'])->name('assinatura.update');
 Route::get('/assinatura/delete/{id}', [AssinaturaController::class, 'destroy'])->name('assinatura.delete');
 
-Route::get('/certificado_modelo/index', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
-Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
-Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
-Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
-Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
-Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
-Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
-Route::get('certificado_modelo/{id}/img',[CertificadoModeloController::class, 'showImg'])->name('certificado_modelo.show_img');
 
 Route::get('/certificado/create', [CertificadoController::class, 'create'])->name('certificado.create');
 Route::post('/store_certificado', [CertificadoController::class, 'store'])->name('certificado.store');
