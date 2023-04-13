@@ -17,6 +17,7 @@
                 <th scope="col">Título</th>
                 <th scope="col">Início</th>
                 <th scope="col">Fim</th>
+                <th scope="col">Anexo</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -26,6 +27,7 @@
                     <td> {{ $acao->titulo }} </td>
                     <td> {{ $acao->data_inicio }} </td>
                     <td> {{ $acao->data_fim }} </td>
+                    <td> <a href="{{ route('anexo.dowload', ['acao_id' => $acao->id])}}">Anexo</a> </td>
                     <td>
                         <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
                     </td>

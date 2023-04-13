@@ -50,7 +50,7 @@
                     <span class="tittle-input-2">Observações</span><input class="observacoes-input w-75" type="text" name="" id="">
                 </div>
                 <div class="col-4 input-create-box-3 border-0 d-flex flex-column justify-content-between">
-                    <input type="file" name="" id="">
+                    <input type="file" name="anexo" id="">
                     <div class="border d-flex justify-content-end">
                         [icon]
                     </div>

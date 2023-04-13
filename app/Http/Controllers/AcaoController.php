@@ -12,6 +12,8 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Validates\AcaoValidator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
+
 
 class AcaoController extends Controller
 {
@@ -65,7 +67,7 @@ class AcaoController extends Controller
         $acao->natureza_id = $request->natureza_id;
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $request->unidade_administrativa_id;
-
+        $acao->anexo = $request->file('anexo')->store('anexos');
 
         $acao->save();
 
@@ -200,6 +202,11 @@ class AcaoController extends Controller
             return redirect(Route('gestor.acoes_submetidas'));
         }
 
+    }
+
+    public function dowload_anexo($id){
+        $acao = Acao::findOrFail($id);
+        return Storage::download($acao->anexo);
     }
 
 
