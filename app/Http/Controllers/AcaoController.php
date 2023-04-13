@@ -196,5 +196,10 @@ class AcaoController extends Controller
         return redirect(Route('gestor.acoes_submetidas'));
     }
 
+    public function dowload_anexo($id){
+        $acao = Acao::findOrFail($id);
+        return Storage::download($acao->anexo);
+    }
+
 
 }
