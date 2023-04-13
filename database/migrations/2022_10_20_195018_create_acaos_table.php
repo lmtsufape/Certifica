@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->date('data_inicio');
             $table->date('data_fim')->nullable();
+            $table->string('anexo')->nullable();
             $table->unsignedInteger('natureza_id')->index();
             $table->foreign('natureza_id')->references('id')->on('naturezas');
             $table->unsignedInteger('usuario_id')->index();
