@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('certificado_modelos', function (Blueprint $table) {
             $table->id();
+            $table->string('tipo_certificado')->nullable();
             $table->string('descricao');
             $table->string('imagem');
             $table->text('texto');

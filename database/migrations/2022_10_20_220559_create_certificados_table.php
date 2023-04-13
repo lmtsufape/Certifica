@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::create('certificados', function (Blueprint $table)
         {
             $table->id();
-            $table->string('texto');
-            $table->string('img_fundo');
-            $table->date('data_inicio');
-            $table->date('data_fim')->nullable();
             $table->string('cpf_participante');
+            $table->string('codigo_validacao')->unique();
+            $table->unsignedInteger('certificado_modelo_id')->index();
+            $table->foreign('certificado_modelo_id')->references('id')->on('certificado_modelos');
             $table->unsignedInteger('atividade_id')->index();
             $table->foreign('atividade_id')->references('id')->on('atividades');
 

@@ -10,7 +10,9 @@ use App\Http\Requests\UpdateCertificadoRequest;
 use App\Models\CertificadoModelo;
 use App\Models\Participante;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class CertificadoController extends Controller
@@ -30,13 +32,45 @@ class CertificadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function gerar_certificado($participante_id)
+    public function gerar_certificados($acao_id)
     {
-        $modelo = CertificadoModelo::findOrFail(1);
+        $atividades = Atividade::all()->where("acao_id", $acao_id);
 
+        foreach($atividades as $atividade)
+        {
+            $participantes = Participante::all()->where("atividade_id", $atividade->id);
+
+            $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $atividade->descricao)->first();
+
+            if($certificado_modelo == null)
+            {
+               $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
+            }
+
+            foreach($participantes as $participante)
+            {
+                $certificado = new Certificado();
+
+                $certificado->cpf_participante = $participante->cpf;
+                $certificado->codigo_validacao = Str::random(15);
+                $certificado->certificado_modelo_id = $certificado_modelo->id;
+                $certificado->atividade_id = $atividade->id;
+
+                $certificado->save();
+            }
+        }
+
+        return redirect(Route('gestor.acoes_submetidas'));
+    }
+    public function ver_certificado($participante_id)
+    {
         $participante = Participante::findOrFail($participante_id);
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
+
+        $certificado = Certificado::where('cpf_participante', $participante->cpf)->where('atividade_id', $atividade->id)->first();
+
+        $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
 
 
         $data_inicio = date('d/m/Y', strtotime($atividade->data_inicio));
