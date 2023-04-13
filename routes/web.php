@@ -131,6 +131,8 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
 
     Route::get('/participante/certificado{participante_id}', [CertificadoController::class, 'gerar_certificado'])->name('participante.certificado');
+
+    Route::get('/gestor/analisar_acao/{acao_id}/anexo', [AcaoController::class, 'dowload_anexo'])->name('anexo.dowload');
 });
 
 Route::group(['middleware' => 'checkGestorInstitucional'], function () {
@@ -143,8 +145,6 @@ Route::group(['middleware' => 'checkGestorInstitucional'], function () {
     Route::get('/gestor/analisar_acao/participantes/{atividade_id}', [ParticipanteController::class, 'participantes_atividade'])->name('gestor.participantes_atividade');
 
     Route::post('/gestor/acao/update', [AcaoController::class, 'acao_update'])->name('gestor.acao_update');
-
-    Route::get('/gestor/analisar_acao/{acao_id}/anexo', [AcaoController::class, 'dowload_anexo'])->name('anexo.dowload');
 });
 
 Route::get('/acao/list', [AcaoController::class, 'list'])->name('acao.list');
