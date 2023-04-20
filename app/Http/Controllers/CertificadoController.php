@@ -13,6 +13,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class CertificadoController extends Controller
@@ -126,7 +127,11 @@ class CertificadoController extends Controller
 
         $imagem = Storage::url($modelo->imagem);
 
-        $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante', 'imagem', 'mes'));
+        $verso = Storage::url($modelo->verso);
+
+        $qrcode = base64_encode(QrCode::generate('http://127.0.0.1:8000/validacao/'.$certificado->codigo_validacao));;
+
+        $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante', 'imagem', 'mes', 'certificado', 'qrcode', 'verso'));
         $nomePDF = 'certificado.pdf';
 
         return $pdf->setPaper('a4', 'landscape')->stream($nomePDF);
