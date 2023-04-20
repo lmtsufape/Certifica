@@ -60,6 +60,7 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->descricao                  = $request->descricao;
         $certificado_modelo->texto                      = $request->texto;
         $certificado_modelo->imagem                     = $request->imagem->store('public/modelos');
+        $certificado_modelo->verso                     = $request->verso->store('public/modelos');
 
         $certificado_modelo->save();
 

@@ -59,7 +59,7 @@
                             @endif
                         @elseif($acao->status == "Aprovada")
                             <a class="btn btn-success" target="_blank"
-                               href="{{ route('participante.certificado', ['participante_id' => $participante->id]) }}">Certificado</a>
+                               href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}">Certificado</a>
                         @endif
                     </td>
                 </tr>
