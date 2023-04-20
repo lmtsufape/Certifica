@@ -32,14 +32,15 @@
                 font-size: 1.3em;
                 color: #000000;
                 text-shadow: 2px 2px #000;
-                margin-top: 520px;
-                margin-left: 1px;
-                margin-right: 600px;
+                margin-top: 175px;
+                margin-left: 35px;
+                margin-right: 575px;
             }
 
             .qrcode {
-                margin-top: -80px;
-                margin-left: 900px;
+                height: 35%;
+                margin-top: 150px;
+                margin-left: 670px;
                 margin-right: 1px;
             }
 
