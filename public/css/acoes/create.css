@@ -36,26 +36,17 @@
     border: 1px solid #CFCFCF;
     border-radius: 5px;
     height: 6vh;
-}
-.observacoes-input{
-    margin: -15px 0 0 -55px;
-    height: 90%;
-    background-color: transparent;
-}
-.input-create-box-3{
-    border: 1px solid #CFCFCF;
-    border-radius: 5px;
-    height: 12vh;
+    padding: 0px 0 0 20px;
 }
 .tittle-input{
     position: relative;
-    bottom: 20px;
-    left: 15px;
+    bottom: 15px;
+    padding: 0 2px;
     height: max-content;
     font-size: 14px;
     background-color: white;
-    padding: 0 2px;
     color: #303030;
+
 }
 .tittle-input-2{
     position: relative;
@@ -68,11 +59,10 @@
     color: #303030;
 }
 .select-form{
-    width: 75%;
     border: none;
-    height: 100%;
     text-align: start;
-    margin: 0 0 0 -45px;
+    position: relative;
+    bottom: 15px;
 }
 input{   
     font: 16px;
@@ -82,15 +72,14 @@ input{
 .input-nprocesso{
     margin: 5px 0 0 -55px;
 }
-.input-nedital{
-    margin: 5px 0 0 -35px;
+.n-edital{
+    width: max-content;
 }
 input:focus,.select-form:focus{
     box-shadow: 0 0 0 0;
     border: none;
     outline: 0;
 }
-
 .submit{
     background: #009846;
     border: 1px solid #009846;
@@ -100,7 +89,14 @@ input:focus,.select-form:focus{
     color: white;
     margin: 0;
 }
-
+input[type="file"]{
+    display: none;
+}
+input[type="date"]{
+    margin:0 0 50px 0;
+    position: relative;
+    bottom: 15px;
+}
 .cancel{
     background: white;
     border-radius: 10px;
@@ -113,4 +109,18 @@ input:focus,.select-form:focus{
 }
 .cancel:hover {
     color: black;
+}
+.label-file{
+    background: #FFFFFF;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 5px 0 0 0;
+}
+.boxicon{
+    margin: 0 10px;
+}
+.input-text{
+    position: relative;
+    bottom: 15px;
+    padding: 0 0 0 20px;
 }
