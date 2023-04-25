@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-
 @section('title','Home Page')
-
 
 @section('content')
 
@@ -18,7 +16,7 @@
                 alt="">
             </p>
 
-            <p>sed do eiusmod tempor.</p>
+            <p>sed do eiusmod tempor. </p>
             </div>
             <img src="{{asset('images/home-page/pessoas-home-page.png')}}" alt="">
 
