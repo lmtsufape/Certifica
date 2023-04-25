@@ -125,9 +125,6 @@ header{
 }
 
 footer{
-    position: fixed;
-    bottom: 0px;
-    height: 140px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -144,5 +141,17 @@ footer .text-icons {
     color: #FFFFFF;
     text-decoration-line: none;
 }
+.logos{
+    background: #EEEEEE;
+    width: 120px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.logo-redes{
+    width: 30px;
+    margin: 25px 0 0 0;
+}
 
-
+.box-redes{
+    padding: 0 0 40px 0;
+}
