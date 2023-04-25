@@ -2,21 +2,17 @@
     <div class="container-fluid px-lg-5">
         <div class="row justify-content-between  my-2">
 
-            <div class="col-md-4 text-center border-right">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    
+            <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-evenly py-1 border-right">
+                <a class="navbar-brand " href="{{ url('/') }}">
+                    Certifica
                 </a>
             </div>
 
-            <div class="col-md-4 text-center d-flex flex-column justify-content-center py-1 border-right">
+            <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-evenly py-1 border-right">
 
-                <div class="form-row">
-                    <div class="col-md-12">
-                        <h6 class="textoRodape text-white">Desenvolvido por</h6>
-                    </div>
-                </div>
-
-                <div class="col-md-12 d-flex flex-row align-items-center justify-content-evenly" style="margin-bottom: 1rem;">
+                <span class="text-white mb-3">Desenvolvido por</span>
+                    
+                <div class="w-100 d-flex flex-row align-items-center justify-content-around">
                     <div class="col-5">
                         <a href="http://ufape.edu.br/" target="_blank">
                             <img class="logos" src="/images/layouts/footer/UFAPElogo.svg" alt="Logo">
@@ -28,9 +24,10 @@
                         </a>
                     </div>
                 </div>
+           
             </div>
 
-            <div class="box-redes col-md-4 d-flex flex-column align-items-center justify-content-evenly">
+            <div class="box-redes col-md-4 d-flex flex-column align-items-center justify-content-evenly py-1">
 
                 <span class="text-white">Contato</span>
                     

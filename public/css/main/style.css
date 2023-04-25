@@ -131,6 +131,7 @@ footer{
     justify-content: flex-start;
     align-items: center;
     background: #972E3F;
+    height: 20vh;
 }
 
 footer .text-icons {
@@ -154,4 +155,5 @@ footer .text-icons {
 
 .box-redes{
     padding: 0 0 40px 0;
+    height: 100%;
 }

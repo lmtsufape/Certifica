@@ -11,9 +11,12 @@
 }
 
 .form-homepage{
-    border: 1px solid black;
     width: 60vh;
     padding: 20px 60px;
+    height: 100%;
+    background-color: #F2E6E8;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
 }
 
 .input-home-form{
@@ -24,6 +27,11 @@
     height: 40px;
     margin: 0 0 15px 0;
     padding-left: 10px;
+}
+
+.input-home-form:focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
 }
 .button-homepage{
     border: 1px solid transparent;
@@ -40,8 +48,29 @@
 
 .text-homepage{
     font-size: 14px;
+    text-align: center;
+    color: #303030;
 }
 
 .esqueceu-senha-link{
     color: #303030;
+}
+
+.box-conteudo{
+    width: 90vh;
+    padding: 10px 10px;
+    height: 100%;
+    background-color: white;
+}
+
+.criar-conta-link{
+    color: #B3093F;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.Text-conteudo-homepage{
+    font-size: 20px;
+    text-align: start;
+
 }
