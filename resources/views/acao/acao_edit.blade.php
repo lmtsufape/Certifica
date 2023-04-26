@@ -22,8 +22,10 @@
     </div>
 
     <h1 class="text-center">Editar ação</h1>
-    <form class="container form" action="{{ Route('acao.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="container form" action="{{route('acao.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
+    
+        <input type="hidden" name="id" value="{{ $acao->id }}">
 
         <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
         <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
