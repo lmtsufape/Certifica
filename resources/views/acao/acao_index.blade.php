@@ -69,6 +69,7 @@
                     </div>
                 </div>  
             </div>
+
             <div class="container">
                 <div class="row head-table d-flex align-items-center justify-content-center">
                     <div class="col-2"><span class="spacing-col">Título</span></div>
@@ -97,45 +98,7 @@
                         <span><a href="{{Route('acao.edit', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
                     </div>
                 </div>
-                @endforeach
-
-
-
-                <!-- <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-3"><span class="spacing-col">Integra BCC</span></div>
-                    <div class="col-3"><span class="spacing-col">Jan 6, 2022</span></div>
-                    <div class="col-2"><span>Aprovado</span></div>
-                    <div class="col-2 text-center"><span>Projeto de ensino</span></div>
-                    <div class="col-2 d-flex align-items-center justify-content-evenly">
-                        <span><img src="/images/acoes/listView/ficha.svg" alt=""></span>
-                        <span><img src="/images/acoes/listView/lixoIcon.svg" alt=""></span>
-                        <span><img src="/images/acoes/listView/editar.svg" alt=""></span>
-                    </div>
-                </div>
-                <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-3" ><span class="spacing-col">Integra BCC</span></div>
-                    <div class="col-3" ><span class="spacing-col">Out 2,2023 - Out 5,2022 </span></div>
-                    <div class="col-2" ><span>Em análise</span></div>
-                    <div class="col-2 text-center" ><span>Outros</span></div>
-                    <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
-                </div>
-                <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-3" ><span class="spacing-col">Saúde Mental </span></div>
-                    <div class="col-3" ><span class="spacing-col">Fev 8, 2022</span></div>
-                    <div class="col-2" ><span>Devolvido</span></div>
-                    <div class="col-2 text-center" ><span>Projeto de extensão</span></div>
-                    <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
-                </div>
-
-                <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-3" ><span class="spacing-col">Saúde Mental </span></div>
-                    <div class="col-3" ><span class="spacing-col">Fev 8, 2022</span></div>
-                    <div class="col-2" ><span>Devolvido</span></div>
-                    <div class="col-2 text-center" ><span>Projeto de extensão</span></div>
-                    <div class="col-2 text-center" ><span><img src="/images/acoes/listView/ficha.svg" alt=""></span></div>
-                </div> -->
-          
+                @endforeach 
             </div>
-
         </section>
 @endsection

@@ -4,59 +4,68 @@
     Atividades
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/list.css">
+@endsection
+
 @section('content')
-    <div class="container">
-        @if(session('mensagem'))
-            <div class="alert alert-success">
-                <p>{{session('mensagem')}}</p>
-            </div>
-        @endif
-
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Atividades: {{ $acao->titulo }}</h2>
-        </div>
-
-        <div class='row justify-content-end' style="padding-bottom: 5px; margin-bottom: 10px">
-            @if($acao->status == null)
-                <div class='col col-1'>
-                    <a href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}"
-                       class="btn btn-success">Cadastrar</a>
+    <section class="view-list-acoes">
+        <div class="container">
+            @if (session('mensagem'))
+                <div class="alert alert-success">
+                    <p>{{ session('mensagem') }}</p>
                 </div>
             @endif
+
+            <div class="text-center mb-4">
+                <h2>{{ $acao->titulo }}</h2>
+            </div>
+
+            <div class="text-center mb-3">
+                <h3>Atividades</h3>
+            </div>
+
+            <div class="row d-flex align-items-center justify-content-end">
+                <a class="criar-acao-button" href={{ route('atividade.create',['acao_id' => $acao->id])}}>
+                    <img src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                </a>
+            </div>
+
+            <div class="row head-table d-flex align-items-center justify-content-center">
+                <div class="col-4"><span class="spacing-col">Atividade</span></div>
+                <div class="col-4"><span>Data</span></div>
+                <div class="col-4"><span>Participantes</span></div>
+            </div>
         </div>
 
-        <table class="table table-hover table-responsive-md">
-            <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Inicio</th>
-                <th scope="col">Fim</th>
-                <th class="text-center" scope="col">Ações</th>
-            </tr>
-            </thead>
+        <div class="list container overflow-scroll">
+            @foreach ($atividades as $atividade)
+                <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-4"><span class="spacing-col">{{ $atividade->descricao }}</span></div>
+                    <div class="col-4">
+                        <span>{{ date('d-m-Y', strtotime($atividade->data_inicio)) . ' - ' . date('d-m-Y', strtotime($atividade->data_fim)) }}</span>
+                    </div>
+                    <div class="col-4 d-flex align-items-center justify-content-start">
+                        <div class="col-3 d-flex align-items-center justify-content-center">
+                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
+                                <img src="/images/atividades/participantes.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="col-4">
 
-            <tbody>
-            @foreach($atividades as $atividade)
-                <tr>
-                    <td></td>
-                    <td>{{ $atividade->descricao }}</td>
-                    <td>{{ $atividade->data_inicio }}</td>
-                    <td>{{ $atividade->data_fim }}</td>
-
-                    <td class="text-center">
-                        @if($acao->status == null)
-                            <a class="btn btn-secondary"
-                               href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">Editar</a>
-                            <a class="btn btn-danger"
-                               href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">Apagar</a>
-                        @endif
-                        <a class="btn btn-primary"
-                           href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">Participantes</a>
-                    </td>
-                </tr>
+                        </div>
+                        <div class="col-5 d-flex align-items-center justify-content-evenly">
+                            <a  href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
+                                <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                            </a>
+                            <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
+                                <img src="/images/acoes/listView/editar.svg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-            </tbody>
-        </table>
-    </div>
+
+        </div>
+    </section>
 @endsection
