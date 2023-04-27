@@ -12,12 +12,20 @@
     @endif
 
     <div class='row justify-content-center'>
-            <div class='col-10' style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-                <h2>MODELOS DE CERTIFICADOS</h2>
-            </div>
+        <div class='col-10' style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+            <h2>MODELOS DE CERTIFICADOS</h2>
+        </div>
+
+        @if(Auth::user()->perfil_id == 1)
             <div class="col-2" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
                 <a href="{{route('certificado_modelo.create')}}" class='btn btn-primary' style='margin-bottom: 10px'>Cadastrar</a>
             </div>
+        @elseif(Auth::user()->perfil_id == 3)
+            <div class="col-2" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
+                <a href="{{route('tipo_certificado_modelo.create')}}" class='btn btn-primary' style='margin-bottom: 10px'>Cadastrar</a>
+            </div>
+        @endif
+
 
 
     <table id="tableMateriais" class="table table-hover table-responsive-md">
