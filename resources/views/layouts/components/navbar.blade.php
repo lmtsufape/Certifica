@@ -19,7 +19,7 @@
                 <li><a class="dropdown-item" href=" {{ route('home') }} ">Home</a></li>
                 <li><a class="dropdown-item" href=" {{ route('acao.index') }} ">Ações</a></li>
                 <li><a class="dropdown-item" href=" {{ route('gestor.acoes_submetidas') }} ">Submissões</a></li>
-                <li><a class="dropdown-item" href=" {{ route('tipo_certificado_modelo.create') }} ">Configurar Certificado</a></li>
+                <li><a class="dropdown-item" href=" {{ route('certificado_modelo.index') }} ">Configurar Certificado</a></li>
             </ul>
         @endif
     @endif
