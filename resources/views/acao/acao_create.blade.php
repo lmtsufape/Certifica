@@ -13,48 +13,49 @@
         <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
 
         <div class="row d-flex aligm-items-start justify-content-start ">
-            <div class="col-5 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div class="col-md-5 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Título</span><input class="w-75 input-text " type="text" name="titulo"
                     id="">
             </div>
-            <div class="col-3 spacing-row1 input-create-box">
-                <span class="tittle-input w-50">Data de inicio</span><input class="w-75" type="date" name="data_inicio"
+            <div class="col-md-3 spacing-row1 input-create-box">
+                <span class="tittle-input w-50">Data de inicio</span><input class="w-100" type="date" name="data_inicio"
                     id="">
             </div>
-            <div class="col-3 input-create-box">
-                <span class="tittle-input w-50">Data de fim</span><input class="w-75" type="date" name="data_fim"
+            <div class="col-md-3 input-create-box">
+                <span class="tittle-input w-50">Data de fim</span><input class="w-100" type="date" name="data_fim"
                     id="">
             </div>
         </div>
 
-        <div class="row d-flex justify-content-start align-items-start">
-            <div class="spacing-row2 col-4 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+        <div class="row d-flex aligm-items-start justify-content-start">
+
+            <div class="spacing-row1 col-md-5 input-create-box d-flex aligm-items-start justify-content-start flex-column">
                 <span class="tittle-input w-25">Natureza</span>
-                <select class="select-form w-75 " name="natureza_id" id="">
+                <select class="select-form w-100 " name="natureza_id" id="">
                     @foreach ($naturezas as $natureza)
                         <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="col-2 input-create-box input-create-box d-flex aligm-items-start justify-content-start flex-column">
+
+            <div
+                class="col-md-3 spacing-row1 input-create-box input-create-box d-flex aligm-items-start justify-content-start flex-column">
                 <span class="tittle-input n-edital">Nº edital</span><input class="w-50 input-text" type="text"
                     name="" id="">
             </div>
-            <div class="col-5 input-create-box border-0 d-flex flex-column justify-content-between">
-                <input type="file" name="anexo" id="anexo" placeholder="a">
-                <label class="label-file input-create-box d-flex aligm-items-start justify-content-center" for="anexo"
-                    id="">arquivo.pdf(estatic)</label>
+
+            <input hidden type="file" name="anexo" id="anexo" placeholder="a">
+
+            <div class="col-md-3 label-file border input-create-box d-flex align-items-center justify-content-center">
+
+                <label class="w-100 d-flex align-items-center justify-content-beetwen" for="anexo" id="">
+                    <span class="Nome-arquivo">arquivo.pdf(estatic)</span> 
+                    <img class="upload-icon" src="/images/acoes/create/upload.svg" alt="">
+                </label>
 
             </div>
         </div>
 
-        <div class="row d-flex justify-content-start align-items-center">
-            <div class="boxicon col-11 d-flex align-items-center justify-content-end ">
-
-                <label for="anexo" id=""><img src="/images/acoes/create/upload.svg" alt=""></label>
-
-            </div>
-        </div>
 
         <div class="row d-flex justify-content-start align-items-center">
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">

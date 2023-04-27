@@ -129,3 +129,11 @@ input[type="date"]{
 input:disabled{
     background-color: transparent;
 }
+
+.upload-icon{
+    width: 22px;
+    margin-left: 10px;
+}
+.Nome-arquivo{
+    margin-left: 10px;
+}
