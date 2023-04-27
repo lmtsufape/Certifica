@@ -173,6 +173,7 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->tipo_certificado           = $request->tipo_certificado;
         $certificado_modelo->texto                      = $request->texto;
         $certificado_modelo->imagem                     = $request->imagem;
+        $certificado_modelo->verso                     = $request->verso;
 
         $certificado_modelo->save();
 

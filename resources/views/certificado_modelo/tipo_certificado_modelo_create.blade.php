@@ -25,18 +25,28 @@
                 <div class="col-md-6">
                     <div class="row">
 
+                        <input name="descricao" type="hidden" id="descricao" value="{{$modelo->descricao}}">
+                        <input name="imagem" type="hidden" id="imagem" value="{{ $modelo->imagem }}">
+                        <input name="verso" type="hidden" id="verso" value="{{ $modelo->verso }}">
+                        <input name="unidade_administrativa_id" type="hidden" id="unidade_administrativa_id" value=" {{ $modelo->unidade_administrativa_id }} ">Unidade Administrativa</input>
+
                         <div class="form-group">
-                            <label for="nome">Descrição</label>
-                            <input name="descricao" type="text" class="form-control" id="descricao" value="{{$modelo->descricao}}">
+                            <label>Descrição</label>
+                            <input type="text" class="form-control" value="{{$modelo->descricao}}" disabled>
                         </div>
 
                         <div class="form-group">
-                            <label for="imagem">Imagem de fundo</label>
-                            <input name="imagem" type="text" class="form-control" id="imagem" value="{{ $modelo->imagem }}">
+                            <label>Imagem de fundo</label>
+                            <input type="text" class="form-control" value="{{ $modelo->imagem }}" disabled>
                         </div>
 
                         <div class="form-group">
-                            <label for="tipo_certificado">Unidade Administrativa</label>
+                            <label for="verso">Imagem do verso</label>
+                            <input type="text" class="form-control" value="{{ $modelo->verso }}" disabled>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipo_certificado">Tipo Certificado</label>
                             <select name="tipo_certificado" id="tipo_certificado" class="form-control">
                                 @foreach($tipos_certificado as $tipo)
                                     <option value="{{ $tipo }}">{{ $tipo }}</option>
@@ -50,11 +60,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="unidade_adm">Unidade Administrativa</label>
-                            <select name="unidade_administrativa_id" id="unidade_adminitsrativa" class="form-control">
-                                <option value=" {{ $modelo->unidade_administrativa_id }}" selected hidden>{{ $unidade_adm->descricao }}</option>
-                            </select>
+                            <label>Unidade Administrativa</label>
+                            <input type="text" class="form-control" value="{{ $unidade_adm->descricao }}" disabled>
                         </div>
+
                         <div class="row justify-content-end" style='margin-top: 5px;'>
                             <div class="col-2">
                                 <button type="submit" class="btn btn-primary">Salvar</button>
