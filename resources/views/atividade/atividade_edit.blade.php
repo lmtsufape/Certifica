@@ -4,57 +4,71 @@
     Editar Participante
 @endsection
 
-@section('content')
-<div class="container">
-    @if($errors->any())
-        <div class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-        </div>
-    @endif
-    
-    <form action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
-        @csrf
-        
-        <input type="hidden" name="id" value="{{ $atividade->id }}">
-
-        <input type="hidden" name="acao_id" value="{{ $acao->id }}">
-        
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="descricao_atividade">Descricao</label>
-                        <input name="descricao" type="text" class="form-control" id="descricao_atividade"
-                        placeholder="Monitoria, Palestrante, Ouvinte, etc" value="{{ $atividade->descricao }}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="inicio_atividade">Início</label>
-                        <input name="data_inicio" type="date" class="form-control" id="inicio_atividade"
-                        value="{{ $atividade->data_inicio }}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="fim_atividade">Fim</label>
-                        <input name="data_fim" type="date" class="form-control" id=fim_atividade"
-                        value="{{ $atividade->data_fim }}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="atividade_acao">Ação</label>
-                        <input name="titulo" type="disabled" class="form-control" id="acao_titulo" value="{{ $acao->titulo }}" disabled>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
-    </form>
-</div>
-    
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/create.css">
 @endsection
-    
+
+@section('content')
+    <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
+    <h1 class="text-center">Editar atividade</h1>
+
+    <form class="container form" action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <input type="hidden" name="id" value="{{ $atividade->id }}">
+        <input type="hidden" name="acao_id" value="{{ $acao->id }}">
+
+        <div class="row d-flex aligm-items-start justify-content-start ">
+
+            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Atividade</span>
+                <select class="select-form w-75 " name="descricao" id="">
+                    <option value={{$atividade->descricao}} selected hidden>{{$atividade->descricao}}</option>
+                    @foreach ($descricoes as $descricao)
+                        <option value="{{ $descricao }}">{{ $descricao }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-4 spacing-row1 input-create-box">
+                <span class="tittle-input w-50">Data de inicio</span>
+                <input class="w-75" type="date" name="data_inicio" id="" value="{{$atividade->data_inicio}}">
+            </div>
+
+        </div>
+
+        <div class="row d-flex aligm-items-start justify-content-start">
+
+            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Ação</span>
+                <input value="{{ $acao->titulo }}" class="w-75 input-text" type="text" name="titulo" id=""
+                    disabled>
+            </div>
+
+            <div class="col-4 input-create-box">
+                <span class="tittle-input w-50">Data de fim</span>
+                <input class="w-75" type="date" name="data_fim" id="" value="{{$atividade->data_inicio}}">
+            </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-start align-items-center">
+            <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                <a class="d-flex justify-content-center align-items-center cancel"
+                    href={{ Route('atividade.index', ['acao_id' => $acao->id]) }}> Cancelar</a>
+                <button class="submit" type="submit">Cadastrar</button>
+            </div>
+        </div>
+
+    </form>
+
+@endsection
