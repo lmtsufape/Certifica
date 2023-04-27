@@ -87,8 +87,9 @@ class CertificadoModeloController extends Controller
     {
         $modelo = CertificadoModelo::find($id);
         $img = Storage::url($modelo->imagem);
+        $verso = Storage::url($modelo->verso);
 
-        return view('certificado_modelo.certificado_modelo_show', ['modelo' => $modelo, 'imagem' => $img]);
+        return view('certificado_modelo.certificado_modelo_show', ['modelo' => $modelo, 'imagem' => $img, 'verso' => $verso]);
     }
 
     /**
