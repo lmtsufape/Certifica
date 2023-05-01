@@ -14,9 +14,10 @@
 
         <div class="row d-flex aligm-items-start justify-content-start ">
             <div class="col-md-5 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input ">Título</span><input class="w-75 input-text " type="text" name="titulo"
-                    id="">
+                <span class="tittle-input ">Título</span>
+                <input class="w-75 input-text " type="text" name="titulo" id="">
             </div>
+            
             <div class="col-md-3 spacing-row1 input-create-box">
                 <span class="tittle-input w-50">Data de inicio</span><input class="w-100" type="date" name="data_inicio"
                     id="">
