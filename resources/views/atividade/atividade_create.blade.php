@@ -31,7 +31,7 @@
 
             <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Atividade</span>
-                <select class="select-form w-75 " name="descricao" id="">
+                <select class="select-form w-100 " name="descricao" id="">
                     <option value="" selected hidden>Escolher...</option>
                     @foreach ($descricoes as $descricao)
                         <option value="{{ $descricao }}">{{ $descricao }}</option>
@@ -41,7 +41,7 @@
 
             <div class="col-4 spacing-row1 input-create-box">
                 <span class="tittle-input w-50">Data de inicio</span>
-                <input class="w-75" type="date" name="data_inicio" id="">
+                <input class="w-100" type="date" name="data_inicio" id="">
             </div>
 
         </div>
@@ -55,7 +55,7 @@
 
             <div class="col-4 input-create-box">
                 <span class="tittle-input w-50">Data de fim</span>
-                <input class="w-75" type="date" name="data_fim" id="">
+                <input class="w-100" type="date" name="data_fim" id="">
             </div>
 
         </div>
