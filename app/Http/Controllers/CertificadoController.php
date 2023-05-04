@@ -129,7 +129,7 @@ class CertificadoController extends Controller
 
         $verso = Storage::url($modelo->verso);
 
-        $qrcode = base64_encode(QrCode::generate('http://127.0.0.1:8000/validacao/'.$certificado->codigo_validacao));;
+        $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));;
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante', 'imagem', 'mes', 'certificado', 'qrcode', 'verso'));
         $nomePDF = 'certificado.pdf';
