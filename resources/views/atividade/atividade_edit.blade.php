@@ -40,7 +40,7 @@
             </div>
 
             <div class="col-4 spacing-row1 input-create-box">
-                <span class="tittle-input w-50">Data de inicio</span>
+                <span class="tittle-input w-50">Data de início</span>
                 <input class="w-100" type="date" name="data_inicio" id="" value="{{$atividade->data_inicio}}">
             </div>
 
@@ -65,7 +65,7 @@
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                 <a class="d-flex justify-content-center align-items-center cancel"
                     href={{ Route('atividade.index', ['acao_id' => $acao->id]) }}> Cancelar</a>
-                <button class="submit" type="submit">Cadastrar</button>
+                <button class="submit" type="submit">Atualizar</button>
             </div>
         </div>
 

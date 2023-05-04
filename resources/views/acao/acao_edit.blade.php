@@ -36,7 +36,7 @@
                     type="text" name="titulo" id="">
             </div>
             <div class="col-md-3 spacing-row1 input-create-box">
-                <span class="tittle-input w-100">Data de inicio</span><input value="{{ $acao->data_inicio }}" class="w-100"
+                <span class="tittle-input w-100">Data de início</span><input value="{{ $acao->data_inicio }}" class="w-100"
                     type="date" name="data_inicio" id="">
             </div>
             <div class="col-md-3 input-create-box">
