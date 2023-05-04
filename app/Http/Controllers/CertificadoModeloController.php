@@ -69,7 +69,6 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->descricao = $request->descricao;
         $certificado_modelo->texto = $request->texto;
         $certificado_modelo->imagem = $request->imagem->store('public/modelos');
-        $certificado_modelo->verso = $request->verso->store('public/modelos');
 
         $certificado_modelo->save();
 
@@ -171,8 +170,10 @@ class CertificadoModeloController extends Controller
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
         $unidade_adm = UnidadeAdministrativa::findOrFail($modelo->unidade_administrativa_id);
 
+        $img_fundo = Storage::url($modelo->imagem);
+
         return view('certificado_modelo.tipo_certificado_modelo_create', ['tipos_certificado' => $tipos_certificado,
-            'modelo' => $modelo, 'unidade_adm' => $unidade_adm]);
+            'modelo' => $modelo, 'unidade_adm' => $unidade_adm, 'img_fundo' => $img_fundo]);
     }
 
     public function store_tipo_certificado(Request $request)
@@ -184,7 +185,7 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->tipo_certificado = $request->tipo_certificado;
         $certificado_modelo->texto = $request->texto;
         $certificado_modelo->imagem = $request->imagem;
-        $certificado_modelo->verso = $request->verso;
+        $certificado_modelo->verso = $request->verso->store('public/modelos');
 
         $certificado_modelo->save();
 

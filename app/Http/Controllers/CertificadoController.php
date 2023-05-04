@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Http\Request;
 
 
 class CertificadoController extends Controller
@@ -129,7 +130,7 @@ class CertificadoController extends Controller
 
         $verso = Storage::url($modelo->verso);
 
-        $qrcode = base64_encode(QrCode::generate('http://127.0.0.1:8000/validacao/'.$certificado->codigo_validacao));;
+        $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));;
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante', 'imagem', 'mes', 'certificado', 'qrcode', 'verso'));
         $nomePDF = 'certificado.pdf';
@@ -187,5 +188,36 @@ class CertificadoController extends Controller
      */
     public function destroy($id)
     {
+    }
+
+    public function validar_certificado()
+    {
+        return view('certificado.validar_certificado');
+    }
+
+    public function checar_certificado(Request $request)
+    {
+        $validacao = Certificado::where('codigo_validacao', $request->codigo_validacao)->first();
+
+        if($validacao != null)
+        {
+            return view('certificado.validar', ['mensagem' => 'Certificado válido!']);
+        } else
+        {
+            return view('certificado.validar', ['mensagem' => 'Certificado inválido!']);
+        }
+    }
+
+    public function checar_certificado_qr($codigo_validacao)
+    {
+        $validacao = Certificado::where('codigo_validacao', $codigo_validacao)->first();
+
+        if($validacao != null)
+        {
+            return view('certificado.validar', ['mensagem' => 'Certificado válido!']);
+        } else
+        {
+            return view('certificado.validar', ['mensagem' => 'Certificado inválido!']);
+        }
     }
 }

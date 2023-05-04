@@ -15,8 +15,6 @@ class TipoNaturezaSeeder extends Seeder
      */
     public function run()
     {
-        TipoNatureza::factory()->create(['descricao' => 'Tipo Natureza 01']);
-        TipoNatureza::factory()->create(['descricao' => 'Tipo Natureza 02']);
-        TipoNatureza::factory()->create(['descricao' => 'Tipo Natureza 03']);
+        TipoNatureza::factory()->create(['descricao' => 'Tipo Natureza Teste']);
     }
 }

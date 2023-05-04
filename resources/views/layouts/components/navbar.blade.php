@@ -22,6 +22,10 @@
                 <li><a class="dropdown-item" href=" {{ route('certificado_modelo.index') }} ">Configurar Certificado</a></li>
             </ul>
         @endif
+    @else
+        <ul class="navbar-nav ms-auto mr-4">
+            <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Validar Certificado</a></li>
+        </ul>
     @endif
 
     <ul class="navbar-nav ms-auto mr-4">

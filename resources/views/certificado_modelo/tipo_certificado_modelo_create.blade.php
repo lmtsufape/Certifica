@@ -27,7 +27,6 @@
 
                         <input name="descricao" type="hidden" id="descricao" value="{{$modelo->descricao}}">
                         <input name="imagem" type="hidden" id="imagem" value="{{ $modelo->imagem }}">
-                        <input name="verso" type="hidden" id="verso" value="{{ $modelo->verso }}">
                         <input name="unidade_administrativa_id" type="hidden" id="unidade_administrativa_id" value=" {{ $modelo->unidade_administrativa_id }} ">Unidade Administrativa</input>
 
                         <div class="form-group">
@@ -36,13 +35,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Imagem de fundo</label>
-                            <input type="text" class="form-control" value="{{ $modelo->imagem }}" disabled>
+                            <label for="imagem">Imagem de fundo:</label>
+                            <div class="col-8">
+                                <img src="{{$img_fundo}}" alt="" width="500" height="250">
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="verso">Imagem do verso</label>
-                            <input type="text" class="form-control" value="{{ $modelo->verso }}" disabled>
+                            <label for="imagem">Verso</label>
+                            <input name="verso" type="file" class="form-control" id="imagem" accept="image/*">
                         </div>
 
                         <div class="form-group">
