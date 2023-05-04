@@ -3,8 +3,8 @@
         <div class="row justify-content-between  my-2">
 
             <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-evenly py-1 border-right">
-                <a class="navbar-brand " href="{{ url('/') }}">
-                    Certifica
+                <a class="navbar-brand " href="{{ Route('home') }}">
+                    <img src="{{url('/images/layouts/footer/logo-branca.svg')}}" alt="">
                 </a>
             </div>
 

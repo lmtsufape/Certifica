@@ -40,7 +40,7 @@
             </div>
 
             <div class="col-4 spacing-row1 input-create-box">
-                <span class="tittle-input w-50">Data de inicio</span>
+                <span class="tittle-input w-50">Data de início</span>
                 <input class="w-100" type="date" name="data_inicio" id="">
             </div>
 

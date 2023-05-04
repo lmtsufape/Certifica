@@ -46,18 +46,9 @@
     font-size: 14px;
     background-color: white;
     color: #303030;
+    font-weight: bold;
+}
 
-}
-.tittle-input-2{
-    position: relative;
-    bottom: 20px;
-    left: 20px;
-    height: max-content;
-    font-size: 14px;
-    background-color: white;
-    padding: 0 2px;
-    color: #303030;
-}
 .select-form{
     border: none;
     text-align: start;

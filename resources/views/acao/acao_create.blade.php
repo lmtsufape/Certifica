@@ -19,7 +19,7 @@
             </div>
             
             <div class="col-md-3 spacing-row1 input-create-box">
-                <span class="tittle-input w-50">Data de inicio</span><input class="w-100" type="date" name="data_inicio"
+                <span class="tittle-input w-50">Data de início</span><input class="w-100" type="date" name="data_inicio"
                     id="">
             </div>
             <div class="col-md-3 input-create-box">
