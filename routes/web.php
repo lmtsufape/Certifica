@@ -181,3 +181,8 @@ Route::get('/certificados', [CertificadoController::class, 'show'])->name('certi
 Route::get('/certificado/{id}/edit', [CertificadoController::class, 'edit'])->name('certificado.edit');
 Route::put('/certificado/{id}/update', [CertificadoController::class, 'update'])->name('certificado.update');
 Route::get('/certificado/delete/{id}', [CertificadoController::class, 'destroy'])->name('certificado.delete');
+
+
+Route::get('/validacao', [CertificadoController::class, 'validar_certificado'])->name('validar_certificado.validar');
+Route::post('/validacao/checar', [CertificadoController::class, 'checar_certificado'])->name('validar_certificado.checar');
+Route::get('/validacao/{codigo_validacao}', [CertificadoController::class, 'checar_certificado_qr'])->name('validar_certificado.checar_qr');
