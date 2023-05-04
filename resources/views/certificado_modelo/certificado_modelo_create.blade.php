@@ -43,11 +43,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="imagem">Verso</label>
-                        <input name="verso" type="file" class="form-control" id="imagem" accept="image/*">
-                    </div>
-
-                    <div class="form-group">
                         <label for="texto">Texto padrão:</label>
                         <textarea  name="texto" type="text" class="form-control" id="texto" placeholder="Texto padrão do certificado ..." rows='5'></textarea>
                     </div>
