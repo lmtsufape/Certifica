@@ -96,6 +96,7 @@
                         <span><a href="{{Route('atividade.index', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/ficha.svg" alt="Visualizar"></a></span>
                         <span><a href="{{Route('acao.delete', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
                         <span><a href="{{Route('acao.edit', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
+                        <span><a href="{{Route('acao.submeter', ['acao_id'=>$acao->id])}}">S</a></span>
                     </div>
                 </div>
                 @endforeach 

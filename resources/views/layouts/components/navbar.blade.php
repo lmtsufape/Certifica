@@ -13,13 +13,7 @@
         @elseif(Auth::user()->perfil_id == 2)
 
         @elseif(Auth::user()->perfil_id == 3)
-            <ul class="navbar-nav ms-auto mr-4">
-                <li><a class="dropdown-item" href=" {{ route('home') }} ">Home</a></li>
-                <li><a class="dropdown-item" href=" {{ route('acao.index') }} ">Ações</a></li>
-                <li><a class="dropdown-item" href=" {{ route('gestor.acoes_submetidas') }} ">Submissões</a></li>
-                <li><a class="dropdown-item" href=" {{ route('certificado_modelo.index') }} ">Configurar
-                        Certificado</a></li>
-            </ul>
+        
         @endif
     @else
         <ul class="navbar-nav ms-auto mr-4">

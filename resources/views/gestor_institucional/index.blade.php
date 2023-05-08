@@ -33,7 +33,7 @@
                 <a class="link-opt" href={{ route('gestor.acoes_submetidas') }}>
                     <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
                         <img class="icon-opt"  alt="">
-                        <span>Submissoes</span>
+                        <span>Solicitações</span>
                     </div>
                 </a>
             </div>
