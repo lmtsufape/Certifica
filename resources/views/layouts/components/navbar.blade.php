@@ -9,16 +9,7 @@
 
     @if (Auth::check())
         @if (Auth::user()->perfil_id == 1)
-            <ul class="navbar-nav ms-auto mr-4">
-                <li><a class="dropdown-item" href=" {{ route('home') }} ">Home</a></li>
-                <li><a class="dropdown-item" href=" {{ route('unidade_administrativa.index') }} ">Unidades
-                        Administrativas</a></li>
-                <li><a class="dropdown-item" href=" {{ route('tipo_natureza.index') }} ">Tipos Natureza</a></li>
-                <li><a class="dropdown-item" href=" {{ route('natureza.index') }} ">Naturezas</a></li>
-                <li><a class="dropdown-item" href=" {{ route('usuario.index') }} ">Usuários</a></li>
-                <li><a class="dropdown-item" href=" {{ route('certificado_modelo.index') }} ">Modelo de
-                        Certificado</a></li>
-            </ul>
+      
         @elseif(Auth::user()->perfil_id == 2)
 
         @elseif(Auth::user()->perfil_id == 3)
