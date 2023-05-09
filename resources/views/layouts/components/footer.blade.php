@@ -5,7 +5,7 @@
             <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-end py-1 border-right">
                 <div class="col-8 d-flex h-100 align-items-end justify-content-end py-1">
                     <a class="navbar-brand " href="{{ Route('home') }}">
-                        <img src="{{url('/images/layouts/footer/logo-branca.svg')}}" alt="">
+                        <img class="logo-certifica" src="{{url('/images/layouts/footer/logo-branca.svg')}}" alt="">
                     </a>
                 </div>
                 
