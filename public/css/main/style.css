@@ -114,17 +114,13 @@ div .border-right{
     color: #303030;
 }
 
-
 .form-input-icons-icon{
     float:left;
 }
 
-header{
-    border-bottom: 1px solid #30303047;
-    box-shadow: 1px 1px 1px  #30303047;
+.logo-certifica {
+    width: 75px;
 }
-
-
 
 /*Footer CSS*/
 footer{
