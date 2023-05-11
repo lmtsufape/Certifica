@@ -24,7 +24,7 @@
 
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input name="email" type="text" class="form-control" id="usuario_email" placeholder="eEx: xemple@gmail.com">
+                            <input name="email" type="text" class="form-control" id="usuario_email" placeholder="Ex: exemple@gmail.com">
                         </div>
 
                         <div class="form-group">
