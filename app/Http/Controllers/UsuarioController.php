@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
@@ -29,7 +30,14 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $perfils = Perfil::all()->sortBy('id');
+        if(Auth::check() && Auth::user()->perfil_id == 1)
+        {
+            $perfils = Perfil::all()->where('id', '!=', 1)->sortBy('id');
+        } else{
+            $perfils = Perfil::all()->where('id', '!=', 1)->where('id', '!=', 3)->sortBy('id');
+        }
+
+
         $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
 
         return view('usuario.usuario_create', ['perfils' => $perfils, 'unidade_administrativas' => $unidade_administrativas]);
@@ -46,6 +54,7 @@ class UsuarioController extends Controller
         $usuario = new User();
 
         $usuario->name = $request->name;
+        $usuario->cpf = $request->cpf;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
         $usuario->perfil_id = $request->perfil_id;
