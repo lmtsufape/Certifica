@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CertificadoModelo extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'certificado_modelos';
-    
+
     protected $fillable = ['descricao',
      'imagem', 'texto', 'unidade_administrativa_id'];
 
     public static $rules = [
         'descricao'                     => 'required',
-        'imagem'                        => 'required | image',
+        'fundo'                        => 'required | image',
         'texto'                         => 'required',
         'unidade_administrativa_id'     => 'required',
     ];
@@ -29,8 +29,8 @@ class CertificadoModelo extends Model
 
     public static $messages = [
         'descricao.required'              => 'A descrição é obrigatória',
-        'imagem.required'                 => 'A imagem de fundo é obrigatória',
-        'imagem.image'                    => 'A imagem de fundo deve ser um arquivo do tipo imagem',
+        'fundo.required'                 => 'A imagem de fundo é obrigatória',
+        'fundo.image'                    => 'A imagem de fundo deve ser um arquivo do tipo imagem',
         'texto.*'                         => 'O texto padrão é obrigatório',
     ];
 

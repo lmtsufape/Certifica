@@ -68,7 +68,8 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->unidade_administrativa_id = $request->unidade_adm;
         $certificado_modelo->descricao = $request->descricao;
         $certificado_modelo->texto = $request->texto;
-        $certificado_modelo->imagem = $request->imagem->store('public/modelos');
+        $certificado_modelo->fundo = $request->fundo->store('public/modelos');
+        $certificado_modelo->verso = $request->verso->store('public/modelos');
 
         $certificado_modelo->save();
 
@@ -85,7 +86,7 @@ class CertificadoModeloController extends Controller
     public function show($id)
     {
         $modelo = CertificadoModelo::find($id);
-        $img = Storage::url($modelo->imagem);
+        $img = Storage::url($modelo->fundo);
         $verso = Storage::url($modelo->verso);
 
         return view('certificado_modelo.certificado_modelo_show', ['modelo' => $modelo, 'imagem' => $img, 'verso' => $verso]);
@@ -101,7 +102,7 @@ class CertificadoModeloController extends Controller
     {
         $unidades = UnidadeAdministrativa::orderBy('descricao')->get();
         $modelo = CertificadoModelo::find($id);
-        $img = Storage::url($modelo->imagem);
+        $img = Storage::url($modelo->fundo);
 
         return view('certificado_modelo.certificado_modelo_edit', ['modelo' => $modelo, 'imagem' => $img, 'unidades' => $unidades]);
     }
@@ -116,7 +117,7 @@ class CertificadoModeloController extends Controller
     public function update(UpdateCertificadoModeloRequest $request, $id)
     {
         try {
-            if (isset($request->imagem)) {
+            if (isset($request->fundo)) {
                 CertificadoModeloValidator::validate($request->all());
             } else {
                 CertificadoModeloValidator::validate($request->all(), CertificadoModelo::$edit_rules);
@@ -128,7 +129,7 @@ class CertificadoModeloController extends Controller
         $modelo = CertificadoModelo::find($id);
 
         if (isset($request->imagem)) { //caso a imagem tenha sido mudada
-            $modelo->imagem = $request->imagem->store('public/modelos');
+            $modelo->fundo = $request->fundo->store('public/modelos');
         }
 
         $modelo->unidade_administrativa_id = $request->unidade_adm;
@@ -158,7 +159,7 @@ class CertificadoModeloController extends Controller
     public function showImg($id)
     {
         $modelo = CertificadoModelo::find($id);
-        $img = Storage::url($modelo->imagem);
+        $img = Storage::url($modelo->fundo);
 
         return view('certificado_modelo.certificado_modelo_img', ['modelo' => $modelo, 'imagem' => $img]);
     }
@@ -167,13 +168,16 @@ class CertificadoModeloController extends Controller
     {
         $tipos_certificado = ['Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
+
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
+
         $unidade_adm = UnidadeAdministrativa::findOrFail($modelo->unidade_administrativa_id);
 
-        $img_fundo = Storage::url($modelo->imagem);
+        $img_fundo = Storage::url($modelo->fundo);
+        $img_verso = Storage::url($modelo->verso);
 
         return view('certificado_modelo.tipo_certificado_modelo_create', ['tipos_certificado' => $tipos_certificado,
-            'modelo' => $modelo, 'unidade_adm' => $unidade_adm, 'img_fundo' => $img_fundo]);
+            'modelo' => $modelo, 'unidade_adm' => $unidade_adm, 'img_fundo' => $img_fundo, 'img_verso' => $img_verso]);
     }
 
     public function store_tipo_certificado(Request $request)
@@ -184,8 +188,8 @@ class CertificadoModeloController extends Controller
         $certificado_modelo->descricao = $request->tipo_certificado . " " . $request->descricao;
         $certificado_modelo->tipo_certificado = $request->tipo_certificado;
         $certificado_modelo->texto = $request->texto;
-        $certificado_modelo->imagem = $request->imagem;
-        $certificado_modelo->verso = $request->verso->store('public/modelos');
+        $certificado_modelo->fundo = $request->fundo;
+        $certificado_modelo->verso = $request->verso;
 
         $certificado_modelo->save();
 

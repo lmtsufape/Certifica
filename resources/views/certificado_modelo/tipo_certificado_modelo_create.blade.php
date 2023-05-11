@@ -26,7 +26,8 @@
                     <div class="row">
 
                         <input name="descricao" type="hidden" id="descricao" value="{{$modelo->descricao}}">
-                        <input name="imagem" type="hidden" id="imagem" value="{{ $modelo->imagem }}">
+                        <input name="fundo" type="hidden" id="imagem" value="{{ $modelo->fundo }}">
+                        <input name="verso" type="hidden" id="verso" value="{{ $modelo->verso }}">
                         <input name="unidade_administrativa_id" type="hidden" id="unidade_administrativa_id" value=" {{ $modelo->unidade_administrativa_id }} ">Unidade Administrativa</input>
 
                         <div class="form-group">
@@ -35,15 +36,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="imagem">Imagem de fundo:</label>
+                            <label for="fundo_certificado">Imagem de fundo:</label>
                             <div class="col-8">
                                 <img src="{{$img_fundo}}" alt="" width="500" height="250">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="imagem">Verso</label>
-                            <input name="verso" type="file" class="form-control" id="imagem" accept="image/*">
+                            <label for="verso_certificado">Verso:</label>
+                            <div class="col-8">
+                                <img src="{{$img_verso}}" alt="" width="500" height="250">
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -70,7 +73,7 @@
                                 <button type="submit" class="btn btn-primary">Salvar</button>
                             </div>
                             <div class="col-2">
-                                <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}" class='btn btn-primary' style='margin-left: 10px'>Voltar</a>
+                                <a href="{{route('certificado_modelo.index', ['id'=>$modelo->id])}}" class='btn btn-primary' style='margin-left: 10px'>Voltar</a>
                             </div>
                         </div>
                     </div>

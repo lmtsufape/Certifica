@@ -3,6 +3,17 @@
     <head>
         <title> Certificado </title>
         <style>
+            @font-face {
+                font-family: gyre;
+                src: url('public/fonts/tex-gyre-termes/texgyretermes-regular.otf');
+            }
+
+            *{
+                margin: 0px;
+                padding: 0px;
+                font-family: gyre;
+            }
+
             .fundo_certificado {
                 background-image: url( {{ public_path($imagem) }});
                 background-size: cover;
@@ -11,7 +22,7 @@
                 padding-top: 100px;
             }
 
-            .fundo_verso {
+            .verso_certificado {
                 background-image: url( {{ public_path($verso) }});
                 background-size: cover;
                 font-family: Arial, sans-serif;
@@ -19,8 +30,8 @@
                 padding-top: 100px;
             }
 
-            p {
-                font-size: 1.3em;
+            .texto_certificado {
+                font-size: 20px;
                 color: #000000;
                 text-shadow: 2px 2px #000;
                 margin-top: 200px;
@@ -29,7 +40,7 @@
             }
 
             .codigo_validacao {
-                font-size: 1.3em;
+                font-size: 16px;
                 color: #000000;
                 text-shadow: 2px 2px #000;
                 margin-top: 175px;
@@ -48,14 +59,14 @@
     </head>
 
     <body class="fundo_certificado">
-        <p> {{ $modelo->texto }}
+        <p class="texto_certificado"> {{ $modelo->texto }}
             <br> <br> <br>
             Garanhuns, {{ date('d') }} de {{ $mes }} de {{ date('Y') }}
 
         </p>
     </body>
 
-    <body class="fundo_verso">
+    <body class="verso_certificado">
         <img class="qrcode" src="data:image/png;base64, {{ $qrcode }}">
 
         <p class="codigo_validacao"> Código de validação: {{ $certificado->codigo_validacao }} </p>
