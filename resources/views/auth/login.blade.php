@@ -7,14 +7,14 @@
 @section('content')
 
     <section class="container d-flex justify-content-center align-items-center home-page-container">
-        
+
         <section class="box-conteudo d-flex flex-column align-items-start justify-content-start">
             <h1 class="w-100 text-sm-center mb-3">Certifica</h1>
 
             <div class="Text-conteudo-homepage w-100 mb-3">
-                O Certifica teve sua primeira versão desenvolvida pela Unidade Acadêmica de 
-                Garanhuns da Universidade Federal Rural de Pernambuco, sendo posteriormente 
-                continuada e mantida pela Universidade Federal do Agreste de Pernambuco – 
+                O Certifica teve sua primeira versão desenvolvida pela Unidade Acadêmica de
+                Garanhuns da Universidade Federal Rural de Pernambuco, sendo posteriormente
+                continuada e mantida pela Universidade Federal do Agreste de Pernambuco –
                 UFAPE para atender demandas do setor da Escolaridade (atual DRCA).
             </div>
 
@@ -51,7 +51,7 @@
             </div>
 
             <div class="container-text-homeform">
-                <p class="text-homepage">Não possui conta? <a class="criar-conta-link" href="{{ route('register') }}">Criar Conta</a></p>
+                <p class="text-homepage">Não possui conta? <a class="criar-conta-link" href="{{ route('usuario.registrar') }}">Criar Conta</a></p>
             </div>
 
         </form>

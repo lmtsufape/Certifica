@@ -41,6 +41,8 @@ Route::get(
         return redirect(route('home'));
     })->name('login.logout');
 
+Route::get('/registrar', [UsuarioController::class, 'create'])->name('usuario.registrar');
+Route::post('/usuario/store', [UsuarioController::class, 'store'])->name('usuario.store');
 
 Route::group(['middleware' => 'checkAdministrador'], function ()
 {
@@ -83,7 +85,6 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
 
     Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
-    Route::post('/usuario/store', [UsuarioController::class, 'store'])->name('usuario.store');
 
     Route::get('/usuario/edit/{usuario_id}', [UsuarioController::class, 'edit'])->name('usuario.edit');
     Route::post('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
