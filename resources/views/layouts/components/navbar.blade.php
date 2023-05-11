@@ -1,14 +1,14 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-white border-bottom pt-4 pb-4">
+<nav class="navbar col-12 navbar-expand-md navbar-dark bg-white border-bottom pt-4 pb-4">
 
     <div class="container w-100 d-flex align-items-center justify-content-around">
 
-        <div class="col-5 d-flex align-items-center justify-content-start">
+        <div class="col-sm-5 d-flex align-items-center justify-content-start">
             <a href={{ Route('home') }}>
                 <img class="logo-certifica" src="/images/layouts/header/logo-certifica.svg" alt="logo">
             </a>
         </div>
 
-        <div class="col-5 d-flex align-items-center justify-content-end">
+        <div class="col-sm-5 d-flex align-items-center justify-content-end">
             @if (Auth::check())
                 <ul class="navbar-nav ms-auto mr-4">
                     <li class="nav-item dropdown">
@@ -30,7 +30,7 @@
                     </li>
                 </ul>
             @else
-                <ul class="navbar-nav h-100 ms-auto mr-4">
+                <ul class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="">Inicio</a></li>
                     <li><a class="dropdown-item" href="">Sistema</a></li>
                     <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Validar
