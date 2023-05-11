@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('tipo_certificado')->nullable();
             $table->string('descricao');
-            $table->string('imagem');
-            $table->string('verso')->nullable();
+            $table->string('fundo');
+            $table->string('verso');
             $table->text('texto');
             $table->unsignedInteger('unidade_administrativa_id')->nullable()->index();
             $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');

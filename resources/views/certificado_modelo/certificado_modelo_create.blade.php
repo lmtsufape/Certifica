@@ -38,8 +38,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="imagem">Imagem de fundo</label>
-                        <input name="imagem" type="file" class="form-control" id="imagem" accept="image/*">
+                        <label for="fundo_certificado">Imagem de fundo</label>
+                        <input name="fundo" type="file" class="form-control" id="fundo" accept="image/*">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="verso_certificado">Verso</label>
+                        <input name="verso" type="file" class="form-control" id="verso" accept="image/*">
                     </div>
 
                     <div class="form-group">

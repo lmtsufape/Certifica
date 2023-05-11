@@ -126,7 +126,7 @@ class CertificadoController extends Controller
 
         $modelo->texto = str_replace($antes, $depois, $modelo->texto);
 
-        $imagem = Storage::url($modelo->imagem);
+        $imagem = Storage::url($modelo->fundo);
 
         $verso = Storage::url($modelo->verso);
 
