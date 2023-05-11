@@ -119,7 +119,7 @@ div .border-right{
 }
 
 .logo-certifica {
-    width: 75px;
+    width: 100%;
 }
 
 /*Footer CSS*/
@@ -143,16 +143,22 @@ footer .text-icons {
 }
 .logos{
     background: #EEEEEE;
-    width: 110px;
+    width: 100%;
     padding: 10px 16px;
     border-radius: 10px;
 }
 .logo-redes{
-    width: 30px;
+    width: 100%;
     margin: 25px 0 0 0;
 }
 
 .box-redes{
     padding: 0 0 40px 0;
     height: 100%;
+}
+
+@media (width < 768px){
+    .logo-redes{
+        width: 75%;
+    }
 }
