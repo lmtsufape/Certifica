@@ -19,8 +19,8 @@
                     
                 <div class="w-100 d-flex flex-row align-items-center justify-content-around">
 
-                    <div class="col-sm-5 d-flex align-items-center justify-content-end">
-                        <a href="http://ufape.edu.br/" target="_blank">
+                    <div class="col-sm-5 d-flex align-items-center justify-content-start">
+                        <a href="http://lmts.uag.ufrpe.br/" target="_blank">
 
                             <img class="logos" src="/images/layouts/footer/UFAPElogo.svg" alt="Logo">
                         </a>

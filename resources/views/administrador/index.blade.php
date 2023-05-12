@@ -15,20 +15,20 @@
 
                 <a class="link-opt" href={{ route('unidade_administrativa.index') }}>
                     <div class="box-opt padding-listar d-flex flex-column align-items-center justify-content-evenly">
-                        <img class="icon-opt" alt="">
+                        <img class="icon-opt" src={{ '/images/home/uniadministrativa.svg' }} alt="">
                         <span class="text-center">Unidades Administrativas</span>
                     </div>
                 </a>
 
                 <a class="link-opt" href={{ route('tipo_natureza.index') }}>
                     <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
-                        <img class="icon-opt" alt="">
+                        <img class="icon-opt" src={{ '/images/home/tiposnatureza.svg' }} alt="">
                         <span class="text-center">Tipos Natureza</span>
                     </div>
                 </a>
                 <a class="link-opt" href={{ route('natureza.index') }}>
                     <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
-                        <img class="icon-opt" alt="">
+                        <img class="icon-opt" src={{ '/images/home/natureza.svg' }} alt="">
                         <span class="text-center">Naturezas</span>
                     </div>
                 </a>
