@@ -18,6 +18,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input name="cpf" type="text" class="form-control" id="usuario_cpf" placeholder="11122233344">
+                        </div>
+
+                        <div class="form-group">
                             <label for="email">E-mail</label>
                             <input name="email" type="text" class="form-control" id="usuario_email" placeholder="exemple@gmail.com">
                         </div>
@@ -28,9 +33,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="perfil">Perfil</label>
+                            <label for="select_perfil">Perfil</label>
 
-                            <select name="perfil_id" id="usuario_perfil" class="form-control">
+                            <select name="perfil_id" id="select_perfil" class="form-control">
                                 <option value="" selected hidden>Escolher...</option>
                                 @foreach($perfils as $perfil)
                                     <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
@@ -38,10 +43,10 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="unidade_administrativa">
                             <label for="unidade_administrativa">Unidade Administrativa</label>
 
-                            <select name="unidade_administrativa_id" id="usuario_unidade_administrativa" class="form-control">
+                            <select name="unidade_administrativa_id"  class="form-control">
                                 <option value="" selected hidden>Escolher...</option>
                                 @foreach($unidade_administrativas as $unidade_administrativa)
                                     <option value="{{ $unidade_administrativa->id }}">{{ $unidade_administrativa->descricao }}</option>
@@ -56,4 +61,20 @@
             </div>
         </form>
     </div>
+
+    <script>
+        $(document).ready(function ()
+        {
+            $("#select_perfil").change(function ()
+            {
+                if($("#select_perfil").val() == 4)
+                {
+                    $("#unidade_administrativa").hide();
+                } else
+                {
+                    $("#unidade_administrativa").show();
+                }
+            });
+        });
+    </script>
 @endsection

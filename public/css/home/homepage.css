@@ -74,7 +74,9 @@
 .Text-conteudo-homepage{
     font-size: 20px;
     text-align: start;
-
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*Responsividade*/
@@ -82,6 +84,7 @@
 @media (width < 992px) {
     .Text-conteudo-homepage{
         font-size: 16px;
+        width: 100%;
     }
 }
 @media (width < 768px) {
@@ -90,6 +93,16 @@
     }
     .Text-conteudo-homepage{
         font-size: 14px;
+        width: 100%;
+    }
+}
+@media (width < 576px) {
+    .form-homepage{
+        width: 60vh;
+    }
+    .Text-conteudo-homepage{
+        font-size: 12px;
+        width: 75%;
     }
  
 }

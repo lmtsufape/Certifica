@@ -4,18 +4,15 @@
     padding: 0;
     margin: 0;
 }
-
 html, body {
     min-height: 100%;
 }
-
 div .border-right{
     border-right-width: thin;
     border-right-color: #FFFFFF;
     border-right-style: solid;
     padding-top: 10%;
 }
-
 .home-page-home {
     margin-top: 5px;
     display: flex;
@@ -25,7 +22,6 @@ div .border-right{
     align-items: center;
     height: 54vh;
 }
-
 .home-page-welcome-text {
     font-family: 'Inter';
     font-style: normal;
@@ -118,8 +114,8 @@ div .border-right{
     float:left;
 }
 
-.logo-certifica {
-    width: 100%;
+.logo-certifica,.logo-certifica-footer {
+    width: 80px;
 }
 
 /*Footer CSS*/
@@ -143,7 +139,7 @@ footer .text-icons {
 }
 .logos{
     background: #EEEEEE;
-    width: 100%;
+    width: 110px;
     padding: 10px 16px;
     border-radius: 10px;
 }
@@ -157,8 +153,31 @@ footer .text-icons {
     height: 100%;
 }
 
+
+/*Responsividade footer*/
+@media (width < 992px){
+    .logos{
+        width: 80px;
+    }
+}
 @media (width < 768px){
     .logo-redes{
         width: 75%;
     }
+    .logos{
+        width: 60px;
+    }
+}
+@media (width < 520px){
+    footer {
+        font-size: 11px;
+    }
+    .logos{
+        width: 50px;
+        padding:4px 10px;
+    }
+    .logo-certifica-footer{
+        width: 50px;
+    }
+
 }
