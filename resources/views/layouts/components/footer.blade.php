@@ -10,22 +10,17 @@
                         <img class="logo-certifica-footer" src="{{url('/images/layouts/footer/logo-branca.svg')}}" alt="">
                     </a>
                 </div>
-                
+
             </div>
 
             <div class="col-4 text-center d-flex flex-column align-items-center justify-content-evenly py-1 border-right">
 
                 <span class="text-white mb-3">Desenvolvido por</span>
-                    
+
                 <div class="w-100 d-flex flex-row align-items-center justify-content-around">
 
-<<<<<<< HEAD
-                    <div class="col-sm-5 d-flex align-items-center justify-content-start">
-                        <a href="http://lmts.uag.ufrpe.br/" target="_blank">
-=======
                     <div class="col-5 d-flex align-items-center justify-content-end">
                         <a href="http://ufape.edu.br/" target="_blank">
->>>>>>> 700d203e14ec37691303482641858f958818fbe8
 
                             <img class="logos" src="/images/layouts/footer/UFAPElogo.svg" alt="Logo">
                         </a>
@@ -38,13 +33,13 @@
                         </a>
                     </div>
                 </div>
-           
+
             </div>
 
             <div class="box-redes col-4 d-flex flex-column align-items-start justify-content-evenly py-1">
 
                 <span class="text-white text-center w-50">Contato</span>
-                    
+
                 <div class="w-75 col-12 d-flex align-items-center justify-content-evenly">
                     <a href="mailto:lmts@ufape.br" target="_blank" class="text-icons">
                         <img class="logo-redes" src="/images/layouts/footer/email.svg">
@@ -58,7 +53,7 @@
                         <img class="logo-redes"src="/images/layouts/footer/facebook.svg">
                     </a>
                 </div>
-                
+
             </div>
 
         </div>

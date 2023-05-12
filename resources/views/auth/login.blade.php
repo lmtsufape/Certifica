@@ -51,7 +51,7 @@
             </div>
 
             <div class="container-text-homeform">
-                <p class="text-homepage">Não possui conta? <a class="criar-conta-link" href="{{ route('usuario.registrar') }}">Criar Conta</a></p>
+                <p class="text-homepage">Não possui conta? <a class="criar-conta-link" href="{{ route('register') }}">Criar Conta</a></p>
             </div>
 
         </form>
