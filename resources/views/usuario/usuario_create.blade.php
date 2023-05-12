@@ -19,12 +19,12 @@
 
                         <div class="form-group">
                             <label for="cpf">CPF</label>
-                            <input name="cpf" type="text" class="form-control" id="usuario_cpf" placeholder="11122233344">
+                            <input name="cpf" type="text" class="form-control" id="usuario_cpf" placeholder="Ex: 11122233344">
                         </div>
 
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input name="email" type="text" class="form-control" id="usuario_email" placeholder="exemple@gmail.com">
+                            <input name="email" type="text" class="form-control" id="usuario_email" placeholder="Ex: exemple@gmail.com">
                         </div>
 
                         <div class="form-group">
