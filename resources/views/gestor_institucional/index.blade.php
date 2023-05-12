@@ -32,7 +32,7 @@
                 </a>
                 <a class="link-opt" href={{ route('gestor.acoes_submetidas') }}>
                     <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
-                        <img class="icon-opt"  alt="">
+                        <img class="icon-opt" src={{ '/images/home/solicitar.svg' }} alt="">
                         <span>Solicitações</span>
                     </div>
                 </a>
