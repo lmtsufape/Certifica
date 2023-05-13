@@ -3,10 +3,6 @@
     margin: 0;
     padding: 0;
 }
-
-
-
-
 .view-create-acao{
     height: 60vh;
 }
@@ -16,10 +12,7 @@
     margin: 0 12px 0 0;
 }
 .spacing-row2{
-    margin: 0 8px 0 0;
-}
-.spacing-row3{
-    margin: 0 15px 0 0;
+    margin: 0 29px 0 0;
 }
 
 /*Bootstrap*/
@@ -101,12 +94,8 @@ input[type="date"]{
 .cancel:hover {
     color: black;
 }
-.label-file{
-    background: #FFFFFF;
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    padding: 5px 0 0 0;
-}
+
+
 .boxicon{
     margin: 0 10px;
 }
@@ -115,8 +104,6 @@ input[type="date"]{
     bottom: 15px;
     padding: 0 0 0 20px;
 }
-
-
 input:disabled{
     background-color: transparent;
 }
@@ -124,7 +111,9 @@ input:disabled{
 .upload-icon{
     width: 22px;
     margin-left: 10px;
+    cursor: pointer;
 }
-.Nome-arquivo{
-    margin-left: 10px;
+
+.border-upload{
+    border-style: dashed;
 }
