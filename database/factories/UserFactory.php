@@ -26,11 +26,15 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Coordenador',
-            'email' => 'coordenador@admin.teste',
-            'email_verified_at' => now(),
+            'name' => '',
+            'email' => '',
+            'email_verified_at' => '',
             'password' => Hash::make('password'), // password
-            'perfil_id' => '2',
+            'perfil_id' => '',
+            'cpf' => '',
+            'celular' => '',
+            'instituicao' => '',
+            'siape' => '',
         ];
     }
 

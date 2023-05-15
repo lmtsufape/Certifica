@@ -32,6 +32,9 @@ class User extends Authenticatable
         'password',
         'perfil_id',
         'cpf',
+        'celular',
+        'instituicao',
+        'siape',
     ];
 
     /**

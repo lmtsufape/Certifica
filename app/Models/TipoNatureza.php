@@ -11,18 +11,23 @@ class TipoNatureza extends Model
     use HasFactory;
     protected $table = 'tipo_naturezas';
 
-    protected $fillable = ['descricao'];
+    protected $fillable = [
+        'descricao',
+        'tipo_natureza_id',
+    ];
 
     public static $rules = [
         'descricao' => 'required|string|unique:tipo_naturezas',
+        'tipo_natureza_id' => 'required',
     ];
 
     public static $messages = [
         'descricao.required' => 'A descrição é obrigatória',
         'descricao.unique' =>   'Já existe um Tipo de Natureza cadastrado com esta descrição',
+        'natureza_id' => 'O tipo da natureza é obrigatório',
     ];
 
     public function naturezas(){
-        return $this->hasMany('App\Models\Natureza');
+        return $this->belongsTo('App\Models\Natureza');
     }
 }

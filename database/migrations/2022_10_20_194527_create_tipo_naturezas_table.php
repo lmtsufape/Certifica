@@ -13,10 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_naturezas', function (Blueprint $table) {
+        Schema::create('tipo_naturezas', function (Blueprint $table)
+        {
             $table->id();
             $table->string('descricao');
+
+            $table->unsignedInteger('natureza_id')->index();
+            $table->foreign('natureza_id')->references('id')->on('naturezas');
             $table->timestamps();
+
+
         });
     }
 
@@ -27,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_naturezas');
+        Schema::dropIfExists('naturezas');
     }
 };

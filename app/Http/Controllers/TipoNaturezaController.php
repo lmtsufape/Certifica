@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Natureza;
 use App\Models\TipoNatureza;
 use App\Http\Requests\StoreTipoNaturezaRequest;
 use App\Http\Requests\UpdateTipoNaturezaRequest;
@@ -18,8 +19,9 @@ class TipoNaturezaController extends Controller
      */
     public function index()
     {
-        $tipoNaturezas = TipoNatureza::query()->get();
-        return view('tipo_natureza.tipo_natureza_consult',['tipo_natureza' => $tipoNaturezas]);
+        $tipoNaturezas = TipoNatureza::all()->sortBy('id');
+
+        return view('tipo_natureza.tipo_natureza_consult', compact('tipoNaturezas'));
 
     }
 
@@ -30,7 +32,9 @@ class TipoNaturezaController extends Controller
      */
     public function create()
     {
-        return view('tipo_natureza.tipo_natureza_create');
+        $naturezas = Natureza::all()->sortBy('id');
+
+        return view('tipo_natureza.tipo_natureza_create', compact('naturezas'));
     }
 
     /**
@@ -60,7 +64,8 @@ class TipoNaturezaController extends Controller
      */
     public function show(TipoNatureza $tipo_naturezas)
     {
-        $tipo_naturezas = TipoNatureza::query()->get();
+        $tipo_naturezas = TipoNatureza::all()->sortBy('id');
+
         return view('tipo_natureza.tipo_natureza_consult',['tipo_naturezas' => $tipo_naturezas]);
     }
 
@@ -72,8 +77,12 @@ class TipoNaturezaController extends Controller
      */
     public function edit($id)
     {
-        $tipo_natureza = TipoNatureza::query()->findOrFail($id);
-        return view('tipo_natureza.tipo_natureza_edit', ['tipo_natureza' => $tipo_natureza]);
+        $tipo_natureza = TipoNatureza::findOrFail($id);
+
+        $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
+        $naturezas = Natureza::all()->sortBy('id');
+
+        return view('tipo_natureza.tipo_natureza_edit', compact('tipo_natureza', 'natureza', 'naturezas'));
     }
 
     /**
@@ -92,11 +101,11 @@ class TipoNaturezaController extends Controller
         }
 
         $tipo_natureza = TipoNatureza::findOrFail($id);
-        
+
         $tipo_natureza->update([
             'descricao' => $request->descricao
         ]);
-        
+
         return redirect(Route('tipo_natureza.index'))->with(['mensagem' => 'Tipo de Natureza atualizado com sucesso']);
     }
 
@@ -109,11 +118,6 @@ class TipoNaturezaController extends Controller
     public function destroy($id)
     {
         $tipo_natureza = TipoNatureza::findOrFail($id);
-
-        if ($tipo_natureza->naturezas()->first()){
-            return redirect(route('tipo_natureza.index'))
-                            ->with(['error_mensage' => 'Tipo de Natureza não pode ser excluida. Tipo de Natureza vinculada a uma Natureza']);
-        }
 
         $tipo_natureza->delete();
 

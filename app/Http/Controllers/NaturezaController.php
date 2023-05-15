@@ -22,7 +22,7 @@ class NaturezaController extends Controller
     {
         $naturezas = Natureza::all()->sortBy('id');
 
-        return view('natureza.natureza_index', ['naturezas' => $naturezas]);
+        return view('natureza.natureza_index', compact('naturezas'));
     }
 
     /**
@@ -32,10 +32,7 @@ class NaturezaController extends Controller
      */
     public function create()
     {
-        $tipo_naturezas = TipoNatureza::all()->sortBy('id');
-        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
-
-        return view('natureza.natureza_create', ['tipo_naturezas' => $tipo_naturezas, 'unidade_administrativas' => $unidade_administrativas]);
+        return view('natureza.natureza_create');
     }
 
     /**
@@ -78,15 +75,7 @@ class NaturezaController extends Controller
     {
         $natureza = Natureza::findOrFail($id);
 
-        $tipo_natu = TipoNatureza::findOrFail($natureza->tipo_natureza_id);
-        $tipo_naturezas = TipoNatureza::all()->sortBy('id');
-
-        $uni_administrativa = UnidadeAdministrativa::findOrFail($natureza->unidade_administrativa_id);
-        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
-
-        return view('natureza.natureza_edit', ['natureza' => $natureza, 'tipo_natu' => $tipo_natu,
-                                                    'tipo_naturezas' => $tipo_naturezas, 'uni_administrativa' => $uni_administrativa,
-                                                    'unidade_administrativas' => $unidade_administrativas]);
+        return view('natureza.natureza_edit', compact('natureza'));
     }
 
     /**
@@ -101,8 +90,6 @@ class NaturezaController extends Controller
         $natureza = Natureza::findOrFail($request->id);
 
         $natureza->descricao = $request->descricao;
-        $natureza->tipo_natureza_id = $request->tipo_natureza_id;
-        $natureza->unidade_administrativa_id = $request->unidade_administrativa_id;
 
         $natureza->update();
 
@@ -118,8 +105,14 @@ class NaturezaController extends Controller
     public function delete($natureza_id)
     {
         $natureza = Natureza::findOrFail($natureza_id);
+
+        if ($natureza->tipo_naturezas()->first()){
+            return redirect(route('natureza.index'))
+                ->with(['error_mensage' => 'Tipo de Natureza não pode ser excluida. Tipo de Natureza vinculada a uma Natureza']);
+        }
+
         $natureza->delete();
 
-        return redirect(Route('natureza.index'));
+        return redirect(Route('natureza.index'))->with(['mensagem' => 'Natureza excluída com sucesso!']);
     }
 }

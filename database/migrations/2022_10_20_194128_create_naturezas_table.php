@@ -13,18 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('naturezas', function (Blueprint $table)
-        {
+        Schema::create('naturezas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao');
-
-            $table->unsignedInteger('tipo_natureza_id')->index();
-            $table->foreign('tipo_natureza_id')->references('id')->on('tipo_naturezas');
-            $table->unsignedInteger('unidade_administrativa_id')->index();
-            $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
-
-
         });
     }
 

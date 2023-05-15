@@ -15,23 +15,17 @@ class Natureza extends Model
 
     protected $fillable = [
         'descricao',
-        'tipo_natureza_id',
-        'unidade_administrativa_id'
     ];
 
     public static $rules = [
-        'descricao' => 'required|string|min:10',
-        'tipo_natureza_id' => 'required',
-        'unidade_administrativa_id' => 'required',
+        'descricao' => 'required|string|min:5',
     ];
 
     public static $mensages = [
-        'descricao' => 'A descrição é obrigatória e deve ter no mínimo 10 caracteres',
-        'tipo_natureza_id' => 'O tipo da natureza é obrigatório',
-        'unidade_administrativa_id' => 'Unidade Adiministrativa é obricatória',
+        'descricao' => 'A descrição é obrigatória e deve ter no mínimo 5 caracteres',
     ];
 
     public function tipoNatureza(){
-        return $this->belongsTo('App\Models\TipoNatureza');
+        return $this->hasMany('App\Models\TipoNatureza');
     }
 }
