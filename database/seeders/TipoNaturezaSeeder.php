@@ -15,6 +15,19 @@ class TipoNaturezaSeeder extends Seeder
      */
     public function run()
     {
-        TipoNatureza::factory()->create(['descricao' => 'Tipo Natureza Teste']);
+        //Tipos de natureza para Ensino
+        TipoNatureza::factory()->create(['descricao' => 'projeto', 'natureza_id' => '1']);
+
+        //Tipos de natureza para Extensão
+        TipoNatureza::factory()->create(['descricao' => 'projeto no Programa PIBEX', 'natureza_id' => '2']);
+        TipoNatureza::factory()->create(['descricao' => 'projeto no Programa de Fluxo Contínuo', 'natureza_id' => '2']);
+        TipoNatureza::factory()->create(['descricao' => 'curso no Programa de Fluxo Contínuo', 'natureza_id' => '2']);
+        TipoNatureza::factory()->create(['descricao' => 'evento no Programa de Fluxo Contínuo', 'natureza_id' => '2']);
+        TipoNatureza::factory()->create(['descricao' => 'prestação de serviço no Programa de Fluxo Contínuo', 'natureza_id' => '2']);
+
+        //Tipos de natureza para Pesquisa
+        TipoNatureza::factory()->create(['descricao' => 'projeto no edital PIBIC', 'natureza_id' => '3']);
+        TipoNatureza::factory()->create(['descricao' => 'projeto no edital PIBIC-EM', 'natureza_id' => '3']);
+        TipoNatureza::factory()->create(['descricao' => 'projeto no edital PIBIT', 'natureza_id' => '3']);
     }
 }

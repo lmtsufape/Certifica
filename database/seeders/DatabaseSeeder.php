@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([UnidadeAdministrativaSeeder::class]);
         $this->call([PerfilSeeder::class]);
         $this->call([UserSeeder::class]);
-        $this->call([TipoNaturezaSeeder::class]);
         $this->call([NaturezaSeeder::class]);
+        $this->call([TipoNaturezaSeeder::class]);
         $this->call([AcaoSeeder::class]);
         $this->call([AtividadeSeeder::class]);
         $this->call([ParticipanteSeeder::class]);

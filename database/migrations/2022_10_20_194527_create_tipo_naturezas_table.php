@@ -20,8 +20,6 @@ return new class extends Migration
 
             $table->unsignedInteger('tipo_natureza_id')->index();
             $table->foreign('tipo_natureza_id')->references('id')->on('tipo_naturezas');
-            $table->unsignedInteger('unidade_administrativa_id')->index();
-            $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
             $table->timestamps();
 
 
