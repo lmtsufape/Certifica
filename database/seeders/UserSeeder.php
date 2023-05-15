@@ -26,5 +26,8 @@ class UserSeeder extends Seeder
         User::factory()->create(['name' => 'Gestor Institucional', 'email' => 'gestorinst@admin.teste', 'email_verified_at' => now(),
                                 'password' => Hash::make('password'), 'perfil_id' => '3',
                                 'unidade_administrativa_id' => '1', 'cpf' => '78525571717']);
+        User::factory()->create(['name' => 'PREC', 'email' => 'certificacao.prec@ufape.edu.br', 'email_verified_at' => now(),
+            'password' => Hash::make('prec123'), 'perfil_id' => '3',
+            'unidade_administrativa_id' => '1']);
     }
 }
