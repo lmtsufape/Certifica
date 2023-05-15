@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('anexo')->nullable();
             $table->unsignedInteger('natureza_id')->index();
             $table->foreign('natureza_id')->references('id')->on('naturezas');
+            $table->unsignedInteger('tipo_natureza_id')->index();
+            $table->foreign('tipo_natureza_id')->references('id')->on('tipo_naturezas');
             $table->unsignedInteger('usuario_id')->index();
             $table->foreign('usuario_id')->references('id')->on('users');
             $table->unsignedInteger('unidade_administrativa_id')->index();
