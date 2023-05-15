@@ -40,7 +40,7 @@
         <div class="row d-flex aligm-items-start justify-content-start">
             <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Perfil</span>
-                <select class="w-75 input-text" name="perfil_id" id="select_perfil" required>
+                <select class="w-100 input-text" name="perfil_id" id="select_perfil" required>
                     <option selected hidden> -- Perfil -- </option>
                     <option value="2"> Técnico </option>
                 </select>
@@ -50,7 +50,7 @@
         <div class="row d-flex aligm-items-start justify-content-start ">
             <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Instituição de Vínculo</span>
-                <select class="w-75 input-text" name="instituicao" id="select_instituicao" required>
+                <select class="w-100 input-text" name="instituicao" id="select_instituicao" required>
                     <option selected hidden> -- Instituição -- </option>
                     <option value="2"> Universidade Federal do Agreste de Pernambuco - UFAPE </option>
                 </select>
