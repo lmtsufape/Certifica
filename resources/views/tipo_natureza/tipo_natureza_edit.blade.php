@@ -30,6 +30,17 @@
                                 <input name="descricao" type="text" class="form-control" id="descricao" value="{{$tipo_natureza->descricao}}">
                             </div>
 
+                            <div class="form-group">
+                                <label for="tipo_natureza">Natureza</label>
+
+                                <select name="natureza_id" id="natureza" class="form-control">
+                                    <option value="{{ $natureza->id }}" selected hidden>{{ $natureza->descricao }}</option>
+                                    @foreach($naturezas as $natureza)
+                                        <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <button type="submit" class="btn btn-success">Atualizar</button>
                         </div>
                     </div>
