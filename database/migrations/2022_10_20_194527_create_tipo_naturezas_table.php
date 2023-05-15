@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('naturezas', function (Blueprint $table)
+        Schema::create('tipo_naturezas', function (Blueprint $table)
         {
             $table->id();
             $table->string('descricao');
 
-            $table->unsignedInteger('tipo_natureza_id')->index();
-            $table->foreign('tipo_natureza_id')->references('id')->on('tipo_naturezas');
+            $table->unsignedInteger('natureza_id')->index();
+            $table->foreign('natureza_id')->references('id')->on('naturezas');
             $table->timestamps();
 
 
