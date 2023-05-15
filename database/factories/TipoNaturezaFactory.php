@@ -18,6 +18,7 @@ class TipoNaturezaFactory extends Factory
     {
         return [
             'descricao' => '',
+            'natureza_id' => '',
         ];
     }
 }
