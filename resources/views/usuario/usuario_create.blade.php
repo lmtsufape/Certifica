@@ -18,8 +18,19 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="select_perfil">Perfil</label>
+
+                            <select name="perfil_id" id="select_perfil" class="form-control">
+                                <option value="" selected hidden>Escolher...</option>
+                                @foreach($perfils as $perfil)
+                                    <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="usuario_cpf">
                             <label for="cpf">CPF</label>
-                            <input name="cpf" type="text" class="form-control" id="usuario_cpf" placeholder="Ex: 11122233344">
+                            <input name="cpf" type="text" class="form-control" placeholder="Ex: 11122233344">
                         </div>
 
                         <div class="form-group">
@@ -30,17 +41,6 @@
                         <div class="form-group">
                             <label for="senha">Senha</label>
                             <input name="password" type="password" class="form-control" id="usuario_senha">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="select_perfil">Perfil</label>
-
-                            <select name="perfil_id" id="select_perfil" class="form-control">
-                                <option value="" selected hidden>Escolher...</option>
-                                @foreach($perfils as $perfil)
-                                    <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
-                                @endforeach
-                            </select>
                         </div>
 
                         <div class="form-group" id="unidade_administrativa">
@@ -67,12 +67,16 @@
         {
             $("#select_perfil").change(function ()
             {
-                if($("#select_perfil").val() == 4)
+                if($("#select_perfil").val() == 2)
                 {
                     $("#unidade_administrativa").hide();
-                } else
+                } else if($("#select_perfil").val() == 3)
                 {
                     $("#unidade_administrativa").show();
+                    $("#usuario_cpf").hide();
+                } else
+                {
+                    $("#unidade_administrativa").hide();
                 }
             });
         });
