@@ -6,6 +6,7 @@ use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Natureza;
 use App\Models\SubmeterAcao;
+use App\Models\TipoNatureza;
 use App\Models\UnidadeAdministrativa;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
@@ -41,9 +42,15 @@ class AcaoController extends Controller
     public function create()
     {
         $naturezas = Natureza::all()->sortBy('id');
+
+        $naturezas_ensino = TipoNatureza::all()->where('natureza_id', 1);
+        $naturezas_extensao = TipoNatureza::all()->where('natureza_id', 2);
+        $naturezas_pesquisa = TipoNatureza::all()->where('natureza_id', 3);
+
         $unidades_adm = UnidadeAdministrativa::all()->sortBy('id');
 
-        return view('acao.acao_create', compact('naturezas', 'unidades_adm'));
+        return view('acao.acao_create', compact('naturezas', 'naturezas_ensino', 'naturezas_extensao',
+                                                    'naturezas_pesquisa', 'unidades_adm'));
     }
 
     /**
@@ -54,12 +61,23 @@ class AcaoController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             AcaoValidator::validate($request->all());
         } catch (ValidationException $exception) {
             return redirect(route('acao.create'))->withErrors($exception->validator)->withInput();
         }
 
+        if($request->natureza_id == 1)
+        {
+            $request->tipo_natureza_id = $request->ensino;
+        } else if($request->natureza_id == 2)
+        {
+            $request->tipo_natureza_id = $request->extensao;
+        } else if($request->natureza_id == 3)
+        {
+            $request->tipo_natureza_id = $request->pesquisa;
+        }
 
         $acao = new Acao();
 
@@ -67,6 +85,7 @@ class AcaoController extends Controller
         $acao->data_inicio = $request->data_inicio;
         $acao->data_fim = $request->data_fim;
         $acao->natureza_id = $request->natureza_id;
+        $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $request->unidade_administrativa_id;
         $acao->anexo = $request->file('anexo')->store('anexos');
@@ -125,6 +144,7 @@ class AcaoController extends Controller
         $acao->data_inicio = $request->data_inicio;
         $acao->data_fim = $request->data_fim;
         $acao->natureza_id = $request->natureza_id;
+        $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $request->unidade_administrativa_id;
 
