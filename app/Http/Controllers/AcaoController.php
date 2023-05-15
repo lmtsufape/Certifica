@@ -6,6 +6,7 @@ use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Natureza;
 use App\Models\SubmeterAcao;
+use App\Models\UnidadeAdministrativa;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
 use Illuminate\Routing\Route;
@@ -40,8 +41,9 @@ class AcaoController extends Controller
     public function create()
     {
         $naturezas = Natureza::all()->sortBy('id');
+        $unidades_adm = UnidadeAdministrativa::all()->sortBy('id');
 
-        return view('acao.acao_create', ['naturezas' => $naturezas]);
+        return view('acao.acao_create', compact('naturezas', 'unidades_adm'));
     }
 
     /**

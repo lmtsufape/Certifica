@@ -10,8 +10,6 @@
         @csrf
         <!-- Hiddens-->
         <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
-
 
         <div class="row d-flex aligm-items-start justify-content-start ">
             <div class="col-md-12 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
@@ -29,7 +27,7 @@
                 <span class="tittle-input w-50">Data de fim</span><input class="w-100" type="date" name="data_fim"
                     id="">
             </div>
-            
+
             <div
                 class="col-md-3 input-create-box input-create-box d-flex aligm-items-start justify-content-start flex-column">
                 <span class="tittle-input n-edital">Nº edital</span><input class="w-50 input-text" type="text"
@@ -61,6 +59,18 @@
                 </select>
             </div>
 
+            <div class="row d-flex aligm-items-start justify-content-start ">
+                <div class="col-md-12 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                    <span class="tittle-input ">Unidade Administrativa</span>
+                    <select class="select-form w-100 " name="unidade_administrativa_id" id="">
+                        @foreach ($unidades_adm as $unidade_adm)
+                            <option value="">-- Unidade Administrativa --</option>
+                            <option value="{{ $unidade_adm->id }}">{{ $unidade_adm->descricao }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
         </div>
 
 
@@ -79,16 +89,16 @@
 
         campoanexo.addEventListener('change',(e)=>{
 
-           var string = e.target.value 
+           var string = e.target.value
 
-           var dados = string.split(/[\\"]/g)   
-            
+           var dados = string.split(/[\\"]/g)
+
            campoArquivo.value = dados[dados.length - 1]
-           
+
         })
-       
+
     </script>
-    
+
 @endsection
 
 
