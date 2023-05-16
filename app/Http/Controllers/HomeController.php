@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\acao;
 use Auth;
 
 class HomeController extends Controller
@@ -28,8 +29,28 @@ class HomeController extends Controller
             return view('administrador.index'); //admin
             
         } else if(Auth::user()->perfil_id == 2){
-            return view('coordenador.index'); //cordenador
+
+            $acaos = acao::all();
+
+            $aprovadas = 0;
+            $analise = 0;
+            $devolvidas = 0;
+
+            foreach ($acaos as $acao) {
+                if ($acao->status == "Aprovada") {
+                    $aprovadas++;
+                }
+                if ($acao->status == "Em análise") {
+                    $analise++;
+                }
+                if ($acao->status == "Reprovada") {
+                    $devolvidas++;
+                }
+            }       
             
+
+
+            return view('coordenador.index',[ 'aprovadas' => $aprovadas ,'analise' => $analise, 'devolvidas' => $devolvidas ]); //cordenador
         } else if (Auth::user()->perfil_id == 3){
             return view('gestor_institucional.index'); //gestor
         }

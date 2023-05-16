@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+    
     <div class="index-coordenador-view">
         <div class="row d-flex align-items-start justify-content-between">
             <div class="box-coordenador-index d-flex flex-row align-items-start col">
@@ -36,13 +37,13 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-around"> 
                             <div class="square aprovado border d-flex align-items-center justify-content-center">
-                                1
+                                {{$aprovadas}}
                             </div>
                             <div class="square analise border d-flex align-items-center justify-content-center">
-                                2
+                                {{$analise}}
                             </div>
                             <div class="square devolvido border d-flex align-items-center justify-content-center">
-                                3
+                                {{$devolvidas}}
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-around">
