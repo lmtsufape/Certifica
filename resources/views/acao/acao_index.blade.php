@@ -80,6 +80,7 @@
                     <div class="col-2 text-center"><span>Atividades</span></div>
                 </div>
             </div> 
+            
             <div class="list container overflow-scroll">
                 @foreach($acaos as $acao)
                 <div class="row linha-table d-flex align-items-center justify-content-start">
