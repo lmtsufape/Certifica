@@ -121,12 +121,11 @@ class AcaoController extends Controller
 
         $acao = Acao::findOrFail($id);
         $natureza = Natureza::findOrFail($acao->natureza_id);
+        $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
         $naturezas = Natureza::all()->sortBy('id');
 
-        return view('acao.acao_edit', ['acao' => $acao, 'naturezas' => $naturezas, 'natureza' => $natureza,
-        'naturezas_ensino' => $naturezas_ensino,'naturezas_extensao' => $naturezas_extensao, 'naturezas_pesquisa' => $naturezas_pesquisa
-
-        ]);
+        return view('acao.acao_edit',compact('acao','naturezas', 'natureza',
+        'naturezas_ensino','naturezas_extensao', 'naturezas_pesquisa','tipo_natureza'));
     }
 
     /**

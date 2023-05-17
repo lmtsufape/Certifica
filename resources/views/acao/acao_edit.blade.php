@@ -75,14 +75,7 @@
                     class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
                     <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
                     <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
-                        <option value="" selected hidden>
-
-                            @foreach ($naturezas as $natureza)
-                                @if ($natureza->id == $acao->natureza_id)
-                                    {{ $natureza->descricao }}
-                                @endif
-                            @endforeach
-
+                        <option id="NaturezaSelecionada" value={{ $natureza->id }} selected> {{ $natureza->descricao }}
                         </option>
                         @foreach ($naturezas as $natureza)
                             <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
@@ -96,57 +89,29 @@
                     <input type="hidden" name="tipo_natureza_id" value="0">
 
                     <select name="ensino" class="select-form w-100 " id="select_tipo_natureza_ensino">
-                        <option value="" selected hidden>
-
-                            @foreach ($naturezas_ensino as $natureza_ensino)
-                                @if ($natureza->id == $acao->natureza_id)
-                                    {{ $natureza_ensino->descricao }}
-                                @else
-                                    -- Tipo Natureza --
-                                @endif
-                            @endforeach
-
-                        </option>
+                        <option id="tipoNaturezaSelecionado" value={{ $tipo_natureza->id }} selected>
+                            {{ $tipo_natureza->descricao }}</option>
                         @foreach ($naturezas_ensino as $natureza_ensino)
                             <option value="{{ $natureza_ensino->id }}">{{ $natureza_ensino->descricao }}</option>
                         @endforeach
                     </select>
 
                     <select name="extensao" class="select-form w-100 " id="select_tipo_natureza_extensao">
-                        <option value="" selected hidden>
-
-                            @foreach ($naturezas_extensao as $natureza_extensao)
-                                @if ($natureza_extensao->id == $acao->natureza_id)
-                                    {{ $natureza_extensao->descricao }}
-                                @else
-                                    -- Tipo Natureza --
-                                @endif
-                            @endforeach
-                        </option>
-
+                        <option id="tipoNaturezaSelecionado" value={{ $tipo_natureza->id }} selected>
+                            {{ $tipo_natureza->descricao }}</option>
                         @foreach ($naturezas_extensao as $natureza_extensao)
                             <option value="{{ $natureza_extensao->id }}">{{ $natureza_extensao->descricao }}</option>
                         @endforeach
-
                     </select>
 
                     <select name="pesquisa" class="select-form w-100 " id="select_tipo_natureza_pesquisa">
-                        <option value="" selected hidden>
-
-                            @foreach ($naturezas_pesquisa as $natureza_pesquisa)
-                                @if ($natureza_pesquisa->id == $acao->natureza_id)
-                                    {{ $natureza_pesquisa->descricao }}
-                                @else
-                                    -- Tipo Natureza --
-                                @endif
-                            @endforeach
-                        </option>
+                        <option id="tipoNaturezaSelecionado" value={{ $tipo_natureza->id }} selected>
+                            {{ $tipo_natureza->descricao }}</option>
 
                         @foreach ($naturezas_pesquisa as $natureza_pesquisa)
                             <option value="{{ $natureza_pesquisa->id }}">{{ $natureza_pesquisa->descricao }}</option>
                         @endforeach
                     </select>
-
 
                 </div>
             </div>
@@ -157,11 +122,7 @@
                 <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
                     <span class="tittle-input">Unidade Administrativa<strong style="color: red">*</strong></span>
                     <select class="select-form w-100 " name="unidade_administrativa_id" id="" required>
-
-
                         <option value="">-- Unidade Administrativa --</option>
-
-
                     </select>
                 </div>
             </div>
@@ -180,10 +141,6 @@
         var campoanexo = document.getElementById('anexo');
         var campoArquivo = document.getElementById('arquivo');
 
-        $("#select_tipo_natureza_ensino").hide();
-        $("#select_tipo_natureza_extensao").hide();
-        $("#select_tipo_natureza_pesquisa").hide();
-
         campoanexo.addEventListener('change', (e) => {
 
             var string = e.target.value
@@ -194,19 +151,60 @@
 
         })
 
+        var NaturezaSelecionada = document.getElementById('NaturezaSelecionada');
+        var tipoNaturezaSelecionada = document.querySelectorAll('#tipoNaturezaSelecionado')
+        var SelectNatureza = document.getElementById('select_natureza')
+
+        SelectNatureza.addEventListener('change', (e) => {
+
+            if (e.target.value == 1) {
+                tipoNaturezaSelecionada.forEach(element => {
+                    element.innerText = "-- Tipo Natureza --"
+                });
+            } else if (e.target.value == 2) {
+                tipoNaturezaSelecionada.forEach(element => {
+                    element.innerText = "-- Tipo Natureza --"
+                });
+
+            } else if (e.target.value == 3) {
+                tipoNaturezaSelecionada.forEach(element => {
+                    element.innerText = "-- Tipo Natureza --"
+                });
+            }
+
+        })
+
+        if (NaturezaSelecionada.value == 1) {
+            //ensino
+            $("#select_tipo_natureza_extensao").hide();
+            $("#select_tipo_natureza_pesquisa").hide();
+        } else if (NaturezaSelecionada.value == 2) {
+            //extensao
+            $("#select_tipo_natureza_pesquisa").hide();
+            $("#select_tipo_natureza_ensino").hide();
+        } else if (NaturezaSelecionada.value == 3) {
+            //pesquisa
+            $("#select_tipo_natureza_ensino").hide();
+            $("#select_tipo_natureza_extensao").hide();
+        }
+
+
         $("#select_natureza").change(function() {
             if ($("#select_natureza").val() == 1) {
                 $("#select_tipo_natureza_ensino").show();
                 $("#select_tipo_natureza_extensao").hide();
                 $("#select_tipo_natureza_pesquisa").hide();
+
             } else if ($("#select_natureza").val() == 2) {
                 $("#select_tipo_natureza_ensino").hide();
                 $("#select_tipo_natureza_extensao").show();
                 $("#select_tipo_natureza_pesquisa").hide();
+
             } else if ($("#select_natureza").val() == 3) {
                 $("#select_tipo_natureza_ensino").hide();
                 $("#select_tipo_natureza_extensao").hide();
                 $("#select_tipo_natureza_pesquisa").show();
+
             }
         });
     </script>
