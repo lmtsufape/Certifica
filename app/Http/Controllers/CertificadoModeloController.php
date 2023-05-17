@@ -128,7 +128,7 @@ class CertificadoModeloController extends Controller
 
         $modelo = CertificadoModelo::find($id);
 
-        if (isset($request->imagem)) { //caso a imagem tenha sido mudada
+        if (isset($request->fundo)) { //caso a imagem tenha sido mudada
             $modelo->fundo = $request->fundo->store('public/modelos');
         }
 
@@ -170,6 +170,12 @@ class CertificadoModeloController extends Controller
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
 
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
+
+        if($modelo == null)
+        {
+            return redirect(Route('certificado_modelo.index'))->with(['mensagem' => 'Essa Unidade Administrativa não possui um modelo de certificado cadastrado']);
+        }
+
 
         $unidade_adm = UnidadeAdministrativa::findOrFail($modelo->unidade_administrativa_id);
 
