@@ -21,12 +21,7 @@
 
     <section class="view-list-acoes">
         <div class="container">
-            @if (session('mensagem'))
-                <div class="alert alert-success">
-                    <p>{{ session('mensagem') }}</p>
-                </div>
-            @endif
-
+      
             <div class="text-center mb-4">
                 <h2>{{ $acao->titulo }}</h2>
             </div>
