@@ -8,7 +8,9 @@ use App\Models\Certificado;
 use App\Http\Requests\StoreCertificadoRequest;
 use App\Http\Requests\UpdateCertificadoRequest;
 use App\Models\CertificadoModelo;
+use App\Models\Natureza;
 use App\Models\Participante;
+use App\Models\TipoNatureza;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -69,6 +71,8 @@ class CertificadoController extends Controller
         $participante = Participante::findOrFail($participante_id);
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
+        $natureza = Natureza::findOrFail($acao->natureza_id);
+        $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
 
         $certificado = Certificado::where('cpf_participante', $participante->cpf)->where('atividade_id', $atividade->id)->first();
 
@@ -120,9 +124,9 @@ class CertificadoController extends Controller
         }
 
 
-        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%');
+        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%');
         $depois = array($participante->nome, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                        $participante->carga_horaria);
+                        $participante->carga_horaria, $natureza, $tipo_natureza);
 
         $modelo->texto = str_replace($antes, $depois, $modelo->texto);
 
