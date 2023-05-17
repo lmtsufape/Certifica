@@ -126,7 +126,7 @@ class CertificadoController extends Controller
 
         $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%');
         $depois = array($participante->nome, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                        $participante->carga_horaria, $natureza, $tipo_natureza);
+                        $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao);
 
         $modelo->texto = str_replace($antes, $depois, $modelo->texto);
 
