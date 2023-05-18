@@ -102,9 +102,8 @@ class CertificadoModeloController extends Controller
     {
         $unidades = UnidadeAdministrativa::orderBy('descricao')->get();
         $modelo = CertificadoModelo::find($id);
-        $img = Storage::url($modelo->fundo);
 
-        return view('certificado_modelo.certificado_modelo_edit', ['modelo' => $modelo, 'imagem' => $img, 'unidades' => $unidades]);
+        return view('certificado_modelo.certificado_modelo_edit', ['modelo' => $modelo, 'unidades' => $unidades]);
     }
 
     /**
@@ -128,8 +127,17 @@ class CertificadoModeloController extends Controller
 
         $modelo = CertificadoModelo::find($id);
 
-        if (isset($request->fundo)) { //caso a imagem tenha sido mudada
+        if (isset($request->fundo) && isset($request->verso)) //caso as imagens da frente e verso tenham sido mudadas
+        {
             $modelo->fundo = $request->fundo->store('public/modelos');
+            $modelo->verso = $request->verso->store('public/modelos');
+        } elseif(isset($request->fundo)) //caso a imagem da frente tenha sido mudada
+        {
+            $modelo->fundo = $request->fundo->store('public/modelos');
+        }
+         elseif(isset($request->verso)) //caso a imagem do verso tenha sido mudada
+        {
+            $modelo->verso = $request->verso->store('public/modelos');
         }
 
         $modelo->unidade_administrativa_id = $request->unidade_adm;
@@ -156,10 +164,17 @@ class CertificadoModeloController extends Controller
         return redirect(Route('certificado_modelo.index'))->with(['mensagem' => 'Modelo excluido com sucesso']);
     }
 
-    public function showImg($id)
+    public function showImg($id, $imagem)
     {
         $modelo = CertificadoModelo::find($id);
-        $img = Storage::url($modelo->fundo);
+
+        if ($imagem == 'fundo')
+        {
+            $img = Storage::url($modelo->fundo);
+        } elseif($imagem == 'verso')
+        {
+            $img = Storage::url($modelo->verso);
+        }
 
         return view('certificado_modelo.certificado_modelo_img', ['modelo' => $modelo, 'imagem' => $img]);
     }
