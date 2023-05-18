@@ -12,6 +12,7 @@ use App\Models\Natureza;
 use App\Models\Participante;
 use App\Models\TipoNatureza;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -30,7 +31,6 @@ class CertificadoController extends Controller
     {
 
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -68,61 +68,23 @@ class CertificadoController extends Controller
     }
     public function ver_certificado($participante_id)
     {
+        Carbon::setLocale('pt_BR');
+
         $participante = Participante::findOrFail($participante_id);
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
+
         $natureza = Natureza::findOrFail($acao->natureza_id);
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
+
+        $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
+        $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
+
+        $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
 
         $certificado = Certificado::where('cpf_participante', $participante->cpf)->where('atividade_id', $atividade->id)->first();
 
         $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
-
-
-        $data_inicio = date('d/m/Y', strtotime($atividade->data_inicio));
-        $data_fim = date('d/m/Y', strtotime($atividade->data_fim));
-
-        switch (date('m'))
-        {
-            case 1:
-                $mes = "Janeiro";
-                break;
-            case 2:
-                $mes = "Fevereiro";
-                break;
-            case 3:
-                $mes = "Março";
-                break;
-            case 4:
-                $mes = "Abril";
-                break;
-            case 5:
-                $mes = "maio";
-                break;
-            case 6:
-                $mes = "Junho";
-                break;
-            case 7:
-                $mes = "Julho";
-                break;
-            case 8:
-                $mes = "Agosto";
-                break;
-            case 9:
-                $mes = "Setembro";
-                break;
-            case 10:
-                $mes = "Outubro";
-                break;
-            case 11:
-                $mes = "Novembro";
-                break;
-            case 12:
-                $mes = "Dezembro";
-                break;
-            default:
-        }
-
 
         $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%');
         $depois = array($participante->nome, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
@@ -136,7 +98,8 @@ class CertificadoController extends Controller
 
         $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));;
 
-        $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante', 'imagem', 'mes', 'certificado', 'qrcode', 'verso'));
+        $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
+                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso'));
         $nomePDF = 'certificado.pdf';
 
         return $pdf->setPaper('a4', 'landscape')->stream($nomePDF);

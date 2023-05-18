@@ -32,11 +32,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="imagem">Imagem de fundo</label>
-                        <input name="fundo" type="file" class="form-control" id="fundo" accept="image/*" value='<?=$modelo->imagem;?>'>
+                        <label for="frente_certificado">Frente do Certificado</label>
+                        <input name="fundo" type="file" class="form-control" id="fundo" accept="image/*" value='<?=$modelo->fundo;?>'>
                     </div>
                     <div class="col-3" style='margin-top: 5px;'>
-                        <a href="{{route('certificado_modelo.show_img', ['id' => $modelo->id])}}"  class='btn btn-sm btn-outline-secondary'>Ver imagem</a>
+                        <a href="{{route('certificado_modelo.show_img', ['id' => $modelo->id, 'imagem' => 'fundo'])}}"  class='btn btn-sm btn-outline-secondary' target="_blank">Ver imagem</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="verso_certificado">Verso do Certificado</label>
+                        <input name="verso" type="file" class="form-control" id="verso" accept="image/*" value='<?=$modelo->verso;?>'>
+                    </div>
+                    <div class="col-3" style='margin-top: 5px;'>
+                        <a href="{{route('certificado_modelo.show_img', ['id' => $modelo->id, 'imagem' => 'verso'])}}"  class='btn btn-sm btn-outline-secondary' target="_blank">Ver imagem</a>
                     </div>
 
                     <div class="form-group">

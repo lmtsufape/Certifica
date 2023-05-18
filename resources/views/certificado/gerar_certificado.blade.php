@@ -37,6 +37,7 @@
                 margin-top: 200px;
                 margin-left: 300px;
                 margin-right: 125px;
+                text-align: justify;
             }
 
             .codigo_validacao {
@@ -59,10 +60,12 @@
     </head>
 
     <body class="fundo_certificado">
-        <p class="texto_certificado"> {{ $modelo->texto }}
-            <br> <br> <br>
-            Garanhuns, {{ date('d') }} de {{ $mes }} de {{ date('Y') }}
+        <p class="texto_certificado">
+            {{ $modelo->texto }}
 
+            <br> <br> <br>
+
+            Garanhuns, {{ $data_atual }}
         </p>
     </body>
 
