@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Natureza;
 use App\Models\TipoNatureza;
 use App\Http\Requests\StoreTipoNaturezaRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateTipoNaturezaRequest;
 use App\Validates\TipoNaturezaValidator;
 use Illuminate\Validation\ValidationException;
@@ -92,7 +93,7 @@ class TipoNaturezaController extends Controller
      * @param  \App\Models\TipoNatureza  $tipoNatureza
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTipoNaturezaRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try{
             TipoNaturezaValidator::validate($request->all());
@@ -100,10 +101,11 @@ class TipoNaturezaController extends Controller
             return redirect(route('tipo_natureza.edit', ['id'=>$id]))->withErrors($exception->validator)->withInput();
         }
 
-        $tipo_natureza = TipoNatureza::findOrFail($id);
+        $tipo_natureza = TipoNatureza::findOrFail($request->id);
 
         $tipo_natureza->update([
-            'descricao' => $request->descricao
+            'descricao' => $request->descricao,
+            'natureza_id' => $request->natureza_id
         ]);
 
         return redirect(Route('tipo_natureza.index'))->with(['mensagem' => 'Tipo de Natureza atualizado com sucesso']);

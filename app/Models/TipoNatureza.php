@@ -13,12 +13,12 @@ class TipoNatureza extends Model
 
     protected $fillable = [
         'descricao',
-        'tipo_natureza_id',
+        'natureza_id',
     ];
 
     public static $rules = [
         'descricao' => 'required|string|unique:tipo_naturezas',
-        'tipo_natureza_id' => 'required',
+        'natureza_id' => 'required',
     ];
 
     public static $messages = [
