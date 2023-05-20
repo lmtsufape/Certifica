@@ -45,4 +45,9 @@ class Participante extends Model
         'titulo' => 'O título é obrigatório',
         'carga_horaria' => 'A carga horária é obrigatória',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

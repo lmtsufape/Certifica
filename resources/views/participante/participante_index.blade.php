@@ -21,7 +21,7 @@
 
     <section class="view-list-acoes">
         <div class="container">
-      
+
             <div class="text-center mb-4">
                 <h2>{{ $acao->titulo }}</h2>
             </div>
@@ -51,11 +51,11 @@
                 <div class="row linha-table d-flex align-items-center justify-content-center">
                     <div class="col-4">
                         <span class="spacing-col">
-                            {{ $participante->nome }}
+                            {{ $participante->user->name }}
                         </span>
                     </div>
                     <div class="col-4">
-                        {{ $participante->cpf }}
+                        {{ $participante->user->cpf }}
                     </div>
                     <div class="col-4 d-flex align-items-center justify-content-start">
                         <div class="col-2 d-flex align-items-center justify-content-center pr-2">
@@ -84,7 +84,7 @@
                                     <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>
                             @endif
-                            
+
                         </div>
                     </div>
                 </div>

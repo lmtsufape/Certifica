@@ -67,7 +67,7 @@
                         <span>Data</span>
                         <input class="input-box w-75" type="date" name="" id="">
                     </div>
-                </div>  
+                </div>
             </div>
 
             <div class="container">
@@ -79,15 +79,15 @@
                     <div class="col-1 text-center"><span>Anexo</span></div>
                     <div class="col-2 text-center"><span>Atividades</span></div>
                 </div>
-            </div> 
-            
+            </div>
+
             <div class="list container overflow-scroll">
                 @foreach($acaos as $acao)
                 <div class="row linha-table d-flex align-items-center justify-content-start">
                     <div class="col-4 titulo-span text-start"><span class="spacing-col titulo-span">{{$acao->titulo}}</span></div>
                     <div class="col-2"><span class="spacing-col">{{date('d-m-Y', strtotime($acao->data_inicio))}}</span></div>
                     <div class="col-2"><span>{{$acao->status}}</span></div>
-                    <div class="col-1 text-center"><span>{{$acao->natureza->descricao}}</span></div>
+                    <div class="col-1 text-center"><span>{{$acao->tipo_natureza->natureza->descricao}}</span></div>
                     <div class="col-1 text-center"><span>
                         @if($acao->anexo != null)
                         <a href="{{ route('anexo.dowload', ['acao_id' => $acao->id])}}"><img src="/images/acoes/listView/anexo.svg" alt="Visualizar" style="opacity: 0.5" ></a>
@@ -100,7 +100,7 @@
                         <span><a href="{{Route('acao.submeter', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
                     </div>
                 </div>
-                @endforeach 
+                @endforeach
             </div>
         </section>
 @endsection

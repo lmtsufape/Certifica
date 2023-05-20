@@ -36,17 +36,17 @@ class Acao extends Model
         'unidade_administrativa_id' => 'A unidade administrativa deve ser informada',
         'anexo'                     => 'O arquivo enviado deve ser no formato PDF',
         'anexo.required'            => 'O envio do arquivo é obrigatório'
-        
+
     ];
 
-    public function natureza(){
-        return $this->belongsTo('App\Models\Natureza');
+    public function tipo_natureza(){
+        return $this->belongsTo(TipoNatureza::class);
     }
- 
+
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
- 
+
     public function unidadeAdministrativa(){
         return $this->belongsTo('App\Models\Natureza');
     }

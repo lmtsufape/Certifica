@@ -34,6 +34,7 @@ class UserFactory extends Factory
             'cpf' => '',
             'celular' => '',
             'instituicao' => '',
+            'instituicao_id' => 1,
             'siape' => '',
         ];
     }
