@@ -37,7 +37,7 @@
 
             <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">CPF</span>
-                <input class="w-75 input-text " type="text" name="cpf" id="" placeholder="000.000.000-00">
+                <input class="w-75 input-text " type="text" name="cpf" id="cpf" placeholder="000.000.000-00">
             </div>
 
         </div>
@@ -65,17 +65,19 @@
 
             <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Atividade</span>
-                <input class="w-75 input-text " type="email" name="atividade" value="{{$atividade->descricao}}" disabled>
+                <input class="w-75 input-text " type="email" name="atividade" value="{{$atividade->descricao}}"
+                       disabled>
             </div>
 
         </div>
 
         <div class="row d-flex justify-content-start align-items-center">
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                <a class="d-flex justify-content-center align-items-center cancel" href={{ Route('participante.index',['atividade_id' => $atividade->id]) }}> Cancelar</a>
+                <a class="d-flex justify-content-center align-items-center cancel"
+                   href={{ Route('participante.index',['atividade_id' => $atividade->id]) }}> Cancelar</a>
                 <button class="submit" type="submit">Cadastrar</button>
             </div>
         </div>
-
     </form>
+
 @endsection
