@@ -61,7 +61,6 @@ class AcaoController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             AcaoValidator::validate($request->all());
         } catch (ValidationException $exception) {

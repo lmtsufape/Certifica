@@ -23,6 +23,7 @@
             integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
             crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
     <script defer="defer" src="//barra.brasil.gov.br/barra_2.0.js" type="text/javascript"></script>
@@ -43,23 +44,31 @@
 </head>
 
 <body>
-    <div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;">
-        <ul id="menu-barra-temp" style="list-style:none;">
-            <li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED">
-                <a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal
-                    do Governo Brasileiro</a>
-            </li>
-        </ul>
-    </div>
+<div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;">
+    <ul id="menu-barra-temp" style="list-style:none;">
+        <li style="display:inline; float:left;padding-right:10px; margin-right:10px; border-right:1px solid #EDEDED">
+            <a href="http://brasil.gov.br" style="font-family:sans,sans-serif; text-decoration:none; color:white;">Portal
+                do Governo Brasileiro</a>
+        </li>
+    </ul>
+</div>
 
-    @include('layouts.components.navbar')
+@include('layouts.components.navbar')
 
-    <section>
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </section>
+<section>
+    <main class="py-4">
+        @yield('content')
+    </main>
+</section>
 
-    @include('layouts.components.footer')
+@include('layouts.components.footer')
+
+<script>
+    $(document).ready(function () {
+        $('#telefone').mask('(99) 9 9999-9999');
+        $('#cpf').mask('999.999.999-99');
+    });
+</script>
+
 </body>
 </html>

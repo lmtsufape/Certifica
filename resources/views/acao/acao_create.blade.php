@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center">Cadastrar ação</h1>
+    <h1 class="text-center">Cadastrar Ação</h1>
     <form class="container form" action="{{ Route('acao.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Hiddens-->
@@ -34,7 +34,7 @@
                     </div>
 
                 </div>
-                
+
                 <div class="col-md-3 spacing-row2 input-create-box ">
                     <span class="tittle-input">Início<strong style="color: red">*</strong></span><input class="w-100" type="date" name="data_inicio"
                         id="" value="{{ old('data_inicio') }}" required>
