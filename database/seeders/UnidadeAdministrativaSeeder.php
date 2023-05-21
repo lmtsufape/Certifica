@@ -15,6 +15,8 @@ class UnidadeAdministrativaSeeder extends Seeder
      */
     public function run()
     {
+        UnidadeAdministrativa::factory()->create(['descricao' => 'PREG - Pró-Reitoria de Ensino e Graduação']);
         UnidadeAdministrativa::factory()->create(['descricao' => 'PREC - Pró-Reitoria de Extensão e Cultura']);
+        UnidadeAdministrativa::factory()->create(['descricao' => 'PRPPGI - Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação']);
     }
 }

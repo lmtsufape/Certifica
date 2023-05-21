@@ -2,18 +2,6 @@
 
 @section('content')
     <div class="container">
-        <div class="row" >
-            @if($errors->any())
-            <div class="col-md-12" style="margin-top: 30px;">
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </div>
-            </div>
-            @endif
-        </div>
-
         <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
             <h2>Editar Tipo de Natureza</h2>
         </div>

@@ -100,18 +100,6 @@
                 </div>
             </div>
 
-            <div class="row d-flex aligm-items-start justify-content-start">
-                <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Unidade Administrativa<strong style="color: red">*</strong></span>
-                    <select class="select-form w-100 " name="unidade_administrativa_id" id="" required>
-                        @foreach ($unidades_adm as $unidade_adm)
-                            <option value="">-- Unidade Administrativa --</option>
-                            <option value="{{ $unidade_adm->id }}">{{ $unidade_adm->descricao }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="d-flex justify-content-center align-items-center cancel"

@@ -11,7 +11,7 @@ class Acao extends Model
 
     protected $table = 'acaos';
 
-    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'natureza_id', 'usuario_id', 'unidade_administrativa_id', 'anexo'];
+    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'natureza_id', 'usuario_id', 'anexo', 'unidade_administrativa_id'];
 
     public static $rules = [
         'titulo'                    => 'required|string|min:10',
@@ -19,7 +19,6 @@ class Acao extends Model
         'data_fim'                  => 'required|after:data_inicio',
         'natureza_id'               => 'required',
         'usuario_id'                => 'required',
-        'unidade_administrativa_id' => 'required',
         'anexo'                     => 'required|file'
     ];
 
@@ -33,7 +32,6 @@ class Acao extends Model
         'data_fim.after'            => 'A data de fim deve ser após a data de inicio',
         'natureza_id'               => 'A natureza deve ser informada',
         'usuario_id'                => 'O usuário deve ser informado',
-        'unidade_administrativa_id' => 'A unidade administrativa deve ser informada',
         'anexo'                     => 'O arquivo enviado deve ser no formato PDF',
         'anexo.required'            => 'O envio do arquivo é obrigatório'
 

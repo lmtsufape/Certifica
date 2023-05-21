@@ -5,17 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row" >
-            @if(session('mensagem'))
-            <div class="col-md-12" style="margin-top: 30px;">
-                <div class="alert alert-success">
-                    <p>{{session('mensagem')}}</p>
-                </div>
-            </div>
-            @endif
-        </div>
 
+    <div class="container">
         <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
             <h2>Naturezas</h2>
         </div>
