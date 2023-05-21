@@ -20,7 +20,6 @@ class AcaoFactory extends Factory
             'titulo' => '',
             'data_inicio' => '',
             'data_fim' => '',
-            'natureza_id' => '',
             'usuario_id' => '',
             'unidade_administrativa_id' => '',
         ];

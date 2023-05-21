@@ -9,18 +9,6 @@
 @endsection
 
 @section('content')
-    <div class="container">
-
-        @if ($errors->any())
-            )
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </div>
-        @endif
-    </div>
-
     <h1 class="text-center">Cadastrar atividade</h1>
     <form class="container form" action="{{ Route('atividade.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -43,7 +31,6 @@
                 <span class="tittle-input w-50">Data de início</span>
                 <input class="w-100" type="date" name="data_inicio" id="">
             </div>
-
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-start">
@@ -62,7 +49,8 @@
 
         <div class="row d-flex justify-content-start align-items-center">
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                <a class="d-flex justify-content-center align-items-center cancel" href={{ Route('atividade.index',['acao_id' => $acao->id, ])}}> Cancelar</a>
+                <a class="d-flex justify-content-center align-items-center cancel"
+                   href={{ Route('atividade.index',['acao_id' => $acao->id, ])}}> Cancelar</a>
                 <button class="submit" type="submit">Cadastrar</button>
             </div>
         </div>

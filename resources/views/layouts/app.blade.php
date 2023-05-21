@@ -57,6 +57,7 @@
 
 <section>
     <main class="py-4">
+        @include('layouts.components.messages')
         @yield('content')
     </main>
 </section>

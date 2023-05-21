@@ -19,16 +19,13 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('titulo');
             $table->date('data_inicio');
-            $table->date('data_fim')->nullable();
+            $table->date('data_fim');
             $table->string('anexo')->nullable();
-            $table->unsignedInteger('natureza_id')->index();
-            $table->foreign('natureza_id')->references('id')->on('naturezas');
-            $table->unsignedInteger('tipo_natureza_id')->index();
-            $table->foreign('tipo_natureza_id')->references('id')->on('tipo_naturezas');
-            $table->unsignedInteger('usuario_id')->index();
-            $table->foreign('usuario_id')->references('id')->on('users');
-            $table->unsignedInteger('unidade_administrativa_id')->index();
-            $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
+
+            $table->foreignId('tipo_natureza_id')->constrained('tipo_naturezas');
+            $table->foreignId('usuario_id')->constrained('users');
+            $table->foreignId('unidade_administrativa_id')->constrained('unidade_administrativas');
+
             $table->timestamps();
         });
     }

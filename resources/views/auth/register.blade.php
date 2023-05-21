@@ -12,60 +12,68 @@
 
         <div class="row d-flex aligm-items-start justify-content-start ">
 
-            <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div
+                class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Nome completo</span>
                 <input class="w-75 input-text @error('name') is-invalid @enderror" type="text" name="name"
-                    id="" required>
+                       id="" required>
             </div>
 
             <div class="col-md-5 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">CPF</span>
                 <input class="w-75 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf"
-                    id="" required>
+                       id="cpf" required>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-start ">
-            <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div
+                class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">E-mail</span>
                 <input class="w-75 input-text @error('email') is-invalid @enderror" type="email" name="email"
                        id="" required>
             </div>
             <div class="col-md-5 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Celular</span>
-                <input class="w-75 input-text " type="text" name="celular" id="" required>
+                <input class="w-75 input-text " type="text" name="celular" id="telefone" required>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-start">
-            <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div
+                class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Perfil</span>
                 <select class="w-100 input-text" name="perfil_id" id="select_perfil" required>
-                    <option selected hidden> -- Perfil -- </option>
-                    <option value="2"> Técnico </option>
+                    <option selected hidden> -- Perfil --</option>
+                    @foreach($perfis as $perfil)
+                        <option value="{{$perfil->id}}}">{{$perfil->nome}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-start ">
-            <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div
+                class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Instituição de Vínculo</span>
                 <select class="w-100 input-text" name="instituicao" id="select_instituicao" required>
-                    <option selected hidden> -- Instituição -- </option>
-                    <option value="2"> Universidade Federal do Agreste de Pernambuco - UFAPE </option>
+                    <option selected hidden> -- Instituição --</option>
+                    <option value="2"> Universidade Federal do Agreste de Pernambuco - UFAPE</option>
                 </select>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-start">
-            <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div
+                class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">SIAPE</span>
                 <input class="w-75 input-text " type="text" name="siape" id="" required>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-start ">
-            <div class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div
+                class="col-md-6 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Senha</span>
                 <input class="w-75 input-text @error('password') is-invalid @enderror" type="password" name="password"
                        id="" required>
@@ -85,16 +93,12 @@
     </form>
 
     <script>
-        $(document).ready(function ()
-        {
-            $("#select_perfil").change(function ()
-            {
-                if($("#select_perfil").val() == 4)
-                {
+        $(document).ready(function () {
+            $("#select_perfil").change(function () {
+                if ($("#select_perfil").val() == 4) {
                     $("#select_unidade_adm").hide();
                     $("#span_unidade_adm").hide();
-                } else
-                {
+                } else {
                     $("#select_unidade_adm").show();
                     $("#span_unidade_adm").show();
                 }
@@ -108,32 +112,32 @@
 
 
 @error('email')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
+<span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
     </span>
 @enderror
 
 @error('name')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
+<span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
    </span>
 @enderror
 
 @error('name')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
+<span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
     </span>
 @enderror
 
 @error('cpf')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
+<span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
     </span>
 @enderror
 
 @error('password')
-    <span class="invalid-feedback" role="alert">
-        strong>{{ $message }}</strong
+<span class="invalid-feedback" role="alert">
+    strong>{{ $message }}</strong
     </span>
 @enderror
 

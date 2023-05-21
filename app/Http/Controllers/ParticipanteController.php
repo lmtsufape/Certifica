@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Acao;
 use App\Models\Atividade;
+use App\Models\Instituicao;
 use App\Models\Participante;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
@@ -25,7 +27,7 @@ class ParticipanteController extends Controller
         $acao = Acao::findOrFail($atividade->acao_id);
 
         return view('participante.participante_index', ['participantes' => $participantes, 'atividade' => $atividade,
-                                                            'acao' => $acao]);
+            'acao' => $acao]);
     }
 
     /**
@@ -33,11 +35,20 @@ class ParticipanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($atividade_id)
+    public function create($atividade_id, Request $request)
     {
-        $atividade = Atividade::findOrFail($atividade_id);
+        $cpf = $request->all()['cpf'];
 
-        return view('participante.participante_create', ['atividade' => $atividade]);
+        $atividade = Atividade::findOrFail($atividade_id);
+        $user = User::where('cpf', $cpf)
+            ->first();
+        $instituicaos = Instituicao::all();
+
+        if ($user)
+            return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos]);
+
+        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'instituicaos' => $instituicaos]);
+
     }
 
     /**
@@ -48,19 +59,45 @@ class ParticipanteController extends Controller
      */
     public function store(Request $request)
     {
+        $attributes = $request->all();
+
         try {
             ParticipanteValidator::validate($request->all());
         } catch (ValidationException $exception) {
-            return redirect(route('participante.create', ['atividade_id' => $request->atividade_id]))
+            return redirect(route('participante.create', ['atividade_id' => $request->atividade_id, 'cpf' => $attributes['cpf']]))
                 ->withErrors($exception->validator)->withInput();
         }
 
 
-        Participante::create($request->all());
+        $user = $this->createUser($attributes);
 
+        $attributes['user_id'] = $user->id;
+        Participante::create($attributes);
 
         return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
             ->with(['mensagem' => 'Participante cadastrado com sucesso']);
+    }
+
+    private function createUser($attributes)
+    {
+        $user = User::where('cpf', $attributes['cpf'])
+            ->first();
+
+        if ($user)
+            return $user;
+
+        $userAttributes = [
+            'name' => $attributes['nome'],
+            'email' => $attributes['email'],
+            'cpf' => $attributes['cpf'],
+            'instituicao_id' => $attributes['instituicao_id'] ?? null,
+            'instituicao' => $attributes['instituicao'] ?? null,
+            'password' => 'password',
+            'perfil_id' => 4
+        ];
+
+        return User::create($userAttributes);
+
     }
 
     /**
@@ -107,9 +144,6 @@ class ParticipanteController extends Controller
 
         $participante = Participante::findOrFail($request->id);
 
-        $participante->nome = $request->nome;
-        $participante->email = $request->email;
-        $participante->cpf = $request->cpf;
         $participante->titulo = $request->titulo;
         $participante->carga_horaria = $request->carga_horaria;
         $participante->atividade_id = $request->atividade_id;

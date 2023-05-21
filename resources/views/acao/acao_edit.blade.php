@@ -9,18 +9,6 @@
 @endsection
 
 @section('content')
-    <div class='container'>
-        <div class="row">
-            @if ($errors->any())
-                <dic class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </dic>
-            @endif
-        </div>
-    </div>
-
     <h1 class="text-center">Editar ação</h1>
     <form class="container form" action="{{ route('acao.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -116,17 +104,6 @@
                 </div>
             </div>
 
-
-
-            <div class="row d-flex aligm-items-start justify-content-start">
-                <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Unidade Administrativa<strong style="color: red">*</strong></span>
-                    <select class="select-form w-100 " name="unidade_administrativa_id" id="" required>
-                        <option value="">-- Unidade Administrativa --</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="d-flex justify-content-center align-items-center cancel"
@@ -217,7 +194,7 @@
     <h1 class="text-center">Editar ação</h1>
     <form class="container form" action="{{ route('acao.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-    
+
         <input type="hidden" name="id" value="{{ $acao->id }}">
         <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
         <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">

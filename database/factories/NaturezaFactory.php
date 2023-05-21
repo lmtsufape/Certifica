@@ -19,6 +19,7 @@ class NaturezaFactory extends Factory
     {
         return [
             'descricao' => '',
+            'unidade_administrativa_id' => '',
         ];
     }
 }

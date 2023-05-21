@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Participante>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Curso>
  */
-class ParticipanteFactory extends Factory
+class CursoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,11 +17,12 @@ class ParticipanteFactory extends Factory
      */
     public function definition()
     {
+
+        $faker = Faker::create();
+
         return [
-            'titulo' => '',
-            'carga_horaria' => '',
-            'atividade_id' => '',
-            'user_id' => 2
+            'nome' => $faker->streetName,
+            'instituicao_id' => 1,
         ];
     }
 }

@@ -27,7 +27,7 @@ class TipoNatureza extends Model
         'natureza_id' => 'O tipo da natureza é obrigatório',
     ];
 
-    public function naturezas(){
+    public function natureza(){
         return $this->belongsTo('App\Models\Natureza');
     }
 }

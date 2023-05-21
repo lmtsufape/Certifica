@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('naturezas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao');
+            $table->foreignId('unidade_administrativa_id')->constrained('unidade_administrativas');
             $table->timestamps();
         });
     }
