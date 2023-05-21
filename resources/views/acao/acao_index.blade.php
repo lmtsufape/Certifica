@@ -6,32 +6,6 @@
 
 @section('content')
     <div class='container'>
-        <div class='row'>
-            @if(session('mensagem'))
-                <div class='alert alert-success'>
-                    <p>{{session('mensagem')}}</p>
-                </div>
-            @endif
-        </div>
-
-        <div class='row'>
-            @if(session('error_mensage'))
-                <div class='alert alert-danger'>
-                    <p>{{session('error_mensage')}}</p>
-                </div>
-            @endif
-        </div>
-
-        <div class='row'>
-            @if($errors->any())
-                <div class='alert alert-danger'>
-                    @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </div>
-            @endif
-        </div>
-
         <section class="view-list-acoes">
 
             <div class="container">

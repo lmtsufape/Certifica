@@ -15,6 +15,7 @@ class Natureza extends Model
 
     protected $fillable = [
         'descricao',
+        'unidade_administrativa_id'
     ];
 
     public static $rules = [

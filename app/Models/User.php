@@ -34,6 +34,7 @@ class User extends Authenticatable
         'cpf',
         'celular',
         'instituicao',
+        'instituicao_id',
         'siape',
         'instituicao_id',
         'json_cursos_ids',

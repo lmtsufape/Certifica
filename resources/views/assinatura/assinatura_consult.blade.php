@@ -8,20 +8,20 @@
     <table id="tableMateriais" class="table table-hover table-responsive-md">
         <thead style="background-color: #151631; color: white; border-radius: 15px">
         <tr>
-            
-            <th  scope="col" style="padding-left: 10px">ID</th>
-            <th  scope="col" style="padding-left: 10px">ID DO USUARIO</th>
-            <th  scope="col" style="padding-left: 10px">LINK IMG ASSINATURA</th>
+
+            <th scope="col" style="padding-left: 10px">ID</th>
+            <th scope="col" style="padding-left: 10px">ID DO USUARIO</th>
+            <th scope="col" style="padding-left: 10px">LINK IMG ASSINATURA</th>
         </tr>
         </thead>
         <tbody>
-            @foreach($assinaturas as $assinatura)
+        @foreach($assinaturas as $assinatura)
             <tr>
                 <td>{{$assinatura->id}}</td>
                 <td>{{$assinatura->usuario_id}}</td>
                 <td>{{$assinatura->img_assinatura}}</td>
             </tr>
-            @endforeach
+        @endforeach
         </tbody>
     </table>
 @endsection

@@ -21,7 +21,8 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="descricao_unidade_administrativa">Descrição</label>
-                            <input name="descricao" type="text" class="form-control" id="descricao_unidade_administrativa" placeholder="Descrição"
+                            <input name="descricao" type="text" class="form-control"
+                                   id="descricao_unidade_administrativa" placeholder="Descrição"
                                    value="{{ $unidade_administrativa->descricao }}">
                         </div>
 

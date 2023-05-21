@@ -2,16 +2,6 @@
 
 @section('content')
 <div class="container">
-    @if($errors->any())
-        <div class="row">
-            <div class="alert alert-danger">
-                @foreach($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
     <div class='row justify-content-center'>
         <div class='col-12' style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
             <h2>ATUALIZAR MODELO DE CERTIFICADO</h2>
