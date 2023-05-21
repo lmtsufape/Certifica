@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->foreignId('perfil_id')->constrained('perfils');
             $table->foreignId('unidade_administrativa_id')->nullable()->constrained('unidade_administrativas');
-            $table->foreignId('curso_id')->nullable()->constrained('cursos');
+            $table->json('json_cursos_ids')->nullable();
             $table->foreignId('instituicao_id')->constrained('instituicaos');
 
             $table->timestamps();

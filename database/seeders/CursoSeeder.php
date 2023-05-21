@@ -21,5 +21,6 @@ class CursoSeeder extends Seeder
         Curso::factory(1)->create(['nome'=>'Bacharelado em Zootecnia']);
         Curso::factory(1)->create(['nome'=>'Licenciatura em Letras']);
         Curso::factory(1)->create(['nome'=>'Licenciatura em Pedagogia']);
+        Curso::factory(1)->create(['nome'=>'Outro curso']);
     }
 }
