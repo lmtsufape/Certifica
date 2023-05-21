@@ -93,7 +93,7 @@
 
                     <br>
 
-                    <select class="form-control" name="curso_id" id="select_curso" style="text-align: center">
+                    <select class="form-control" name="cursos_ids[]" id="select_curso" style="text-align: center">
                         <option selected hidden> -- Curso --</option>
                         @foreach($cursos as $curso)
                             <option value="{{ $curso->id }}"> {{ $curso->nome }}</option>
