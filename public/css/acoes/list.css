@@ -19,6 +19,7 @@
     height: 44px;
     font-size: 14px;
     margin-top: 10px;
+    font-weight: bold;
 }
 .search-box{
     height: 70px;
@@ -33,9 +34,13 @@
 
 .linha-table{
     background: #F2E6E8;
-    border-bottom: 1px solid #CFCFCF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.322);
+    border-left: 1px solid rgba(0, 0, 0, 0.322);
+    border-right: 1px solid rgba(0, 0, 0, 0.322);
     height: 60px;
-    font-size: 14px;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
 }
 .criar-acao-button{
     width: max-content;
@@ -57,5 +62,11 @@
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
+}
 
+.iconAdd{
+    color: #F2E6E8;
+    border: 1px solid white;
+    background: #972E3F;
+    width: 22px;
 }

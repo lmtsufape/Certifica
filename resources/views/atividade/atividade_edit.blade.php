@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-4 spacing-row1 input-create-box">
-                <span class="tittle-input w-50">Data de início</span>
+                <span class="tittle-input w-50">Data de Início</span>
                 <input class="w-100" type="date" name="data_inicio" id="" value="{{$atividade->data_inicio}}">
             </div>
 
@@ -45,7 +45,7 @@
             </div>
 
             <div class="col-4 input-create-box">
-                <span class="tittle-input w-50">Data de fim</span>
+                <span class="tittle-input w-50">Data de Término</span>
                 <input class="w-100" type="date" name="data_fim" id="" value="{{$atividade->data_fim}}">
             </div>
 
