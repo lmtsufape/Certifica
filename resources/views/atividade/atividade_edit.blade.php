@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+    <h1>Ação Institucional :{{ $acao->titulo }}</h1>
     <h1 class="text-center">Editar atividade</h1>
 
     <form class="container form" action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
