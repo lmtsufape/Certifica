@@ -2,6 +2,7 @@
 <html lang="pt-br">
     <head>
         <title> Certificado </title>
+
         <style>
             @font-face {
                 font-family: gyre;
@@ -42,18 +43,37 @@
 
             .codigo_validacao {
                 font-size: 16px;
-                color: #000000;
-                text-shadow: 2px 2px #000;
-                margin-top: 175px;
-                margin-left: 35px;
-                margin-right: 575px;
+                width:28%;
+                margin-left:750px;
+                margin-top: 20px;
             }
 
             .qrcode {
-                height: 35%;
-                margin-top: 150px;
-                margin-left: 670px;
-                margin-right: 1px;
+                height: 25%;
+                margin-top: 20px;
+                margin-left: 680px;
+            }
+
+
+            .texto_verso_superior{
+                font-size:16px;
+                width:28%;
+                font-weight:bold;
+                margin-left:750px;
+                margin-top: 90px;
+
+            }
+
+            .texto_verso_inferior{
+                font-size:16px;
+                width:28%;
+                margin-left:750px;
+                margin-top: 20px;
+            }
+
+            .logo {
+                margin-right: 200;
+                margin-top: 200;
             }
 
         </style>
@@ -68,10 +88,15 @@
             Garanhuns, {{ $data_atual }}
         </p>
     </body>
-
+    
     <body class="verso_certificado">
-        <img class="qrcode" src="data:image/png;base64, {{ $qrcode }}">
+                <p class='texto_verso_superior'>Para verificar a validade deste certificado, acesse o Código QR abaixo: </p>
 
-        <p class="codigo_validacao"> Código de validação: {{ $certificado->codigo_validacao }} </p>
+                <img class="qrcode" src="data:image/png;base64, {{ $qrcode }}">
+                
+                <p class='texto_verso_inferior'>Ou digite este código de validação no endereço <a href="http://certifica.ufape.edu.br/validacao">certifica.ufape.edu.br/validacao</a> </p>
+                
+                <p class='codigo_validacao'><b>Código de validação:</b><br>{{ $certificado->codigo_validacao }}</p>
+                
     </body>
 </html>

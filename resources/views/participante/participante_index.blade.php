@@ -68,8 +68,8 @@
 
                             @if ($acao->status == 'Aprovada')
                                 <a
-                                    href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}">
-                                    c
+                                    href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}" target="_blank">
+                                    ver certificado
                                 </a>
                             @endif
 
