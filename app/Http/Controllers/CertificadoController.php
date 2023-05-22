@@ -55,7 +55,7 @@ class CertificadoController extends Controller
             {
                 $certificado = new Certificado();
 
-                $certificado->cpf_participante = $participante->cpf;
+                $certificado->cpf_participante = $participante->user->cpf;
                 $certificado->codigo_validacao = Str::random(15);
                 $certificado->certificado_modelo_id = $certificado_modelo->id;
                 $certificado->atividade_id = $atividade->id;
@@ -69,20 +69,20 @@ class CertificadoController extends Controller
     public function ver_certificado($participante_id)
     {
         Carbon::setLocale('pt_BR');
-
+        
         $participante = Participante::findOrFail($participante_id);
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
-
-        $natureza = Natureza::findOrFail($acao->natureza_id);
+        
+        $natureza = Natureza::findOrFail($acao->tipo_natureza_id);
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
-
+        
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
-
+        
         $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
-
-        $certificado = Certificado::where('cpf_participante', $participante->cpf)->where('atividade_id', $atividade->id)->first();
+        
+        $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
 
         $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
 

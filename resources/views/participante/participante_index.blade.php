@@ -51,15 +51,13 @@
                             <div class="col-2 d-flex align-items-center justify-content-center pr-2">
                                 {{ $atividade->descricao }}
                             </div>
-                            <div class="col-5">
-
-                            </div>
+                            
                             <div class="col-5 d-flex align-items-center justify-content-evenly">
 
                                 @if ($acao->status == 'Aprovada')
                                     <a
-                                        href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}">
-                                        c
+                                        href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}" target="_blank">
+                                        ver certificado
                                     </a>
                                 @endif
 
