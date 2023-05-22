@@ -55,7 +55,7 @@ class CertificadoController extends Controller
             {
                 $certificado = new Certificado();
 
-                $certificado->cpf_participante = $participante->cpf;
+                $certificado->cpf_participante = $participante->user->cpf;
                 $certificado->codigo_validacao = Str::random(15);
                 $certificado->certificado_modelo_id = $certificado_modelo->id;
                 $certificado->atividade_id = $atividade->id;
