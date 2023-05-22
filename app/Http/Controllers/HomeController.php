@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\acao;
+use App\Models\Acao;
 use Auth;
 
 class HomeController extends Controller
@@ -30,7 +30,7 @@ class HomeController extends Controller
             
         } else if(Auth::user()->perfil_id == 2){
 
-            $acaos = acao::all();
+            $acaos = Acao::all();
 
             $aprovadas = 0;
             $analise = 0;
