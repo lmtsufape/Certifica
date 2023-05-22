@@ -23,12 +23,13 @@ return new class extends Migration
             $table->string('siape')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->unsignedInteger('perfil_id')->index();
-            $table->foreign('perfil_id')->references('id')->on('perfils');
-            $table->unsignedInteger('unidade_administrativa_id')->index()->nullable();
-            $table->foreign('unidade_administrativa_id')->references('id')->on('unidade_administrativas');
+
+            $table->foreignId('perfil_id')->constrained('perfils');
+            $table->foreignId('unidade_administrativa_id')->nullable()->constrained('unidade_administrativas');
+            $table->json('json_cursos_ids')->nullable();
+            $table->foreignId('instituicao_id')->constrained('instituicaos');
+
             $table->timestamps();
         });
     }

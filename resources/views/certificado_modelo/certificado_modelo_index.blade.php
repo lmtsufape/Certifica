@@ -3,14 +3,6 @@
 
 @section('content')
 <div class="container">
-    @if(session('mensagem'))
-        <div class="row">
-            <div class="alert alert-success">
-                {{session('mensagem')}}
-            </div>
-        </div>
-    @endif
-
     <div class='row justify-content-center'>
         <div class='col-10' style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
             <h2>MODELOS DE CERTIFICADOS</h2>

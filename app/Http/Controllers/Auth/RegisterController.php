@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Curso;
+use App\Models\Instituicao;
+use App\Models\Perfil;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,7 +56,9 @@ class RegisterController extends Controller
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'  => ['required', 'string', 'min:8', 'confirmed'],
-            'cpf'       => ['required', 'min:11', 'max:11', 'unique:users']
+            'cpf'       => ['required', 'unique:users'],
+            'perfil_id'       => ['required'],
+            'instituicao_id'       => ['required']
         ]);
     }
 
@@ -65,7 +70,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //dd($data['cpf']);
+        if($data['perfil_id'] == '0')
+        {
+            $data['perfil_id'] = '2';
+        }
+
         return User::create([
             'name'      => $data['name'],
             'email'     => $data['email'],
@@ -75,7 +84,19 @@ class RegisterController extends Controller
             'celular' => $data['celular'],
             'instituicao' => $data['instituicao'],
             'siape' => $data['siape'],
+            'instituicao_id' => $data['instituicao_id'],
+            'json_cursos_ids' => json_encode($data['cursos_ids']),
 
         ]);
     }
+
+    public function showRegistrationForm()
+    {
+        $perfis = Perfil::all()->where('id', '!=', '1')->where('id', '!=', '3')->sortBy('id');
+        $instituicoes = Instituicao::all()->sortBy('id');
+        $cursos = Curso::all()->sortBy('id');
+
+        return view('auth.register', compact('perfis', 'instituicoes', 'cursos'));
+    }
+
 }

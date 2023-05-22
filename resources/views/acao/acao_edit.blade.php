@@ -9,18 +9,6 @@
 @endsection
 
 @section('content')
-    <div class='container'>
-        <div class="row">
-            @if ($errors->any())
-                <dic class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </dic>
-            @endif
-        </div>
-    </div>
-
     <h1 class="text-center">Editar ação</h1>
     <form class="container form" action="{{ route('acao.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -42,7 +30,8 @@
             </div>
 
             <div class="row d-flex aligm-items-start justify-content-start">
-                <input hidden type="file" name="anexo" id="anexo">
+ 
+                <input hidden type="file" name="anexo" id="anexo" value={{$acao->anexo}}>
 
                 <div
                     class="col-md-5 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
@@ -59,12 +48,12 @@
                 </div>
 
                 <div class="col-md-3 spacing-row2 input-create-box ">
-                    <span class="tittle-input">Início<strong style="color: red">*</strong></span><input class="w-100"
+                    <span class="tittle-input">Data de Início<strong style="color: red">*</strong></span><input class="w-100"
                         type="date" name="data_inicio" id="" value="{{ $acao->data_inicio }}" required>
                 </div>
 
                 <div class="col-md-3 input-create-box">
-                    <span class="tittle-input">Término<strong style="color: red">*</strong></span><input class="w-100"
+                    <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
                         type="date" name="data_fim" id="" value="{{ $acao->data_fim }}" required>
                 </div>
             </div>
@@ -116,17 +105,6 @@
                 </div>
             </div>
 
-
-
-            <div class="row d-flex aligm-items-start justify-content-start">
-                <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Unidade Administrativa<strong style="color: red">*</strong></span>
-                    <select class="select-form w-100 " name="unidade_administrativa_id" id="" required>
-                        <option value="">-- Unidade Administrativa --</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="d-flex justify-content-center align-items-center cancel"
@@ -141,6 +119,8 @@
         var campoanexo = document.getElementById('anexo');
         var campoArquivo = document.getElementById('arquivo');
 
+        console.log(campoanexo.value)
+
         campoanexo.addEventListener('change', (e) => {
 
             var string = e.target.value
@@ -148,7 +128,6 @@
             var dados = string.split(/[\\"]/g)
 
             campoArquivo.value = dados[dados.length - 1]
-
         })
 
         var NaturezaSelecionada = document.getElementById('NaturezaSelecionada');
@@ -217,7 +196,7 @@
     <h1 class="text-center">Editar ação</h1>
     <form class="container form" action="{{ route('acao.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-    
+
         <input type="hidden" name="id" value="{{ $acao->id }}">
         <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
         <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">

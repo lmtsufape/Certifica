@@ -34,7 +34,10 @@ class User extends Authenticatable
         'cpf',
         'celular',
         'instituicao',
+        'instituicao_id',
         'siape',
+        'instituicao_id',
+        'json_cursos_ids',
     ];
 
     /**
@@ -67,7 +70,4 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function assinatura(){
-        return $this->hasOne(Assinatura::class, 'user_id');
-    }
 }

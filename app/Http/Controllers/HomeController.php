@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Acao;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         if(Auth::user()->perfil_id == 1){
             return view('administrador.index'); //admin
-            
+
         } else if(Auth::user()->perfil_id == 2){
 
             $acaos = Acao::all();
@@ -46,14 +46,14 @@ class HomeController extends Controller
                 if ($acao->status == "Reprovada") {
                     $devolvidas++;
                 }
-            }       
-            
+            }
+
             return view('coordenador.index',[ 'aprovadas' => $aprovadas ,'analise' => $analise, 'devolvidas' => $devolvidas ]); //cordenador
         } else if (Auth::user()->perfil_id == 3){
             return view('gestor_institucional.index'); //gestor
         }
-        
+
         return view('auth.login');
-        
+
     }
 }

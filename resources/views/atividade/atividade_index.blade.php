@@ -11,12 +11,6 @@
 @section('content')
     <section class="view-list-acoes">
         <div class="container">
-            @if (session('mensagem'))
-                <div class="alert alert-success">
-                    <p>{{ session('mensagem') }}</p>
-                </div>
-            @endif
-
             <div class="text-center mb-4">
                 <h2>{{ $acao->titulo }}</h2>
             </div>
@@ -27,7 +21,7 @@
 
             <div class="row d-flex align-items-center justify-content-end">
                 <a class="criar-acao-button" href={{ route('atividade.create',['acao_id' => $acao->id])}}>
-                    <img src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                    <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                 </a>
             </div>
 
@@ -55,7 +49,7 @@
 
                         </div>
                         <div class="col-5 d-flex align-items-center justify-content-evenly">
-                            <a  href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
+                            <a href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                             </a>
                             <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
