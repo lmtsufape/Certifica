@@ -30,7 +30,8 @@
             </div>
 
             <div class="row d-flex aligm-items-start justify-content-start">
-                <input hidden type="file" name="anexo" id="anexo">
+ 
+                <input hidden type="file" name="anexo" id="anexo" value={{$acao->anexo}}>
 
                 <div
                     class="col-md-5 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
@@ -47,12 +48,12 @@
                 </div>
 
                 <div class="col-md-3 spacing-row2 input-create-box ">
-                    <span class="tittle-input">Início<strong style="color: red">*</strong></span><input class="w-100"
+                    <span class="tittle-input">Data de Início<strong style="color: red">*</strong></span><input class="w-100"
                         type="date" name="data_inicio" id="" value="{{ $acao->data_inicio }}" required>
                 </div>
 
                 <div class="col-md-3 input-create-box">
-                    <span class="tittle-input">Término<strong style="color: red">*</strong></span><input class="w-100"
+                    <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
                         type="date" name="data_fim" id="" value="{{ $acao->data_fim }}" required>
                 </div>
             </div>
@@ -118,6 +119,8 @@
         var campoanexo = document.getElementById('anexo');
         var campoArquivo = document.getElementById('arquivo');
 
+        console.log(campoanexo.value)
+
         campoanexo.addEventListener('change', (e) => {
 
             var string = e.target.value
@@ -125,7 +128,6 @@
             var dados = string.split(/[\\"]/g)
 
             campoArquivo.value = dados[dados.length - 1]
-
         })
 
         var NaturezaSelecionada = document.getElementById('NaturezaSelecionada');

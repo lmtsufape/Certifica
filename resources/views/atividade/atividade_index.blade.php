@@ -21,7 +21,7 @@
 
             <div class="row d-flex align-items-center justify-content-end">
                 <a class="criar-acao-button" href={{ route('atividade.create',['acao_id' => $acao->id])}}>
-                    <img src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                    <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                 </a>
             </div>
 

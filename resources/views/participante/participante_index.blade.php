@@ -24,7 +24,7 @@
                 <div class="row d-flex align-items-center justify-content-end">
                     @if ($acao->status == null)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <img src="/images/acoes/listView/criar.svg" alt=""> Adicionar Participante
+                            <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Participante
                         </button>
                     @endif
                 </div>
