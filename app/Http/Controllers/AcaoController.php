@@ -185,8 +185,8 @@ class AcaoController extends Controller
         $acao = Acao::findOrFail($acao_id);
 
         if($acao->atividades()->first()){
-            return redirect(route('acao.index'))->with(['error_mensage' => 'A ação no pode ser excluída.
-                                                                Existe uma ou mais atividades vinculadas a ação.']);
+            return redirect(route('acao.index'))->with(['error_mensage' => 'A ação não pode ser excluída.
+                                                                Existe uma ou mais atividades vinculadas a ela.']);
         }
 
         $acao->delete();
