@@ -32,43 +32,43 @@
             }
 
             .texto_certificado {
-                font-size: 20px;
+                font-size: 50px;
                 color: #000000;
-                text-shadow: 2px 2px #000;
-                margin-top: 200px;
-                margin-left: 300px;
-                margin-right: 125px;
+                text-shadow: 4px 4px #000;
+                margin-top: 550px;
+                margin-left: 600px;
+                margin-right: 250px;
                 text-align: justify;
             }
 
             .codigo_validacao {
-                font-size: 16px;
+                font-size: 32px;
                 width:28%;
-                margin-left:750px;
-                margin-top: 20px;
+                margin-left:1500px;
+                margin-top: 40px;
             }
 
             .qrcode {
                 height: 25%;
-                margin-top: 20px;
-                margin-left: 680px;
+                margin-top: 40px;
+                margin-left: 1320px;
             }
 
 
             .texto_verso_superior{
-                font-size:16px;
+                font-size:32px;
                 width:28%;
                 font-weight:bold;
-                margin-left:750px;
-                margin-top: 90px;
+                margin-left:1500px;
+                margin-top: 180px;
 
             }
 
             .texto_verso_inferior{
-                font-size:16px;
+                font-size:32px;
                 width:28%;
-                margin-left:750px;
-                margin-top: 20px;
+                margin-left:1500px;
+                margin-top: 40px;
             }
 
             .logo {
@@ -85,7 +85,7 @@
 
             <br> <br> <br>
 
-            Garanhuns, {{ $data_atual }}
+            <div style="text-align: center; font-size: 50px; margin-left: 400px; "> Garanhuns, {{ $data_atual }} </div>
         </p>
     </body>
 

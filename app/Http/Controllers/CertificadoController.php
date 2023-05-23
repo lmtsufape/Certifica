@@ -104,7 +104,7 @@ class CertificadoController extends Controller
 
         $nomePDF = 'certificado.pdf';
 
-        return $pdf->setPaper('a4', 'landscape')->stream($nomePDF);
+        return $pdf->set_option("dpi", 200)->setPaper('a4', 'landscape')->stream($nomePDF);
     }
 
     /**
