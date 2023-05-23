@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    
+
     <div class="index-coordenador-view">
         <div class="row d-flex align-items-start justify-content-between">
             <div class="box-coordenador-index d-flex flex-row align-items-start col">
@@ -26,13 +26,14 @@
                     </div>
                 </a>
             </div>
+            
             <div class="col d-flex align-items-end justify-content-end">
-                <div class="box-infos border">
-                    <div class="tittle-box text-center d-flex align-items-center justify-content-center">
+                <div class="box-infos">
+                    <div class="tittle-box pb-1 pt-1 text-center d-flex align-items-center justify-content-center">
                         <img class="icon-titulo" src={{"/images/home/titulo.svg"}} alt="">Informações
                     </div>
                     <div class="d-flex flex-column">
-                        <div class="text-center">
+                        <div class="text-center mb-2 mt-2">
                             Total Ações
                         </div>
                         <div class="d-flex align-items-center justify-content-around"> 
