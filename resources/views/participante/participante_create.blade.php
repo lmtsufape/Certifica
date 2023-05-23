@@ -9,7 +9,8 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center">Cadastrar Participante</h1>
+    <h1 class="text-center mb-4">Atividade: {{$atividade->descricao}}</h1>
+    <h2 class="text-center mb-4">Cadastrar Participante</h2> 
     <form class="container form" action="{{ Route('participante.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -35,14 +36,14 @@
         <div class="row d-flex aligm-items-start justify-content-start ">
 
             <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input ">Email</span>
+                <span class="tittle-input ">E-mail</span>
                 <input class="w-75 input-text" type="email" name="email" id="" placeholder="example@gmail.com"
                        @if(isset($user)) value="{{$user->email}}" readonly @endif>
 
             </div>
 
             <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input ">Carga Horária</span>
+                <span class="tittle-input ">Carga Horária Total</span>
                 <input class="w-75 input-text" type="number" name="carga_horaria" id=""
                        pattern="[0-9]+" title="Digite um número válido" required>
 
@@ -50,20 +51,6 @@
 
         </div>
 
-        <div class="row d-flex aligm-items-start justify-content-start ">
-
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input ">Título Atividade</span>
-                <input class="w-75 input-text " type="text" name="titulo" id="" required>
-            </div>
-
-            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input ">Atividade</span>
-                <input class="w-75 input-text " type="email" name="atividade" value="{{$atividade->descricao}}"
-                       disabled>
-            </div>
-
-        </div>
 
         <div class="row d-flex aligm-items-start justify-content-start">
 
