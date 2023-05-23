@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h1>Ação Institucional :{{ $acao->titulo }}</h1>
+    <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
     <h1 class="text-center">Editar atividade</h1>
 
     <form class="container form" action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
@@ -39,9 +39,9 @@
 
         <div class="row d-flex aligm-items-start justify-content-start">
 
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Ação</span>
-                <input value="{{ $acao->titulo }}" class="w-75 input-text" type="text" name="titulo" id=""
+            <div class="col-7 spacing-row1 ">
+     
+                <input value="{{ $acao->titulo }}" hidden class="w-75 input-text" type="text" name="titulo" id=""
                        disabled>
             </div>
 

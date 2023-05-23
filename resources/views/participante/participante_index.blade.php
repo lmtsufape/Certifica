@@ -13,9 +13,7 @@
         <section class="view-list-acoes">
             <div class="container">
 
-                <div class="text-center mb-4">
-                    <h2>{{ $acao->titulo }}</h2>
-                </div>
+                <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
 
                 <div class="text-center mb-3">
                     <h3>Participantes</h3>
