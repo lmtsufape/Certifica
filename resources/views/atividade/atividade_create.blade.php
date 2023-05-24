@@ -20,7 +20,7 @@
         <div class="row d-flex aligm-items-start justify-content-start ">
 
             <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Atividade</span>
+                <span class="tittle-input">Atividade/Função</span>
                 <select class="select-form w-100 " name="descricao" id="">
                     <option value="" selected hidden>Escolher...</option>
                     @foreach ($descricoes as $descricao)
