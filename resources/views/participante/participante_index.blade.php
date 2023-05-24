@@ -30,7 +30,7 @@
                 <div class="row head-table d-flex align-items-center justify-content-center">
                     <div class="col-4"><span class="spacing-col">Nome</span></div>
                     <div class="col-4"><span>CPF</span></div>
-                    <div class="col-4"><span>Função</span></div>
+                    <div class="col-4"><span>Atividade/Função</span></div>
                 </div>
             </div>
 
