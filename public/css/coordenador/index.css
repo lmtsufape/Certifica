@@ -53,8 +53,10 @@
 .box-infos{
     border-radius: 10px;
     width: 50%;
-    height: 45%;
+    padding-bottom: 5px;
+    height: 45% max-content;
     font-weight: bold;
+    border: 1px rgba(0, 0, 0, 0.459) solid;
 }
 .tittle-box{
     border-top-right-radius: 10px;

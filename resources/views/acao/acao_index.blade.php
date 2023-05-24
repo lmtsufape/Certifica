@@ -7,6 +7,7 @@
 @section('content')
     <div class='container'>
         <section class="view-list-acoes">
+            <h1 class="text-center mb-4">Listar Ações</h1>
    <!-- 
             <div class="container">
                 
