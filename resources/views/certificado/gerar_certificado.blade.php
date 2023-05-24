@@ -90,13 +90,13 @@
     </body>
 
     <body class="verso_certificado">
-                <p class='texto_verso_superior'>Para verificar a validade deste certificado, acesse o Código QR abaixo: </p>
+                <p class='texto_verso_superior'>Para verificar a autenticidade deste certificado, acesse o Código QR abaixo: </p>
 
                 <img class="qrcode" src="data:image/png;base64, {{ $qrcode }}">
 
-                <p class='texto_verso_inferior'>Ou digite este código de validação no endereço <a href="http://certifica.ufape.edu.br/validacao">http://certifica.ufape.edu.br/validacao</a> </p>
+                <p class='texto_verso_inferior'>Ou digite este código de verificação de autenticidade no endereço <a href="http://certifica.ufape.edu.br/validacao">http://certifica.ufape.edu.br/validacao</a> </p>
 
-                <p class='codigo_validacao'><b>Código de validação:</b><br>{{ $certificado->codigo_validacao }}</p>
+                <p class='codigo_validacao'><b>Código de verificação de autenticidade:</b><br>{{ $certificado->codigo_validacao }}</p>
 
     </body>
 </html>
