@@ -4,8 +4,9 @@
 
         <div class="row justify-content-between  my-2">
 
-            <div class="col-4 text-center d-flex flex-column align-items-center justify-content-end py-1 border-right">
-                <div class="col-sm-8 d-flex h-100 align-items-end justify-content-end py-1">
+            <div class="col-4 text-center d-flex flex-column align-items-center justify-content-end py-1">
+                
+                <div class="col-sm-8 d-flex h-100 align-items-end justify-content-start py-1">
                     <a class="navbar-brand " href="{{ Route('home') }}">
                         <img class="logo-certifica-footer" src="{{url('/images/layouts/footer/logo-branca.svg')}}" alt="">
                     </a>
@@ -13,7 +14,7 @@
 
             </div>
 
-            <div class="col-4 text-center d-flex flex-column align-items-center justify-content-evenly py-1 border-right">
+            <div class="col-4 text-center d-flex flex-column align-items-center justify-content-evenly py-1 ">
 
                 <span class="text-white mb-3">Desenvolvido por</span>
 
@@ -36,10 +37,12 @@
 
             </div>
 
-            <div class="box-redes col-4 d-flex flex-column align-items-start justify-content-evenly py-1">
-
-                <span class="text-white text-center w-50">Contato</span>
-
+            <div class="box-redes col-4 d-flex flex-column align-items-end justify-content-evenly py-1">
+                
+                <div class="w-75 col-12 d-flex align-items-center justify-content-center">
+                    <span class="text-white">Contato</span>
+                </div>
+                
                 <div class="w-75 col-12 d-flex align-items-center justify-content-evenly">
                     <a href="mailto:lmts@ufape.br" target="_blank" class="text-icons">
                         <img class="logo-redes" src="/images/layouts/footer/email.svg">
