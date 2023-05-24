@@ -60,7 +60,7 @@
                 width:28%;
                 font-weight:bold;
                 margin-left:1500px;
-                margin-top: 180px;
+                margin-top: 320px;
 
             }
 
