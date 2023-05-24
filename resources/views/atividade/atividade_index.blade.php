@@ -25,7 +25,7 @@
             </div>
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-4"><span class="spacing-col">Atividade</span></div>
+                <div class="col-4"><span class="spacing-col">Atividade/Função</span></div>
                 <div class="col-4"><span>Data</span></div>
                 <div class="col-4"><span>Participantes</span></div>
             </div>
