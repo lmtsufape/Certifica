@@ -1,44 +1,37 @@
 @extends('layouts.app')
 
-@section('title')
-    Ações
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/list.css">
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Ações</h2>
-        </div>
-        <table class="table table-hover table-responsive-md">
-            <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th class="text-center" scope="col"></th>
-                <th class="text-center" scope="col">Título</th>
-                <th class="text-center" scope="col">Status</th>
-                <th class="text-center" scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($acaos as $acao)
-                <tr>
-                    <td class="text-center"></td>
-                    <td class="text-center">
-                        @if($acao->status == "Em análise")
+    <div class='container'>
+        <section class="view-list-acoes">
+            <h1 class="text-center mb-4">Solicitações</h1>
+            <div class="container">
+                <div class="row head-table d-flex align-items-center justify-content-start">
+                    <div class="col-6 text-center"><span class="spacing-col">Título</span></div>
+                    <div class="col-6 text-center"><span>Status</span></div>
+                </div>
+            </div>
+
+            <div class="list container overflow-scroll">
+                @foreach ($acaos as $acao)
+                    <div class="row linha-table d-flex align-items-center justify-content-start">
+                        <div class="col-6 text-center"><span class="spacing-col">
+                            @if($acao->status == "Em análise")
                             <a href={{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}>
                                 {{ $acao->titulo }}
                             </a>
-                        @else()
-                            <a>
-                                {{ $acao->titulo }}
-                            </a>
-                        @endif
-                    </td>
-                    <td class="text-center">
-                        <a class="btn btn-warning text-center"> {{ $acao->status }}</a>
-                    </td>
-                    <td class="text-center"></td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+                            @else
+                                <a>
+                                    {{ $acao->titulo }}
+                                </a>
+                            @endif
+                        </span></div>
+                        <div class="col-6 text-center"><span>{{ $acao->status }}</span></div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
 @endsection
