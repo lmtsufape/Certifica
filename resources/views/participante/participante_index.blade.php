@@ -22,15 +22,18 @@
                 <div class="row d-flex align-items-center justify-content-end">
                     @if ($acao->status == null)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Participante
+                            <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
+                            Participante
                         </button>
                     @endif
                 </div>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
                     <div class="col-4"><span class="spacing-col">Nome</span></div>
-                    <div class="col-4"><span>CPF</span></div>
-                    <div class="col-4"><span>Função</span></div>
+                    <div class="col-2"><span>CPF</span></div>
+                    <div class="col-2"><span>CH</span></div>
+                    <div class="col-2"><span>Atividade/Função</span></div>
+                    <div class="col-2"><span></span></div>
                 </div>
             </div>
 
@@ -38,23 +41,31 @@
                 @foreach ($participantes as $participante)
                     <div class="row linha-table d-flex align-items-center justify-content-center">
                         <div class="col-4">
-                        <span class="spacing-col">
-                            {{ $participante->user->name }}
-                        </span>
+                            <span class="spacing-col">
+                                {{ $participante->user->name }}
+                            </span>
                         </div>
-                        <div class="col-4">
+
+                        <div class="col-2">
                             {{ $participante->user->cpf }}
                         </div>
-                        <div class="col-4 d-flex align-items-center justify-content-start">
-                            <div class="col-2 d-flex align-items-center justify-content-center pr-2">
-                                {{ $atividade->descricao }}
-                            </div>
-                            
-                            <div class="col-5 d-flex align-items-center justify-content-evenly">
+                        <div class="col-2">
+                            {{ $participante->carga_horaria }}
+                        </div>
 
+                        <div class="col-2 ">
+                            {{ $atividade->descricao }}
+                        </div>
+
+                        <div class="col-2 d-flex align-items-center justify-content-evenly">
+
+                            <div class="col-1">
+
+                            </div>
+                            <div class="col-6 d-flex align-items-center justify-content-evenly">
                                 @if ($acao->status == 'Aprovada')
-                                    <a
-                                        href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}" target="_blank">
+                                    <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
+                                        target="_blank">
                                         ver certificado
                                     </a>
                                 @endif
@@ -70,9 +81,12 @@
                                         <img src="/images/acoes/listView/editar.svg" alt="">
                                     </a>
                                 @endif
+                            </div>
+                            <div class="col-5">
 
                             </div>
                         </div>
+
                     </div>
                 @endforeach
 
@@ -87,10 +101,13 @@
                         <h5 class="modal-title" id="exampleModalLabel">Informe o seu CPF</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form class="container form" action="{{ Route('participante.create', ['atividade_id' => $atividade->id]) }}" method="GET">
+                    <form class="container form"
+                        action="{{ Route('participante.create', ['atividade_id' => $atividade->id]) }}" method="GET">
                         <div class="modal-body">
                             <label>CPF:</label>
-                            <input class="w-75 form-control" type="text" name="cpf" id="cpf" placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF válido (000.000.000-00)" required>
+                            <input class="w-75 form-control" type="text" name="cpf" id="cpf"
+                                placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                                title="Digite um CPF válido (000.000.000-00)" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -103,7 +120,6 @@
         </div>
 
         <!-- Script do Bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                crossorigin="anonymous"></script>
-
-@endsection
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+        </script>
+    @endsection

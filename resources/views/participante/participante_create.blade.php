@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center mb-4">Atividade: {{$atividade->descricao}}</h1>
+    <h1 class="text-center mb-4">Atividade/Função: {{$atividade->descricao}}</h1>
     <h2 class="text-center mb-4">Cadastrar Participante</h2> 
     <form class="container form" action="{{ Route('participante.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
