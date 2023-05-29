@@ -1,68 +1,84 @@
 @extends('layouts.app')
 
+@section('title')
+    Cadastrar Participantes
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/create.css">
+@endsection
+
 @section('content')
-    <div class='container'>
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Cadastrar Usuário</h2>
+    <h2 class="text-center mb-4">Cadastrar Usuario</h2>
+    <form class="container form" action="{{ Route('usuario.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <div class="row d-flex aligm-items-start justify-content-start ">
+
+            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input ">Nome completo</span>
+                <input class="w-75 input-text " type="text" name="name" id="nome" minlength="10" required>
+            </div>
+
+            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">CPF</span>
+                <input class="w-75 input-text " type="text" name="cpf" id="cpf" placeholder="000.000.000-00"
+                    pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF válido (000.000.000-00)" required>
+            </div>
+
         </div>
 
-        <form action="{{Route('usuario.store')}}" method="POST" enctype="multipart/form-data" >
-            @csrf
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nome">Nome</label>
-                            <input name="name" type="text" class="form-control" id="usuario_nome" placeholder="Ex: João Silva">
-                        </div>
+        <div class="row d-flex aligm-items-start justify-content-start ">
 
-                        <div class="form-group">
-                            <label for="select_perfil">Perfil</label>
-
-                            <select name="perfil_id" id="select_perfil" class="form-control">
-                                <option value="" selected hidden>Escolher...</option>
-                                @foreach($perfils as $perfil)
-                                    <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group" id="usuario_cpf">
-                            <label for="cpf">CPF</label>
-                            <input name="cpf" type="text" class="form-control" placeholder="Ex: 11122233344">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input name="email" type="text" class="form-control" id="usuario_email" placeholder="Ex: exemple@gmail.com">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input name="password" type="password" class="form-control" id="usuario_senha">
-                        </div>
-
-                        <div class="form-group" id="unidade_administrativa">
-                            <label for="unidade_administrativa">Unidade Administrativa</label>
-
-                            <select name="unidade_administrativa_id"  class="form-control">
-                                <option value="" selected hidden>Escolher...</option>
-                                @foreach($unidade_administrativas as $unidade_administrativa)
-                                    <option value="{{ $unidade_administrativa->id }}">{{ $unidade_administrativa->descricao }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
-                    </div>
-                </div>
-                <div class="col-md-3"></div>
+            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input ">E-mail</span>
+                <input class="w-75 input-text" type="email" name="email" id="" placeholder="example@gmail.com">
             </div>
-        </form>
-    </div>
 
+            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input ">Senha</span>
+                <input class="w-75 input-text" type="password" name="password" id="">
+            </div>
+
+        </div>
+
+
+        <div class="row d-flex aligm-items-start justify-content-start">
+            <div class="col-7 spacing-row1 input-create-box align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Tipo de usuário</span>
+
+                <select class="w-100 input-text" name="perfil_id" id="select_perfil" required>
+                    <option value="" selected hidden>Escolher...</option>
+                    @foreach ($perfils as $perfil)
+                        <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column" id="unidade_administrativa">
+                <span class="tittle-input ">Unidade Administrativa</span>
+
+                <select class="w-100 input-text" name="unidade_administrativa_id" id="unidade_administrativa" required>
+                    <option selected hidden>Escolher...</option>
+                    @foreach ($unidade_administrativas as $unidade_administrativa)
+                        <option value="{{ $unidade_administrativa->id }}">{{ $unidade_administrativa->descricao }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-start align-items-center">
+            <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                <a class="d-flex justify-content-center align-items-center cancel" href=""> Cancelar</a>
+                <button class="submit" type="submit">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+
+    
     <script>
+        $("#unidade_administrativa").hide();
         $(document).ready(function ()
         {
             $("#select_perfil").change(function ()
@@ -81,4 +97,5 @@
             });
         });
     </script>
+
 @endsection
