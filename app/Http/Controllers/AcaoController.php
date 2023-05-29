@@ -247,9 +247,13 @@ class AcaoController extends Controller
 
     }
 
-    public function dowload_anexo($id){
+    public function download_anexo($id){
         $acao = Acao::findOrFail($id);
         return Storage::download($acao->anexo);
+    }
+
+    public function download_certificados($id){
+        dd($id);
     }
 
 
