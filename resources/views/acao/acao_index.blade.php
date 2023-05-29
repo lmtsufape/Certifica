@@ -65,7 +65,7 @@
                     <div class="col-1 text-center"><span>{{$acao->status}}</span></div>
                     <div class="col-1 text-center"><span>
                         @if($acao->anexo != null)
-                        <a href="{{ route('anexo.dowload', ['acao_id' => $acao->id])}}"><img src="/images/acoes/listView/anexo.svg" alt="Visualizar" style="opacity: 0.5" ></a>
+                        <a href="{{ route('anexo.download', ['acao_id' => $acao->id])}}"><img src="/images/acoes/listView/anexo.svg" alt="Visualizar" style="opacity: 0.5" ></a>
                         @endif
                     </span></div>
                     <div class="col-2 d-flex align-items-center justify-content-evenly">
