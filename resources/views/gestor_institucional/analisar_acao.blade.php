@@ -27,7 +27,7 @@
                     <td> {{ $acao->titulo }} </td>
                     <td> {{ $acao->data_inicio }} </td>
                     <td> {{ $acao->data_fim }} </td>
-                    <td> <a href="{{ route('anexo.dowload', ['acao_id' => $acao->id])}}">Anexo</a> </td>
+                    <td> <a href="{{ route('anexo.download', ['acao_id' => $acao->id])}}">Anexo</a> </td>
                     <td>
                         <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
                     </td>

@@ -65,14 +65,16 @@
                     <div class="col-1 text-center"><span>{{$acao->status}}</span></div>
                     <div class="col-1 text-center"><span>
                         @if($acao->anexo != null)
-                        <a href="{{ route('anexo.dowload', ['acao_id' => $acao->id])}}"><img src="/images/acoes/listView/anexo.svg" alt="Visualizar" style="opacity: 0.5" ></a>
+                        <a href="{{ route('anexo.download', ['acao_id' => $acao->id])}}"><img src="/images/acoes/listView/anexo.svg" alt="Visualizar" style="opacity: 0.5" ></a>
                         @endif
                     </span></div>
                     <div class="col-2 d-flex align-items-center justify-content-evenly">
                         <span><a href="{{Route('atividade.index', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/ficha.svg" alt="Visualizar"></a></span>
+                        @if($acao->status == null)
                         <span><a href="{{Route('acao.delete', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
                         <span><a href="{{Route('acao.edit', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
                         <span><a href="{{Route('acao.submeter', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
+                        @endif
                     </div>
                 </div>
                 @endforeach

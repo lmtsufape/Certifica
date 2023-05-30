@@ -142,7 +142,9 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('/participante/certificado{participante_id}', [CertificadoController::class, 'ver_certificado'])->name('participante.ver_certificado');
 
-    Route::get('/gestor/analisar_acao/{acao_id}/anexo', [AcaoController::class, 'dowload_anexo'])->name('anexo.dowload');
+    Route::get('/gestor/analisar_acao/{acao_id}/anexo', [AcaoController::class, 'download_anexo'])->name('anexo.download');
+
+    Route::get('/acao/{acao_id}/atividade/gerar-certificados', [AcaoController::class, 'download_certificados'])->name('certificados.download');
 
 });
 

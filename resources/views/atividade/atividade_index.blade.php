@@ -58,7 +58,21 @@
                     </div>
                 </div>
             @endforeach
-
         </div>
+
+        @if($acao->status == 'Aprovada')
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div class="col-md-2">
+                        <a class="btn btn-success btn-sm"
+                        style="margin-left:35%;"
+                        href="{{route('certificados.download', ['acao_id' => $acao->id])}}">
+                        Emtir certificados
+                        </a> 
+                    </div>
+                </div>
+            </div>
+        @endif
+
     </section>
 @endsection
