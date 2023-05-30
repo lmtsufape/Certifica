@@ -41,4 +41,8 @@ class Atividade extends Model
         return $this->belongsTo('App\Models\Acao');
     }
 
+    public function participantes(){
+        return $this->hasMany(Participante::class);
+    }
+
 }
