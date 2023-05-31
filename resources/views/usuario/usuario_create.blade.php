@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Cadastrar Participantes
+    Cadastrar Usuário
 @endsection
 
 @section('css')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h2 class="text-center mb-4">Cadastrar Usuario</h2>
+    <h2 class="text-center mb-4">Cadastrar Usuário</h2>
     <form class="container form" action="{{ Route('usuario.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -55,10 +55,10 @@
                 </select>
             </div>
 
-            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column" id="unidade_administrativa">
+            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column " id="unidade_administrativa">
                 <span class="tittle-input ">Unidade Administrativa</span>
 
-                <select class="w-100 input-text" name="unidade_administrativa_id" id="unidade_administrativa" required>
+                <select class="w-100 input-text" name="unidade_administrativa_id" required>
                     <option selected hidden>Escolher...</option>
                     @foreach ($unidade_administrativas as $unidade_administrativa)
                         <option value="{{ $unidade_administrativa->id }}">{{ $unidade_administrativa->descricao }}</option>
@@ -76,26 +76,20 @@
         </div>
     </form>
 
-    
     <script>
-        $("#unidade_administrativa").hide();
-        $(document).ready(function ()
-        {
-            $("#select_perfil").change(function ()
-            {
-                if($("#select_perfil").val() == 2)
-                {
-                    $("#unidade_administrativa").hide();
-                } else if($("#select_perfil").val() == 3)
-                {
-                    $("#unidade_administrativa").show();
-                    $("#usuario_cpf").hide();
-                } else
-                {
-                    $("#unidade_administrativa").hide();
-                }
-            });
-        });
+        var select_perfil = document.getElementById("select_perfil");
+        const divUnidadeADM = document.getElementById("unidade_administrativa");
+
+        divUnidadeADM.style.visibility = "hidden"
+
+        select_perfil.addEventListener("change",(e)=>{
+            if(e.target.value == 3){
+                divUnidadeADM.style.visibility = ""
+            }else{
+                divUnidadeADM.style.visibility = "hidden"
+            }
+        })
     </script>
+    
 
 @endsection
