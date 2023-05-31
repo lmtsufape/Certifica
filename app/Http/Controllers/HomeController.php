@@ -54,6 +54,15 @@ class HomeController extends Controller
         }
 
         return view('auth.login');
-
     }
+
+    public function sistema() {
+        //return view('home.sistema');
+        return "o sistema";
+    }
+
+    public function contato(){
+        return 'Contato VIEW';
+    }
+
 }

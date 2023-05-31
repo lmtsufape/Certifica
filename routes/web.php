@@ -31,7 +31,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+
 Route::get('/', 'HomeController@index');
+Route::get('/sistema', [HomeController::class, 'sistema'] )->name('sistema');
 
 Route::get(
     'logout',
@@ -40,6 +42,8 @@ Route::get(
         Session::flush();
         return redirect(route('home'));
     })->name('login.logout');
+
+
 
 Route::group(['middleware' => 'checkAdministrador'], function ()
 {
