@@ -67,7 +67,7 @@
 
                     <input type="hidden" name="tipo_natureza_id" value="0">
 
-                    <select name="ensino" class="select-form w-100 " id="select_tipo_natureza_ensino" required>
+                    <select name="ensino" class="select-form w-100 " id="select_tipo_natureza_ensino">
                         <option value="" selected hidden>-- Tipo Natureza --</option>
                         @foreach ($naturezas_ensino as $natureza_ensino)
                             <option value="{{ $natureza_ensino->id }}">{{ $natureza_ensino->descricao }}</option>
