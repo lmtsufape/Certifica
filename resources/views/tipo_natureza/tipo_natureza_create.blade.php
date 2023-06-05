@@ -21,9 +21,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="tipo_natureza">Natureza</label>
+                                <label for="natureza">Natureza</label>
 
-                                <select name="tipo_natureza_id" id="tipo_natureza" class="form-control">
+                                <select name="natureza_id" id="tipo_natureza" class="form-control">
                                     <option value="" selected hidden>-- Natureza --</option>
                                     @foreach($naturezas as $natureza)
                                         <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>

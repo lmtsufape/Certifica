@@ -34,6 +34,7 @@
                         <label for="anexo" id="">
                             <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg" alt="">
                             <label for="anexo" id=""> </label>
+                        </label>
                     </div>
 
                 </div>
@@ -51,43 +52,47 @@
 
 
             <div class="row d-flex aligm-items-start justify-content-start">
-                <div
-                    class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
-                    <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
-                        <option value="" selected hidden>-- Natureza --</option>
-                        @foreach ($naturezas as $natureza)
-                            <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
-                        @endforeach
-                    </select>
-                </div>
 
-                <div class="col-md-7 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
+                @if(Auth::user()->perfil_id == 3)
+                    <input type="hidden" name="natureza_id" value="{{ $natureza->id }}">
 
-                    <input type="hidden" name="tipo_natureza_id" value="0">
+                    <div
+                        class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
+                        <input class="w-75 input-text" value="{{ $natureza->descricao }}" disabled>
+                    </div>
 
-                    <select name="ensino" class="select-form w-100 " id="select_tipo_natureza_ensino">
-                        <option value="" selected hidden>-- Tipo Natureza --</option>
-                        @foreach ($naturezas_ensino as $natureza_ensino)
-                            <option value="{{ $natureza_ensino->id }}">{{ $natureza_ensino->descricao }}</option>
-                        @endforeach
-                    </select>
+                    <div class="col-md-7 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
 
-                    <select name="extensao" class="select-form w-100 " id="select_tipo_natureza_extensao">
-                        <option value="" selected hidden>-- Tipo Natureza --</option>
-                        @foreach ($naturezas_extensao as $natureza_extensao)
-                            <option value="{{ $natureza_extensao->id }}">{{ $natureza_extensao->descricao }}</option>
-                        @endforeach
-                    </select>
+                        <select name="tipo_natureza_id" class="select-form w-100 " id="select_tipo_natureza" required>
+                            <option value="" selected hidden>-- Tipo Natureza --</option>
+                            @foreach ($tipo_naturezas as $tipo_natureza)
+                                <option value="{{ $tipo_natureza->id }}">{{ $tipo_natureza->descricao }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @else
+                    <div
+                        class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
+                        <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
+                            <option value="" selected hidden>-- Natureza --</option>
+                            @foreach ($naturezas as $natureza)
+                                <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                    <select name="pesquisa" class="select-form w-100 " id="select_tipo_natureza_pesquisa">
-                        <option value="" selected hidden>-- Tipo Natureza --</option>
-                        @foreach ($naturezas_pesquisa as $natureza_pesquisa)
-                            <option value="{{ $natureza_pesquisa->id }}">{{ $natureza_pesquisa->descricao }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                    <div class="col-md-7 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
+
+                        <select name="tipo_natureza_id" class="select-form w-100" id="select_tipo_natureza" required>
+                            <option value="" selected hidden>-- Tipo Natureza --</option>
+                        </select>
+                    </div>
+                @endif
+
             </div>
 
             <div class="row d-flex justify-content-start align-items-center">
@@ -97,16 +102,12 @@
                     <button class="submit" type="submit">Cadastrar</button>
                 </div>
             </div>
-
+        </div>
     </form>
 
     <script>
         var campoanexo = document.getElementById('anexo');
         var campoArquivo = document.getElementById('arquivo');
-
-        $("#select_tipo_natureza_ensino").hide();
-        $("#select_tipo_natureza_extensao").hide();
-        $("#select_tipo_natureza_pesquisa").hide();
 
         campoanexo.addEventListener('change', (e) => {
 
@@ -118,20 +119,25 @@
 
         })
 
-        $("#select_natureza").change(function() {
-            if ($("#select_natureza").val() == 1) {
-                $("#select_tipo_natureza_ensino").show();
-                $("#select_tipo_natureza_extensao").hide();
-                $("#select_tipo_natureza_pesquisa").hide();
-            } else if ($("#select_natureza").val() == 2) {
-                $("#select_tipo_natureza_ensino").hide();
-                $("#select_tipo_natureza_extensao").show();
-                $("#select_tipo_natureza_pesquisa").hide();
-            } else if ($("#select_natureza").val() == 3) {
-                $("#select_tipo_natureza_ensino").hide();
-                $("#select_tipo_natureza_extensao").hide();
-                $("#select_tipo_natureza_pesquisa").show();
-            }
+        $('#select_natureza').change(function()
+        {
+            var natureza = $('#select_natureza').val();
+
+            $.ajax({
+                url: '/acao/get/tipo_natureza/' + natureza,
+                type: 'GET',
+                dataType: 'json',
+                success: function (tipo_naturezas)
+                {
+                    var select = $('#select_tipo_natureza');
+                    select.empty();
+
+                    $.each(tipo_naturezas, function(index, item)
+                    {
+                        select.append($('<option></option>').val(item.id).text(item.descricao));
+                    });
+                }
+            });
         });
     </script>
 @endsection
