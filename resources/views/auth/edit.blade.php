@@ -62,12 +62,12 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="senha">Senha</label>
-                                            <input name='senha' id='senha' class="form-control">
+                                            <input name='senha' id='senha' class="form-control" type="password">
                                         </div>
                                         
                                         <div class="col-md-6">
                                             <label for="confirmar_senha">Confirmar Senha</label>
-                                            <input name='confirmar_senha' id='confirmar_senha' class="form-control">
+                                            <input name='confirmar_senha' id='confirmar_senha' class="form-control" type="password">
                                         </div>
                                     </div>
                                     
