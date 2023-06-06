@@ -8,9 +8,9 @@
     <div class='container'>
         <section class="view-list-acoes">
             <h1 class="text-center mb-4">Listar Ações</h1>
-   <!-- 
+   <!--
             <div class="container">
-                
+
                 <div class="row head-table search-box d-flex align-items-center justify-content-center">
                     <div class="col-4 d-flex flex-column align-items-start justify-content-center">
                         <span>Buscar ação</span>
@@ -71,9 +71,14 @@
                     <div class="col-2 d-flex align-items-center justify-content-evenly">
                         <span><a href="{{Route('atividade.index', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/ficha.svg" alt="Visualizar"></a></span>
                         @if($acao->status == null)
-                        <span><a href="{{Route('acao.delete', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
-                        <span><a href="{{Route('acao.edit', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
-                        <span><a href="{{Route('acao.submeter', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
+                            <span><a href="{{Route('acao.delete', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                            <span><a href="{{Route('acao.edit', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
+                        @endif
+
+                        @if(Auth::user()->perfil_id == 3)
+                            <span><a href="{{Route('gestor.gerar_certificados', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"></a></span>
+                        @else
+                            <span><a href="{{Route('acao.submeter', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
                         @endif
                     </div>
                 </div>

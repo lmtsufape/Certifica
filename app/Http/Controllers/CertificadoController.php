@@ -38,6 +38,8 @@ class CertificadoController extends Controller
      */
     public function gerar_certificados($acao_id)
     {
+        $acao = Acao::findOrFail($acao_id);
+
         $atividades = Atividade::all()->where("acao_id", $acao_id);
 
         foreach($atividades as $atividade)
@@ -64,7 +66,19 @@ class CertificadoController extends Controller
             }
         }
 
-        return redirect(Route('gestor.acoes_submetidas'));
+        if (Auth::user()->perfil_id == 3)
+        {
+            $acao->status = 'Aprovada';
+
+            $acao->update();
+
+            return redirect(Route('acao.index'));
+        }
+        else
+        {
+            return redirect(Route('gestor.acoes_submetidas'));
+        }
+
     }
     public function ver_certificado($participante_id)
     {

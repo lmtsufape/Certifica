@@ -49,14 +49,19 @@ class AcaoController extends Controller
      */
     public function create()
     {
-        $naturezas = Natureza::all()->sortBy('id');
+        if(Auth::user()->perfil_id == 3)
+        {
+            $natureza = Natureza::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
+            $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
 
-        $naturezas_ensino = TipoNatureza::all()->where('natureza_id', 1);
-        $naturezas_extensao = TipoNatureza::all()->where('natureza_id', 2);
-        $naturezas_pesquisa = TipoNatureza::all()->where('natureza_id', 3);
+            return view('acao.acao_create', compact('natureza', 'tipo_naturezas'));
+        }
+        else
+        {
+            $naturezas = Natureza::all()->sortBy('id');
 
-        return view('acao.acao_create', compact('naturezas', 'naturezas_ensino', 'naturezas_extensao',
-                                                    'naturezas_pesquisa'));
+            return view('acao.acao_create', compact('naturezas'));
+        }
     }
 
     /**
@@ -74,27 +79,15 @@ class AcaoController extends Controller
                 ->withErrors($exception->validator)->withInput();
         }
 
-        if($request->natureza_id == 1)
-        {
-            $request->tipo_natureza_id = $request->ensino;
-        } else if($request->natureza_id == 2)
-        {
-            $request->tipo_natureza_id = $request->extensao;
-        } else if($request->natureza_id == 3)
-        {
-            $request->tipo_natureza_id = $request->pesquisa;
-        }
-
         $acao = new Acao();
+
+        $natureza = Natureza::find($request->natureza_id);
 
         $acao->titulo = $request->titulo;
         $acao->data_inicio = $request->data_inicio;
         $acao->data_fim = $request->data_fim;
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->usuario_id = $request->usuario_id;
-
-        $natureza = Natureza::find($request->natureza_id);
-
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
         $acao->anexo = $request->file('anexo')->store('anexos');
@@ -123,18 +116,15 @@ class AcaoController extends Controller
      */
     public function edit($id)
     {
-        $naturezas_ensino = TipoNatureza::all()->where('natureza_id', 1);
-        $naturezas_extensao = TipoNatureza::all()->where('natureza_id', 2);
-        $naturezas_pesquisa = TipoNatureza::all()->where('natureza_id', 3);
-
         $acao = Acao::findOrFail($id);
         $natureza = Natureza::findOrFail($acao->tipo_natureza->natureza_id);
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
+
+        $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
         $naturezas = Natureza::all()->sortBy('id');
 
-
-        return view('acao.acao_edit',compact('acao','naturezas', 'natureza',
-        'naturezas_ensino','naturezas_extensao', 'naturezas_pesquisa','tipo_natureza'));
+        return view('acao.acao_edit', compact('acao','natureza', 'tipo_natureza', 'naturezas',
+            'tipo_naturezas'));
     }
 
     /**
@@ -153,28 +143,15 @@ class AcaoController extends Controller
             return redirect(route('acao.edit', ['acao_id' => $request->id]))->withErrors($exception->validator)->withInput();
         }
 
-        if($request->natureza_id == 1)
-        {
-            $request->tipo_natureza_id = $request->ensino;
-        } else if($request->natureza_id == 2)
-        {
-            $request->tipo_natureza_id = $request->extensao;
-        } else if($request->natureza_id == 3)
-        {
-            $request->tipo_natureza_id = $request->pesquisa;
-        }
-
-
-
         $acao = Acao::findOrFail($request->id);
+
+        $natureza = Natureza::find($request->natureza_id);
 
         $acao->titulo = $request->titulo;
         $acao->data_inicio = $request->data_inicio;
         $acao->data_fim = $request->data_fim;
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->usuario_id = $request->usuario_id;
-
-        $natureza = Natureza::find($request->natureza_id);
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
         $acao->update();
@@ -274,7 +251,7 @@ class AcaoController extends Controller
                     array_push($certificados, $nomePDF);
 
                     $pdf = $this->montar_certificado($participante, $atividade, $acao, $nomePDF);
-                    
+
                     $zip->addFile($nomePDF);
                 }
             }
@@ -283,16 +260,16 @@ class AcaoController extends Controller
         // Fecha arquivo Zip aberto
         $zip->close();
 
-        //exclui os pdf gerados 
+        //exclui os pdf gerados
         foreach ($certificados as $certificado){
             File::delete($certificado);
         }
 
 
-        
+
         header('Content-Type: application/zip');
         header('Content-disposition: attachment; filename=certificados.zip');
-        header("Pragma: no-cache"); 
+        header("Pragma: no-cache");
         header("Expires: 0");
         header('Cache-Control: must-revalidate');
         header('Content-Length: ' . filesize($zipname));
@@ -332,15 +309,22 @@ class AcaoController extends Controller
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
                             'imagem', 'data_atual', 'certificado', 'qrcode', 'verso'));
-        
-        
+
+
         $pdf->set_option("dpi", 200)->setPaper('a4', 'landscape');
         $pdf->render();
         $output = $pdf->output();
 
 
-        return file_put_contents($nomePDF, $output);       
-        
+        return file_put_contents($nomePDF, $output);
+
+    }
+
+    public function get_tipo_natureza($natureza_id)
+    {
+        $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza_id)->get();
+
+        return response()->json($tipo_naturezas);
     }
 
 }
