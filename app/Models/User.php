@@ -70,4 +70,14 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function instituicao__(){
+        return $this->belongsTo(Instituicao::class, 'instituicao_id');
+    }
+
+    public function perfil(){
+        return $this->belongsTo(Perfil::class);
+    }
+
+
+
 }
