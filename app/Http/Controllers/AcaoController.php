@@ -90,7 +90,15 @@ class AcaoController extends Controller
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
-        $acao->anexo = $request->file('anexo')->store('anexos');
+        if(Auth::user()->perfil_id == 3)
+        {
+            $acao->anexo = null;
+        }
+        else
+        {
+            $acao->anexo = $request->file('anexo')->store('anexos');
+        }
+        
 
         $acao->save();
 

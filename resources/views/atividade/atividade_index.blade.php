@@ -19,7 +19,7 @@
             </div>
 
             <div class="row d-flex align-items-center justify-content-end">
-                <a class="criar-acao-button" href={{ route('atividade.create',['acao_id' => $acao->id])}}>
+                <a class="criar-acao-button" href={{ route('atividade.create',['acao_id' => $acao->id]) }}>
                     <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                 </a>
             </div>
@@ -59,20 +59,5 @@
                 </div>
             @endforeach
         </div>
-
-        @if($acao->status == 'Aprovada')
-            <div class="container">
-                <div class="row justify-content-end">
-                    <div class="col-md-2">
-                        <a class="btn btn-success btn-sm"
-                        style="margin-left:35%;"
-                        href="{{route('certificados.download', ['acao_id' => $acao->id])}}">
-                        Emtir certificados
-                        </a> 
-                    </div>
-                </div>
-            </div>
-        @endif
-
     </section>
 @endsection
