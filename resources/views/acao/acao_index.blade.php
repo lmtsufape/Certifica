@@ -51,7 +51,9 @@
                     <div class="col-1 text-center"><span>Natureza</span></div>
                     <div class="col-2 text-center"><span>Tipo natureza</span></div>
                     <div class="col-1 text-center"><span>Status</span></div>
-                    <div class="col-1 text-center"><span>Anexo</span></div>
+                    @if(Auth::user()->perfil_id != 3)
+                        <div class="col-1 text-center"><span>Anexo</span></div>
+                    @endif
                     <div class="col-2 text-center"><span>Funcionalidades</span></div>
                 </div>
             </div>
@@ -63,11 +65,14 @@
                     <div class="col-1 text-center"><span>{{$acao->tipo_natureza->natureza->descricao}}</span></div>
                     <div class="col-2 text-center titulo-span"><span>{{$acao->tipo_natureza->descricao}}</span></div>
                     <div class="col-1 text-center"><span>{{$acao->status}}</span></div>
+                    @if(Auth::user()->perfil_id != 3)
                     <div class="col-1 text-center"><span>
                         @if($acao->anexo != null)
                         <a href="{{ route('anexo.download', ['acao_id' => $acao->id])}}"><img src="/images/acoes/listView/anexo.svg" alt="Visualizar" style="opacity: 0.5" ></a>
                         @endif
                     </span></div>
+                    @endif
+                    
                     <div class="col-2 d-flex align-items-center justify-content-evenly">
                         <span><a href="{{Route('atividade.index', ['acao_id'=>$acao->id])}}"><img src="/images/acoes/listView/ficha.svg" alt="Visualizar"></a></span>
                         @if($acao->status == null)

@@ -19,7 +19,7 @@ class Acao extends Model
         'data_fim'                  => 'required|after_or_equal:data_inicio',
         'natureza_id'               => 'required',
         'usuario_id'                => 'required',
-        'anexo'                     => 'required|file'
+        'anexo'                     => 'file'
     ];
 
     public static $messages = [
@@ -33,7 +33,7 @@ class Acao extends Model
         'natureza_id'               => 'A natureza deve ser informada',
         'usuario_id'                => 'O usuário deve ser informado',
         'anexo'                     => 'O arquivo enviado deve ser no formato PDF',
-        'anexo.required'            => 'O envio do arquivo é obrigatório'
+        //'anexo.required'            => 'O envio do arquivo é obrigatório'
 
     ];
 

@@ -14,67 +14,45 @@
         <div class="form-row">
 
             <div class="row d-flex aligm-items-start justify-content-start">
-                <div class="col-md-12 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                <div class="col-md-10 input-create-box d-flex aligm-items-start justify-content-start flex-column">
                     <span class="tittle-input">Título<strong style="color: red">*</strong></span>
                     <input class="w-75 input-text " type="text" name="titulo" id="" value="{{ old('titulo') }}"
                         required>
                 </div>
             </div>
 
-            <div class="row d-flex aligm-items-start justify-content-start">
-                <input hidden type="file" name="anexo" id="anexo">
+            @if(Auth::user()->perfil_id == 2)
+                <div class="row d-flex aligm-items-start justify-content-start">
+                    <input hidden type="file" name="anexo" id="anexo">
+                        <div
+                            class="col-md-5 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Arquivo<strong style="color: red">*</strong></span>
 
-                <div
-                    class="col-md-5 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Arquivo<strong style="color: red">*</strong></span>
+                            <div class="w-100 d-flex align-items-center justify-content-between">
+                                <input class="w-75 input-text " type="text" name="" id="arquivo" disabled value=""
+                                    placeholder="Insira aqui o seu arquivo" required>
+                                <label for="anexo" id="">
+                                    <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg" alt="">
+                                    <label for="anexo" id=""> </label>
+                                </label>
+                            </div>
+                        </div>
+                    
 
-                    <div class="w-100 d-flex align-items-center justify-content-between">
-                        <input class="w-75 input-text " type="text" name="" id="arquivo" disabled value=""
-                            placeholder="Insira aqui o seu arquivo" required>
-                        <label for="anexo" id="">
-                            <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg" alt="">
-                            <label for="anexo" id=""> </label>
-                        </label>
+                    <div class="col-md-3 spacing-row2 input-create-box ">
+                        <span class="tittle-input">Data de Início<strong style="color: red">*</strong></span><input class="w-100"
+                            type="date" name="data_inicio" id="" value="{{ old('data_inicio') }}" required>
                     </div>
 
-                </div>
-
-                <div class="col-md-3 spacing-row2 input-create-box ">
-                    <span class="tittle-input">Data de Início<strong style="color: red">*</strong></span><input class="w-100"
-                        type="date" name="data_inicio" id="" value="{{ old('data_inicio') }}" required>
-                </div>
-
-                <div class="col-md-3 input-create-box">
-                    <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
-                        type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
-                </div>
-            </div>
-
-
-            <div class="row d-flex aligm-items-start justify-content-start">
-
-                @if(Auth::user()->perfil_id == 3)
-                    <input type="hidden" name="natureza_id" value="{{ $natureza->id }}">
-
-                    <div
-                        class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
-                        <input class="w-75 input-text" value="{{ $natureza->descricao }}" disabled>
+                    <div class="col-md-3 input-create-box">
+                        <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
+                            type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
                     </div>
+                </div>
 
-                    <div class="col-md-7 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
 
-                        <select name="tipo_natureza_id" class="select-form w-100 " id="select_tipo_natureza" required>
-                            <option value="" selected hidden>-- Tipo Natureza --</option>
-                            @foreach ($tipo_naturezas as $tipo_natureza)
-                                <option value="{{ $tipo_natureza->id }}">{{ $tipo_natureza->descricao }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                @else
-                    <div
-                        class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
+                <div class="row d-flex aligm-items-start justify-content-start">
+                    <div class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
                         <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
                             <option value="" selected hidden>-- Natureza --</option>
@@ -91,9 +69,34 @@
                             <option value="" selected hidden>-- Tipo Natureza --</option>
                         </select>
                     </div>
-                @endif
+                </div>
+            @else
+                <div class="row d-flex aligm-items-start justify-content-start">
+                    <div class="col-md-2 spacing-row2 input-create-box ">
+                        <span class="tittle-input"> Data de Início<strong style="color: red">*</strong> </span> 
+                        <input class="w-100" type="date" name="data_inicio" id="" value="{{ old('data_inicio') }}" required>
+                    </div>
 
-            </div>
+                    <div class="col-md-2 spacing-row2 input-create-box">
+                        <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
+                            type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
+                    </div>
+                    
+                    <input type="hidden" name="natureza_id" value="{{ $natureza->id }}">
+                    
+                    <div class="col-md-6 spacing-row2 input-create-box">
+                        <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
+
+                        <select name="tipo_natureza_id" class="select-form w-100 " id="select_tipo_natureza" required>
+                            <option value="" selected hidden>-- Tipo Natureza --</option>
+                            @foreach ($tipo_naturezas as $tipo_natureza)
+                                <option value="{{ $tipo_natureza->id }}">{{ $tipo_natureza->descricao }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                
+            @endif
 
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
