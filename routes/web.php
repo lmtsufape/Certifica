@@ -31,6 +31,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
+Route::get('/perfil/edit', 'Auth\EditProfile@edit')->name('perfil.edit')->middleware('auth');
+Route::post('/perfil/update', 'Auth\EditProfile@update')->name('perfil.update')->middleware('auth');
+
+
 Route::get('/', 'HomeController@index');
 
 Route::get(

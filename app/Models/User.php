@@ -40,6 +40,42 @@ class User extends Authenticatable
         'json_cursos_ids',
     ];
 
+
+    public static $edit_rules = [
+        'name'              => 'required | string | max:255',
+        'email'             => 'required | string | email | max:255',
+        'cpf'               => 'required',
+    ];
+
+    public static $password_rules = [
+        'password'          => 'required | string | min:8 | confirmed',
+    ];
+
+    public static $email_rules = [
+        'email'             => 'required | string | email | max:255 |unique:users',
+    ];
+
+    public static $cpf_rules = [
+        'cpf'               => 'required |unique:users',
+    ];
+
+    public static $messages = [
+        'name.required'       => 'O nome deve ser preenchido',
+        'name.string'         => 'O nome deve possuir apenas letras',
+        'name.max'            => 'O nome deve ter menos de 255 caracteres',
+        'email.required'      => 'O email deve ser preenchido',
+        'email.string'        => 'O email deve possuir apenas letras',
+        'email.email'         => 'O campo email deve ser preenchido com um endereço de email válido',
+        'email.max'           => 'O email deve possuir no máximo 255 caracteres',
+        'email.unique'        => 'O email informado já está cadastrado no sistema',
+        'password.min'        => 'A senha deve possuir 8 ou mais caracteres',
+        'password.confirmed'  => 'As senhas devem ser iguais',
+        'cpf.required'        => 'O CPF deve ser informado',
+        'cpf.unique'          => 'O CPF informado já está cadastrado'
+
+    ];
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -69,5 +105,15 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function instituicao__(){
+        return $this->belongsTo(Instituicao::class, 'instituicao_id');
+    }
+
+    public function perfil(){
+        return $this->belongsTo(Perfil::class);
+    }
+
+
 
 }
