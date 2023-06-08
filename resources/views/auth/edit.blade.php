@@ -27,8 +27,8 @@
                                     @csrf
                                     <div class="row">
                                         <div>
-                                            <label for="nome">Nome Completo</label>
-                                            <input name='nome' id='nome' class="form-control" value="{{$user->name}}">
+                                            <label for="name">Nome Completo</label>
+                                            <input name='name' id='name' class="form-control" value="{{$user->name}}">
                                         </div>
 
                                         <div class="col-md-6">
@@ -43,7 +43,7 @@
                                         
                                         <div class="col-md-6">
                                             <label for="celular">Celular</label>
-                                            <input name='celular' id='celular' class="form-control" value="{{$user->celular}}">
+                                            <input name='celular' id="telefone" class="form-control" value="{{$user->celular}}">
                                         </div>
 
                                         <div class="col-md-6">
@@ -52,8 +52,8 @@
                                         </div>
 
                                         <div class="col-md-12">
-                                            <label for="instituição">Instituição de Vínculo</label>
-                                            <input name='instituição' id='instituição' class="form-control" value="{{$instituicao}}" disabled>
+                                            <label for="instituicao">Instituição de Vínculo</label>
+                                            <input name='instituicao' id='instituicao' class="form-control" value="{{$instituicao}}" disabled>
                                         </div>
                                     </div>
 
@@ -61,13 +61,13 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="senha">Senha</label>
-                                            <input name='senha' id='senha' class="form-control" type="password">
+                                            <label for="password">Senha</label>
+                                            <input name='password' id='password' class="form-control" type="password">
                                         </div>
                                         
                                         <div class="col-md-6">
-                                            <label for="confirmar_senha">Confirmar Senha</label>
-                                            <input name='confirmar_senha' id='confirmar_senha' class="form-control" type="password">
+                                            <label for="password_confirmation">Confirmar Senha</label>
+                                            <input name='password_confirmation' id='password_confirmation' class="form-control" type="password">
                                         </div>
                                     </div>
                                     
