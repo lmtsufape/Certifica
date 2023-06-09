@@ -1,95 +1,118 @@
 @extends('layouts.app')
 
-@section('title')
-    Ações
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/list.css">
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Ação</h2>
-        </div>
-
-        <table class="table table-hover table-responsive-md">
-            <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Título</th>
-                <th scope="col">Início</th>
-                <th scope="col">Fim</th>
-                <th scope="col">Anexo</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td> {{ $acao->titulo }} </td>
-                    <td> {{ $acao->data_inicio }} </td>
-                    <td> {{ $acao->data_fim }} </td>
-                    <td> <a href="{{ route('anexo.download', ['acao_id' => $acao->id])}}">Anexo</a> </td>
-                    <td>
-                        <a class="btn btn-secondary" href ="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">Editar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Atividades: {{ $acao->titulo }}</h2>
-        </div>
-
-        <table class="table table-hover table-responsive-md">
-            <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Inicio</th>
-                <th scope="col">Fim</th>
-                <th scope="col"></th>
-
-            </tr>
-            </thead>
-
-            <tbody>
-            @foreach($atividades as $atividade)
-                <tr>
-                    <td></td>
-                    <td>{{ $atividade->descricao }}</td>
-                    <td>{{ $atividade->data_inicio }}</td>
-                    <td>{{ $atividade->data_fim }}</td>
-                    <td class="text-center">
-                        <a class="btn btn-secondary" href ="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">Editar</a>
-
-                        <a class="btn btn-primary" href ="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">Participantes</a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-
-
-        <form method="POST" id="formAnaliseAcao" name="formAnaliseAcao" action="{{ route('gestor.acao_update') }}">
-            @csrf
-
-            <input type="hidden" name="id" value="{{ $acao->id }}">
+    <div class='container'>
+        <section class="view-list-acoes">
+            <h1 class="text-center mb-4">Ação</h1>
 
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4"></div>
+                <div class="row head-table d-flex align-items-center justify-content-start">
+                    <div class="col-3 text-start"><span class="spacing-col">Título</span></div>
+                    <div class="col-3 text-start"><span>Início</span></div>
+                    <div class="col-3 text-start"><span>Fim</span></div>
+                    <div class="col-3 text-start"><span>Anexo</span></div>
+                </div>
+            </div>
 
-                    <div class="col-md-2">
-                        <button name="action" type="submit" class="btn btn-danger" value="reprovar">Reprovar</button>
+            <div class="list container overflow-scroll">
+                <div class="row linha-table d-flex align-items-center justify-content-start">
+                    <div class="col-3 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
+                    <div class="col-3 text-start">
+                        <span>
+                            {{ collect(explode('-', $acao->data_inicio))->reverse()->join('/') }}
+                        </span>
                     </div>
-
-                    <div class="col-md-2">
-                        <button name="action" type="submit" class="btn btn-success" value="aprovar">Aprovar</button>
+                    <div class="col-3 text-start">
+                        <span>
+                            {{ collect(explode('-', $acao->data_fim))->reverse()->join('/') }}
+                        </span>
                     </div>
+                    <div class="col-3">
+                        <div class="col-11 d-flex align-items-center justify-content-between">
+                            <span class="col spacing-col">
+                                @if ($acao->anexo != null)
+                                    <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">
+                                        <img src="/images/acoes/listView/anexo.svg" alt="Visualizar">
+                                    </a>
+                                @endif
+                            </span>
 
-                    <div class="col-md-4"></div>
+                            <span class="col text-center">
+                                <a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}">
+                                    <img src="/images/acoes/listView/editar.svg" alt="Editar">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
 
                 </div>
             </div>
-        </form>
+
+            <div class="container">
+
+                <div class="text-center mb-3">
+                    <h3>Atividades - {{ $acao->titulo }}</h3>
+                </div>
+
+                <div class="row head-table d-flex align-items-center justify-content-center">
+                    <div class="col-4"><span class="spacing-col">Descrição</span></div>
+                    <div class="col-4"><span>Início</span></div>
+                    <div class="col-4"><span>Fim</span></div>
+                </div>
+            </div>
+
+            <div class="list container overflow-scroll">
+                @foreach ($atividades as $atividade)
+                    <div class="row linha-table d-flex align-items-center justify-content-center">
+                        <div class="col-4"><span class="spacing-col">{{ $atividade->descricao }}</span></div>
+                        <div class="col-4"><span>
+                                {{ collect(explode('-', $atividade->data_inicio))->reverse()->join('/') }}</span></div>
+                        <div class="col-4 d-flex align-items-center justify-content-around">
+                            <span class="col-6">
+                                {{ collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}
+                            </span>
+                            <span class="col-6">
+                                <span>
+
+                                </span>
+                                <span class="d-flex align-items-center justify-content-evenly">
+                                    <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
+                                        <img src="/images/acoes/listView/editar.svg" alt="">
+                                    </a>
+                                    <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
+                                        <img src="/images/atividades/participantes.svg" alt="">
+                                    </a>
+                                </span>
+
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+
+            <form method="POST" id="formAnaliseAcao" name="formAnaliseAcao" action="{{ route('gestor.acao_update') }}">
+                @csrf
+
+                <input type="hidden" name="id" value="{{ $acao->id }}">
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col d-flex align-items-center justify-content-evenly">
+                            <button name="action" type="submit" class="buttonAnalisar btn-danger" value="reprovar">Reprovar</button>
+
+                            <button name="action" type="submit" class="buttonAnalisar btn-success" value="aprovar">Aprovar</button>    
+                        </div>
+                 
+                    </div>
+
+                </div>
+            </form>
+
+        </section>
     </div>
 @endsection
