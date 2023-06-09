@@ -32,7 +32,9 @@ class NaturezaController extends Controller
      */
     public function create()
     {
-        return view('natureza.natureza_create');
+        $unidades_administrativas = UnidadeAdministrativa::all()->sortBy('id');
+
+        return view('natureza.natureza_create', compact('unidades_administrativas'));
     }
 
     /**

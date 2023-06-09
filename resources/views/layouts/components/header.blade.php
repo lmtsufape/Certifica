@@ -3,7 +3,7 @@
     <div class="container w-100 d-flex align-items-center justify-content-around">
 
         <div class="col-sm-5 d-flex align-items-center justify-content-start">
-            <a href={{ Route('home') }}>
+            <a href="{{ Route('home') }}">
                 <img class="logo-certifica" src="/images/layouts/header/logo-certifica.svg" alt="logo">
             </a>
         </div>
@@ -36,7 +36,7 @@
             @else
                 <ul class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="/">Inicio</a></li>
-                    <li><a class="dropdown-item" href="{{route('sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="">O Sistema</a></li>
                     <li>
                         <a class="dropdown-item" href="{{route('validar_certificado.validar') }}">
                             Validar Certificado

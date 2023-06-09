@@ -30,11 +30,12 @@ use App\Http\Controllers\HomeController;
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
 Route::get('/perfil/edit', 'Auth\EditProfile@edit')->name('perfil.edit')->middleware('auth');
 Route::post('/perfil/update', 'Auth\EditProfile@update')->name('perfil.update')->middleware('auth');
 
+
 Route::get('/', 'HomeController@index');
-Route::get('/sistema', [HomeController::class, 'sistema'] )->name('sistema');
 
 Route::get(
     'logout',
@@ -43,8 +44,6 @@ Route::get(
         Session::flush();
         return redirect(route('home'));
     })->name('login.logout');
-
-
 
 Route::group(['middleware' => 'checkAdministrador'], function ()
 {
@@ -156,6 +155,10 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/gestor/analisar_acao/{acao_id}/anexo', [AcaoController::class, 'download_anexo'])->name('anexo.download');
 
     Route::get('/acao/{acao_id}/atividade/gerar-certificados', [AcaoController::class, 'download_certificados'])->name('certificados.download');
+
+    Route::get('/acao/get/tipo_natureza/{natureza_id}', [AcaoController::class, 'get_tipo_natureza'])->name('acao.get_tipo_natureza');
+
+
 
 });
 

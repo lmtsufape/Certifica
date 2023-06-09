@@ -66,7 +66,7 @@
                                 @if ($acao->status == 'Aprovada')
                                     <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
                                         target="_blank">
-                                        ver certificado
+                                        <img src="/images/acoes/listView/certificado.svg" alt="">
                                     </a>
                                 @endif
 
