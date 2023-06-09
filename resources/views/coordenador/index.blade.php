@@ -26,7 +26,6 @@
                     </div>
                 </a>
             </div>
-            
             <div class="col d-flex align-items-end justify-content-end">
                 <div class="box-infos">
                     <div class="tittle-box pb-1 pt-1 text-center d-flex align-items-center justify-content-center">
@@ -34,7 +33,7 @@
                     </div>
                     <div class="d-flex flex-column">
                         <div class="text-center mb-2 mt-2">
-                            Total Ações
+                            Total de Ações 
                         </div>
                         <div class="d-flex align-items-center justify-content-around"> 
                             <div class="square aprovado border d-flex align-items-center justify-content-center">
