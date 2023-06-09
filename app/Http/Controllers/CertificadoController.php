@@ -123,6 +123,16 @@ class CertificadoController extends Controller
         return $pdf->set_option("dpi", 200)->setPaper('a4', 'landscape')->stream($nomePDF);
     }
 
+    public function ver_certificado_participante($participante_id){
+        $participante = Participante::findOrFail($participante_id);
+
+        if(Auth::user()->id == $participante->user->id){
+            return $this->ver_certificado($participante_id);
+        }
+
+        return redirect()->back()->withError('Você não pode vizualizar este certificado');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

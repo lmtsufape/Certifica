@@ -184,11 +184,7 @@ class ParticipanteController extends Controller
         $naturezas = Natureza::all();
         $participacoes = Participante::where('user_id', '=', Auth::user()->id)->get();
         $atividades = [];
-
-        foreach($participacoes as $participacao){
-            array_push($atividades, $participacao->atividade);
-        }
         
-        return view('participante.certificados', compact('atividades', 'naturezas'));
+        return view('participante.certificados', compact('participacoes', 'naturezas'));
     }
 }
