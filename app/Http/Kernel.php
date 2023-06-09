@@ -6,6 +6,7 @@ use App\Http\Middleware\CheckAdministrador;
 use App\Http\Middleware\CheckCoordenador;
 use App\Http\Middleware\CheckGestorInstitucional;
 use App\Http\Middleware\CheckCoordenadorGestor;
+use App\Http\Middleware\CheckParticipante;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'checkCoordenador' => CheckCoordenador::class,
         'checkGestorInstitucional' => CheckGestorInstitucional::class,
         'checkCoordenadorGestor' => CheckCoordenadorGestor::class,
+        'checkParticipante' => CheckParticipante::class,
     ];
 }

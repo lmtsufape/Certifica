@@ -7,11 +7,14 @@ use App\Models\Atividade;
 use App\Models\Instituicao;
 use App\Models\Participante;
 use App\Models\User;
+use App\Models\Natureza;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
 use App\Validates\ParticipanteValidator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+
 
 class ParticipanteController extends Controller
 {
@@ -174,5 +177,18 @@ class ParticipanteController extends Controller
         $atividade = Atividade::find($atividade_id);
 
         return view('gestor_institucional.participantes_acao', ['participantes' => $participantes, 'atividade' => $atividade]);
+    }
+
+    public function participante_certificados()
+    {
+        $naturezas = Natureza::all();
+        $participacoes = Participante::where('user_id', '=', Auth::user()->id)->get();
+        $atividades = [];
+
+        foreach($participacoes as $participacao){
+            array_push($atividades, $participacao->atividade);
+        }
+        
+        return view('participante.certificados', compact('atividades', 'naturezas'));
     }
 }
