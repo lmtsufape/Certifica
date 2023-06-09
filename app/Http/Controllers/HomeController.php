@@ -26,11 +26,12 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->perfil_id == 1){
+           
             return view('administrador.index'); //admin
 
         } else if(Auth::user()->perfil_id == 2){
 
-            $acaos = Acao::all();
+            $acaos = Acao::where('usuario_id', Auth::user()->id)->get();
 
             $aprovadas = 0;
             $analise = 0;
@@ -48,8 +49,10 @@ class HomeController extends Controller
                 }
             }
 
-            return view('coordenador.index',[ 'aprovadas' => $aprovadas ,'analise' => $analise, 'devolvidas' => $devolvidas ]); //cordenador
+            return view('coordenador.index',compact('aprovadas','analise','devolvidas')); //cordenador
+
         } else if (Auth::user()->perfil_id == 3){
+            
             return view('gestor_institucional.index'); //gestor
         } else if (Auth::user()->perfil_id == 4) {
             return view('participante.index');
