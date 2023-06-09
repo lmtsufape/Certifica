@@ -9,36 +9,36 @@
         <section class="view-list-acoes">
             <h1 class="text-center mb-4">Listar Ações</h1>
             <!--
-                                <div class="container">
+                                    <div class="container">
 
-                                    <div class="row head-table search-box d-flex align-items-center justify-content-center">
-                                        <div class="col-4 d-flex flex-column align-items-start justify-content-center">
-                                            <span>Buscar ação</span>
-                                            <input class="input-box w-75" type="text" name="" id="">
-                                        </div>
-                                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-                                            <span>Status</span>
-                                            <select class="input-box w-75" name="" id="">
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-                                            <span>Natureza</span>
-                                            <select class="input-box w-75" name="" id="">
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                                <option value="">1</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-2 d-flex flex-column align-items-start justify-content-center">
-                                            <span>Data</span>
-                                            <input class="input-box w-75" type="date" name="" id="">
+                                        <div class="row head-table search-box d-flex align-items-center justify-content-center">
+                                            <div class="col-4 d-flex flex-column align-items-start justify-content-center">
+                                                <span>Buscar ação</span>
+                                                <input class="input-box w-75" type="text" name="" id="">
+                                            </div>
+                                            <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                                                <span>Status</span>
+                                                <select class="input-box w-75" name="" id="">
+                                                    <option value="">1</option>
+                                                    <option value="">1</option>
+                                                    <option value="">1</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                                                <span>Natureza</span>
+                                                <select class="input-box w-75" name="" id="">
+                                                    <option value="">1</option>
+                                                    <option value="">1</option>
+                                                    <option value="">1</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-2 d-flex flex-column align-items-start justify-content-center">
+                                                <span>Data</span>
+                                                <input class="input-box w-75" type="date" name="" id="">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                -->
+                                    -->
 
             <div class="container">
                 <div class="row d-flex align-items-center justify-content-end">
@@ -69,8 +69,8 @@
                             <div class="col-1 text-center"><span>
                                     @if ($acao->anexo != null)
                                         <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}"><img
-                                                src="/images/acoes/listView/anexo.svg" alt="Visualizar"
-                                                style="opacity: 0.5"></a>
+                                            src="/images/acoes/listView/anexo.svg" alt="Visualizar">
+                                        </a>
                                     @endif
                                 </span></div>
                         @endif
