@@ -51,6 +51,8 @@ class HomeController extends Controller
             return view('coordenador.index',[ 'aprovadas' => $aprovadas ,'analise' => $analise, 'devolvidas' => $devolvidas ]); //cordenador
         } else if (Auth::user()->perfil_id == 3){
             return view('gestor_institucional.index'); //gestor
+        } else if (Auth::user()->perfil_id == 4) {
+            return view('participante.index');
         }
 
         return view('auth.login');

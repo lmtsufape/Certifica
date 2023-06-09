@@ -12,6 +12,8 @@ use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
 use App\Validates\ParticipanteValidator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
+
 
 class ParticipanteController extends Controller
 {
@@ -174,5 +176,10 @@ class ParticipanteController extends Controller
         $atividade = Atividade::find($atividade_id);
 
         return view('gestor_institucional.participantes_acao', ['participantes' => $participantes, 'atividade' => $atividade]);
+    }
+
+    public function participante_certificados()
+    {
+        dd(Auth::user());
     }
 }

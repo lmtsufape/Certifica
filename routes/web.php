@@ -100,6 +100,12 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
 });
 
+
+Route::group(['middleware' => 'checkParticipante'], function()
+{
+    route::get('/meus-certificados/', [ParticipanteController::class, 'participante_certificados'])->name('participante.certificados');
+});
+
 Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
 Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
 Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
