@@ -62,17 +62,15 @@
                             <div class="col-1">
 
                             </div>
-                            <div class="col-6 d-flex align-items-center justify-content-evenly">
+                            <div class="col-6 d-flex align-items-center justify-content-between">
+                                <a href="">
+                                    <img src="/images/acoes/listView/eye.svg" alt="">
+                                </a>
+
                                 @if ($acao->status == 'Aprovada')
                                     <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
                                         target="_blank">
                                         <img src="/images/acoes/listView/certificado.svg" alt="">
-                                    </a>
-                                @endif
-
-                                @if (Auth::user()->perfil_id == 2)
-                                    <a href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
-                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                                     </a>
                                 @endif
 
@@ -81,6 +79,13 @@
                                         <img src="/images/acoes/listView/editar.svg" alt="">
                                     </a>
                                 @endif
+                                
+                                @if (Auth::user()->perfil_id == 2)
+                                    <a href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                                    </a>
+                                @endif
+
                             </div>
                             <div class="col-5">
 

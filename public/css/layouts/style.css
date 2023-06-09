@@ -36,10 +36,7 @@ footer .text-icons {
     text-decoration-line: none;
 }
 .logos{
-    background: #EEEEEE;
-    width: 110px;
-    padding: 10px 16px;
-    border-radius: 10px;
+    width: 65px;
 }
 .logo-redes{
     width: 100%;
@@ -55,15 +52,15 @@ footer .text-icons {
 /*Responsividade footer*/
 @media (width < 992px){
     .logos{
-        width: 80px;
+        width: 55px;
     }
 }
 @media (width < 768px){
     .logo-redes{
-        width: 75%;
+        width: 65%;
     }
     .logos{
-        width: 60px;
+        width: 55px;
     }
 }
 @media (width < 520px){
@@ -72,7 +69,6 @@ footer .text-icons {
     }
     .logos{
         width: 50px;
-        padding:4px 10px;
     }
     .logo-certifica-footer{
         width: 50px;
