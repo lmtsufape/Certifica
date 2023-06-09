@@ -48,11 +48,14 @@
 
                         </div>
                         <div class="col-5 d-flex align-items-center justify-content-evenly">
-                            <a href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
-                                <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                            <a href="">
+                                <img src="/images/acoes/listView/eye.svg" alt="">
                             </a>
                             <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/acoes/listView/editar.svg" alt="">
+                            </a>
+                            <a href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
+                                <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                             </a>
                         </div>
                     </div>
