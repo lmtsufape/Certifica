@@ -48,6 +48,6 @@ class Participante extends Model
     }
 
     public function atividade(){
-        return $this->hasOne(Atividade::class);
+        return $this->belongsTo(Atividade::class);
     }
 }
