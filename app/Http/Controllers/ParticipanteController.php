@@ -7,6 +7,7 @@ use App\Models\Atividade;
 use App\Models\Instituicao;
 use App\Models\Participante;
 use App\Models\User;
+use App\Models\Natureza;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
@@ -180,6 +181,14 @@ class ParticipanteController extends Controller
 
     public function participante_certificados()
     {
-        dd(Auth::user());
+        $naturezas = Natureza::all();
+        $participacoes = Participante::where('user_id', '=', Auth::user()->id)->get();
+        $atividades = [];
+
+        foreach($participacoes as $participacao){
+            array_push($atividades, $participacao->atividade);
+        }
+        
+        return view('participante.certificados', compact('atividades', 'naturezas'));
     }
 }
