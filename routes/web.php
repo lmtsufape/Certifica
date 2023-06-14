@@ -50,6 +50,7 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/administrador', [UsuarioController::class, 'home_administrador'])->name('administrador.index');
 
 
+    //Rotas Unidade Administrativa
     Route::get('/unidade_administrativa/index', [UnidadeAdministrativaController::class, 'index'])->name('unidade_administrativa.index');
 
     Route::get('/unidade_administrativa/create',[UnidadeAdministrativaController::class, 'create'])->name('unidade_administrativa.create');
@@ -61,17 +62,7 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/unidade_administrativa/{unidade_administrativa_id}/delete', [UnidadeAdministrativaController::class, 'delete'])->name('unidade_administrativa.delete');
 
 
-    Route::get('/tipo_natureza/index', [TipoNaturezaController::class, 'show'])->name('tipo_natureza.index');
-
-    Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
-    Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
-
-    Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
-    Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
-
-    Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
-
-
+    //Rotas Natureza
     Route::get('/natureza/index', [NaturezaController::class, 'index'])->name('natureza.index');
 
     Route::get('/natureza/create', [NaturezaController::class, 'create'])->name('natureza.create');
@@ -83,6 +74,19 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
 
+    //Rotas Tipo Natureza
+    Route::get('/tipo_natureza/index', [TipoNaturezaController::class, 'show'])->name('tipo_natureza.index');
+
+    Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
+    Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
+
+    Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
+    Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
+
+    Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
+
+
+    //Rotas Usuário
     Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
 
     Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
@@ -94,29 +98,39 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
 
 
-    Route::get('/certificado_modelo/index', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
+    //Rotas Certificado Modelo
     Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
     Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
+});
+
+Route::group(['middleware' => 'checkAdministradorGestor'], function ()
+{
+    //Rotas Certificado Modelo Administrador e Gestor
+    Route::get('/certificado_modelo/index', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
+
+    Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
+    Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
+
+    Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
+
+    Route::get('certificado_modelo/{id}/{imagem}/img',[CertificadoModeloController::class, 'showImg'])->name('certificado_modelo.show_img');
+
+    Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
+
 });
 
 
 Route::group(['middleware' => 'checkParticipante'], function()
 {
-    route::get('/meus-certificados/', [ParticipanteController::class, 'participante_certificados'])->name('participante.certificados');
+    route::get('/meus-certificados', [ParticipanteController::class, 'participante_certificados'])->name('participante.certificados');
     route::get('/participante/certificado/{id}', [CertificadoController::class, 'ver_certificado_participante'])->name('participante.ver_certificado_participante');
 
 });
 
-Route::get('/certificado_modelo/{id}/edit', [CertificadoModeloController::class, 'edit'])->name('certificado_modelo.edit');
-Route::put('/certificado_modelo/{id}/update', [CertificadoModeloController::class, 'update'])->name('certificado_modelo.update');
-Route::get('/certificado_modelo/delete/{id}', [CertificadoModeloController::class, 'destroy'])->name('certificado_modelo.delete');
-Route::get('certificado_modelo/{id}/{imagem}/img',[CertificadoModeloController::class, 'showImg'])->name('certificado_modelo.show_img');
-Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
-Route::get('/certificado_modelo/index', [CertificadoModeloController::class, 'index'])->name('certificado_modelo.index');
-
 
 Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 {
+    //Rotas Ação  Coordenador e Gestor
     Route::get('/acao/create', [AcaoController::class, 'create'])->name('acao.create');
 
     Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
@@ -130,10 +144,12 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('/acao/submeter/{acao_id}', [AcaoController::class, 'submeter_acao'])->name('acao.submeter');
 
-
     Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade.index');
 
     Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
+
+
+    //Rotas Atividade  Coordenador e Gestor
     Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
 
     Route::get('atividade/{atividade_id}/edit', [AtividadeController::class, 'edit'])->name('atividade.edit');
@@ -142,6 +158,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
 
+    //Rotas Participante Coordenador e Gestor
     Route::get('/participante/index/{atividade_id}', [ParticipanteController::class, 'index'])->name('participante.index');
 
     Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
@@ -159,12 +176,12 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/acao/{acao_id}/atividade/gerar-certificados', [AcaoController::class, 'download_certificados'])->name('certificados.download');
 
     Route::get('/acao/get/tipo_natureza/{natureza_id}', [AcaoController::class, 'get_tipo_natureza'])->name('acao.get_tipo_natureza');
-
-
-
 });
 
-Route::group(['middleware' => 'checkGestorInstitucional'], function () {
+
+Route::group(['middleware' => 'checkGestorInstitucional'], function ()
+{
+    //Rotas Gestor Institucional
     Route::get('/gestor', [UsuarioController::class, 'home_gestor'])->name('home.gestor');
 
     Route::get('/gestor/acoes', [AcaoController::class, 'acoes_submetidas'])->name('gestor.acoes_submetidas');
@@ -181,25 +198,14 @@ Route::group(['middleware' => 'checkGestorInstitucional'], function () {
     Route::get('/gestor/gerar_certificados{acao_id}', [CertificadoController::class, 'gerar_certificados'])->name('gestor.gerar_certificados');
 });
 
-Route::get('/acao/list', [AcaoController::class, 'list'])->name('acao.list');
+
+//Rota O Sistema
+Route::get('/osistema', [HomeController::class, 'sistema'])->name('home.osistema');
 
 
-Route::get('/assinatura/create', [AssinaturaController::class, 'create'])->name('assinatura.create');
-Route::post('/store_assinatura', [AssinaturaController::class, 'store'])->name('assinatura.store');
-Route::get('/assinaturas', [AssinaturaController::class, 'show'])->name('assinatura.show');
-Route::get('/assinatura/{id}/edit', [AssinaturaController::class, 'edit'])->name('assinatura.edit');
-Route::put('/assinatura/{id}/update', [AssinaturaController::class, 'update'])->name('assinatura.update');
-Route::get('/assinatura/delete/{id}', [AssinaturaController::class, 'destroy'])->name('assinatura.delete');
-
-
-Route::get('/certificado/create', [CertificadoController::class, 'create'])->name('certificado.create');
-Route::post('/store_certificado', [CertificadoController::class, 'store'])->name('certificado.store');
-Route::get('/certificados', [CertificadoController::class, 'show'])->name('certificado.show');
-Route::get('/certificado/{id}/edit', [CertificadoController::class, 'edit'])->name('certificado.edit');
-Route::put('/certificado/{id}/update', [CertificadoController::class, 'update'])->name('certificado.update');
-Route::get('/certificado/delete/{id}', [CertificadoController::class, 'destroy'])->name('certificado.delete');
-
-
+//Rotas Verificação de Autenticidade dos Certificados
 Route::get('/validacao', [CertificadoController::class, 'validar_certificado'])->name('validar_certificado.validar');
+
 Route::post('/validacao/checar', [CertificadoController::class, 'checar_certificado'])->name('validar_certificado.checar');
+
 Route::get('/validacao/{codigo_validacao}', [CertificadoController::class, 'checar_certificado_qr'])->name('validar_certificado.checar_qr');

@@ -38,10 +38,6 @@ class AcaoController extends Controller
 
         return view('acao.acao_index', ['acaos' => $acaos]);
     }
-
-    public function list(){
-        return view('acao.list');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -98,7 +94,7 @@ class AcaoController extends Controller
         {
             $acao->anexo = $request->file('anexo')->store('anexos');
         }
-        
+
 
         $acao->save();
 
