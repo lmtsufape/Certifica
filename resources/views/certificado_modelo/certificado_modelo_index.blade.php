@@ -1,45 +1,64 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/list.css">
+@endsection
 
 @section('content')
-<div class="container">
-    <div class='row justify-content-center'>
-        <div class='col-10' style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>MODELOS DE CERTIFICADOS</h2>
+    <section class="view-list-acoes">
+
+        <div class="container">
+
+            <h1 class="text-center mb-4">Modelos de certificados</h1>
+
+            @if(Auth::user()->perfil_id == 1)
+                <div class="row d-flex align-items-center justify-content-end">
+                    <a class="criar-acao-button" href={{route('certificado_modelo.create')}}>
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                    </a>
+                </div>
+            @elseif(Auth::user()->perfil_id == 3)
+                <div class="row d-flex align-items-center justify-content-end">
+                    <a class="criar-acao-button" href={{route('tipo_certificado_modelo.create')}}>
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                    </a>
+                </div>
+            @endif
+
+
+            <div class="row head-table d-flex align-items-center justify-content-center">
+                <div class="col-4"><span class="spacing-col">Descrição</span></div>
+                <div class="col-4"><span>Únidade Administrativa</span></div>
+                <div class="col-4"><span>Detalhes</span></div>
+            </div>
         </div>
 
-        @if(Auth::user()->perfil_id == 1)
-            <div class="col-2" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-                <a href="{{route('certificado_modelo.create')}}" class='btn btn-primary' style='margin-bottom: 10px'>Cadastrar</a>
-            </div>
-        @elseif(Auth::user()->perfil_id == 3)
-            <div class="col-2" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-                <a href="{{route('tipo_certificado_modelo.create')}}" class='btn btn-primary' style='margin-bottom: 10px'>Cadastrar</a>
-            </div>
-        @endif
 
-
-
-    <table id="tableMateriais" class="table table-hover table-responsive-md">
-        <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th  scope="col" style="padding-left: 10px">Descrição</th>
-                <th  scope="col" style="padding-left: 10px">Únidade Administrativa</th>
-                <th  scope="col" style="padding-left: 10px">Detalhes</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="list container overflow-scroll">
             @foreach($certificado_modelos as $modelo)
-            <tr>
-                <td>{{$modelo->descricao}}</td>
-                <td>@if($modelo->unidadeAdministrativa) {{$modelo->unidadeAdministrativa->descricao}} @endif</td>
-                <td>
-                    <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}" class="btn btn-sm btn-outline-secondary">Detalhes</a>
-                    <a href="{{route('certificado_modelo.delete', ['id' => $modelo->id])}}" class="btn btn-sm btn-outline-danger">Excluir</a>
-                </td>
-            </tr>
+                <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="col-4"><span class="spacing-col">{{$modelo->descricao}}</span></div>
+                    <div class="col-4"><span>@if($modelo->unidadeAdministrativa) {{$modelo->unidadeAdministrativa->descricao}} @endif</span></div>
+                    <div class="col-4 d-flex align-items-center justify-content-around">
+
+
+
+                        <span class="col-2 d-flex align-items-center justify-content-around">
+                            <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}">
+                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar dados">
+                            </a>
+                            <a href="{{route('certificado_modelo.delete', ['id' => $modelo->id])}}">
+                                <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir">
+                            </a>
+                        </span>
+
+                        <span class="col-10 "></span>
+
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
-</div>
+        </div>
+
+
+    </section>
 @endsection

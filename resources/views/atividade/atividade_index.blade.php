@@ -10,6 +10,7 @@
 
 @section('content')
     <section class="view-list-acoes">
+        
         <div class="container">
 
             <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
