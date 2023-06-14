@@ -69,3 +69,18 @@
     background: #972E3F;
     width: 22px;
 }
+
+
+/*ANALISAR AÇÕES*/
+
+.buttonAnalisar{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 9px 0px;
+    border-radius: 5px;
+}
