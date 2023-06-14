@@ -27,7 +27,7 @@
                 <a class="link-opt" href={{ route('certificado_modelo.index') }}>
                     <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
                         <img class="icon-opt" src={{ '/images/home/certificado.svg' }} alt="">
-                        <span>Certificado</span>
+                        <span class="text-center" >Modelo de Certificado</span>
                     </div>
                 </a>
                 <a class="link-opt" href={{ route('gestor.acoes_submetidas') }}>
