@@ -10,7 +10,7 @@
 
 @section('content')
     <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
-    <h2 class="text-center mb-5">Cadastrar atividade</h2>
+    <h2 class="text-center mb-5">Cadastrar Atividade/Função</h2>
     
     <form class="container form " action="{{ Route('atividade.store') }}" method="POST" enctype="multipart/form-data">
         @csrf

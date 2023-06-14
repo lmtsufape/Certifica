@@ -35,7 +35,7 @@
 
                 <div
                     class="col-md-5 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Arquivo<strong style="color: red">*</strong></span>
+                    <span class="tittle-input">Processo SIPAC, relatório final ou similares<strong style="color: red">*</strong></span>
 
                     <div class="w-100 d-flex align-items-center justify-content-between">
                         <input class="w-75 input-text " type="text" name="" id="arquivo" disabled value=""

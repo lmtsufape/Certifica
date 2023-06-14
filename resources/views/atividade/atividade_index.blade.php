@@ -15,7 +15,7 @@
             <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
 
             <div class="text-center mb-3">
-                <h3>Atividades</h3>
+                <h3>Atividades/Funções</h3>
             </div>
 
             <div class="row d-flex align-items-center justify-content-end">
@@ -26,7 +26,7 @@
 
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-4"><span class="spacing-col">Atividade/Função</span></div>
-                <div class="col-4"><span>Data</span></div>
+                <div class="col-4"><span>Período</span></div>
                 <div class="col-4"><span>Participantes</span></div>
             </div>
         </div>

@@ -39,7 +39,7 @@
                     <li><a class="dropdown-item" href="">O Sistema</a></li>
                     <li>
                         <a class="dropdown-item" href="{{route('validar_certificado.validar') }}">
-                            Validar Certificado
+                            Verificação de Autenticidade
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="">Contato</a></li>

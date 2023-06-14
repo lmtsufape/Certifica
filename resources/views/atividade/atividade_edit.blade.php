@@ -10,7 +10,7 @@
 
 @section('content')
     <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
-    <h1 class="text-center">Editar atividade</h1>
+    <h1 class="text-center">Editar Atividade/Função</h1>
 
     <form class="container form" action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
