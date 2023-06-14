@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-   SOBRE O SISTEMA VIEW
+   <h1>SOBRE O SISTEMA VIEW</h1>
 @endsection

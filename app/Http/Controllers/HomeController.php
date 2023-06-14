@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::user()->perfil_id == 1){
-           
+
             return view('administrador.index'); //admin
 
         } else if(Auth::user()->perfil_id == 2){
@@ -52,7 +52,7 @@ class HomeController extends Controller
             return view('coordenador.index',compact('aprovadas','analise','devolvidas')); //cordenador
 
         } else if (Auth::user()->perfil_id == 3){
-            
+
             return view('gestor_institucional.index'); //gestor
         } else if (Auth::user()->perfil_id == 4) {
             return view('participante.index');
@@ -61,12 +61,13 @@ class HomeController extends Controller
         return view('auth.login');
     }
 
-    public function sistema() {
-        //return view('home.sistema');
-        return "o sistema";
+    public function sistema()
+    {
+        return view('home.sistema');
     }
 
-    public function contato(){
+    public function contato()
+    {
         return 'Contato VIEW';
     }
 
