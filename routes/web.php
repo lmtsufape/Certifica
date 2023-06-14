@@ -14,6 +14,7 @@ use \App\Http\Controllers\TipoNaturezaController;
 use \App\Http\Controllers\AssinaturaController;
 use App\Models\UnidadeAdministrativa;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NavbarController;
 
 
 /*
@@ -36,6 +37,12 @@ Route::post('/perfil/update', 'Auth\EditProfile@update')->name('perfil.update')-
 
 
 Route::get('/', 'HomeController@index');
+
+//NAVBAR ROUTES
+
+Route::get('/sistema',[NavbarController::class, 'sistema'])->name('home.sistema');
+Route::get('/contato',[NavbarController::class, 'contato'])->name('home.contato');
+
 
 Route::get(
     'logout',
