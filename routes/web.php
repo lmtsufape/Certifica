@@ -200,7 +200,7 @@ Route::group(['middleware' => 'checkGestorInstitucional'], function ()
 
 
 //Rota O Sistema
-Route::get('/osistema', [HomeController::class, 'sistema'])->name('home.osistema');
+//Route::get('/osistema', [HomeController::class, 'sistema'])->name('home.osistema');
 
 
 //Rotas Verificação de Autenticidade dos Certificados

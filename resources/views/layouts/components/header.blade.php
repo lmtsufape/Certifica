@@ -36,7 +36,7 @@
             @else
                 <ul class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="/">Inicio</a></li>
-                    <li><a class="dropdown-item" href="{{route('home.osistema')}}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="">O Sistema</a></li>
                     <li>
                         <a class="dropdown-item" href="{{route('validar_certificado.validar') }}">
                             Validar Certificado
