@@ -114,6 +114,8 @@ class User extends Authenticatable
         return $this->belongsTo(Perfil::class);
     }
 
-
+    public function participacoes(){
+        return $this->hasMany(Participante::class);
+    }
 
 }

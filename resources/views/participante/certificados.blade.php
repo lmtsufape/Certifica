@@ -9,31 +9,32 @@
         <section class="view-list-acoes">
             <h1 class="text-center mb-4">Meus Certificados</h1>
 
-            <div class="container">
+            <form action="" id="form">
+                <div class="container">              
+                    <div class="row head-table search-box d-flex align-items-center justify-content-center">
+                        <div class="col-4 d-flex flex-column align-items-start justify-content-center">
+                            <span>Buscar ação</span>
+                            <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
+                        </div>
 
-                <div class="row head-table search-box d-flex align-items-center justify-content-center">
-                    <div class="col-4 d-flex flex-column align-items-start justify-content-center">
-                        <span>Buscar ação</span>
-                        <input class="input-box w-75" type="text" name="" id="">
-                    </div>
+                        <div class="col-3 d-flex flex-column align-items-start justify-content-center"></div>
 
-                    <div class="col-3 d-flex flex-column align-items-start justify-content-center"></div>
-                    
-                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-                        <span>Natureza</span>
-                        <select class="input-box w-75" name="" id="">
-                            @foreach($naturezas as $natureza)
-                                <option value="{{$natureza->id}}">{{$natureza->descricao}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
-                    <div class="col-2 d-flex flex-column align-items-start justify-content-center">
-                        <span>Data</span>
-                        <input class="input-box w-75" type="date" name="" id="">
+                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                            <span>Natureza</span>
+                            <select class="input-box w-75" name="" id="">
+                                @foreach($naturezas as $natureza)
+                                    <option value="{{$natureza->id}}">{{$natureza->descricao}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-2 d-flex flex-column align-items-start justify-content-center">
+                            <span>Data</span>
+                            <input class="input-box w-75" type="date" name="" id="">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
 
 
 
@@ -46,22 +47,34 @@
                     <div class="col-2 text-center"><span></span></div>
                 </div>
             </div>
-
-            <div class="list container overflow-scroll">
-                @foreach($participacoes as $participacao)
-                    <div class="row linha-table d-flex align-items-center justify-content-start">
-                        <div class="col-3 titulo-span text-center"><span class="spacing-col">{{$participacao->atividade->acao->titulo}}</span></div>
-                        <div class="col-2 text-center"><span>{{$participacao->atividade->data_inicio.' - '.$participacao->atividade->data_fim}}</span></div>
-                        <div class="col-2 text-center titulo-span"><span>{{$participacao->atividade->descricao}}</span></div>
-                        <div class="col-2 text-center"><span>{{$participacao->atividade->acao->tipo_natureza->descricao}}</span></div>
-                        <div class="col-2 d-flex align-items-center justify-content-evenly">
-                            <span> <a href="{{route('participante.ver_certificado_participante', ['id' => $participacao->id])}}" target="blank">
-                                        <img src="/images/acoes/listView/ficha.svg" alt="Visualizar">
-                                   </a>
-                            </span>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+            <div class="list container overflow-scroll"></div>
         </section>
 @endsection
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+<script>
+    $(document).ready(function(){
+        filtro();
+    });
+
+    $(document).bind('keyup', '.form', function(e) {
+        e.preventDefault();
+        filtro();
+
+    });
+
+    function filtro () {
+        var dados = $('#form').serialize();
+        
+        $.ajax({
+            url:    "{{route('filtro')}}",
+            method: "GET",
+            data :  dados
+        }).done(function(data){
+            $(".list").html(data);
+        });
+    }
+
+</script>

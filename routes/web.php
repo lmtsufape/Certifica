@@ -104,6 +104,7 @@ Route::group(['middleware' => 'checkParticipante'], function()
 {
     route::get('/meus-certificados/', [ParticipanteController::class, 'participante_certificados'])->name('participante.certificados');
     route::get('/participante/certificado/{id}', [CertificadoController::class, 'ver_certificado_participante'])->name('participante.ver_certificado_participante');
+    route::get('/filtro', [ParticipanteController::class, 'filtro'])->name('filtro');
 
 });
 

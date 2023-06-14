@@ -182,9 +182,28 @@ class ParticipanteController extends Controller
     public function participante_certificados()
     {
         $naturezas = Natureza::all();
-        $participacoes = Participante::where('user_id', '=', Auth::user()->id)->get();
-        $atividades = [];
         
-        return view('participante.certificados', compact('participacoes', 'naturezas'));
+        return view('participante.certificados', compact('naturezas'));
+    }
+
+    public function filtro(){
+        $participacoes = Auth::user()->participacoes;
+
+
+        if(request('buscar_acao')){
+            $acoes = Acao::where('titulo', 'ilike', '%'.request('buscar_acao').'%')->get();
+            $participacoes_aux = [];
+            foreach($participacoes as $part){
+
+                if($acoes->contains($part->atividade->acao)){
+                    array_push($participacoes_aux, $part);
+                }
+
+            }
+            
+            $participacoes = $participacoes_aux;
+        }
+
+        return view('participante.list_certificados',compact('participacoes'));
     }
 }
