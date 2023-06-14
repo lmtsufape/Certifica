@@ -36,13 +36,13 @@
             @else
                 <ul class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="/">Inicio</a></li>
-                    <li><a class="dropdown-item" href="">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{Route('home.sistema')}}">O Sistema</a></li>
                     <li>
                         <a class="dropdown-item" href="{{route('validar_certificado.validar') }}">
                             Verificação de Autenticidade
                         </a>
                     </li>
-                    <li><a class="dropdown-item" href="">Contato</a></li>
+                    <li><a class="dropdown-item" href="{{Route('home.contato')}}">Contato</a></li>
 
                 </ul>
             @endif
