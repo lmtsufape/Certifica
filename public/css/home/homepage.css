@@ -59,7 +59,7 @@
 }
 
 .box-conteudo{
-    width: 90vh;
+    width: 85vh;
     padding: 10px 10px;
     height: 100%;
     background-color: white;
@@ -73,7 +73,7 @@
 
 .Text-conteudo-homepage{
     font-size: 20px;
-    text-align: start;
+    text-align: justify;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
