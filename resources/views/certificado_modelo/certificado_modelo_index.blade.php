@@ -14,13 +14,13 @@
             @if(Auth::user()->perfil_id == 1)
                 <div class="row d-flex align-items-center justify-content-end">
                     <a class="criar-acao-button" href={{route('certificado_modelo.create')}}>
-                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Cadastrar Modelo
                     </a>
                 </div>
             @elseif(Auth::user()->perfil_id == 3)
                 <div class="row d-flex align-items-center justify-content-end">
                     <a class="criar-acao-button" href={{route('tipo_certificado_modelo.create')}}>
-                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Cadastrar Modelo
                     </a>
                 </div>
             @endif
