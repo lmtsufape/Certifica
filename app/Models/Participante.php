@@ -50,4 +50,53 @@ class Participante extends Model
     public function atividade(){
         return $this->belongsTo(Atividade::class);
     }
+
+
+
+    public static function search_acao($participacoes, $nome_acao){
+        $acoes = Acao::where('titulo', 'ilike', '%'.$nome_acao.'%')->get();
+        $participacoes_aux = [];
+        foreach($participacoes as $part){
+
+            if($acoes->contains($part->atividade->acao)){
+                array_push($participacoes_aux, $part);
+            }
+
+        }
+        
+        return $participacoes_aux;
+    }
+
+
+
+
+    public static function search_data($participacoes, $data){
+        $participacoes_aux = [];
+        foreach($participacoes as $part){
+            $inicio = $part->atividade->data_inicio;
+            $fim = $part->atividade->data_fim;
+
+            if($inicio <= $data && $fim >= $data){
+                array_push($participacoes_aux, $part);
+            }
+
+        }
+        
+        return $participacoes_aux;
+    }
+
+
+    public static function search_natureza($participacoes, $natureza){
+        $participacoes_aux = [];
+
+        foreach($participacoes as $part){
+            if($part->atividade->acao->tipo_natureza->natureza->id == $natureza){
+                array_push($participacoes_aux, $part);
+            }
+            
+        }
+        
+        return $participacoes_aux;
+    }
+
 }

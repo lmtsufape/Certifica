@@ -21,7 +21,8 @@
 
                         <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                             <span>Natureza</span>
-                            <select class="input-box w-75" name="" id="">
+                            <select class="input-box w-75" name="natureza" id="natureza">
+                                <option></option>
                                 @foreach($naturezas as $natureza)
                                     <option value="{{$natureza->id}}">{{$natureza->descricao}}</option>
                                 @endforeach
@@ -30,7 +31,7 @@
 
                         <div class="col-2 d-flex flex-column align-items-start justify-content-center">
                             <span>Data</span>
-                            <input class="input-box w-75" type="date" name="" id="">
+                            <input class="input-box w-75" type="date" name="data" id="data">
                         </div>
                     </div>
                 </div>
@@ -60,6 +61,12 @@
     });
 
     $(document).bind('keyup', '.form', function(e) {
+        e.preventDefault();
+        filtro();
+
+    });
+
+    $(document).bind('change', '.form', function(e) {
         e.preventDefault();
         filtro();
 
