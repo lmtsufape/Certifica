@@ -22,6 +22,7 @@
                         <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                             <span>Natureza</span>
                             <select class="input-box w-75" name="natureza" id="natureza">
+                                <option></option>
                                 @foreach($naturezas as $natureza)
                                     <option value="{{$natureza->id}}">{{$natureza->descricao}}</option>
                                 @endforeach

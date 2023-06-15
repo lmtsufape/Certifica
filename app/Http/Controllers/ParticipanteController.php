@@ -200,6 +200,10 @@ class ParticipanteController extends Controller
             $participacoes = Participante::search_data($participacoes, request('data'));
         }
 
+        if(request('natureza')){
+            $participacoes = Participante::search_natureza($participacoes, request('natureza'));
+        }
+
         return view('participante.list_certificados',compact('participacoes'));
     }
 

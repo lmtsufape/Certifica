@@ -86,5 +86,17 @@ class Participante extends Model
     }
 
 
+    public static function search_natureza($participacoes, $natureza){
+        $participacoes_aux = [];
+
+        foreach($participacoes as $part){
+            if($part->atividade->acao->tipo_natureza->natureza->id == $natureza){
+                array_push($participacoes_aux, $part);
+            }
+            
+        }
+        
+        return $participacoes_aux;
+    }
 
 }
