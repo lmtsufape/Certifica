@@ -1,3 +1,5 @@
+<!--View apresentada em gestor -->
+
 @extends('layouts.app')
 
 @section('content')
