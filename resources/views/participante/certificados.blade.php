@@ -53,6 +53,40 @@
 @endsection
 
 
+
+
+<div class="modal fade" id="modal-info" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+   
+        <div class="modal-content">
+            <div class="modal-header" style="background: #972E3F; color: white;">
+                <h5 class="modal-title"><strong>Detalhes da Participação</strong></h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <h5>Ação</h5>
+                    <label><strong>Titulo: </strong><span id='titulo'></span></label>
+                    <label><strong>Tipo da Natureza: </strong><span id='tipo-natureza'></span></label>
+                    <label><strong>Inicio: </strong><span id='inicio'></span></label>
+                    <label><strong>Fim: </strong><span id='fim'></span></label>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <h5>Atividade/Função</h5>
+                    <label><strong>Descrição: </strong><span id='descricao'></span></label>
+                    <label><strong>Carga Horária: </strong><span id='ch'></span></label>
+                    <label><strong>Inicio: </strong><span id='inicio-atividade'></span></label>
+                    <label><strong>Fim: </strong><span id='fim-atividade'></span></label>
+                </div>
+                <hr>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
 <script>
@@ -82,6 +116,29 @@
         }).done(function(data){
             $(".list").html(data);
         });
+    }
+
+    function setaDadosModal($participacao){
+        $('#modal-info').modal('show');
+
+        let inicio = new Date($participacao.atividade.acao.data_inicio).toLocaleDateString('pt-BR');
+        let fim = new Date($participacao.atividade.acao.data_fim).toLocaleDateString('pt-BR');
+
+        $('#titulo').text($participacao.atividade.acao.titulo);
+        $('#tipo-natureza').text($participacao.atividade.acao.tipo_natureza.descricao);
+        $('#inicio').text(inicio);
+        $('#fim').text(fim);
+
+
+        let inicio_part = new Date($participacao.atividade.data_inicio).toLocaleDateString('pt-BR');
+        let fim_part = new Date($participacao.atividade.data_fim).toLocaleDateString('pt-BR');
+
+        $('#descricao').text($participacao.atividade.descricao);
+        $('#ch').text($participacao.carga_horaria + "H");
+        $('#inicio-atividade').text(inicio_part);
+        $('#fim-atividade').text(fim_part);
+
+
     }
 
 </script>
