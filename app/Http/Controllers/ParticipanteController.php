@@ -191,19 +191,16 @@ class ParticipanteController extends Controller
 
 
         if(request('buscar_acao')){
-            $acoes = Acao::where('titulo', 'ilike', '%'.request('buscar_acao').'%')->get();
-            $participacoes_aux = [];
-            foreach($participacoes as $part){
 
-                if($acoes->contains($part->atividade->acao)){
-                    array_push($participacoes_aux, $part);
-                }
+            $participacoes = Participante::search_acao($participacoes, request('buscar_acao'));
+        }
 
-            }
-            
-            $participacoes = $participacoes_aux;
+
+        if(request('data')){
+            $participacoes = Participante::search_data($participacoes, request('data'));
         }
 
         return view('participante.list_certificados',compact('participacoes'));
     }
+
 }
