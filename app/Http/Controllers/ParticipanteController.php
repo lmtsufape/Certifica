@@ -207,4 +207,37 @@ class ParticipanteController extends Controller
         return view('participante.list_certificados',compact('participacoes'));
     }
 
+
+    public function import_participantes($atividade_id, Request $request){
+        $atividade = Atividade::find($atividade_id);
+
+        
+
+        $file = fopen($request->participantes_csv, "r");
+
+        $participantes = [];
+
+        while($row = fgetcsv($file)){
+            //aplicar a mascara no cpf que vem do arquivo para ficar igual ao do banco
+            $user = User::where('cpf', '=', $row[0])->first();
+        
+            if($user){
+                $participante = new Participante();
+
+                $participante->user_id = $user->id;
+                $participante->carga_horaria = $row[1];
+                $participante->atividade_id = $atividade_id;
+                $participante->save();
+                
+            } else {
+                array_push($participantes, $row[0]);
+            }
+
+        }
+
+        fclose($file);
+
+        return redirect(route('participante.index', ['atividade_id' => $atividade_id]));
+    }
+
 }
