@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'siape' => $data['siape'],
             'instituicao_id' => $data['instituicao_id'],
             'json_cursos_ids' => json_encode($data['cursos_ids']),
-
+            
         ]);
     }
 
