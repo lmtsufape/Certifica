@@ -43,19 +43,19 @@
         <div class="row">
             <div class="col-1"></div>
 
-            <input hidden type="file" name="assinatura" id="assinatura">
+            <input hidden type="file" name="verso" id="verso" accept="image/*">
 
             <div class="col-5 text-center">
-                <label class="label" for="assinatura">
-                    <span>Assinatura</span>
+                <label class="label" for="verso">
+                    <span>Verso</span>
                     <div class="card-preview">
-                        <strong><span id="card_assinatura">nome arquivo</span></strong>
+                        <strong><span id="card_verso">nome arquivo</span></strong>
                         <span>(preview em desenvolvimento)</span>
                     </div>
                 </label>
             </div>
 
-            <input hidden type="file" name="fundo" id="plano_fundo">
+            <input hidden type="file" name="fundo" id="plano_fundo" accept="image/*">
 
             <div class="col-5 text-center">
                 <label class="label" for="plano_fundo">
@@ -113,9 +113,9 @@
             card_plano_fundo.innerHTML = dados[dados.length - 1]
 
         })
-        //nome do arquivo da assinatura
-        var assinatura = document.getElementById('assinatura');
-        var card_assinatura = document.getElementById('card_assinatura');
+        //nome do arquivo da verso
+        var assinatura = document.getElementById('verso');
+        var card_assinatura = document.getElementById('card_verso');
 
         assinatura.addEventListener('change', (e) => {
 
