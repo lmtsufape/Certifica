@@ -184,6 +184,9 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/acao/{acao_id}/atividade/gerar-certificados', [AcaoController::class, 'download_certificados'])->name('certificados.download');
 
     Route::get('/acao/get/tipo_natureza/{natureza_id}', [AcaoController::class, 'get_tipo_natureza'])->name('acao.get_tipo_natureza');
+
+    Route::post('/participante/index/{atividade_id}/import', [ParticipanteController::class, 'import_participantes'])->name('import_participantes');
+    
 });
 
 

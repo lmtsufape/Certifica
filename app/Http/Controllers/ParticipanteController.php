@@ -14,6 +14,9 @@ use App\Http\Requests\UpdateParticipanteRequest;
 use App\Validates\ParticipanteValidator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Models\Utils\Mask;
 
 
 class ParticipanteController extends Controller
@@ -205,6 +208,52 @@ class ParticipanteController extends Controller
         }
 
         return view('participante.list_certificados',compact('participacoes'));
+    }
+
+
+    public function import_participantes($atividade_id, Request $request){
+        $atividade = Atividade::find($atividade_id);        
+        
+        $file = fopen($request->participantes_csv, "r");
+
+        fgetcsv($file); //ler o cabeçalho
+
+        while($row = fgetcsv($file)){
+            //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
+            $cpf = Mask::mask($row[1], "###.###.###-##");
+            $user = User::where('cpf', '=', $cpf)->first();
+        
+            if(!$user)
+            {
+                $user = new User();
+                $user->name  = $row[0];
+                $user->cpf   = $cpf;
+                $user->email = $row[2]; 
+                $user->perfil_id = 4;
+                $user->instituicao_id = 2;
+                $user->password = Hash::make(Str::random(15));
+                $user->save();
+
+                //enviar o email informando a senha 
+            } 
+
+
+
+            if(!$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
+            {
+                $participante = new Participante();
+                $participante->carga_horaria = $row[3];
+                $participante->atividade_id = $atividade_id;
+                $participante->user_id = $user->id;
+
+                $participante->save();
+            }
+
+        }
+
+        fclose($file);
+
+        return redirect(route('participante.index', ['atividade_id' => $atividade_id]));
     }
 
 }
