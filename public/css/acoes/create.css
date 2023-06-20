@@ -3,6 +3,12 @@
     margin: 0;
     padding: 0;
 }
+
+.ast{
+    font-weight: bold;
+    color: red;
+}
+
 .view-create-acao{
     height: 60vh;
 }
@@ -130,6 +136,10 @@ select:focus{
     outline: 0;
 }
 
+/*Classes do card de cadastro de usuario*/
+.card{
+    width: 35%;
+}
 
 
 /*classes dinamicas cadastro de usuario*/

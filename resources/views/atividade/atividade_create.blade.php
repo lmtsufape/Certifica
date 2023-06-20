@@ -15,11 +15,14 @@
     <form class="container form " action="{{ Route('atividade.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <!--hiddens -->
         <input type="hidden" name="acao_id" value="{{ $acao->id }}">
+        <input value="{{ $acao->titulo }}" hidden class="w-75 input-text" type="text" name="titulo"id="">
+
 
         <div class="row d-flex aligm-items-start justify-content-start ">
 
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column mb-5">
                 <span class="tittle-input">Atividade/Função</span>
                 <select class="select-form w-100 " name="descricao" id="">
                     <option value="" selected hidden>Escolher...</option>
@@ -29,25 +32,16 @@
                 </select>
             </div>
 
-            <div class="col-4 spacing-row1 input-create-box">
+            <div class="col-3 spacing-row1 input-create-box">
                 <span class="tittle-input w-50">Data de Início</span>
                 <input class="w-100" type="date" name="data_inicio" id="">
             </div>
-        </div>
-
-        <div class="row d-flex aligm-items-start justify-content-start">
-
-            <div class="col-7 spacing-row1 ">
-                <input value="{{ $acao->titulo }}" hidden class="w-75 input-text" type="text" name="titulo"
-                    id="" disabled>
-            </div>
-
-            <div class="col-4 input-create-box">
+            <div class="col-3 input-create-box">
                 <span class="tittle-input w-50">Data de Término</span>
                 <input class="w-100" type="date" name="data_fim" id="">
             </div>
-
         </div>
+
 
         <div class="row d-flex justify-content-start align-items-center">
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">

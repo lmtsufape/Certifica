@@ -11,7 +11,7 @@
         <section class="box-conteudo d-flex flex-column align-items-start justify-content-start">
             <h1 class="w-100 text-center mb-3">Certifica</h1>
 
-            <div class="Text-conteudo-homepage mb-3">
+            <div class="text-conteudo-homepage">
                 O Certifica teve sua primeira versão desenvolvida pela Unidade Acadêmica de
                 Garanhuns da Universidade Federal Rural de Pernambuco, sendo posteriormente
                 continuada e mantida pela Universidade Federal do Agreste de Pernambuco –

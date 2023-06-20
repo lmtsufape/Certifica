@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <h2 class="text-center">Cadastro de Usuário</h2>
+    
 
     <div class="row">
         @if ($errors->any())
@@ -22,31 +22,39 @@
 
 
 
-    <form class="container form" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+    <form class="form card mx-auto shadow-lg p-3 mb-5 bg-white rounded" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+        <h2 class="text-center mb-3">Cadastro de Usuário</h2>
+
         @csrf
 
         <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Nome completo</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Nome completo<span class="ast">*</span></span>
                 <input class="w-75 input-text" type="text" name="name" id="nome" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">E-mail</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">CPF<span class="ast">*</span></span>
+                <input class="w-75 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf" id="cpf" required>
+            </div>
+        </div>
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">E-mail<span class="ast">*</span></span>
                 <input class="input-text" type="email" name="email" id="" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Celular</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Celular<span class="ast">*</span></span>
                 <input class="input-text" type="text" name="celular" id="telefone" required>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Pefil</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Perfil<span class="ast">*</span></span>
                 <select class="select-form w-100" name="perfil_id" id="select_perfil" required>
                     <option selected hidden> -- Perfil --</option>
                     <option value="4"> Estudante </option>
@@ -57,15 +65,15 @@
         </div>
 
         <div class="row camporegister_dinamico_hide" id="siape">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">SIAPE*</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">SIAPE<span class="ast">*</span></span>
                 <input class="input-text" type="text" name="siape" id="siape">
             </div>
         </div>
 
         <div class="row camporegister_dinamico_hide " id="cursos_aluno">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Curso</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Curso<span class="ast">*</span></span>
                 <select class="select-form w-100" name="cursos_ids[]" id="select_curso" style="text-align: center">
                     <option selected hidden> -- Curso --</option>
                     @foreach ($cursos as $curso)
@@ -76,10 +84,9 @@
         </div>
 
         <div class="row camporegister_dinamico_hide" id="professor_cursos">
-            <div class="col-md-3"></div>
 
-            <div class="col-md-4 border align-left">
-                <label for="cursos">Cursos</label>
+            <div class="col-md-8 border align-center">
+                <label for="cursos">Cursos<span class="ast">*</span></label>
 
                 <br>
 
@@ -94,8 +101,8 @@
         </div>
 
         <div class="row d-flex aligm-items-center justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Instituição de vinculo</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Instituição de vinculo<span class="ast">*</span></span>
 
                 <select class="select-form w-100 " name="instituicao_id" id="select_instituicao" required>
                     <option selected hidden></option>
@@ -106,21 +113,21 @@
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Senha</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Senha<span class="ast">*</span></span>
                 <input class="input-text" type="password" name="password" id="senha" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Confirmar senha</span>
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Confirmar senha<span class="ast">*</span></span>
                 <input class="input-text" type="password" name="password_confirmation" id="confirmacao_senha" required>
             </div>
         </div>
         <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-2">
-                <button type="submit">Cadastrar</button>
-            </div>
+          
+            <button class="col-3" type="submit">Cadastrar</button>
+          
         </div>
     </form>
 
