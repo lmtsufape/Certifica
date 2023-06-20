@@ -227,7 +227,7 @@ class ParticipanteController extends Controller
             {
                 $user = new User();
                 $user->name  = $row[0];
-                $user->cpf   = $row[1];
+                $user->cpf   = $cpf;
                 $user->email = $row[2]; 
                 $user->perfil_id = 4;
                 $user->instituicao_id = 2;
