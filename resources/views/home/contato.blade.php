@@ -15,7 +15,7 @@
                     Universidade Federal do Agreste de Pernambuco - UFAPE <br>
                     Avenida Bom Pastor, s/n.º, Bairro Boa Vista - CEP: 55292-270 - Garanhuns - PE <br>
                     Laboratório 23 <br>
-                    Email: lmts@ufrpe.br <br>
+                    E-mail: lmts@ufape.edu.br <br>
             </div>
         </section>
     </div>
