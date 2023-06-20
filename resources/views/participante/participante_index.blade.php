@@ -134,25 +134,39 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalImportCsvLabel">Importr um CSV com o CPF e carga horária</h5>
+                        <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Integrantes</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
 
                     <div class="modal-body">
-                        <form class="container form" action="{{ Route('import_participantes', ['atividade_id' => $atividade->id]) }}" method="POST"  enctype="multipart/form-data">
-                            @csrf
-                            <div class="col-3">
-                                <input type="File" name="participantes_csv" id="participantes_csv">
-                            </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-success">Enviar</button>
-                            </div>
-                        </form>
+                        <div class="container">
+                            <form class="form" action="{{ Route('import_participantes', ['atividade_id' => $atividade->id]) }}" method="POST"  enctype="multipart/form-data">
+                                @csrf
+                                <div class="row align-items-start">
+                                    <div class="col-9">
+                                        <input type="file"  accept=".csv"  name="participantes_csv" id="participantes_csv" class="form-control form-control-sm" style="margin-top:5%">
+                                    </div>
 
+                                    <div class="col">
+                                        <div class="row justify-content-center">
+                                                <a href="/files/modelo.csv" style="margin-left:25%">
+                                                    <img src="/images/acoes/listView/anexo.svg" style="width:30px">
+                                                </a>
+                                                <label>Modelo</label>
+                                        </div>
+                                    </div>    
+
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-sm btn-success">Importar</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
 
