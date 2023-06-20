@@ -14,6 +14,9 @@ use App\Http\Requests\UpdateParticipanteRequest;
 use App\Validates\ParticipanteValidator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Models\Utils\Mask;
 
 
 class ParticipanteController extends Controller
@@ -209,28 +212,41 @@ class ParticipanteController extends Controller
 
 
     public function import_participantes($atividade_id, Request $request){
-        $atividade = Atividade::find($atividade_id);
-
+        $atividade = Atividade::find($atividade_id);        
         
-
         $file = fopen($request->participantes_csv, "r");
 
-        $participantes = [];
+        fgetcsv($file); //ler o cabeçalho
 
         while($row = fgetcsv($file)){
-            //aplicar a mascara no cpf que vem do arquivo para ficar igual ao do banco
-            $user = User::where('cpf', '=', $row[0])->first();
+            //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
+            $cpf = Mask::mask($row[1], "###.###.###-##");
+            $user = User::where('cpf', '=', $cpf)->first();
         
-            if($user){
-                $participante = new Participante();
+            if(!$user)
+            {
+                $user = new User();
+                $user->name  = $row[0];
+                $user->cpf   = $row[1];
+                $user->email = $row[2]; 
+                $user->perfil_id = 4;
+                $user->instituicao_id = 2;
+                $user->password = Hash::make(Str::random(15));
+                $user->save();
 
-                $participante->user_id = $user->id;
-                $participante->carga_horaria = $row[1];
+                //enviar o email informando a senha 
+            } 
+
+
+
+            if(!$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
+            {
+                $participante = new Participante();
+                $participante->carga_horaria = $row[3];
                 $participante->atividade_id = $atividade_id;
+                $participante->user_id = $user->id;
+
                 $participante->save();
-                
-            } else {
-                array_push($participantes, $row[0]);
             }
 
         }
