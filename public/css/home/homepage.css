@@ -60,7 +60,7 @@
 
 .box-conteudo{
     width: 85vh;
-    padding: 10px 10px;
+    padding: 40px 60px;
     height: 100%;
     background-color: white;
 }
@@ -71,12 +71,13 @@
     text-decoration: none;
 }
 
-.Text-conteudo-homepage{
+.text-conteudo-homepage{
     font-size: 20px;
     text-align: justify;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+
 }
 
 /*Responsividade*/

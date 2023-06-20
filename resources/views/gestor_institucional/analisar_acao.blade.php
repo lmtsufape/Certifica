@@ -36,7 +36,7 @@
                             <span class="col spacing-col">
                                 @if ($acao->anexo != null)
                                     <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">
-                                        <img src="/images/acoes/listView/anexo.svg" alt="Visualizar">
+                                        <img style="opacity: 0.5" src="/images/acoes/listView/anexo.svg" alt="Visualizar">
                                     </a>
                                 @endif
                             </span>

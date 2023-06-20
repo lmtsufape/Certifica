@@ -15,7 +15,7 @@
 
             <div class="row d-flex aligm-items-start justify-content-start">
                 <div class="col-md-10 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Título<strong style="color: red">*</strong></span>
+                    <span class="tittle-input">Título<span class="ast">*</span></span>
                     <input class="w-75 input-text " type="text" name="titulo" id="" value="{{ old('titulo') }}"
                         required>
                 </div>
@@ -26,7 +26,7 @@
                     <input hidden type="file" name="anexo" id="anexo">
                         <div
                             class="col-md-5 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
-                            <span class="tittle-input">Processo SIPAC, relatório final ou similares<strong style="color: red">*</strong></span>
+                            <span class="tittle-input">Processo SIPAC, relatório final ou similares<span class="ast">*</span></span>
 
                             <div class="w-100 d-flex align-items-center justify-content-between">
                                 <input class="w-75 input-text " type="text" name="" id="arquivo" disabled value=""
@@ -40,20 +40,20 @@
                     
 
                     <div class="col-md-3 spacing-row2 input-create-box ">
-                        <span class="tittle-input">Data de Início<strong style="color: red">*</strong></span><input class="w-100"
+                        <span class="tittle-input">Data de Início<span class="ast">*</span></span><input class="w-100"
                             type="date" name="data_inicio" id="" value="{{ old('data_inicio') }}" required>
                     </div>
 
                     <div class="col-md-3 input-create-box">
-                        <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
-                            type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
+                        <span class="tittle-input">Data de Término <span class="ast">*</span></span> 
+                        <input class="w-100" type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
                     </div>
                 </div>
 
 
                 <div class="row d-flex aligm-items-start justify-content-start">
                     <div class="col-md-4 spacing-row2 input-create-box border-upload d-flex align-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Natureza<strong style="color: red">*</strong></span>
+                        <span class="tittle-input">Natureza<span class="ast">*</span></span>
                         <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
                             <option value="" selected hidden>-- Natureza --</option>
                             @foreach ($naturezas as $natureza)
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="col-md-7 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
+                        <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
                         <select name="tipo_natureza_id" class="select-form w-100" id="select_tipo_natureza" required>
                             <option value="" selected hidden>-- Tipo Natureza --</option>
@@ -73,19 +73,19 @@
             @else
                 <div class="row d-flex aligm-items-start justify-content-start">
                     <div class="col-md-2 spacing-row2 input-create-box ">
-                        <span class="tittle-input"> Data de Início<strong style="color: red">*</strong> </span> 
+                        <span class="tittle-input"> Data de Início<span class="ast">*</span> </span> 
                         <input class="w-100" type="date" name="data_inicio" id="" value="{{ old('data_inicio') }}" required>
                     </div>
 
                     <div class="col-md-2 spacing-row2 input-create-box">
-                        <span class="tittle-input">Data de Término<strong style="color: red">*</strong></span><input class="w-100"
+                        <span class="tittle-input">Data de Término<span class="ast">*</span></span><input class="w-100"
                             type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
                     </div>
                     
                     <input type="hidden" name="natureza_id" value="{{ $natureza->id }}">
                     
                     <div class="col-md-6 spacing-row2 input-create-box">
-                        <span class="tittle-input">Tipo<strong style="color: red">*</strong></span>
+                        <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
                         <select name="tipo_natureza_id" class="select-form w-100 " id="select_tipo_natureza" required>
                             <option value="" selected hidden>-- Tipo Natureza --</option>
