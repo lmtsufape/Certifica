@@ -10,28 +10,32 @@
             <h1 class="text-center mb-4">Solicitações</h1>
             <div class="container">
                 <div class="row head-table d-flex align-items-center justify-content-start">
-                    <div class="col-6 text-center"><span class="spacing-col">Título</span></div>
-                    <div class="col-6 text-center"><span>Status</span></div>
+                    <div class="col-4 text-center"><span class="spacing-col">Título</span></div>
+                    <div class="col-4 text-center"><span>Status</span></div>
+                    <div class="col-4 text-center"><span>Funcionalidades</span></div>
                 </div>
             </div>
 
             <div class="list container overflow-scroll">
                 @foreach ($acaos as $acao)
                     <div class="row linha-table d-flex align-items-center justify-content-start">
-                        <div class="col-6 text-center"><span class="spacing-col">
-                            @if($acao->status == "Em análise")
-                            <a href={{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}>
+                        <div class="col-4 text-center">
+                            <span class="spacing-col">
                                 {{ $acao->titulo }}
-                            </a>
-                            @else
-                                <a>
-                                    {{ $acao->titulo }}
+                            </span>
+                        </div>
+                        <div class="col-4 text-center"><span>{{ $acao->status }}</span></div>
+                        <div class="col-4 text-center">
+                            @if ($acao->status == 'Em análise')
+                                <a href={{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}>
+                                    <img src="/images/acoes/listView/eye.svg" alt="Visualizar">
                                 </a>
+                            @else
+                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar">
                             @endif
-                        </span></div>
-                        <div class="col-6 text-center"><span>{{ $acao->status }}</span></div>
+                        </div>
                     </div>
                 @endforeach
             </div>
         </section>
-@endsection
+    @endsection

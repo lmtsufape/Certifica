@@ -23,14 +23,14 @@
                     <div class="col-5 d-flex align-items-center justify-content-end">
                         <a href="http://ufape.edu.br/" target="_blank">
 
-                            <img class="logos" src="/images/layouts/footer/UFAPElogo.png" alt="Logo">
+                            <img class="logo-ufape" src="/images/layouts/footer/UFAPElogo.png" alt="Logo">
                         </a>
                     </div>
 
                     <div class="col-5 d-flex align-items-center justify-content-start">
                         <a href="http://lmts.uag.ufrpe.br/" target="_blank">
 
-                            <img class="logos" src="/images/layouts/footer/LMTSlogo.png" alt="Logo">
+                            <img class="logo-lmts" src="/images/layouts/footer/LMTSlogo.png" alt="Logo">
                         </a>
                     </div>
                 </div>

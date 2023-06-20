@@ -35,11 +35,15 @@ footer .text-icons {
     color: #FFFFFF;
     text-decoration-line: none;
 }
-.logos{
-    width: 65px;
+
+.logo-ufape{
+    width: 60px;
+}
+.logo-lmts{
+    width: 110px;
 }
 .logo-redes{
-    width: 100%;
+    width: 25px;
     margin: 25px 0 0 0;
 }
 
@@ -51,27 +55,42 @@ footer .text-icons {
 
 /*Responsividade footer*/
 @media (width < 992px){
-    .logos{
-        width: 55px;
+    .logo-ufape{
+        width: 50px;
     }
-}
+    .logo-lmts{
+        width: 100px;
+    }
+    .logo-redes{
+        width: 20px;
+        margin: 25px 0 0 0;
+    }
+}   
 @media (width < 768px){
     .logo-redes{
         width: 65%;
     }
-    .logos{
-        width: 55px;
+    .logo-redes{
+        width: 20px;
+        margin: 25px 0 0 0;
     }
 }
 @media (width < 520px){
     footer {
         font-size: 11px;
     }
-    .logos{
-        width: 50px;
+    .logo-ufape{
+        width: 40px;
+    }
+    .logo-lmts{
+        width: 90px;
     }
     .logo-certifica-footer{
         width: 50px;
+    }
+    .logo-redes{
+        width: 15px;
+        margin: 25px 0 0 0;
     }
 
 }
