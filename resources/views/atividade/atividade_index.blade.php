@@ -28,7 +28,7 @@
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-4"><span class="spacing-col">Atividade/Função</span></div>
                 <div class="col-4"><span>Período</span></div>
-                <div class="col-4"><span>Participantes</span></div>
+                <div class="col-4"><span>Funcionalidades</span></div>
             </div>
         </div>
 
@@ -42,15 +42,12 @@
                             collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}</span>
                     </div>
                     <div class="col-4 d-flex align-items-center justify-content-start">
-                        <div class="col-3 d-flex align-items-center justify-content-center">
+
+                        <div class="col-4 d-flex align-items-center justify-content-around">
                             <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
-                        </div>
-                        <div class="col-4">
 
-                        </div>
-                        <div class="col-5 d-flex align-items-center justify-content-evenly">
                             <a href="">
                                 <img src="/images/acoes/listView/eye.svg" alt="">
                             </a>
@@ -60,6 +57,10 @@
                             <a href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                             </a>
+                        </div>
+                
+                        <div class="col-8">
+                
                         </div>
                     </div>
                 </div>
