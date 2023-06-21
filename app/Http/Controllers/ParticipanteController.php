@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\Utils\Mask;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UsuarioNaoCadastrado;
 
 
 class ParticipanteController extends Controller
@@ -231,10 +233,15 @@ class ParticipanteController extends Controller
                 $user->email = $row[2]; 
                 $user->perfil_id = 4;
                 $user->instituicao_id = 2;
-                $user->password = Hash::make(Str::random(15));
+                $password = Str::random(15);
+                $user->password = Hash::make($password);
                 $user->save();
 
                 //enviar o email informando a senha 
+                Mail::to($user->email, $user->name)->send(new UsuarioNaoCadastrado([
+                                                                'email'    => $user->email,
+                                                                'password' => $password,
+                                                            ]));
             } 
 
 
