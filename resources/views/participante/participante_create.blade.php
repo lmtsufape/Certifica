@@ -67,16 +67,17 @@
                 </select>
             </div>
 
-            <div class="col-4 spacing-row1 input-create-box  align-items-start justify-content-start flex-column"
-                 style="display: none" id="outra_instituicao">
-                <span class="tittle-input ">Outra Instituição</span>
-                <input class="w-75 input-text " type="text" name="instituicao" id=""
+            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column" id="outra_instituicao">
+
+                <span class="tittle-input">Outra Instituição</span>
+                <input class="w-100 input-text" type="text" name="instituicao" id=""
                        @if(isset($user) && $user->instituicao_id == 2) value="{{$user->instituicao}}" @endif>
             </div>
 
         </div>
 
         <div class="row d-flex justify-content-start align-items-center">
+
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                 <a class="d-flex justify-content-center align-items-center cancel"
                    href={{ Route('participante.index',['atividade_id' => $atividade->id]) }}> Cancelar</a>
@@ -86,19 +87,20 @@
     </form>
 
     <script>
-        $(document).ready(function () {
-            @if(!isset($user))
-            if ($('#select_instituicao').val() == '2')
-                $('#outra_instituicao').css('display', 'block')
-            @endif
 
-            $('#select_instituicao').on('change', function () {
-                if ($('#select_instituicao').val() == '2')
-                    $('#outra_instituicao').css('display', 'block')
-                else
-                    $('#outra_instituicao').css('display', 'none')
-            })
-        });
+        var div_Inst = document.getElementById("select_instituicao");
+        var div_outrasInst = document.getElementById("outra_instituicao");
+
+        div_outrasInst.style.visibility = "hidden"
+
+        div_Inst.addEventListener("change",(e)=>{
+            if(e.target.value == 1){
+                div_outrasInst.style.visibility = "hidden"
+            }else if(e.target.value == 2){
+                div_outrasInst.style.visibility = ""
+            }
+        })
+
     </script>
 
 @endsection
