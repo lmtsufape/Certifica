@@ -4,12 +4,15 @@
         <div class="col-2 text-center"><span>{{date( 'd/m/Y' , strtotime($participacao->atividade->data_inicio)).' - '.date( 'd/m/Y' , strtotime($participacao->atividade->data_fim))}}</span></div>
         <div class="col-2 text-center titulo-span"><span>{{$participacao->atividade->descricao}}</span></div>
         <div class="col-2 text-center"><span>{{$participacao->atividade->acao->tipo_natureza->natureza->descricao}}</span></div>
-        <div class="col-1 d-flex align-items-center justify-content-evenly">
-            <span> <a href="{{route('participante.ver_certificado_participante', ['id' => $participacao->id])}}" target="blank">
-                        <img src="/images/acoes/listView/certificado.svg" alt="Visualizar">
-                    </a>
-            </span>
-        </div>
+        
+        @if($participacao->atividade->acao->status)
+            <div class="col-1 d-flex align-items-center justify-content-evenly">
+                <span> <a href="{{route('participante.ver_certificado_participante', ['id' => $participacao->id])}}" target="blank">
+                            <img src="/images/acoes/listView/certificado.svg" alt="Visualizar">
+                        </a>
+                </span>
+            </div>
+        @endif
         <div class="col-1 text-center titulo-span">
             <span>
                 <a href='#' onclick="setaDadosModal({{$participacao}})">

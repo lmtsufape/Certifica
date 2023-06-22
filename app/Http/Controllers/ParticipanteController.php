@@ -94,15 +94,23 @@ class ParticipanteController extends Controller
         if ($user)
             return $user;
 
+        $password = Str::random(15);
         $userAttributes = [
             'name' => $attributes['nome'],
             'email' => $attributes['email'],
             'cpf' => $attributes['cpf'],
             'instituicao_id' => $attributes['instituicao_id'] ?? null,
             'instituicao' => $attributes['instituicao'] ?? null,
-            'password' => 'password',
+            'password' => Hash::make($password),
             'perfil_id' => 4
         ];
+
+        //enviar o email informando a senha 
+        Mail::to($userAttributes['email'], $userAttributes['name'])->send(new UsuarioNaoCadastrado([
+            'email'    => $userAttributes['email'],
+            'password' => $password,
+        ]));
+
 
         return User::create($userAttributes);
 
