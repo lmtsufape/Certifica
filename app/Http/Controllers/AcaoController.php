@@ -23,6 +23,8 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use ZipArchive;
 use File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AnalisarAcao;
 
 
 class AcaoController extends Controller
@@ -213,7 +215,7 @@ class AcaoController extends Controller
     public function acao_update(Request $request)
     {
         $acao = Acao::findOrFail($request->id);
-
+       
         if($request->action == 'reprovar')
         {
            $status = 'Reprovada';
@@ -225,6 +227,14 @@ class AcaoController extends Controller
         $acao->status = $status;
 
         $acao->update();
+
+       
+        //enviar email
+        Mail::to($acao->user->email, $acao->user->name)->send(new AnalisarAcao([
+            'acao'   => $acao->titulo,
+            'status' => $acao->status,
+            'id'     => $acao->id,
+        ]));
 
         if($status == 'Aprovada')
         {
