@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UsuarioNaoCadastrado extends Mailable
+class CertificadoDisponivel extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class UsuarioNaoCadastrado extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Finalização de cadastro',
+            subject: 'Certificado Disponível',
         );
     }
 
@@ -43,12 +43,12 @@ class UsuarioNaoCadastrado extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.usuario_nao_cadastrado',
+            view: 'email.certificado_disponivel',
             with: [
-                'email'    => $this->data['email'],
-                'password' => $this->data['password'],
-                'imagem'   => public_path().'/images/layouts/header/logo-certifica.png'
-            ]
+                'acao' => $this->data['acao'],
+                'link'   => "/meus-certificados",
+                'imagem' => public_path().'/images/layouts/header/logo-certifica.png',
+            ],
         );
     }
 

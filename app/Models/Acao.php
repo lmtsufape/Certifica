@@ -42,7 +42,7 @@ class Acao extends Model
     }
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 
     public function unidadeAdministrativa(){
@@ -51,6 +51,22 @@ class Acao extends Model
 
     public function atividades(){
         return $this->hasMany('App\Models\Atividade');
+    }
+
+    public function participantes(){
+        $participantes = collect();
+        
+        $this->atividades->each(function($atividade)  use ($participantes)
+        {
+            $atividade->participantes->each(function($participante) use ($participantes)
+            {
+                $participantes->push($participante->user);
+            });
+            
+            
+        });
+
+        return $participantes;
     }
 
 }

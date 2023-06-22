@@ -23,6 +23,9 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use ZipArchive;
 use File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AnalisarAcao;
+use App\Mail\CertificadoDisponivel;
 
 
 class AcaoController extends Controller
@@ -226,8 +229,21 @@ class AcaoController extends Controller
 
         $acao->update();
 
+       
+        //enviar email para o coordenador
+        Mail::to($acao->user->email, $acao->user->name)->send(new AnalisarAcao([
+            'acao'   => $acao->titulo,
+            'status' => $acao->status,
+            'id'     => $acao->id,
+        ]));
+
         if($status == 'Aprovada')
         {
+            //enviar email para os integrantes
+            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+                'acao'   => $acao->titulo,
+            ]));
+            
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
         } else
         {
