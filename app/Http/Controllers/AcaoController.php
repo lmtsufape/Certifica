@@ -25,6 +25,7 @@ use ZipArchive;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AnalisarAcao;
+use App\Mail\CertificadoDisponivel;
 
 
 class AcaoController extends Controller
@@ -215,7 +216,7 @@ class AcaoController extends Controller
     public function acao_update(Request $request)
     {
         $acao = Acao::findOrFail($request->id);
-       
+
         if($request->action == 'reprovar')
         {
            $status = 'Reprovada';
@@ -229,7 +230,7 @@ class AcaoController extends Controller
         $acao->update();
 
        
-        //enviar email
+        //enviar email para o coordenador
         Mail::to($acao->user->email, $acao->user->name)->send(new AnalisarAcao([
             'acao'   => $acao->titulo,
             'status' => $acao->status,
@@ -238,6 +239,11 @@ class AcaoController extends Controller
 
         if($status == 'Aprovada')
         {
+            //enviar email para os integrantes
+            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+                'acao'   => $acao->titulo,
+            ]));
+            
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
         } else
         {

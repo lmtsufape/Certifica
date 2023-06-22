@@ -53,4 +53,20 @@ class Acao extends Model
         return $this->hasMany('App\Models\Atividade');
     }
 
+    public function participantes(){
+        $participantes = collect();
+        
+        $this->atividades->each(function($atividade)  use ($participantes)
+        {
+            $atividade->participantes->each(function($participante) use ($participantes)
+            {
+                $participantes->push($participante->user);
+            });
+            
+            
+        });
+
+        return $participantes;
+    }
+
 }
