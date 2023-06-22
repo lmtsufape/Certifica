@@ -43,7 +43,7 @@ class UsuarioNaoCadastrado extends Mailable
     public function content()
     {
         return new Content(
-            view: 'Email.usuario_nao_cadastrado',
+            view: 'email.usuario_nao_cadastrado',
             with: [
                 'email'    => $this->data['email'],
                 'password' => $this->data['password'],
