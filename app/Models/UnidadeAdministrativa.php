@@ -17,4 +17,8 @@ class UnidadeAdministrativa extends Model
     public function CertificadoModelos(){
         return $this->hasMany(CertificadoModelos::class);
     }
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }
