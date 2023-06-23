@@ -46,7 +46,7 @@ class Acao extends Model
     }
 
     public function unidadeAdministrativa(){
-        return $this->belongsTo('App\Models\Natureza');
+        return $this->belongsTo(UnidadeAdministrativa::class);
     }
 
     public function atividades(){
