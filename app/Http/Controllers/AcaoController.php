@@ -26,6 +26,7 @@ use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AnalisarAcao;
 use App\Mail\CertificadoDisponivel;
+use App\Mail\AcaoSubmetida;
 
 
 class AcaoController extends Controller
@@ -189,10 +190,16 @@ class AcaoController extends Controller
     public function submeter_acao($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
-
         $acao->status = 'Em análise';
-
         $acao->update();
+
+        $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3);
+
+        //enviar email
+        Mail::to($user)->send( new AcaoSubmetida([ 
+            'acao'    =>$acao->titulo,
+            'acao_id' => $acao->id,
+        ]));
 
         return redirect(Route('acao.index'));
     }
