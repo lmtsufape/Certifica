@@ -190,7 +190,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 });
 
 
-Route::group(['middleware' => 'checkGestorInstitucional'], function ()
+Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
 {
     //Rotas Gestor Institucional
     Route::get('/gestor', [UsuarioController::class, 'home_gestor'])->name('home.gestor');
