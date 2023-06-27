@@ -10,10 +10,46 @@ html, body {
 
 header {
     border-bottom: 2px solid #972E3F;
+    padding: 0px 0;
 }
 
 .logo-certifica,.logo-certifica-footer {
     width: 80px;
+}
+
+
+/*menu hamburguer header classes */
+.hamburguer-button{
+    display: none;
+}
+.some{
+    line-height: 0;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    color: #000;
+    height: 0;
+    visibility: hidden;
+    transition: .3s all ease-in-out;
+    
+}
+
+.aparece{
+    line-height: 1.5;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    color: #000;
+    height: 150px;
+    visibility: " ";
+    transition: .3s all ease-in-out;
+}
+.box-menu-responsivo{
+    text-align: right;
+    list-style: none;
+    padding: 0 30px 0 0;
+}
+
+.menu_responsivo_div{
+    display: none;
 }
 
 /*Footer CSS*/
@@ -67,6 +103,30 @@ footer .text-icons {
     }
 }   
 @media (width < 768px){
+    header {
+        padding: 0 0 0 0;
+    }
+
+    /*header*/
+    .menu_responsivo_div{
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        width: 100%;
+    }
+    .hamburguer-button{
+        border: 1px solid;
+        width: 30px;
+        padding: 4px;
+        border-radius: 50%;
+        display: block;
+    }
+    #menu_normal{
+        display: none;
+    }
+
+
+    /*footer*/
     .logo-redes{
         width: 65%;
     }
