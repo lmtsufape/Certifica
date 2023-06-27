@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Acao;
 use App\Models\Atividade;
+use App\Models\Participante;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAtividadeRequest;
 use App\Http\Requests\UpdateAtividadeRequest;
@@ -128,6 +129,9 @@ class AtividadeController extends Controller
     public function delete($atividade_id)
     {
         $atividade = Atividade::findOrFail($atividade_id);
+
+        $atividade->participantes()->delete();
+
         $atividade->delete();
 
 
