@@ -19,8 +19,8 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{route('perfil.edit')}}">
-                                {{ __('Editar Perfil')}}
+                            <a class="dropdown-item" href="{{ route('perfil.edit') }}">
+                                {{ __('Editar Perfil') }}
                             </a>
 
                             <a class="dropdown-item" href="{{ route('logout') }}">
@@ -34,19 +34,56 @@
                     </li>
                 </ul>
             @else
-                <ul class="navbar-nav h-100">
+                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
+                    alt="">
+                <ul id="menu_normal" class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="/">Inicio</a></li>
-                    <li><a class="dropdown-item" href="{{Route('home.sistema')}}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
                     <li>
-                        <a class="dropdown-item" href="{{route('validar_certificado.validar') }}">
+                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
                             Verificação de Autenticidade
                         </a>
                     </li>
-                    <li><a class="dropdown-item" href="{{Route('home.contato')}}">Contato</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
 
                 </ul>
             @endif
 
         </div>
     </div>
+    <div id="menu_responsivo_div" class="menu_responsivo_div">
+
+        <ul id="menu_responsivo" class="box-menu-responsivo some">
+            <li><a class="dropdown-item" href="/">Inicio</a></li>
+            <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+            <li>
+                <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
+                    Verificação de Autenticidade
+                </a>
+            </li>
+            <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
+
+        </ul>
+    </div>
+
+    <script>
+        //DOM 
+        var hamburguer = document.getElementById("hamburguer_button");
+        var click = 0;
+        var menu_responsivo = document.getElementById("menu_responsivo");
+        
+
+        //logica do menu responsivo sumindo e voltando ao clicar
+        hamburguer.addEventListener("click", (e) => {
+            if (click % 2 == 0) {
+                menu_responsivo.classList.remove("some")
+                menu_responsivo.classList.add("aparece")
+            } else {
+
+                menu_responsivo.classList.remove("aparece")
+                menu_responsivo.classList.add("some")
+            };
+            click++;
+        });
+    </script>
 </header>
