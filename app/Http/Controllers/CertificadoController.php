@@ -40,7 +40,17 @@ class CertificadoController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
 
-        $atividades = Atividade::all()->where("acao_id", $acao_id);
+        $atividades = Atividade::with('participantes')->where("acao_id", $acao_id)->get();
+
+        // se não existem atividades cadastradas na ação
+        if(!$atividades->first()){
+            return redirect()->back()->with(['alert_mensage' => 'É preciso existir pelo menos uma atividade cadastrada para emitir o(s) certificado(s)']);
+        }
+
+        //se existe atividades sem participantes
+        if($atividades->where('participantes->get' , '==', [])->count()){
+            return redirect()->back()->with(['alert_mensage' => 'É preciso existir pelo menos um participante em cada atividade cadastrada para emitir o(s) certificado(s)']);
+        }
 
         foreach($atividades as $atividade)
         {
