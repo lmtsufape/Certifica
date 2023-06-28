@@ -71,7 +71,7 @@
 
                         <div class="w-100 d-flex align-items-center justify-content-between">
                             <input class="w-75 input-text " type="text" name="" id="arquivo" disabled
-                                value="" placeholder="Insira aqui o seu arquivo" required>
+                                value="" placeholder="@if($nomeAnexo) {{$nomeAnexo}} @else Insira aqui o seu arquivo @endif" required>
                             <label for="anexo" id="">
                                 <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg" alt="">
                                 <label for="anexo" id=""> </label>

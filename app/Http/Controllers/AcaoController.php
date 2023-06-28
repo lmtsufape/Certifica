@@ -132,8 +132,11 @@ class AcaoController extends Controller
         $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
         $naturezas = Natureza::all()->sortBy('id');
 
+        $nomeAnexo = $acao->anexo ? explode("/", $acao->anexo)[2] : "";
+
+
         return view('acao.acao_edit', compact('acao','natureza', 'tipo_natureza', 'naturezas',
-            'tipo_naturezas'));
+            'tipo_naturezas', 'nomeAnexo'));
     }
 
     /**
