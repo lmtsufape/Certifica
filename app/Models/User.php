@@ -40,6 +40,14 @@ class User extends Authenticatable
         'json_cursos_ids',
     ];
 
+    public static $rules = [
+        'name'              => 'required | string | max:255',
+        'email'             => 'required | string | email | max:255 |unique:users',
+        'cpf'               => 'required_unless:perfil_id,3 |unique:users',
+        'password'          => 'required | string | min:8 | confirmed',
+        'perfil_id'         => 'required',
+    ];
+
 
     public static $edit_rules = [
         'name'              => 'required | string | max:255',

@@ -10,6 +10,8 @@ use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Validates\DefaultValidator;
+use Illuminate\Validation\ValidationException;
 
 class UsuarioController extends Controller
 {
@@ -51,18 +53,35 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            DefaultValidator::validate($request->all(), User::$rules, User::$messages);
+        } catch (ValidationException $exception) {
+            return redirect(route('usuario.create'))
+                ->withErrors($exception->validator)->withInput();
+        }
+
+
         $usuario = new User();
 
         $usuario->name = $request->name;
-        $usuario->cpf = $request->cpf;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
         $usuario->perfil_id = $request->perfil_id;
-        $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+        $usuario->instituicao_id = 2;
+
+        if($request->perfil_id == 3){
+            $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+            
+        } else {
+            $usuario->cpf = $request->cpf;
+            $usuario->celular = $request->telefone;
+
+        }
+
 
         $usuario->save();
 
-        return redirect(Route('usuario.index'));
+        return redirect(Route('usuario.index'))->with(['mensagem' => 'Usuário cadastrado !']);
     }
 
     /**

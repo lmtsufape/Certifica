@@ -18,6 +18,15 @@
     </div>
 
     <div class="row justify-content-center">
+        @if(session('alert_mensage'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" style="width:50%">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <span>{{session('alert_mensage')}}</span>
+            </div>
+        @endif
+    </div>
+
+    <div class="row justify-content-center">
         @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="width:50%">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
