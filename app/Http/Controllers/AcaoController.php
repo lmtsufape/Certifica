@@ -96,7 +96,8 @@ class AcaoController extends Controller
         }
         else
         {
-            $acao->anexo = $request->file('anexo')->store('anexos');
+            $nomeAnexo = $request->file('anexo')->getClientOriginalName();
+            $acao->anexo = $request->file('anexo')->storeAs('anexos/'.$acao->id, $nomeAnexo);
         }
 
 
@@ -131,8 +132,11 @@ class AcaoController extends Controller
         $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
         $naturezas = Natureza::all()->sortBy('id');
 
+        $nomeAnexo = $acao->anexo ? explode("/", $acao->anexo)[2] : "";
+
+
         return view('acao.acao_edit', compact('acao','natureza', 'tipo_natureza', 'naturezas',
-            'tipo_naturezas'));
+            'tipo_naturezas', 'nomeAnexo'));
     }
 
     /**
@@ -162,6 +166,8 @@ class AcaoController extends Controller
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
+        $nomeAnexo = $request->file('anexo')->getClientOriginalName();
+        $acao->anexo = $request->file('anexo')->storeAs('anexos/'.$acao->id, $nomeAnexo);
         $acao->update();
 
         return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
