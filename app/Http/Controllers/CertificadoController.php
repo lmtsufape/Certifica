@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
+use App\Validates\AcaoValidator;
 
 
 class CertificadoController extends Controller
@@ -39,17 +40,13 @@ class CertificadoController extends Controller
     public function gerar_certificados($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
+        $atividades = $acao->atividades();
+        
+        $message = AcaoValidator::validate_acao($acao);
+        
+        if($message){
+            return redirect()->back()->with(['alert_mensage' => $message]);
 
-        $atividades = Atividade::with('participantes')->where("acao_id", $acao_id)->get();
-
-        // se não existem atividades cadastradas na ação
-        if(!$atividades->first()){
-            return redirect()->back()->with(['alert_mensage' => 'É preciso existir pelo menos uma atividade cadastrada para emitir o(s) certificado(s)']);
-        }
-
-        //se existe atividades sem participantes
-        if($atividades->where('participantes->get' , '==', [])->count()){
-            return redirect()->back()->with(['alert_mensage' => 'É preciso existir pelo menos um participante em cada atividade cadastrada para emitir o(s) certificado(s)']);
         }
 
         foreach($atividades as $atividade)
@@ -82,11 +79,11 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            return redirect(Route('acao.index'));
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);;
         }
         else
         {
-            return redirect(Route('gestor.acoes_submetidas'));
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação submetida !']);;
         }
 
     }
