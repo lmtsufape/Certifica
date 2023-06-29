@@ -40,7 +40,7 @@ class CertificadoController extends Controller
     public function gerar_certificados($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
-        $atividades = $acao->atividades();
+        $atividades = $acao->atividades()->get();
         
         $message = AcaoValidator::validate_acao($acao);
         
