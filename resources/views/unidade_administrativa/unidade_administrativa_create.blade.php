@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="/css/home/contato.css">
+    <link rel="stylesheet" href="/css/acoes/create.css">
+@endsection
+
 @section('content')
     <div class='container'>
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Cadastrar Unidade Administrativa</h2>
-        </div>
-        <form action="{{Route('unidade_administrativa.store')}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="titulo">Descrição</label>
-                            <input name="descricao" type="text" class="form-control" id="descricao"
-                                   placeholder="Descrição">
-                        </div>
+        <section class="section-view pb-3 pt-4">
+            <h2 class="titulo-view mb-4">Cadastrar Unidade Administrativa</h2>
 
-                        <input type="hidden" name="setor_id" value="1">
+            <form action="{{ Route('unidade_administrativa.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                <input type="hidden" name="setor_id" value="1">
+
+                <div class="row d-flex aligm-items-start justify-content-start mb-3">
+                    <div class="col-md-10 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Descrição <span class="ast">*</span> </span>
+                        <input class="w-75 input-text" type="text" name="descricao" id="descricao" placeholder="Descrição" required>
                     </div>
                 </div>
-                <div class="col-md-3"></div>
-            </div>
-        </form>
+
+                <button type="submit" class="">Cadastrar</button>
+            </form>
+        </section>
     </div>
 @endsection
