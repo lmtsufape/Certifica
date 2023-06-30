@@ -19,6 +19,9 @@ use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Validates\AcaoValidator;
+use App\Models\User;
+use Dompdf\FontMetrics;
+use Dompdf\Options; 
 
 
 class CertificadoController extends Controller
@@ -87,7 +90,7 @@ class CertificadoController extends Controller
         }
 
     }
-    public function ver_certificado($participante_id)
+    public function ver_certificado($participante_id, $marca = null)
     {
         Carbon::setLocale('pt_BR');
 
@@ -127,7 +130,35 @@ class CertificadoController extends Controller
 
         $nomePDF = 'certificado.pdf';
 
-        return $pdf->set_option("dpi", 200)->setPaper('a4', 'landscape')->stream($nomePDF);
+        $pdf->set_option("dpi", 200);
+        $pdf->setPaper('a4', 'landscape');
+
+        if($marca){
+            $options = new Options(); 
+            
+            $pdf->render(); 
+            
+            $canvas = $pdf->getCanvas(); 
+            
+            $fontMetrics = new FontMetrics($canvas, $options); 
+            
+            $w = $canvas->get_width(); 
+            $h = $canvas->get_height(); 
+            
+            $font = $fontMetrics->getFont('times'); 
+            
+            $txtHeight = $fontMetrics->getFontHeight($font, 75); 
+            $textWidth = $fontMetrics->getTextWidth($marca, $font, 75); 
+            
+            $canvas->set_opacity(.2, "Multiply"); 
+            
+            $x = (($w-$textWidth)/2); 
+            $y = (($h-$txtHeight)/2); 
+
+            $canvas->page_text($x, $y, $marca, $font, 75); 
+         }
+
+        return $pdf->stream($nomePDF);
     }
 
     public function ver_certificado_participante($participante_id){
@@ -200,10 +231,14 @@ class CertificadoController extends Controller
     public function checar_certificado(Request $request)
     {
         $validacao = Certificado::where('codigo_validacao', $request->codigo_validacao)->first();
-
+        $user = User::where('cpf', $validacao->cpf_participante)->first();
+        $participante = $user->participacoes->where('atividade_id', $validacao->atividade_id)->first();
+        
+        $marca = 'Apenas Consulta !';
+        
         if($validacao != null)
         {
-            return view('certificado.validar', ['mensagem' => 'Certificado válido!']);
+            return $this->ver_certificado($participante->id, $marca);
         } else
         {
             return view('certificado.validar', ['mensagem' => 'Certificado inválido!']);
