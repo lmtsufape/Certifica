@@ -69,4 +69,24 @@ class Acao extends Model
         return $participantes;
     }
 
+
+    //######################### FILTROS ############################//
+    public static function search_acao_by_name($acoes, $nome_acao){
+        return $acoes->where('titulo', 'ilike', '%'.$nome_acao.'%');
+    }
+
+    public static function search_acao_by_status($acoes, $status){
+        return $acoes->where('status', $status);
+    }
+
+    public static function search_acao_by_data($acoes, $data){
+        return $acoes->where('data_inicio','<=',$data)->where('data_fim', '>=', $data);
+    }
+
+
+    public static function search_acao_by_natureza($acoes, $natureza_id){    
+        $natureza = Natureza::find($natureza_id);
+        return $acoes->whereIn('tipo_natureza', $natureza->tipoNatureza);
+    }
+
 }
