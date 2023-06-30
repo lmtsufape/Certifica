@@ -126,4 +126,8 @@ class User extends Authenticatable
         return $this->hasMany(Participante::class);
     }
 
+    public function acoes(){
+        return $this->hasMany(Acao::class, 'usuario_id');
+    }
+
 }

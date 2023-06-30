@@ -39,8 +39,9 @@ class AcaoController extends Controller
     public function index()
     {
         $acaos = Acao::all()->where('usuario_id', Auth::user()->id)->sortBy('id');
+        $naturezas = Natureza::orderBy('descricao')->get();
 
-        return view('acao.acao_index', ['acaos' => $acaos]);
+        return view('acao.acao_index', compact('acaos', 'naturezas'));
     }
     /**
      * Show the form for creating a new resource.
@@ -368,4 +369,32 @@ class AcaoController extends Controller
         return response()->json($tipo_naturezas);
     }
 
+
+    public function filtro(){
+        $acoes = Auth::user()->acoes();
+
+
+        if(request('buscar_acao')){
+            $acoes = Acao::search_acao_by_name($acoes, request('buscar_acao'));
+        }
+
+        if(request('status')){
+            $acoes = Acao::search_acao_by_status($acoes, request('status'));
+        }
+
+
+        if(request('data')){
+            $acoes = Acao::search_acao_by_data($acoes, request('data'));
+        }
+
+        $acoes = $acoes->get();
+
+        if(request('natureza')){
+            $acoes = Acao::search_acao_by_natureza($acoes, request('natureza'));
+        }
+
+
+
+        return view('acao.acao_list', compact('acoes'));
+    }
 }

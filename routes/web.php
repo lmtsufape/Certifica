@@ -156,6 +156,9 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
 
+    Route::get('/acao/filtro/', [AcaoController::class, 'filtro'])->name('filtro_acao');
+
+
 
     //Rotas Atividade  Coordenador e Gestor
     Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
