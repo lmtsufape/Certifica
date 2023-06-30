@@ -18,4 +18,23 @@ class AcaoValidator {
         return $validator;
     }
 
+
+    public static function validate_acao($acao){
+        $atividades = $acao->atividades();
+        
+        // se não existem atividades cadastradas na ação
+        if(!$atividades->first()){
+            return 'É preciso existir pelo menos uma atividade cadastrada para submeter a ação';
+        }
+
+        //se existe atividades sem participantes
+        $not_part = $atividades->each(function($atividade){
+            return $atividade->participantes->count() < 1;
+        });
+
+        if($not_part){
+            return 'É preciso existir pelo menos um participante em cada atividade cadastrada para submeter a ação';
+        }
+    }
+
 }

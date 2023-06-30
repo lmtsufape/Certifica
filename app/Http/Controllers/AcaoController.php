@@ -196,6 +196,14 @@ class AcaoController extends Controller
     public function submeter_acao($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
+
+        $message = AcaoValidator::validate_acao($acao);
+        
+        if($message){
+            return redirect()->back()->with(['alert_mensage' => $message]);
+
+        }
+        
         $acao->status = 'Em análise';
         $acao->update();
 
@@ -207,7 +215,7 @@ class AcaoController extends Controller
             'acao_id' => $acao->id,
         ]));
 
-        return redirect(Route('acao.index'));
+        return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);
     }
 
     public function acoes_submetidas()
