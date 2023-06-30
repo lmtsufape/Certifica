@@ -53,8 +53,8 @@
                                 @endif
                             </div>
                             <div class="col-3 d-flex align-items-center justify-content-evenly">
-                                <span><a href="{{route('usuario.delete', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
                                 <span><a href="{{route('usuario.edit', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
+                                <span><a href="{{route('usuario.delete', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
                             </div>
                         </div>
                     </div>
