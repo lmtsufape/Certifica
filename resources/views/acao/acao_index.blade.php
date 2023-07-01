@@ -49,10 +49,10 @@
             <!-- Cabeçalho -->
             <div class="container">
                 <div class="row head-table d-flex align-items-center justify-content-start">
-                    <div class="col-3 text-center"><span class="spacing-col">Título</span></div>
+                    <div class="col-4 text-center"><span class="spacing-col">Título</span></div>
                     <div class="col-2 text-center"><span>Data</span></div>
-                    <div class="col-2 text-center"><span>Status</span></div>
-                    <div class="col-2 text-center"><span>Natureza</span></div>
+                    <div class="col-1 text-center"><span>Status</span></div>
+                    <div class="col-1 text-center"><span>Natureza</span></div>
                     <div class="col-2 text-center"><span>Atividades</span></div>
                     <div class="col-2 text-center"><span></span></div>
                 </div>
