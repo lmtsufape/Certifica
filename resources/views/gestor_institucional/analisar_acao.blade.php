@@ -102,12 +102,18 @@
 
                 <div class="container">
                     <div class="row">
-                        <div class="col d-flex align-items-center justify-content-evenly">
+                        <div class="form-group">
+                            <label for="observacoes">Observações:</label>
+                            <textarea class="form-control" id="observacao_gestor" name="observacao_gestor" rows="3"></textarea>
+                        </div>
+
+                        <div class="col d-flex align-items-center justify-content-evenly mt-4">
                             <button name="action" type="submit" class="buttonAnalisar btn-danger" value="reprovar">Reprovar</button>
 
-                            <button name="action" type="submit" class="buttonAnalisar btn-success" value="aprovar">Aprovar</button>    
+                            <button name="action" type="submit" class="buttonAnalisar btn-secondary" value="devolver">Devolver</button>
+
+                            <button name="action" type="submit" class="buttonAnalisar btn-success" value="aprovar">Aprovar</button>
                         </div>
-                 
                     </div>
 
                 </div>
