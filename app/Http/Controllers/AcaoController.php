@@ -199,19 +199,19 @@ class AcaoController extends Controller
         $acao = Acao::findOrFail($acao_id);
 
         $message = AcaoValidator::validate_acao($acao);
-        
+
         if($message){
             return redirect()->back()->with(['alert_mensage' => $message]);
 
         }
-        
+
         $acao->status = 'Em análise';
         $acao->update();
 
         $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3);
 
         //enviar email
-        Mail::to($user)->send( new AcaoSubmetida([ 
+        Mail::to($user)->send( new AcaoSubmetida([
             'acao'    =>$acao->titulo,
             'acao_id' => $acao->id,
         ]));
@@ -242,16 +242,22 @@ class AcaoController extends Controller
         if($request->action == 'reprovar')
         {
            $status = 'Reprovada';
-        } else
+        }
+        elseif($request->action == 'devolver')
+        {
+            $status = 'Devolvida';
+        }
+        else
         {
             $status = 'Aprovada';
         }
 
         $acao->status = $status;
+        $acao->observacao_gestor = $request->observacao_gestor;
 
         $acao->update();
 
-       
+
         //enviar email para o coordenador
         Mail::to($acao->user->email, $acao->user->name)->send(new AnalisarAcao([
             'acao'   => $acao->titulo,
@@ -265,7 +271,7 @@ class AcaoController extends Controller
             Mail::to($acao->participantes())->send(new CertificadoDisponivel([
                 'acao'   => $acao->titulo,
             ]));
-            
+
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
         } else
         {
