@@ -2,7 +2,7 @@
     <div class="row linha-table d-flex align-items-center justify-content-start">
         <div class="col-4 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
         <div class="col-2 text-center"><span>{{date( 'd/m/Y' , strtotime($acao->data_inicio)).' - '.date( 'd/m/Y' , strtotime($acao->data_fim))}}</span></div>
-        <div class="col-1 text-center"><span>{{ $acao->status }}</span></div>
+        <div class="col-1 text-center tag tag-{{$acao->status}}"><span>{{ $acao->status }}</span></div>
         <div class="col-1 text-center"><span>{{$acao->tipo_natureza->natureza->descricao}}</span></div>
         <div class="col-2 text-center">
             <span>
