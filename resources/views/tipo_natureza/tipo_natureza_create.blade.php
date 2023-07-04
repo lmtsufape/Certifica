@@ -22,7 +22,7 @@
                 </div>
                 <div class="row d-flex aligm-items-start justify-content-start mb-3">
                     <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Descrição <span class="ast">*</span> </span>
+                        <span class="tittle-input">Natureza <span class="ast">*</span> </span>
 
                         <select name="natureza_id" id="tipo_natureza"  class="select-form w-100 " required>
                             <option value="" selected hidden>-- Natureza --</option>
