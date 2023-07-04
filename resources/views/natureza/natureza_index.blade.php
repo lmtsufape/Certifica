@@ -4,40 +4,60 @@
     Naturezas
 @endsection
 
-@section('content')
-
-    <div class="container">
-        <div class="text-center" style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
-            <h2>Naturezas</h2>
-        </div>
-        <div class='row justify-content-end' style="padding-bottom: 5px; margin-bottom: 10px">
-            <div class='col col-1'>
-                <a href="{{route('natureza.create')}}" class="btn btn-success">Cadastrar</a>
-            </div>
-        </div>
-
-        <table class="table table-hover table-responsive-md">
-            <thead style="background-color: #151631; color: white; border-radius: 15px">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Descrição</th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-
-            <tbody>
-            @foreach($naturezas as $natureza)
-                <tr>
-                    <td></td>
-                    <td>{{ $natureza->descricao }}</td>
-                    <td>
-                        <a class="btn btn-secondary" href ="{{ route('natureza.edit', ['natureza_id' => $natureza->id]) }}">Editar</a>
-
-                        <a class="btn btn-danger" href ="{{ route('natureza.delete', ['natureza_id' => $natureza->id]) }}">Apagar</a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/list.css">
 @endsection
+
+@section('content')
+    <div class='container'>
+        <section class="view-list-acoes">
+            <div class="container">
+
+                <div class="text-center mb-3">
+                    <h3>Tipos de Natureza</h3>
+                </div>
+
+                <div class="row d-flex align-items-center justify-content-end">
+                    <a class="criar-acao-button" href={{route('natureza.create')}}>
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
+                    </a>
+                </div>
+                <div class="row head-table d-flex align-items-center justify-content-center">
+                    <div class="col-9"><span class="spacing-col">Descrição</span></div>
+                    <div class="col-3"><span>Funcionalidades</span></div>
+                </div>
+            </div>
+
+            <div class="list container overflow-scroll">
+
+                @foreach ($naturezas as $natureza)
+                    <div class="row linha-table d-flex align-items-center justify-content-center">
+                        <div class="col-9">
+                            <span class="spacing-col">
+                                {{ $natureza->descricao }}
+                            </span>
+                        </div>
+
+                        <div class="col-3 d-flex ">
+
+                            <div class="col-6 d-flex align-items-center justify-content-evenly">
+                                <span>
+                                    <a
+                                        href={{ route('natureza.edit', ['natureza_id' => $natureza->id]) }}>
+                                        <img src="/images/acoes/listView/editar.svg" alt="Editar">
+                                    </a>
+                                </span>
+                                <span>
+                                    <a
+                                        href={{ route('natureza.delete', ['natureza_id' => $natureza->id]) }}>
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir">
+                                    </a>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endsection
