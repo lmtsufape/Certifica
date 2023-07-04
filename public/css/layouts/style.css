@@ -4,8 +4,10 @@
     padding: 0;
     margin: 0;
 }
-html, body {
-    min-height: 100%;
+
+body {
+    height: 100vh ;
+    width: 100vw ; /*view width é a medida css utilizada para adaptar nossa largura  */
 }
 
 header {
@@ -83,7 +85,7 @@ footer{
     justify-content: flex-start;
     align-items: center;
     background: #972E3F;
-    height: 20vh;
+    height: 20vh max-content;
 }
 
 footer .text-icons {

@@ -21,3 +21,7 @@ button {
 button:hover{
     opacity: 1;
 }
+
+.text-justify{
+    text-align: justify;
+}
