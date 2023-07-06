@@ -30,7 +30,7 @@
 
             <div class="list container overflow-scroll">
                 @foreach ($unidade_administrativas as $unidade_administrativa)
-                    <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="row titulo-span linha-table d-flex align-items-center justify-content-center">
                         <div class="col-9">
                             <span class="spacing-col">
                                 {{ $unidade_administrativa->descricao }}

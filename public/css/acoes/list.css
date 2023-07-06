@@ -84,3 +84,11 @@
     padding: 9px 0px;
     border-radius: 5px;
 }
+
+
+@media (width < 768px){
+    .head-table,.linha-table{
+        font-size: 12px;
+    }
+}
+
