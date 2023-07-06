@@ -86,7 +86,7 @@
                                 @endif
                                 
                                 @if (Auth::user()->perfil_id == 2)
-                                    <a href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
+                                    <a onclick="return confirm('Você tem certeza que deseja remover o participante?')" href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
                                         <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                                     </a>
                                 @endif
