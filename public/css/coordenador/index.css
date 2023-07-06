@@ -3,35 +3,22 @@
     padding: 0;
 }
 
-/*bootstrap manipulation*/
-.row{
-    width: 100%; 
-    height: 100%;
-}
-.col{
-    height: 100%;
-}
+/*gerais view index (adm,coordenador,gestor)*/
 
-/*gerais view*/
-
-.box-coordenador-index{
+.box-index{
     padding: 50px 0px 50px 80px;
 }
-.index-coordenador-view {
-    height: 55vh;
+.index-view {
+    height: 55vh max-content;
     width: 100%;
 }
-
-.box-opt{
+.box-opt{       
     width: 150px;
     height: 168px;
     background: #FFFFFF;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    margin: 0 20px 0 0;
-}
-.padding-listar{
-    padding: 40px 0 0 0;
+    margin: 0 20px 10px 0;
 }
 
 .icon-opt{
@@ -39,12 +26,19 @@
 }
 
 .link-opt{
+    display: inline-block;
+    vertical-align: middle;
     text-decoration: none;
     color: #972E3F;
 }
 .link-opt:hover{
     color: #972E3F;
 }
+
+
+/*especifico coordenador*/
+
+
 /*Box infos coordenador*/
 .icon-titulo{
     width: 20px;
@@ -52,7 +46,7 @@
 }
 .box-infos{
     border-radius: 10px;
-    width: 50%;
+    width: 300px;
     padding-bottom: 5px;
     height: 45% max-content;
     font-weight: bold;
@@ -64,6 +58,7 @@
     background-color: #972E3F;
     color: white;
 }
+
 .square{
     width: 73px;
     height: 53px;
@@ -78,3 +73,46 @@
     background-color: #FFE3EC;
 }
 
+/*index coordenador tem comportamento diferente */
+
+.box-coordenador{
+    padding: 50px 0px 50px 80px;
+}
+.box-contador{
+    display: flex;
+    align-items: flex-end;
+    justify-content:flex-end;
+}
+
+
+
+
+
+/*responsividade*/
+@media (width < 700px) {
+    .box-opt{       
+        width: 120px;
+        height: 138px;
+   
+    }
+    .box-coordenador{
+        padding: 20px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .box-contador{
+        display: flex;
+        align-items: flex-end;
+        justify-content:center;
+    }
+}
+@media (width < 600px) {
+    .box-opt{       
+        width: 100px;
+        height: 118px;
+        font-size: 12px;
+    }
+
+
+}
