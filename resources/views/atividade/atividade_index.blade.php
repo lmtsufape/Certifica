@@ -54,7 +54,7 @@
                             <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/acoes/listView/editar.svg" alt="">
                             </a>
-                            <a href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
+                            <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')" href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                             </a>
                         </div>

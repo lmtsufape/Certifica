@@ -18,11 +18,11 @@
             <span><a href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/atividade.svg" alt="Atividades"></a></span>
             @if ($acao->status == null)
                 <span><a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
-                <span><a href="{{ Route('acao.delete', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                <span><a onclick="return confirm('Você tem certeza que deseja excluir esta ação?')" href="{{ Route('acao.delete', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
                 @if(Auth::user()->perfil_id == 3)
                     <span><a href="{{ Route('gestor.gerar_certificados', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"></a></span>
                 @else
-                <span><a href="{{ Route('acao.submeter', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
+                <span><a onclick="return confirm('Você tem certeza que deseja submeter esta ação?')" href="{{ Route('acao.submeter', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
                 @endif
 
             @elseif($acao->status == 'Aprovada')
