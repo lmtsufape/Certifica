@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/create.css">
+    <link rel="stylesheet" href="/css/cadastros/cadastroUsuario.css">
 @endsection
 
 @section('content')
@@ -20,9 +21,7 @@
     </div>
 
 
-
-
-    <form class="form card mx-auto shadow-lg p-3 mb-5 bg-white rounded" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+    <form class="container-form-cadastro-usuario form card mx-auto shadow-lg p-3 mb-5 bg-white rounded" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
         <h2 class="text-center mb-3">Cadastro de Usuário</h2>
 
         @csrf
