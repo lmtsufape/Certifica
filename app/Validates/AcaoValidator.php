@@ -28,12 +28,14 @@ class AcaoValidator {
         }
 
         //se existe atividades sem participantes
-        $not_part = $atividades->each(function($atividade){
-            return $atividade->participantes->count() < 1;
-        });
+        $count = false;
 
-        if($not_part){
-            return 'É preciso existir pelo menos um participante em cada atividade cadastrada para submeter a ação';
+        foreach($atividades->get() as $atividade){
+
+            if($atividade->participantes->count() < 1){
+                $count = true;
+                return 'É preciso existir pelo menos um participante em cada atividade cadastrada para submeter a ação';
+            }
         }
     }
 

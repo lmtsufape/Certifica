@@ -28,6 +28,14 @@
                         <span>Cadastrar Ações</span>
                     </div>
                 </a>
+
+                <a class="link-opt" href="{{ route('participante.certificados') }}">
+                    <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
+                        <img class="icon-opt" src="{{ '/images/home/certificado.svg' }}" alt="">
+                        <span>Meus Certificados</span>
+                    </div>
+                </a>
+
             </div>
         </div>
 
