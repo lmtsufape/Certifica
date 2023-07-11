@@ -12,10 +12,11 @@
             <h1 class="w-100 text-center mb-3">Certifica</h1>
 
             <div class="text-conteudo-homepage">
-                O Certifica teve sua primeira versão desenvolvida pela Unidade Acadêmica de
-                Garanhuns da Universidade Federal Rural de Pernambuco, sendo posteriormente
-                continuada e mantida pela Universidade Federal do Agreste de Pernambuco –
-                UFAPE para atender demandas do setor da Escolaridade (atual DRCA).
+                O Certifica é uma plataforma web desenvolvida pela Universidade Federal do 
+                Agreste de Pernambuco por meio do Laboratório Multidisciplinar de Tecnologias 
+                Sociais em parceria com a Pró-Reitoria de Extensão e Cultura. A ferramenta visa 
+                contribuir para ampliar a eficiência da gestão pública no processo de elaboração, 
+                gestão e acreditação de certificados emitidos por diversos setores institucionais. 
             </div>
 
         </section>

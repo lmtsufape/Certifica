@@ -68,9 +68,6 @@
 
                             </div>
                             <div class="col-6 d-flex align-items-center justify-content-between">
-                                <a href="">
-                                    <img src="/images/acoes/listView/eye.svg" alt="">
-                                </a>
 
                                 @if ($acao->status == 'Aprovada')
                                     <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
@@ -86,7 +83,7 @@
                                 @endif
                                 
                                 @if (Auth::user()->perfil_id == 2)
-                                    <a href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
+                                    <a onclick="return confirm('Você tem certeza que deseja remover o participante?')" href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
                                         <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                                     </a>
                                 @endif

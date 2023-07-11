@@ -1,10 +1,10 @@
 @foreach ($acoes as $acao)
     <div class="row linha-table d-flex align-items-center justify-content-start">
-        <div class="col-4 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
-        <div class="col-2 text-center"><span>{{date( 'd/m/Y' , strtotime($acao->data_inicio)).' - '.date( 'd/m/Y' , strtotime($acao->data_fim))}}</span></div>
-        <div class="col-1 text-center tag tag-{{$acao->status}}"><span>{{ $acao->status }}</span></div>
+        <div class="col-5 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
         <div class="col-1 text-center"><span>{{$acao->tipo_natureza->natureza->descricao}}</span></div>
-        <div class="col-2 text-center">
+        <div class="col-2 text-center"><span>{{$acao->tipo_natureza->descricao}}</span></div>
+        <div class="col-1 text-center tag tag-{{$acao->status}}"><span>{{ $acao->status }}</span></div>
+        <div class="col-1 text-center">
             <span>
                 @if ($acao->anexo != null)
                     <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">
@@ -18,11 +18,11 @@
             <span><a href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/atividade.svg" alt="Atividades"></a></span>
             @if ($acao->status == null)
                 <span><a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
-                <span><a href="{{ Route('acao.delete', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                <span><a onclick="return confirm('Você tem certeza que deseja excluir esta ação?')" href="{{ Route('acao.delete', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
                 @if(Auth::user()->perfil_id == 3)
                     <span><a href="{{ Route('gestor.gerar_certificados', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"></a></span>
                 @else
-                <span><a href="{{ Route('acao.submeter', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
+                <span><a onclick="return confirm('Você tem certeza que deseja submeter esta ação?')" href="{{ Route('acao.submeter', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/submeter.svg" alt="submeter"></a></span>
                 @endif
 
             @elseif($acao->status == 'Aprovada')

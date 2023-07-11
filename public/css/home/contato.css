@@ -25,3 +25,17 @@ button:hover{
 .text-justify{
     text-align: justify;
 }
+
+/*
+quando ler o css do arquivo contato as telas pequenas vao ajustar 
+o footer abaixo arquivo contato.css é chamado em telas com pouco 
+conteudo
+*/
+footer{
+    position: fixed;
+    bottom: 0;
+}
+
+
+
+
