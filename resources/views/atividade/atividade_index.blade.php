@@ -48,9 +48,6 @@
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
 
-                            <a href="">
-                                <img src="/images/acoes/listView/eye.svg" alt="">
-                            </a>
                             <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
                                 <img src="/images/acoes/listView/editar.svg" alt="">
                             </a>
