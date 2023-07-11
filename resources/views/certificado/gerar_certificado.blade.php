@@ -81,7 +81,7 @@
 
     <body class="fundo_certificado">
         <p class="texto_certificado">
-            {{ $modelo->texto }}
+            {!! $modelo->texto !!}
 
             <br> <br> <br>
 
