@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateAcaoRequest;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Validates\AcaoValidator;
+use App\Validates\CertificadoModeloValidator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -238,6 +239,12 @@ class AcaoController extends Controller
     public function acao_update(Request $request)
     {
         $acao = Acao::findOrFail($request->id);
+
+        $message = $request->action == "aprovar" ? CertificadoModeloValidator::validate_acao($acao) : null;
+
+        if($message){
+            return redirect()->back()->with(['alert_mensage' => $message]);
+        }
 
         if($request->action == 'reprovar')
         {
