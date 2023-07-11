@@ -2,6 +2,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/create.css">
+    <link rel="stylesheet" href="/css/cadastros/cadastrarAcao.css">
 @endsection
 
 @section('content')
@@ -12,7 +13,7 @@
         <!-- Hiddens-->
         <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
 
-        <div class="form-row">
+        <div class="form-row form-box">
 
 
 
@@ -20,9 +21,9 @@
 
       
 
-                <div class="row d-flex aligm-items-start justify-content-start">
+                <div class="row box">
 
-                    <div class="col-3 spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Natureza<span class="ast">*</span></span>
                         <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
                             <option value="" selected hidden>-- Natureza --</option>
@@ -32,8 +33,7 @@
                         </select>
                     </div>
 
-
-                    <div class="col-8 grow input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                    <div class="col-xl-8 campo grow input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
                         <select name="tipo_natureza_id" class="select-form w-100" id="select_tipo_natureza" required>
@@ -42,29 +42,28 @@
                     </div>
                 </div>
 
-                <div class="row d-flex aligm-items-start justify-content-start">
-                    <div class="col-md-12 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                <div class="row box">
+                    <div class="col-xl-12 campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Título<span class="ast">*</span></span>
-                        <input class="w-75 input-text " type="text" name="titulo" id=""
-                            value="{{ old('titulo') }}" required>
+                        <input class="w-75 input-text " type="text" name="titulo" id="" required>
                     </div>
                 </div>
 
-                <div class="row d-flex aligm-items-start justify-content-start">
+                <div class="row box">
                     <input hidden type="file" name="anexo" id="anexo">
 
-                    <div class="col-md-3 spacing-row2 input-create-box ">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box ">
                         <span class="tittle-input">Data de Início<span class="ast">*</span></span><input class="w-100"
                             type="date" name="data_inicio" id="" value="{{ old('data_inicio') }}" required>
                     </div>
 
-                    <div class="col-md-3 spacing-row2 input-create-box">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box">
                         <span class="tittle-input">Data de Término <span class="ast">*</span></span>
                         <input class="w-100" type="date" name="data_fim" id="" value="{{ old('data_fim') }}"
                             required>
                     </div>
 
-                    <div class="col-md-5 input-create-box d-flex align-items-start justify-content-start flex-column">
+                    <div class="col-md-5 campo grow input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Processo SIPAC, relatório final ou similares<span
                                 class="ast">*</span></span>
 
@@ -81,29 +80,29 @@
                 </div>
             @else
 
-                <div class="row d-flex aligm-items-start justify-content-start">
-                    <div class="col-md-12 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                <div class="row box">
+                    <div class="col-xl-12 campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Título<span class="ast">*</span></span>
                         <input class="w-75 input-text " type="text" name="titulo" id=""
                             value="{{ old('titulo') }}" required>
                     </div>
                 </div>
 
-                <div class="row d-flex aligm-items-start justify-content-start">
-                    <div class="col-md-3 spacing-row2 input-create-box ">
+                <div class="row box">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box ">
                         <span class="tittle-input"> Data de Início<span class="ast">*</span> </span>
                         <input class="w-100" type="date" name="data_inicio" id=""
                             value="{{ old('data_inicio') }}" required>
                     </div>
 
-                    <div class="col-md-3 spacing-row2 input-create-box">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box">
                         <span class="tittle-input">Data de Término<span class="ast">*</span></span><input class="w-100"
                             type="date" name="data_fim" id="" value="{{ old('data_fim') }}" required>
                     </div>
 
                     <input type="hidden" name="natureza_id" value="{{ $natureza->id }}">
 
-                    <div class="col-md-5 input-create-box">
+                    <div class="col-xl-5 campo input-create-box">
                         <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
                         <select name="tipo_natureza_id" class="select-form w-100 " id="select_tipo_natureza" required>

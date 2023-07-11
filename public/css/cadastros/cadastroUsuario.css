@@ -1,0 +1,15 @@
+.container-form-cadastro-usuario{
+    min-width: 500px;
+}
+
+
+
+
+@media (width < 576px) {
+    .container-form-cadastro-usuario{
+        min-width: 350px;
+    }
+    button {
+        min-width: 120px;
+    }
+}
