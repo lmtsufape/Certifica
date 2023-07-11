@@ -68,9 +68,6 @@
 
                             </div>
                             <div class="col-6 d-flex align-items-center justify-content-between">
-                                <a href="">
-                                    <img src="/images/acoes/listView/eye.svg" alt="">
-                                </a>
 
                                 @if ($acao->status == 'Aprovada')
                                     <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
