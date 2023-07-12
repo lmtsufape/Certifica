@@ -104,6 +104,8 @@
 
     </form>
 
+    <x-legenda/>
+
     <script>
         //nome do arquivo de plano de fundo
         var plano_fundo = document.getElementById('plano_fundo');

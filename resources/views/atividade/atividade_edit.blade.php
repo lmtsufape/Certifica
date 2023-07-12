@@ -6,13 +6,14 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/create.css">
+    <link rel="stylesheet" href="/css/cadastros/cadastrarAcao.css">
 @endsection
 
 @section('content')
     <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
-    <h1 class="text-center">Editar Atividade/Função</h1>
+    <h1 class="text-center mb-5">Editar Atividade/Função</h1>
 
-    <form class="container form" action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
+    <form class="container form form-box" action="{{Route('atividade.update')}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!--hiddens -->
@@ -21,9 +22,9 @@
         <input value="{{ $acao->titulo }}" hidden class="w-75 input-text" type="text" name="titulo" id="">
 
 
-        <div class="row d-flex aligm-items-start justify-content-start ">
+        <div class="row box">
 
-            <div class="col-4 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column mb-5">
+            <div class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Atividade/Função</span>
                 <select class="select-form w-100 " name="descricao" id="">
                     <option value={{$atividade->descricao}} selected hidden>{{$atividade->descricao}}</option>
@@ -33,11 +34,11 @@
                 </select>
             </div>
 
-            <div class="col-3 spacing-row1 input-create-box">
+            <div class="col-xl-3 campo spacing-row1 input-create-box">
                 <span class="tittle-input w-50">Data de Início</span>
                 <input class="w-100" type="date" name="data_inicio" id="" value="{{$atividade->data_inicio}}">
             </div>
-            <div class="col-3 input-create-box">
+            <div class="col-xl-3 campo input-create-box">
                 <span class="tittle-input w-50">Data de Término</span>
                 <input class="w-100" type="date" name="data_fim" id="" value="{{$atividade->data_fim}}">
             </div>

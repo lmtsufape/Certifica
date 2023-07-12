@@ -2,8 +2,6 @@
     height: max-content;
     flex-wrap: nowrap;
 }
-
-
 @media (width < 1200px) {
     .box{
         flex-wrap: wrap;
