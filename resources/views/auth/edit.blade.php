@@ -10,7 +10,7 @@
             <div class="col-md-7">
 
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" style='color:#FFFFFF; background: #972E3F;'>
                         <div class="row justify-content-center">
                                 <div class="col-md-3">
                                     <h3>Editar Perfil</h3>
