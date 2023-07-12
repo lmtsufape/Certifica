@@ -1,0 +1,38 @@
+.box{
+    height: max-content;
+    flex-wrap: nowrap;
+}
+
+
+@media (width < 1200px) {
+    .box{
+        flex-wrap: wrap;
+    }
+    .form-box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .row {
+        margin: 0;
+        width: 70vw;
+    }
+    .campo{
+        margin: 0px 0 20px 0;
+    }
+}
+@media (width < 768px) {
+    .submit,.cancel{
+        width: 130px;
+    }
+    .campo{
+        min-width: 350px;
+        
+    }
+}
+@media (width < 576px) {
+    .submit,.cancel{
+        width: 110px;
+    }
+}
