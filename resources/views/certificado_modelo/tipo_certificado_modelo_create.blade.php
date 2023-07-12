@@ -2,6 +2,11 @@
 
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/create.css">
+    <link rel="stylesheet" href="/css/modelo_certificado/modelo_certificado.css">
+@endsection
+
 @section('content')
     <div class="container">
         <div class='row justify-content-center'>
@@ -72,5 +77,8 @@
                 </div>
             </div>
         </form>
+
+        <x-legenda/>
+
     </div>
 @endsection
