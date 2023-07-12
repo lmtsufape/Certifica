@@ -113,9 +113,9 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%');
-        $depois = array('<b>'.$participante->user->name.'</b>', $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                        $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao);
+        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '.*', '*.');
+        $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
+                        $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '<b>', '</b>');
 
         $modelo->texto = str_replace($antes, $depois, $modelo->texto);
 
