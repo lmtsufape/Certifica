@@ -89,7 +89,7 @@
                                 @endif
 
                                 @if(Auth::user()->perfil_id == 3)
-                                    <a href="{{ route('participante.revogar_certificado', ['participante_id' => $participante->id]) }}">
+                                    <a href="{{ route('participante.invalidar_certificado', ['participante_id' => $participante->id]) }}">
                                         <img src="/images/acoes/listView/revogar.svg" alt="">
                                     </a>
 
