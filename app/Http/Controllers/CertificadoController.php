@@ -109,7 +109,13 @@ class CertificadoController extends Controller
 
         $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
 
+        if(!$certificado)
+        {
+            return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi revogado, um novo precisa ser emitido!']);
+        }
+
         $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
+
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
@@ -161,7 +167,8 @@ class CertificadoController extends Controller
         return $pdf->stream($nomePDF);
     }
 
-    public function ver_certificado_participante($participante_id){
+    public function ver_certificado_participante($participante_id)
+    {
         $participante = Participante::findOrFail($participante_id);
 
         if(Auth::user()->id == $participante->user->id){
@@ -169,6 +176,56 @@ class CertificadoController extends Controller
         }
 
         return redirect()->back()->withError('Você não pode vizualizar este certificado');
+    }
+
+    public function revogar_certificado($participante_id)
+    {
+        $participante = Participante::findOrFail($participante_id);
+
+        $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $participante->atividade->id)->first();
+
+        if(!$certificado)
+        {
+            return redirect()->back()->with(['error_mensage' => 'O certificado deste participante já foi revogado anteriormente, emita um novo!']);
+        } 
+        else
+        {
+            $certificado->delete(); 
+
+            return redirect()->back()->with(['mensagem' => 'Certificado revogado com sucesso, emita um novo!']);
+        }
+    }
+
+    public function reemitir_certificado($participante_id)
+    {
+        $participante = Participante::findOrFail($participante_id);
+
+        $certificado_atual = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $participante->atividade->id)->first();
+
+        if($certificado_atual)
+        {
+            return redirect()->back()->with(['error_mensage' => 'O certificado precisa ser revogado antes que um novo possa ser emitido!']);
+        }
+        else
+        {
+            $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $participante->atividade->descricao)->first();
+
+            if(!$certificado_modelo)
+            {
+                $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
+            }
+
+            $certificado = new Certificado();
+
+            $certificado->cpf_participante = $participante->user->cpf;
+            $certificado->codigo_validacao = Str::random(15);
+            $certificado->certificado_modelo_id = $certificado_modelo->id;
+            $certificado->atividade_id = $participante->atividade->id;
+
+            $certificado->save();
+
+            return redirect()->back()->with(['mensagem' => 'Certificado emitido com sucesso!']);
+        }
     }
 
     /**
