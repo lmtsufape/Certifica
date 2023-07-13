@@ -190,7 +190,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::post('/participante/index/{atividade_id}/import', [ParticipanteController::class, 'import_participantes'])->name('import_participantes');
 
-    Route::get('/participante/revogar_certificado/{participante_id}', [CertificadoController::class, 'revogar_certificado'])->name('participante.revogar_certificado');
+    Route::get('/participante/invalidar_certificado/{participante_id}', [CertificadoController::class, 'invalidar_certificado'])->name('participante.invalidar_certificado');
 
     Route::get('/participante/reemitir_certificado/{participante_id}', [CertificadoController::class, 'reemitir_certificado'])->name('participante.reemitir_certificado');
     

@@ -111,7 +111,7 @@ class CertificadoController extends Controller
 
         if(!$certificado)
         {
-            return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi revogado, um novo precisa ser emitido!']);
+            return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi invalidado, um novo precisa ser emitido!']);
         }
 
         $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
@@ -178,7 +178,7 @@ class CertificadoController extends Controller
         return redirect()->back()->withError('Você não pode vizualizar este certificado');
     }
 
-    public function revogar_certificado($participante_id)
+    public function invalidar_certificado($participante_id)
     {
         $participante = Participante::findOrFail($participante_id);
 
@@ -186,13 +186,13 @@ class CertificadoController extends Controller
 
         if(!$certificado)
         {
-            return redirect()->back()->with(['error_mensage' => 'O certificado deste participante já foi revogado anteriormente, emita um novo!']);
+            return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi invalidado anteriormente, emita um novo!']);
         } 
         else
         {
             $certificado->delete(); 
 
-            return redirect()->back()->with(['mensagem' => 'Certificado revogado com sucesso, emita um novo!']);
+            return redirect()->back()->with(['mensagem' => 'Certificado invalidado com sucesso, emita um novo!']);
         }
     }
 
@@ -204,7 +204,7 @@ class CertificadoController extends Controller
 
         if($certificado_atual)
         {
-            return redirect()->back()->with(['error_mensage' => 'O certificado precisa ser revogado antes que um novo possa ser emitido!']);
+            return redirect()->back()->with(['error_mensage' => 'O certificado precisa ser invalidado antes que um novo possa ser emitido!']);
         }
         else
         {
