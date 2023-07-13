@@ -189,6 +189,10 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/acao/get/tipo_natureza/{natureza_id}', [AcaoController::class, 'get_tipo_natureza'])->name('acao.get_tipo_natureza');
 
     Route::post('/participante/index/{atividade_id}/import', [ParticipanteController::class, 'import_participantes'])->name('import_participantes');
+
+    Route::get('/participante/revogar_certificado/{participante_id}', [CertificadoController::class, 'revogar_certificado'])->name('participante.revogar_certificado');
+
+    Route::get('/participante/reemitir_certificado/{participante_id}', [CertificadoController::class, 'reemitir_certificado'])->name('participante.reemitir_certificado');
     
 });
 
