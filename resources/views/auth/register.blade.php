@@ -111,6 +111,9 @@
                 </select>
             </div>
         </div>
+
+        <input type="hidden" name="instituicao" value="{{ null }}">
+        
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Senha<span class="ast">*</span></span>
