@@ -6,12 +6,11 @@
 @section('css')
     <link rel="stylesheet" href="/css/acoes/create.css">
     <link rel="stylesheet" href="/css/modelo_certificado/modelo_certificado.css">
-    <link rel="stylesheet" href="/css/modelo_certificado/legendas.css">
 @endsection
 
 @section('content')
     <h2 class="text-center">CADASTRAR MODELO DE CERTIFICADOS</h2>
-    
+
     <form class="container form" action="{{ Route('certificado_modelo.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!--hiddens -->
@@ -100,8 +99,9 @@
 
     </form>
 
-
-    <x-legenda/>
+    <!--
+        <x-legenda/>
+    -->
 
     <script>
         //nome do arquivo de plano de fundo
