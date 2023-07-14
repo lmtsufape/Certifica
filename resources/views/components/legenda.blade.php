@@ -23,7 +23,7 @@
                 <li>Carga horária = %carga_horaria%</li>
                 <li>Narureza da ação = %natureza%</li>
                 <li>Tipo da natureza da ação = %tipo_natureza%</li>
-                <li>Negrito = .*frase/palavra/tag*.</li>
+                <li>Negrito = *frase/palavra/tag*</li>
             </ul>
         </div>
     </div>
