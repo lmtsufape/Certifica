@@ -99,7 +99,9 @@
 
     </form>
 
-    <x-legenda/>
+    <!--
+        <x-legenda/>
+    -->
 
     <script>
         //nome do arquivo de plano de fundo
