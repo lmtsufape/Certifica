@@ -1,0 +1,13 @@
+
+.header-legenda{
+    background-color: #972E3F;
+    color: white;
+    text-align: center;
+}
+
+.card-legenda{
+    width: max-content;
+    position: fixed;
+    top: 50%;
+    right: 0px;
+}
