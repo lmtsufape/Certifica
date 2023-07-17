@@ -126,7 +126,12 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
 
     Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
 
-    Route::get('/relatorios', [RelatorioController::class, 'index'])->name('relatorios');
+    Route::name('relatorios.')->group(function () {
+        Route::get('/relatorios', [RelatorioController::class, 'index'])->name('index');
+
+        Route::get('/relatorios/filtro', [RelatorioController::class, 'filtro'])->name('filtro');
+    });
+
 });
 
 
