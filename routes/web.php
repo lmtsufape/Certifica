@@ -15,6 +15,8 @@ use \App\Http\Controllers\AssinaturaController;
 use App\Models\UnidadeAdministrativa;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NavbarController;
+use App\Http\Controllers\RelatorioController;
+
 
 
 /*
@@ -124,6 +126,7 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
 
     Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
 
+    Route::get('/relatorios', [RelatorioController::class, 'index'])->name('relatorios');
 });
 
 
