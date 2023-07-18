@@ -76,6 +76,12 @@ class ParticipanteController extends Controller
                 ->withErrors($exception->validator)->withInput();
         }
 
+        $atividade = Atividade::find(request('atividade_id'));
+
+        if($atividade->participantes->where('user.cpf', $attributes['cpf'])->first()){
+            return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
+                            ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+        }
 
         $user = $this->createUser($attributes);
 
