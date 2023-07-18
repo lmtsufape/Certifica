@@ -36,4 +36,14 @@ class Certificado extends Model
         $naturezas = Natureza::where('id', $natureza)->get();
         return $certificados->whereIn('atividade.acao.tipo_natureza.natureza', $naturezas);
     }
+
+    public static function search_tipo_natureza($certificados, $tipo_natureza){
+        $tipos = TipoNatureza::find($tipo_natureza);
+        return $certificados->where('atividade.acao.tipo_natureza', $tipos);
+    }
+
+    public static function search_atividade($certificados, $nome_atividade){
+        $atividades = Atividade::where('descricao', 'ilike', '%'.$nome_atividade.'%')->get();
+        return $certificados->whereIn('atividade', $atividades);
+    }
 }

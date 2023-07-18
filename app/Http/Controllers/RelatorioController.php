@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Certificado;
 use App\Models\Natureza;
 use App\Models\UnidadeAdministrativa;
+use App\Models\TipoNatureza;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -14,8 +15,9 @@ class RelatorioController extends Controller
 {
     public function index(){
         $naturezas = Natureza::all();
+        $tipos_natureza = TipoNatureza::orderBy('descricao')->get();
 
-        return view('relatorios.index', compact('naturezas'));
+        return view('relatorios.index', compact('naturezas', 'tipos_natureza'));
     }
 
     public function filtro(){
@@ -40,6 +42,15 @@ class RelatorioController extends Controller
         if(request('natureza')){
             $certificados = Certificado::search_natureza($certificados, request('natureza'));
         }
+
+        if(request('tipo_natureza')){
+            $certificados = Certificado::search_tipo_natureza($certificados, request('tipo_natureza'));
+        }
+
+        if(request('atividade')){
+            $certificados = Certificado::search_atividade($certificados, request('atividade'));
+        }
+
 
         
         $total = count($certificados);

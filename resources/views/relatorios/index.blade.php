@@ -18,13 +18,6 @@
             <form action="" id="form">
                 <div class="container">              
                     <div class="row head-table search-box d-flex align-items-center justify-content-center">
-                        <div class="col-4 d-flex flex-column align-items-start justify-content-center">
-                            <span>Buscar ação</span>
-                            <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
-                        </div>
-
-                        <div class="col-3 d-flex flex-column align-items-start justify-content-center"></div>
-
                         <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                             <span>Natureza</span>
                             <select class="input-box w-75" name="natureza" id="natureza">
@@ -34,6 +27,28 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                            <span>Tipo Natureza</span>
+                            <select class="input-box w-75" name="tipo_natureza" id="tipo_natureza">
+                                <option></option>
+                                @foreach($tipos_natureza as $tipo)
+                                    <option value="{{$tipo->id}}">{{$tipo->descricao}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                            <span>Nome da Ação</span>
+                            <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
+                        </div>
+
+                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                            <span>Nome da Atividade</span>
+                            <input class="input-box w-75" type="text" name="atividade" id="atividade">
+                        </div>
+
+                        
                     </div>
                 </div>
             </form>
