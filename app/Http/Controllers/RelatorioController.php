@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Certificado;
 use App\Models\Natureza;
+use App\Models\UnidadeAdministrativa;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -13,22 +14,21 @@ class RelatorioController extends Controller
 {
     public function index(){
         $naturezas = Natureza::all();
-        $certificados = Certificado::all();
 
         return view('relatorios.index', compact('naturezas'));
     }
 
     public function filtro(){
         $perfil_id = Auth::user()->perfil_id;
-        $unidade = Auth::user()->unidade_administrativa;
+        $unidade = Auth::user()->unidade_administrativa_id;
         
         if($perfil_id == 1){
     
             $certificados = Certificado::all();
     
         } else if($perfil_id == 3 && $unidade){
-            // $certificado->atividade->unidade_administrativa;
-            // $certificados = Certificado::where(, $unidade);
+            
+            $certificados = $this->get_certificados_by_unidade();            
     
         }
 
@@ -45,6 +45,20 @@ class RelatorioController extends Controller
         $total = count($certificados);
 
         return view('relatorios.list', compact('certificados', 'total')); 
+    }
+
+    private function get_certificados_by_unidade(){
+        $id_unidade = Auth::user()->unidade_administrativa_id;
+
+        $unidade = UnidadeAdministrativa::find($id_unidade);
+        
+        $certificados = collect();
+        
+        $unidade->acaos->each(function($acao) use ($certificados){
+            $certificados->push($acao->certificados);
+        });
+
+        return $certificados->collapse();
     }
     
 }
