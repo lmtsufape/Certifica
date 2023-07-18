@@ -228,33 +228,41 @@ class ParticipanteController extends Controller
 
         fgetcsv($file); //ler o cabeçalho
 
+        $participantes = [];
+
         while($row = fgetcsv($file)){
             //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
             $cpf = Mask::mask($row[1], "###.###.###-##");
             $user = User::where('cpf', '=', $cpf)->first();
         
+            $confirm = True;
+
             if(!$user)
             {
-                $user = new User();
-                $user->name  = $row[0];
-                $user->cpf   = $cpf;
-                $user->email = $row[2]; 
-                $user->perfil_id = 4;
-                $user->instituicao_id = 2;
-                $password = Str::random(15);
-                $user->password = Hash::make($password);
-                $user->save();
+                try{
+                    $user = new User();
+                    $user->name  = $row[0];
+                    $user->cpf   = $cpf;
+                    $user->email = $row[2]; 
+                    $user->perfil_id = 4;
+                    $user->instituicao_id = 2;
+                    $password = Str::random(15);
+                    $user->password = Hash::make($password);
+                    $user->save();
 
-                //enviar o email informando a senha 
-                Mail::to($user->email, $user->name)->send(new UsuarioNaoCadastrado([
-                                                                'email'    => $user->email,
-                                                                'password' => $password,
-                                                            ]));
+                    //enviar o email informando a senha 
+                    Mail::to($user->email, $user->name)->send(new UsuarioNaoCadastrado([
+                                                                    'email'    => $user->email,
+                                                                    'password' => $password,
+                                                                ]));
+                } catch (\Throwable $th) {
+                    $confirm = False;
+                    array_push($participantes, $user->name);
+                }
             } 
 
 
-
-            if(!$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
+            if($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
             {
                 $participante = new Participante();
                 $participante->carga_horaria = $row[3];
@@ -268,7 +276,16 @@ class ParticipanteController extends Controller
 
         fclose($file);
 
-        return redirect(route('participante.index', ['atividade_id' => $atividade_id]));
+        $mensagem = "Participantes adicionados!";
+
+        if($participantes){
+            $mensagem = "Os seguintes participantes não puderam ser adicionados:\n"
+                        .implode("  /  ",$participantes).".\n".
+                        "\n Verifique os dados dos participantes e tente novamente.";
+            return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['alert_mensage' => $mensagem]);
+        }
+
+        return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
     }
 
 }

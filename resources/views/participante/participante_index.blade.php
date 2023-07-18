@@ -152,7 +152,7 @@
                                 @csrf
                                 <div class="row align-items-start">
                                     <div class="col-9">
-                                        <input type="file"  accept=".csv"  name="participantes_csv" id="participantes_csv" class="form-control form-control-sm" style="margin-top:5%">
+                                        <input type="file"  accept=".csv"  name="participantes_csv" id="participantes_csv" class="form-control form-control-sm" style="margin-top:5%" required>
                                     </div>
 
                                     <div class="col">
