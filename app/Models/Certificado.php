@@ -20,6 +20,13 @@ class Certificado extends Model
         return $this->belongsTo(Atividade::class);
     }
 
+    public function participante($atividade_id, $cpf){
+        $participantes = Atividade::find($atividade_id)->participantes;
+        $participante = $participantes->where('user.cpf', $cpf)->first();
+        
+        return $participante;
+    }
+
     public static function search_acao($certificados, $nome_acao){
         $acoes = Acao::where('titulo', 'ilike', '%'.$nome_acao.'%')->get();
         return $certificados->whereIn('atividade.acao', $acoes);
