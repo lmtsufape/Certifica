@@ -38,6 +38,12 @@
                         <span>Solicitações</span>
                     </div>
                 </a>
+                <a class="link-opt" href="{{route('relatorios.index')}}">
+                    <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
+                        <img class="icon-opt" src="{{ '/images/home/relatorio.svg' }}" alt="">
+                        <span class="text-center">Relatórios</span>
+                    </div>
+                </a>
             </div>
 
         </div>

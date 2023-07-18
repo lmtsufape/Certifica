@@ -45,4 +45,8 @@ class Atividade extends Model
         return $this->hasMany(Participante::class);
     }
 
+    public function certificados(){
+        return $this->hasMany(Certificado::class);
+    }
+
 }

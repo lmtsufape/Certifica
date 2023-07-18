@@ -5,7 +5,7 @@
         <div class="col-2 text-center titulo-span"><span>{{$certificado->atividade->acao->titulo}}</span></div>
         <div class="col-2 text-center"><span>{{$certificado->atividade->descricao}}</span></div>
         <div class="col-2 d-flex align-items-center justify-content-evenly">
-            <span> <a href="#" target="blank">
+            <span> <a href="{{route('participante.ver_certificado', ['participante_id'=>$certificado->participante($certificado->atividade_id, $certificado->cpf_participante)->id])}}" target="blank">
                         <img src="/images/acoes/listView/certificado.svg" alt="Visualizar">
                     </a>
             </span>
