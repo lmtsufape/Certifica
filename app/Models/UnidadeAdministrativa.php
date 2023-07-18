@@ -21,4 +21,8 @@ class UnidadeAdministrativa extends Model
     public function users(){
         return $this->hasMany(User::class);
     }
+
+    public function acaos(){
+        return $this->hasMany(Acao::class);
+    }
 }
