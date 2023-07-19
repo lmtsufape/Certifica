@@ -42,7 +42,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/sistema',[NavbarController::class, 'sistema'])->name('home.sistema');
 Route::get('/contato',[NavbarController::class, 'contato'])->name('home.contato');
-
+Route::get('/tutorial',[NavbarController::class, 'tutorialView'])->name('home.tutorial');
+Route::get('/tutorialDownload',[NavbarController::class, 'tutorialDownload'])->name('home.download');
 
 Route::get(
     'logout',
