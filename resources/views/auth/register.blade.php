@@ -29,32 +29,32 @@
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Nome completo<span class="ast">*</span></span>
-                <input class="w-75 input-text" type="text" name="name" id="nome" required>
+                <input class="w-100 input-text h-100 " type="text" name="name" id="nome" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">CPF<span class="ast">*</span></span>
-                <input class="w-75 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf" id="cpf" required>
+                <input class="w-100 h-100 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf" id="cpf" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">E-mail<span class="ast">*</span></span>
-                <input class="input-text" type="email" name="email" id="" required>
+                <input class="input-text w-100 h-100" type="email" name="email" id="" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Celular<span class="ast">*</span></span>
-                <input class="input-text" type="text" name="celular" id="telefone" required>
+                <input class="input-text w-100 h-100" type="text" name="celular" id="telefone" required>
             </div>
         </div>
 
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Perfil<span class="ast">*</span></span>
-                <select class="select-form w-100" name="perfil_id" id="select_perfil" required>
+                <select class="select-form w-100 h-100" name="perfil_id" id="select_perfil" required>
                     <option selected hidden> -- Perfil --</option>
                     <option value="4"> Estudante </option>
                     <option value="2"> Professor </option>
@@ -66,14 +66,14 @@
         <div class="row camporegister_dinamico_hide" id="siape">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">SIAPE<span class="ast">*</span></span>
-                <input class="input-text" type="text" name="siape" id="siape">
+                <input class="input-text w-100 h-100" type="text" name="siape" id="siape">
             </div>
         </div>
 
         <div class="row camporegister_dinamico_hide " id="cursos_aluno">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Curso<span class="ast">*</span></span>
-                <select class="select-form w-100" name="cursos_ids[]" id="select_curso" style="text-align: center">
+                <select class="select-form w-100 h-100" name="cursos_ids[]" id="select_curso" style="text-align: center">
                     <option selected hidden> -- Curso --</option>
                     @foreach ($cursos as $curso)
                         <option value="{{ $curso->id }}"> {{ $curso->nome }}</option>
@@ -117,13 +117,13 @@
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Senha<span class="ast">*</span></span>
-                <input class="input-text" type="password" name="password" id="senha" required>
+                <input class="input-text w-100 h-100" type="password" name="password" id="senha" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Confirmar senha<span class="ast">*</span></span>
-                <input class="input-text" type="password" name="password_confirmation" id="confirmacao_senha" required>
+                <input class="input-text w-100 h-100" type="password" name="password_confirmation" id="confirmacao_senha" required>
             </div>
         </div>
         <div class="row d-flex align-items-center justify-content-center">
