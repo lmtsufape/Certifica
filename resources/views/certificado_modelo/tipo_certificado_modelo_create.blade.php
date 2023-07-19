@@ -56,7 +56,7 @@
                     <span class="tittle-input w-100">Texto padrão:</span>
 
 
-                    <textarea name="texto" class="w-100 campo input-create-box" id="texto">
+                    <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
                         {{ $modelo->texto }}
                     </textarea>
                 </div>
