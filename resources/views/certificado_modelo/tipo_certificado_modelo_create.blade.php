@@ -43,7 +43,7 @@
                     <div
                         class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Tipo Certificado</span>
-                        <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
+                        <select class="select-form w-100 " name="tipo_certificado" id="tipo_certificado" required>
                             @foreach ($tipos_certificado as $tipo)
                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
                             @endforeach

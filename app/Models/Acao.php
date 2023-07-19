@@ -69,6 +69,11 @@ class Acao extends Model
         return $participantes;
     }
 
+    public function certificados(){
+        return $this->throughAtividades()->hasCertificados();
+    }
+
+
 
     //######################### FILTROS ############################//
     public static function search_acao_by_name($acoes, $nome_acao){

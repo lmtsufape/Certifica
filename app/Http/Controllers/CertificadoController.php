@@ -101,10 +101,6 @@ class CertificadoController extends Controller
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
         $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
 
-
-        $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
-        $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
-
         $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
 
         $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
@@ -119,11 +115,7 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '.*', '*.');
-        $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                        $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '<b>', '</b>');
-
-        $modelo->texto = str_replace($antes, $depois, $modelo->texto);
+        $modelo->texto = $this->convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
 
         $imagem = Storage::url($modelo->fundo);
 
@@ -313,5 +305,22 @@ class CertificadoController extends Controller
         {
             return view('certificado.validar', ['mensagem' => 'Certificado inválido!']);
         }
+    }
+
+    private function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza){
+        $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
+        $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
+
+        $pattern = '/\*[\wÀ-ú\%\.\,\_\-\(\)\#\@\!\'\ "]+\*/i';
+        $replace = '<b>$0</b>';
+
+        $modelo->texto = preg_replace($pattern, $replace, $modelo->texto);
+
+        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*');
+        $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
+                        $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '');
+
+
+        return str_replace($antes, $depois, $modelo->texto);
     }
 }
