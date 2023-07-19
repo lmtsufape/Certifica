@@ -26,7 +26,7 @@
 
             <div class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Atividade/Função</span>
-                <select class="select-form w-100 " name="descricao" id="">
+                <select class="select-form w-100 h-100 " name="descricao" id="">
                     <option value={{$atividade->descricao}} selected hidden>{{$atividade->descricao}}</option>
                     @foreach ($descricoes as $descricao)
                         <option value="{{ $descricao }}">{{ $descricao }}</option>
@@ -36,11 +36,11 @@
 
             <div class="col-xl-3 campo spacing-row1 input-create-box">
                 <span class="tittle-input w-50">Data de Início</span>
-                <input class="w-100" type="date" name="data_inicio" id="" value="{{$atividade->data_inicio}}">
+                <input class="w-100 h-100" type="date" name="data_inicio" id="" value="{{$atividade->data_inicio}}">
             </div>
             <div class="col-xl-3 campo input-create-box">
                 <span class="tittle-input w-50">Data de Término</span>
-                <input class="w-100" type="date" name="data_fim" id="" value="{{$atividade->data_fim}}">
+                <input class="w-100 h-100" type="date" name="data_fim" id="" value="{{$atividade->data_fim}}">
             </div>
 
         </div>

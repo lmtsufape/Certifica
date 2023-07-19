@@ -25,7 +25,7 @@
 
                     <div class="col-xl-3 campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Natureza<span class="ast">*</span></span>
-                        <select class="select-form w-100 " name="natureza_id" id="select_natureza" required>
+                        <select class="select-form w-100 h-100" name="natureza_id" id="select_natureza" required>
                             <option value="" selected hidden>-- Natureza --</option>
                             @foreach ($naturezas as $natureza)
                                 <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
@@ -36,7 +36,7 @@
                     <div class="col-xl-8 campo grow input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
-                        <select name="tipo_natureza_id" class="select-form w-100" id="select_tipo_natureza" required>
+                        <select name="tipo_natureza_id" class="select-form w-100 h-100" id="select_tipo_natureza" required>
                             <option value="" selected hidden>-- Tipo Natureza --</option>
                         </select>
                     </div>
@@ -45,7 +45,7 @@
                 <div class="row box">
                     <div class="col-xl-12 campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Título<span class="ast">*</span></span>
-                        <input class="w-75 input-text " type="text" name="titulo" id="" required>
+                        <input class="w-100 h-100 input-text " type="text" name="titulo" id="" required>
                     </div>
                 </div>
 
@@ -68,7 +68,7 @@
                                 class="ast">*</span></span>
 
                         <div class="w-100 d-flex align-items-center justify-content-between">
-                            <input class="w-75 input-text " type="text" name="" id="arquivo" disabled
+                            <input class="w-75 grow h-100 input-text " type="text" name="" id="arquivo" disabled
                                 value="" placeholder="Insira aqui o seu arquivo" required>
                             <label for="anexo" id="">
                                 <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg" alt="">
@@ -83,7 +83,7 @@
                 <div class="row box">
                     <div class="col-xl-12 campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Título<span class="ast">*</span></span>
-                        <input class="w-75 input-text " type="text" name="titulo" id=""
+                        <input class="w-100 h-100 input-text " type="text" name="titulo" id=""
                             value="{{ old('titulo') }}" required>
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                     <div class="col-xl-5 campo input-create-box">
                         <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
-                        <select name="tipo_natureza_id" class="select-form w-100 " id="select_tipo_natureza" required>
+                        <select name="tipo_natureza_id" class="select-form w-100 h-100 " id="select_tipo_natureza" required>
                             <option value="" selected hidden>-- Tipo Natureza --</option>
                             @foreach ($tipo_naturezas as $tipo_natureza)
                                 <option value="{{ $tipo_natureza->id }}">{{ $tipo_natureza->descricao }}</option>

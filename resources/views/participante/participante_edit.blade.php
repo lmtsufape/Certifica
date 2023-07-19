@@ -23,13 +23,13 @@
 
             <div class="col-xl-7 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Nome</span>
-                <input class="w-75 input-text " type="text" name="nome" id=""
+                <input class="w-100 h-100 input-text " type="text" name="nome" id=""
                     value="{{ $participante->user->name }}" disabled>
             </div>
 
             <div class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">CPF</span>
-                <input class="w-75 input-text " type="text" name="cpf" id="" placeholder="000.000.000-00"
+                <input class="w-100 h-100 input-text " type="text" name="cpf" id="" placeholder="000.000.000-00"
                     value="{{ $participante->user->cpf }}" disabled>
             </div>
 
@@ -39,13 +39,13 @@
 
             <div class="col-xl-7 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">E-mail</span>
-                <input class="w-75 input-text " type="email" name="email" id="" placeholder="example@gmail.com"
+                <input class="w-100 h-100 input-text " type="email" name="email" id="" placeholder="example@gmail.com"
                     value="{{ $participante->user->email }}" disabled>
             </div>
 
             <div class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Carga Horária Total</span>
-                <input class="w-75 input-text " type="text" name="carga_horaria" id=""
+                <input class="w-100 h-100 input-text " type="text" name="carga_horaria" id=""
                     value="{{ $participante->carga_horaria }}" pattern="[0-9]+" title="Digite um número válido" required>
             </div>
 
