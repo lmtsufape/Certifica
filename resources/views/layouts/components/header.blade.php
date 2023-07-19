@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-
+                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
                 </ul>
             @endif
 
@@ -62,7 +62,7 @@
                 </a>
             </li>
             <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-
+            <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
         </ul>
     </div>
 
