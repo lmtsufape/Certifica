@@ -59,7 +59,7 @@
             <div class="col-xl-7 campo spacing-row1 input-create-box align-items-start justify-content-start flex-column"
                  @if(isset($user)) style="display: none" @endif>
                 <span class="tittle-input">Instituição</span>
-                <select class="w-100 h-100 input-text" name="instituicao_id" id="select_instituicao" required>
+                <select class="w-100 h-75 input-text" name="instituicao_id" id="select_instituicao" required>
                     <option selected hidden> -- Instituição --</option>
                     @foreach($instituicaos as $instituicao)
                         <option value="{{$instituicao->id}}"
