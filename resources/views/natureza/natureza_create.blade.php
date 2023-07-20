@@ -36,7 +36,16 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="">Cadastrar</button>
+                <div class="row col-md-6 d-flex align-items-center justify-content-start">
+                    <div class="col-3 text-center d-flex align-items-center justify-content-start">
+                        <a class="button" href="{{route('natureza.index')}}">
+                            voltar
+                        </a>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-start">
+                        <button type="submit" class="">Cadastrar</button>
+                    </div>
+                </div>
             </form>
         </section>
     </div>
