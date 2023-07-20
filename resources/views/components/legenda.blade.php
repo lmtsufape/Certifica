@@ -7,16 +7,16 @@
     </div>
     <div class="card-body">
         <ul>
-            <li>Nome do participante = %participante%</li>
-            <li>Nome da ação institucional = %acao%</li>
-            <li>Tipo da atividade = %atividade%</li>
-            <li>Nome da atividade = %nome_atividade%</li>
-            <li>Data de inicio = %data_inicio%</li>
-            <li>Data de fim = %data_fim%</li>
-            <li>Carga horária = %carga_horaria%</li>
-            <li>Narureza da ação = %natureza%</li>
-            <li>Tipo da natureza da ação = %tipo_natureza%</li>
-            <li>Negrito = *frase/palavra/tag*</li>
+            <li><b>Nome do participante</b> = %participante%</li>
+            <li><b>Nome da ação institucional</b> = %acao%</li>
+            <li><b>Tipo da atividade</b> = %atividade%</li>
+            <li><b>Nome da atividade</b> = %nome_atividade%</li>
+            <li><b>Data de inicio</b> = %data_inicio%</li>
+            <li><b>Data de fim</b> = %data_fim%</li>
+            <li><b>Carga horária</b> = %carga_horaria%</li>
+            <li><b>Narureza da ação</b> = %natureza%</li>
+            <li><b>Tipo da natureza da ação</b> = %tipo_natureza%</li>
+            <li><b>Negrito</b> = *frase/palavra/tag*</li>
         </ul>
     </div>
 </div>
