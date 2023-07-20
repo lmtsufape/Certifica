@@ -118,7 +118,7 @@
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="d-flex justify-content-center align-items-center cancel"
-                        href={{ route('home') }}>Cancelar</a>
+                        href={{ route('acao.index') }}>Cancelar</a>
                     <button class="submit" type="submit">Cadastrar</button>
                 </div>
             </div>
