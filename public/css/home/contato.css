@@ -1,3 +1,11 @@
+a{
+    text-decoration: none;
+    margin: 0;
+}
+a:hover{
+    color: white;
+}
+
 .titulo-view{
     color: #B02A3D;
 }
@@ -9,15 +17,21 @@
 
 /*Button validar certificado*/
 
-button {
+.button {
     background-color: #B02A3D;
     border: none;
     color: white;
     padding: 3px 16px;
+    min-width: 100px;
     border-radius: 5px;
     opacity: 0.8;
     transition: all ease-in-out .1s;
 }
+
+.button:hover{
+    opacity: 1;
+}
+
 button:hover{
     opacity: 1;
 }

@@ -22,7 +22,19 @@
                     </div>
                 </div>
 
-                <button type="submit" class="">Cadastrar</button>
+
+                <div class="row col-md-10 d-flex align-items-center justify-content-start">
+                    <div class="col-3 text-center d-flex align-items-center justify-content-start">
+                        <a class="button" href="{{route('unidade_administrativa.index')}}">
+                            voltar
+                        </a>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-start">
+                        <button type="submit" class="">Cadastrar</button>
+                    </div>
+                </div>
+
+              
             </form>
         </section>
     </div>

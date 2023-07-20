@@ -45,11 +45,6 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <div class="col-2 d-flex flex-column align-items-start justify-content-center">
-                            <span>Data</span>
-                            <input class="input-box w-75" type="date" name="data" id="data">
-                        </div>
                     </div>
                 </div>
             </form>

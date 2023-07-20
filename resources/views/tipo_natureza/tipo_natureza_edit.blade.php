@@ -35,7 +35,17 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="">Atualizar</button>
+               
+                <div class="row col-md-6 d-flex align-items-center justify-content-evenly">
+                    <div class="col-3 text-center d-flex align-items-center justify-content-center">
+                        <a class="button" href="{{route('tipo_natureza.index')}}">
+                            voltar
+                        </a>
+                    </div>
+                    <div class="col-3 d-flex align-items-center justify-content-center">
+                        <button type="submit" class="">Atualizar</button>
+                    </div>
+                </div>
             </form>
         </section>
     </div>
