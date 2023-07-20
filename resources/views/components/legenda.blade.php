@@ -3,7 +3,7 @@
 
 <div class="card card-legenda">
     <div class="card-header header-legenda">
-        <h3>Legendas</h3>
+        <h3>Variáveis</h3>
     </div>
     <div class="card-body">
         <ul>
