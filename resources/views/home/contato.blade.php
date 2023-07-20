@@ -14,7 +14,7 @@
                 <h6 class="mb-3">Laboratório Multidisciplinar de Tecnologias Sociais (LMTS)</h3>
                     Universidade Federal do Agreste de Pernambuco - UFAPE <br>
                     Avenida Bom Pastor, s/n.º, Bairro Boa Vista - CEP: 55292-270 - Garanhuns - PE <br>
-                    Laboratório 23 <br>
+                    Laboratório 16 B <br>
                     E-mail: lmts@ufape.edu.br <br>
             </div>
         </section>

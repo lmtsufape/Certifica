@@ -29,7 +29,7 @@
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-4"><span class="spacing-col">Descrição</span></div>
                 <div class="col-4"><span>Únidade Administrativa</span></div>
-                <div class="col-4"><span>Detalhes</span></div>
+                <div class="col-4"><span>Funcionalidades</span></div>
             </div>
         </div>
 

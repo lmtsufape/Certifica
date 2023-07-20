@@ -46,4 +46,9 @@ class Certificado extends Model
         $atividades = Atividade::where('descricao', 'ilike', '%'.$nome_atividade.'%')->get();
         return $certificados->whereIn('atividade', $atividades);
     }
+
+    public static function search_ano($certificados, $ano){
+        return $certificados->where('updated_at.year', $ano);
+
+    }
 }

@@ -101,7 +101,7 @@
 
         <div class="row d-flex aligm-items-center justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Instituição de vinculo<span class="ast">*</span></span>
+                <span class="tittle-input">Instituição de vínculo<span class="ast">*</span></span>
 
                 <select class="select-form w-100 " name="instituicao_id" id="select_instituicao" required>
                     <option selected hidden></option>

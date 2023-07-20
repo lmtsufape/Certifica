@@ -37,7 +37,7 @@
                 <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
                     alt="">
                 <ul id="menu_normal" class="navbar-nav h-100">
-                    <li><a class="dropdown-item" href="/">Inicio</a></li>
+                    <li><a class="dropdown-item" href="/">Início</a></li>
                     <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">

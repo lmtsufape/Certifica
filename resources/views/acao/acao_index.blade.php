@@ -11,8 +11,8 @@
 
             <div class="container">
                 <div class="row d-flex align-items-center justify-content-end">
-                    <a class="criar-acao-button" href={{ route('acao.create') }}>
-                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                    <a class="criar-acao-button" href="{{ route('acao.create') }}">
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar ação
                     </a>
                 </div>
             </div>

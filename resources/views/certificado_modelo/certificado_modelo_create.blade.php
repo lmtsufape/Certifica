@@ -87,7 +87,7 @@
         <div class="mt-5 row align-items-center justify-content-evenly">
             <div class="col-2">
                 <a class="button" href="{{ route('certificado_modelo.index') }}">
-                    Voltar
+                    Cancelar
                 </a>
             </div>
 
