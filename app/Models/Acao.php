@@ -94,4 +94,13 @@ class Acao extends Model
         return $acoes->whereIn('tipo_natureza', $natureza->tipoNatureza);
     }
 
+    public static function search_acao_by_tipo_natureza($acoes, $tipo_natureza_id){    
+        $tipoNatureza = TipoNatureza::find($tipo_natureza_id);
+        return $acoes->where('tipo_natureza', $tipoNatureza);
+    }
+
+    public static function search_acao_by_ano($acoes, $ano){    
+        return $acoes->where('updated_at.year', $ano);
+    }
+
 }

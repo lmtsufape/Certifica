@@ -19,6 +19,11 @@
                 <div class="container">              
                     <div class="row head-table search-box d-flex align-items-center justify-content-center">
                         <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                            <span>Nome da Ação</span>
+                            <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
+                        </div>
+
+                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                             <span>Natureza</span>
                             <select class="input-box w-75" name="natureza" id="natureza">
                                 <option></option>
@@ -39,13 +44,13 @@
                         </div>
 
                         <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-                            <span>Nome da Ação</span>
-                            <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
-                        </div>
-
-                        <div class="col-3 d-flex flex-column align-items-start justify-content-center">
-                            <span>Nome da Atividade</span>
-                            <input class="input-box w-75" type="text" name="atividade" id="atividade">
+                            <span>Ano</span>
+                            <select class="input-box w-75" name="ano" id="ano">
+                                <option></option>
+                                @foreach($anos as $ano)
+                                    <option value="{{$ano}}">{{$ano}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         
@@ -57,11 +62,13 @@
 
             <div class="container">
                 <div class="row head-table d-flex align-items-center justify-content-start">
-                    <div class="col-3 text-center"><span class="spacing-col">Natureza</span></div>
-                    <div class="col-2 text-center"><span>Tipo da Natureza</span></div>
                     <div class="col-2 text-center"><span>Ação</span></div>
-                    <div class="col-2 text-center"><span>Atividade</span></div>
-                    <div class="col-2 text-center"><span>Certificado</span></div>
+                    <div class="col-2 text-center"><span class="spacing-col">Natureza</span></div>
+                    <div class="col-2 text-center"><span>Tipo da Natureza</span></div>
+                    <div class="col-2 text-center"><span>Atividades</span></div>
+                    <div class="col-1 text-center"><span>Total de Certificados</span></div>
+                    <div class="col-1 text-center"><span>Certificados</span></div>
+                    <div class="col-2 text-center"><span>Emissor</span></div>
                 </div>
             </div>
             <div class="list container overflow-scroll"></div>
@@ -97,7 +104,6 @@
             method: "GET",
             data :  dados
         }).done(function(data){
-            console.log(data);
             $(".list").html(data);
         });
     }
