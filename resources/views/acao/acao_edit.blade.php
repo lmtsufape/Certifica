@@ -36,7 +36,7 @@
                     <div class="col-xl-8 campo grow input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
-                        <select name="tipo_natureza_id" class="select-form w-100" id="select_tipo_natureza" required>
+                        <select name="tipo_natureza_id" class="select-form w-100 h-100" id="select_tipo_natureza" required>
                             <option value="{{$tipo_natureza->id}}" selected hidden>{{$tipo_natureza->descricao}}</option>
                         </select>
                     </div>
@@ -54,18 +54,18 @@
                     <input hidden type="file" name="anexo" id="anexo" value="{{$acao->anexo}}">
 
                     <div class="col-xl-3 campo spacing-row2 input-create-box ">
-                        <span class="tittle-input">Data de Início<span class="ast">*</span></span><input class="w-100"
+                        <span class="tittle-input">Data de Início<span class="ast">*</span></span><input class="w-100 h-75"
                             type="date" name="data_inicio" id="" value="{{$acao->data_inicio}}" required>
                     </div>
 
                     <div class="col-xl-3 campo spacing-row2 input-create-box">
                         <span class="tittle-input">Data de Término <span class="ast">*</span></span>
-                        <input class="w-100" type="date" name="data_fim" id="" value="{{$acao->data_fim}}"
+                        <input class="w-100 h-75" type="date" name="data_fim" id="" value="{{$acao->data_fim}}"
                             required>
                     </div>
 
 
-                    <div class="col-xl-5 campo input-create-box d-flex align-items-start justify-content-start flex-column">
+                    <div class="col-xl-5 grow campo input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Processo SIPAC, relatório final ou similares<span
                                 class="ast">*</span></span>
 
@@ -93,21 +93,21 @@
                 <div class="row box">
                     <div class="col-xl-3 campo spacing-row2 input-create-box ">
                         <span class="tittle-input"> Data de Início<span class="ast">*</span> </span>
-                        <input class="w-100" type="date" name="data_inicio" id=""
+                        <input class="w-100 h-75" type="date" name="data_inicio" id=""
                             value="{{$acao->data_inicio}}" required>
                     </div>
 
                     <div class="col-xl-3 campo spacing-row2 input-create-box">
-                        <span class="tittle-input">Data de Término<span class="ast">*</span></span><input class="w-100"
-                            type="date" name="data_fim" id="" value="{{$acao->data_fim}}" required>
+                        <span class="tittle-input">Data de Término<span class="ast">*</span></span>
+                        <input class="w-100 h-75" type="date" name="data_fim" id="" value="{{$acao->data_fim}}" required>
                     </div>
 
                     <input type="hidden" name="natureza_id" value="{{ $natureza->id }}">
 
-                    <div class="col-xl-5 campo input-create-box">
+                    <div class="col-xl-5 campo input-create-box grow">
                         <span class="tittle-input">Tipo<span class="ast">*</span></span>
 
-                        <select name="tipo_natureza_id" class="select-form w-100 h-100 " id="select_tipo_natureza" required>
+                        <select name="tipo_natureza_id" class="select-form w-100 h-75" id="select_tipo_natureza" required>
                             <option value="{{$tipo_natureza->id}}" selected hidden>{{$tipo_natureza->descricao}}</option>
                             @foreach ($tipo_naturezas as $tipo_natureza)
                                 <option value="{{ $tipo_natureza->id }}">{{ $tipo_natureza->descricao }}</option>
