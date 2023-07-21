@@ -32,8 +32,8 @@
                     <div class="col-4"><span class="spacing-col">Nome</span></div>
                     <div class="col-2"><span>CPF</span></div>
                     <div class="col-2"><span>CH</span></div>
-                    <div class="col-2"><span>Atividade/Função</span></div>
-                    <div class="col-2"><span></span></div>
+                    <div class="col-2"><span>Atividade / Função</span></div>
+                    <div class="col-2"><span>Funcionalidades</span></div>
                 </div>
             </div>
 
