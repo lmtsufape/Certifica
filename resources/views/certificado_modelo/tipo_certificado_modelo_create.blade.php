@@ -98,7 +98,9 @@
         </form>
     </div>
 
-    <x-legenda/>
+    <div>
+        <x-legenda/>
+    </div>
 
 </div>
 
