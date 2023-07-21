@@ -83,8 +83,8 @@ class AtividadeController extends Controller
 
         $acao = Acao::findOrFail($atividade->acao_id);
 
-        $descricoes = ['Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
+        $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
+            'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte'];
 
         return view('atividade.atividade_edit', ['atividade' => $atividade, 'acao' => $acao, 'descricoes' => $descricoes]);
     }

@@ -181,7 +181,7 @@ class CertificadoModeloController extends Controller
 
     public function create_tipo_certificado()
     {
-        $tipos_certificado = ['Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
+        $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
 
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();

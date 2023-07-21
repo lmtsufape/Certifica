@@ -76,8 +76,8 @@
                                         <img src="/images/acoes/listView/editar.svg" alt="">
                                     </a>
                                 @endif
-                                
-                                @if (Auth::user()->perfil_id == 2)
+
+                                @if (Auth::user()->perfil_id == 2 || Auth::user()->perfil_id == 3)
                                     <a onclick="return confirm('Você tem certeza que deseja remover o participante?')" href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
                                         <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                                     </a>
@@ -131,7 +131,7 @@
             </div>
         </div>
 
-       
+
 
 
 
