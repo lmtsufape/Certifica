@@ -9,7 +9,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
+<div class="row">
+
+    <div class="container container-form-modelo">
         <h2 class="text-center">CRIAR MODELO DE CERTIFICADO</h2>
 
         <form action="{{ Route('tipo_certificado_modelo.store') }}" method="POST" enctype="multipart/form-data">
@@ -97,4 +99,7 @@
     </div>
 
     <x-legenda/>
+
+</div>
+
 @endsection
