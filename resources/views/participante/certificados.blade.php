@@ -45,7 +45,7 @@
                     <div class="col-2 text-center"><span>Data</span></div>
                     <div class="col-2 text-center"><span>Atividade</span></div>
                     <div class="col-2 text-center"><span>Natureza</span></div>
-                    <div class="col-2 text-center"><span></span></div>
+                    <div class="col-2 text-center"><span>Funcionalidades</span></div>
                 </div>
             </div>
             <div class="list container overflow-scroll"></div>

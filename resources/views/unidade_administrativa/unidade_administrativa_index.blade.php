@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-end">
-                    <a class="criar-acao-button" href={{ route('unidade_administrativa.create') }}>
+                    <a class="criar-acao-button" href="{{ route('unidade_administrativa.create') }}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
                     </a>
                 </div>
@@ -43,13 +43,13 @@
                                 <span>
                                     <a
                                         href="{{ route('unidade_administrativa.edit', ['unidade_administrativa_id' => $unidade_administrativa->id]) }}">
-                                        <img src="/images/acoes/listView/editar.svg" alt="Editar">
+                                        <img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar">
                                     </a>
                                 </span>
                                 <span>
                                     <a
                                         href="{{ route('unidade_administrativa.delete', ['unidade_administrativa_id' => $unidade_administrativa->id]) }}">
-                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir">
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Excluir">
                                     </a>
                                 </span>
                             </div>
