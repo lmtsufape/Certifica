@@ -9,7 +9,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
+<div class="row">
+
+    <div class="container container-form-modelo">
         <h2 class="text-center">Modelo de Certificado</h2>
 
         <form action="{{Route('certificado_modelo.edit', ['id'=>$modelo->id])}}" method="GET" enctype="multipart/form-data">
@@ -68,5 +70,9 @@
         </form>
     </div>
 
-    <x-legenda/>
+    <div>
+        <x-legenda/>
+    </div>
+
+</div>
 @endsection

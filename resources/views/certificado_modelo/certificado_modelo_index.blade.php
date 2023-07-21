@@ -13,13 +13,13 @@
 
             @if(Auth::user()->perfil_id == 1)
                 <div class="row d-flex align-items-center justify-content-end">
-                    <a class="criar-acao-button" href={{route('certificado_modelo.create')}}>
+                    <a class="criar-acao-button" href="{{route('certificado_modelo.create')}}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Cadastrar Modelo
                     </a>
                 </div>
             @elseif(Auth::user()->perfil_id == 3)
                 <div class="row d-flex align-items-center justify-content-end">
-                    <a class="criar-acao-button" href={{route('tipo_certificado_modelo.create')}}>
+                    <a class="criar-acao-button" href="{{route('tipo_certificado_modelo.create')}}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Cadastrar Modelo
                     </a>
                 </div>
@@ -45,10 +45,10 @@
 
                         <span class="col-2 d-flex align-items-center justify-content-around">
                             <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}">
-                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar dados">
+                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar">
                             </a>
                             <a href="{{route('certificado_modelo.delete', ['id' => $modelo->id])}}">
-                                <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir">
+                                <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Excluir">
                             </a>
                         </span>
 

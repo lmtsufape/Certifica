@@ -6,17 +6,17 @@
         <div class="col-2 text-center"><span>{{$participacao->atividade->acao->tipo_natureza->natureza->descricao}}</span></div>
         
         @if($participacao->atividade->acao->status)
-            <div class="col-1 d-flex align-items-center justify-content-evenly">
+            <div class="col-1 d-flex align-items-end justify-content-end">
                 <span> <a href="{{route('participante.ver_certificado_participante', ['id' => $participacao->id])}}" target="blank">
-                            <img src="/images/acoes/listView/certificado.svg" alt="Visualizar">
+                            <img src="/images/acoes/listView/certificado.svg" alt="Visualizar" title="Baixar Certificado">
                         </a>
                 </span>
             </div>
         @endif
-        <div class="col-1 text-center titulo-span">
+        <div class="col-1 d-flex align-items-start justify-content-start  ">
             <span>
                 <a href='#' onclick="setaDadosModal({{$participacao}})">
-                    <img src="/images/acoes/listView/eye.svg" alt="Visualizar{{$participacao}}">
+                    <img src="/images/acoes/listView/eye.svg" alt="Visualizar{{$participacao}}" title="Detalhes">
                 </a>
             </span>
         </div>

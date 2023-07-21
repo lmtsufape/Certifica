@@ -18,14 +18,15 @@
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-end">
-                    <a class="criar-acao-button" href={{ route('usuario.create') }}>
+                    <a class="criar-acao-button" href="{{ route('usuario.create') }}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Cadastrar usuário
                     </a>
                 </div>
                 <div class="row head-table d-flex align-items-center justify-content-center">
                     <div class="col-4"><span class="spacing-col">Nome</span></div>
                     <div class="col-4"><span>CPF</span></div>
-                    <div class="col-4"><span>Tipo</span></div>
+                    <div class="col-2"><span>Tipo</span></div>
+                    <div class="col-2"><span>Funcionalidades</span></div>
                 </div>
             </div>
 
@@ -42,19 +43,19 @@
                             {{ $user->cpf }}
                         </div>
 
-                        <div class="col-4 d-flex ">
-                            <div class="col-9 ">
-                                @if ($user->perfil_id == 1)
-                                    Administrador
-                                @elseif($user->perfil_id == 2)
-                                    Coordenador
-                                @elseif($user->perfil_id == 3)
-                                    Gestor Institucional
-                                @endif
-                            </div>
-                            <div class="col-3 d-flex align-items-center justify-content-evenly">
-                                <span><a href="{{route('usuario.edit', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar"></a></span>
-                                <span><a href="{{route('usuario.delete', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                        <div class="col-2 d-flex ">
+                            @if ($user->perfil_id == 1)
+                                Administrador
+                            @elseif($user->perfil_id == 2)
+                                Coordenador
+                            @elseif($user->perfil_id == 3)
+                                Gestor Institucional
+                            @endif
+                        </div>
+                        <div class="col-2 d-flex">
+                            <div class="col-6 d-flex align-items-center justify-content-evenly">
+                                <span><a href="{{route('usuario.edit', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar"></a></span>
+                                <span><a href="{{route('usuario.delete', ['usuario_id' => $user->id])}}"><img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Editar"></a></span>
                             </div>
                         </div>
                     </div>

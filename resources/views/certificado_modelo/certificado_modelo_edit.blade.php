@@ -9,7 +9,9 @@
 @endsection
 
 @section('content')
-    <div class="container">
+<div class="row">
+
+    <div class="container container-form-modelo">
         <h2 class="text-center">ATUALIZAR MODELO DE CERTIFICADO</h2>
 
         <form action="{{ Route('certificado_modelo.update', ['id' => $modelo->id]) }}" method="POST"
@@ -99,7 +101,11 @@
             </div>
         </form>
     </div>
-    <x-legenda />
+    <div>
+        <x-legenda/>
+    </div>
+
+</div>
 
     <script>
         //nome do arquivo de plano de fundo

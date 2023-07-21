@@ -26,8 +26,8 @@
                         </div>
                         <div class="col-4 text-center"><span>{{ $acao->status }}</span></div>
                         <div class="col-4 text-center">
-                            <a href={{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}>
-                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar">
+                            <a href="{{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}">
+                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar" title="Visualizar">
                             </a>
     
                         </div>

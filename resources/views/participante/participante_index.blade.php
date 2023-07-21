@@ -67,29 +67,29 @@
                                 @if ($acao->status == 'Aprovada')
                                     <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
                                         target="_blank">
-                                        <img src="/images/acoes/listView/certificado.svg" alt="">
+                                        <img src="/images/acoes/listView/certificado.svg" alt="" title="Ver Certificado">
                                     </a>
                                 @endif
 
                                 @if ($acao->status == null || Auth::user()->perfil_id == 3)
                                     <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
-                                        <img src="/images/acoes/listView/editar.svg" alt="">
+                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                     </a>
                                 @endif
 
                                 @if (Auth::user()->perfil_id == 2 || Auth::user()->perfil_id == 3)
                                     <a onclick="return confirm('Você tem certeza que deseja remover o participante?')" href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
-                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
                                     </a>
                                 @endif
 
                                 @if(Auth::user()->perfil_id == 3)
                                     <a href="{{ route('participante.invalidar_certificado', ['participante_id' => $participante->id]) }}">
-                                        <img src="/images/acoes/listView/revogar.svg" alt="">
+                                        <img src="/images/acoes/listView/revogar.svg" alt="" title="Invalidar Certificado">
                                     </a>
 
                                     <a href="{{ route('participante.reemitir_certificado', ['participante_id' => $participante->id]) }}">
-                                        <img src="/images/acoes/listView/reemitir.svg" alt="">
+                                        <img src="/images/acoes/listView/reemitir.svg" alt="" title="Reemitir Certificado">
                                     </a>
                                 @endif
 

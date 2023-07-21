@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-end">
-                    <a class="criar-acao-button" href={{route('natureza.create')}}>
+                    <a class="criar-acao-button" href="{{route('natureza.create')}}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
                     </a>
                 </div>
@@ -43,14 +43,14 @@
                             <div class="col-6 d-flex align-items-center justify-content-evenly">
                                 <span>
                                     <a
-                                        href={{ route('natureza.edit', ['natureza_id' => $natureza->id]) }}>
-                                        <img src="/images/acoes/listView/editar.svg" alt="Editar">
+                                        href="{{ route('natureza.edit', ['natureza_id' => $natureza->id]) }}">
+                                        <img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar">
                                     </a>
                                 </span>
                                 <span>
                                     <a
-                                        href={{ route('natureza.delete', ['natureza_id' => $natureza->id]) }}>
-                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir">
+                                        href="{{ route('natureza.delete', ['natureza_id' => $natureza->id]) }}">
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Excluir">
                                     </a>
                                 </span>
                             </div>

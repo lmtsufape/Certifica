@@ -11,16 +11,16 @@
 
             <div class="container">
                 <div class="row head-table d-flex align-items-center justify-content-start">
-                    <div class="col-3 text-start"><span class="spacing-col">Título</span></div>
+                    <div class="col-4 text-start"><span class="spacing-col">Título</span></div>
                     <div class="col-3 text-start"><span>Início</span></div>
                     <div class="col-3 text-start"><span>Fim</span></div>
-                    <div class="col-3 text-start"><span>Anexo</span></div>
+                    <div class="col-2 text-start"><span>Funcionalidades</span></div>
                 </div>
             </div>
 
             <div class="list container overflow-scroll">
                 <div class="row linha-table d-flex align-items-center justify-content-start">
-                    <div class="col-3 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
+                    <div class="col-4 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
                     <div class="col-3 text-start">
                         <span>
                             {{ collect(explode('-', $acao->data_inicio))->reverse()->join('/') }}
@@ -31,19 +31,19 @@
                             {{ collect(explode('-', $acao->data_fim))->reverse()->join('/') }}
                         </span>
                     </div>
-                    <div class="col-3">
-                        <div class="col-11 d-flex align-items-center justify-content-between">
+                    <div class="col-2">
+                        <div class="col-6 d-flex align-items-start justify-content-start">
                             <span class="col spacing-col">
                                 @if ($acao->anexo != null)
                                     <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">
-                                        <img style="opacity: 0.5" src="/images/acoes/listView/anexo.svg" alt="Visualizar">
+                                        <img src="/images/acoes/listView/anexo.svg" alt="Visualizar" title="Baixar Anexo">
                                     </a>
                                 @endif
                             </span>
 
-                            <span class="col text-center">
+                            <span class="col-6 text-center">
                                 <a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}">
-                                    <img src="/images/acoes/listView/editar.svg" alt="Editar">
+                                    <img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar">
                                 </a>
                             </span>
                         </div>
@@ -60,35 +60,37 @@
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
                     <div class="col-4"><span class="spacing-col">Descrição</span></div>
-                    <div class="col-4"><span>Início</span></div>
-                    <div class="col-4"><span>Fim</span></div>
+                    <div class="col-3"><span>Início</span></div>
+                    <div class="col-3"><span>Fim</span></div>
+                    <div class="col-2"><span>Funcionalidades</span></div>
                 </div>
             </div>
 
             <div class="list container overflow-scroll">
                 @foreach ($atividades as $atividade)
-                    <div class="row linha-table d-flex align-items-center justify-content-center">
+                    <div class="row linha-table d-flex align-items-center justify-content-start">
                         <div class="col-4"><span class="spacing-col">{{ $atividade->descricao }}</span></div>
-                        <div class="col-4"><span>
+                        <div class="col-3"><span>
                                 {{ collect(explode('-', $atividade->data_inicio))->reverse()->join('/') }}</span></div>
-                        <div class="col-4 d-flex align-items-center justify-content-around">
-                            <span class="col-6">
+                        <div class="col-3">
+                            <span>
                                 {{ collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}
                             </span>
-                            <span class="col-6">
-                                <span>
-
-                                </span>
-                                <span class="d-flex align-items-center justify-content-evenly">
-                                    <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
-                                        <img src="/images/acoes/listView/editar.svg" alt="">
-                                    </a>
+                        </div>
+                        <div class="col-2">
+                            <div class="col-6 d-flex align-items-start justify-content-start">
+                                <span class="col-6 text-center">
                                     <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
-                                        <img src="/images/atividades/participantes.svg" alt="">
+                                        <img src="/images/atividades/participantes.svg" alt="" title="Integrantes">
                                     </a>
                                 </span>
-
-                            </span>
+                            
+                                <span class="col spacing-col">
+                                    <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
+                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                    </a>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 @endforeach
