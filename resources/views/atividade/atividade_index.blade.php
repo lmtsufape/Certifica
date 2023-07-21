@@ -44,21 +44,26 @@
                     <div class="col-4 d-flex align-items-center justify-content-start">
 
                         <div class="col-4 d-flex align-items-center justify-content-around">
-                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
+                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}" title="Integrantes">
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
 
                             @if ($acao->status == null)
-                                <a data-bs-toggle="modal" data-bs-target="#modalImportCsv">
+                                <a href="/files/modelo.csv" title="Baixar Modelo">
+                                    <img src="/images/acoes/listView/anexo.svg">
+                                </a>
+
+                                <a href="" title="Importar Integrantes" data-bs-toggle="modal" data-bs-target="#modalImportCsv">
                                     <img src="/images/acoes/listView/csvIcon.svg" alt="">
                                 </a>
                             @endif
 
-                            <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
+                            <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
                                 <img src="/images/acoes/listView/editar.svg" alt="">
                             </a>
                             <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')"
-                                href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
+                                href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}" 
+                                title="Excluir">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                             </a>
                         </div>
@@ -68,53 +73,50 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalImportCsv" tabindex="-1" aria-labelledby="modalImportCsvLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Integrantes</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+
+                            <div class="modal-body">
+                                <div class="container">
+                                    <form class="form"
+                                        action="{{ Route('import_participantes', ['atividade_id' => $atividade->id]) }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row align-items-start">
+                                            <div>
+                                                <input type="file" accept=".csv" name="participantes_csv" id="participantes_csv"
+                                                    class="form-control form-control-sm" style="margin-top:5%" required>
+                                            </div>
+
+                                            <div class="row justify-content-center">
+                                                <div class="col-5" style="margin-left:10%; margin-top:25px;">
+                                                    <button type="button" class="btn btn-sm btn-secondary"
+                                                    data-bs-dismiss="modal">Fechar</button>
+                                                    <button type="submit" class="btn btn-sm btn-success">Importar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             @endforeach
         </div>
     </section>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalImportCsv" tabindex="-1" aria-labelledby="modalImportCsvLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Integrantes</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-
-                <div class="modal-body">
-                    <div class="container">
-                        <form class="form"
-                            action="{{ Route('import_participantes', ['atividade_id' => $atividade->id]) }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="row align-items-start">
-                                <div class="col-9">
-                                    <input type="file" accept=".csv" name="participantes_csv" id="participantes_csv"
-                                        class="form-control form-control-sm" style="margin-top:5%" required>
-                                </div>
-
-                                <div class="col">
-                                    <div class="row justify-content-center">
-                                        <a href="/files/modelo.csv" style="margin-left:25%">
-                                            <img src="/images/acoes/listView/anexo.svg" style="width:30px">
-                                        </a>
-                                        <label>Modelo</label>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn btn-sm btn-secondary"
-                                        data-bs-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-sm btn-success">Importar</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
