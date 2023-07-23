@@ -20,9 +20,7 @@ class NavbarController extends Controller
     }
     public function tutorialDownload(){
 
-        $pdf = Pdf::loadView('home.guia')->setPaper('a4');
-    
-
+        $pdf = Pdf::loadView('home.guiaPDF')->setPaper('a4');
         return $pdf->stream();
     }
 }
