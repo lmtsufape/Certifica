@@ -115,7 +115,7 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = $this->convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
 
         $imagem = Storage::url($modelo->fundo);
 
@@ -307,7 +307,7 @@ class CertificadoController extends Controller
         }
     }
 
-    private function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza){
+    public static function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza){
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
 
