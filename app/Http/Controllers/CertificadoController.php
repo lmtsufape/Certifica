@@ -300,7 +300,7 @@ class CertificadoController extends Controller
 
         if($validacao != null)
         {
-            return view('certificado.validar', ['mensagem' => 'Certificado válido!']);
+            return $this->ver_certificado($participante->id, $marca);
         } else
         {
             return view('certificado.validar', ['mensagem' => 'Certificado inválido!']);
