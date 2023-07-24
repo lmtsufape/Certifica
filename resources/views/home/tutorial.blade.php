@@ -1,15 +1,20 @@
 @extends('layouts.app')
 
 @section('css')
-    
 @endsection
 
 @section('content')
     <div class="container">
+        <h4>
+            Clique <a target="_blank"
+                href="https://drive.google.com/file/d/1fIcEq_dT1trO2Oq-BQB6YB0t2dpuZGDx/view?usp=sharing">aqui</a>
+            para obter o manual em pdf
+        </h4>
         @include('home.guiaView')
-        <h4 class="mt-5" >
-            Clique <a target="_blank" href="{{ Route('home.download') }}">aqui</a> 
-            para obter o manual do coordenador em pdf
+        <h4>
+            Clique <a target="_blank"
+                href="https://drive.google.com/file/d/1fIcEq_dT1trO2Oq-BQB6YB0t2dpuZGDx/view?usp=sharing">aqui</a>
+            para obter o manual em pdf
         </h4>
     </div>
 @endsection
