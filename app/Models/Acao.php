@@ -103,4 +103,13 @@ class Acao extends Model
         return $acoes->where('updated_at.year', $ano);
     }
 
+    //cria um campo em cada atividade com o nome dos participantes
+    public function get_participantes_name(){
+        $this->atividades->each(fn ($atividade) => 
+                $atividade->participantes->each( function ($participante) use ($atividade){
+                    $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName() 
+                                                    : $atividade->nome_participantes.", ".$participante->user->firstName();
+                })
+        );
+    }
 }
