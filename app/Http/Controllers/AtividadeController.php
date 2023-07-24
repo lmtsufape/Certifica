@@ -20,8 +20,11 @@ class AtividadeController extends Controller
      */
     public function index($acao_id)
     {
-        $atividades = Atividade::all()->where('acao_id', $acao_id)->sortBy('id');
         $acao = Acao::find($acao_id);
+        
+        $acao->get_participantes_name();
+        
+        $atividades = $acao->atividades->sortBy('id');
 
         return view('atividade.atividade_index', ['atividades' => $atividades, 'acao' => $acao]);
     }

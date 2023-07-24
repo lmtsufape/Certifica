@@ -130,4 +130,18 @@ class User extends Authenticatable
         return $this->hasMany(Acao::class, 'usuario_id');
     }
 
+    public function firstName(){
+        try {
+            $split_name = preg_split("/[\s,]+/",$this->name,);
+
+            $name = $split_name[0]." ".$split_name[1];
+
+        } catch (\Throwable $th) {
+            $name = $this->name;
+        }
+
+        return $name;
+        
+    }
+
 }

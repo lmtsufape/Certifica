@@ -26,22 +26,29 @@
             </div>
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-4"><span class="spacing-col">Atividade / Função</span></div>
-                <div class="col-4"><span>Período</span></div>
-                <div class="col-4"><span>Funcionalidades</span></div>
+                <div class="col-2"><span class="spacing-col">Atividade / Função</span></div>
+                <div class="col-2"><span>Período</span></div>
+                <div class="col-5"><span>Integrantes</span></div>
+                <div class="col-3"><span>Funcionalidades</span></div>
             </div>
         </div>
 
         <div class="list container overflow-scroll">
             @foreach ($atividades as $atividade)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-4"><span class="spacing-col">{{ $atividade->descricao }}</span></div>
-                    <div class="col-4">
+                    <div class="col-2"><span class="spacing-col">{{ $atividade->descricao }}</span></div>
+                    <div class="col-2">
                         <span>{{ collect(explode('-', $atividade->data_inicio))->reverse()->join('/') .
                             ' - ' .
                             collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}</span>
                     </div>
-                    <div class="col-4 d-flex align-items-center justify-content-start">
+
+                    <div class="col-5 ">
+                        {{$atividade->nome_participantes}}
+                    </div>
+
+
+                    <div class="col-3 d-flex align-items-center justify-content-start">
 
                         <div class="col-4 d-flex align-items-center justify-content-around">
                             <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}" title="Integrantes">
