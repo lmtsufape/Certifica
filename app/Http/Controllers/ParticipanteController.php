@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
 use App\Validates\ParticipanteValidator;
+use App\Validates\DefaultValidator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,7 @@ use Illuminate\Support\Str;
 use App\Models\Utils\Mask;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UsuarioNaoCadastrado;
+use App\Rules\Cpf;
 
 
 class ParticipanteController extends Controller
@@ -83,7 +85,12 @@ class ParticipanteController extends Controller
                             ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
         }
 
-        $user = $this->createUser($attributes);
+        try{
+            $user = $this->createUser($attributes);
+        
+        } catch (ValidationException $exception) {
+            return redirect()->back()->withErrors($exception->validator)->withInput();
+        }
 
         $attributes['user_id'] = $user->id;
         Participante::create($attributes);
@@ -110,6 +117,11 @@ class ParticipanteController extends Controller
             'password' => Hash::make($password),
             'perfil_id' => 4
         ];
+
+        $userAttributes['password_confirmation'] = $userAttributes['password'];
+
+        DefaultValidator::validate($userAttributes, User::$rules, User::$messages);
+        DefaultValidator::validate($userAttributes, ['cpf' => ['required', 'unique:users', new Cpf]], User::$messages);
 
         //enviar o email informando a senha 
         Mail::to($userAttributes['email'], $userAttributes['name'])->send(new UsuarioNaoCadastrado([
@@ -246,24 +258,18 @@ class ParticipanteController extends Controller
             if(!$user)
             {
                 try{
-                    $user = new User();
-                    $user->name  = $row[0];
-                    $user->cpf   = $cpf;
-                    $user->email = $row[2]; 
-                    $user->perfil_id = 4;
-                    $user->instituicao_id = 2;
-                    $password = Str::random(15);
-                    $user->password = Hash::make($password);
-                    $user->save();
 
-                    //enviar o email informando a senha 
-                    Mail::to($user->email, $user->name)->send(new UsuarioNaoCadastrado([
-                                                                    'email'    => $user->email,
-                                                                    'password' => $password,
-                                                                ]));
+                    $attributes = [
+                        'nome' => $row[0],
+                        'cpf'  => $cpf,
+                        'email' => $row[2],
+                    ];
+
+                    $user = $this->createUser($attributes);
+
                 } catch (\Throwable $th) {
                     $confirm = False;
-                    array_push($participantes, $user->name);
+                    array_push($participantes, $row[0]);
                 }
             } 
 
