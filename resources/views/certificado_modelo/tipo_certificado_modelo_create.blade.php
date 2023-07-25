@@ -19,12 +19,18 @@
 
             <div class="form-box-modelo-certificado form-row">
 
-                <input name="descricao" type="hidden" id="descricao" value="{{ $modelo->descricao }}">
                 <input name="fundo" type="hidden" id="imagem" value="{{ $modelo->fundo }}">
                 <input name="verso" type="hidden" id="verso" value="{{ $modelo->verso }}">
                 <input name="unidade_administrativa_id" type="hidden" id="unidade_administrativa_id"
                     value=" {{ $modelo->unidade_administrativa_id }} ">
 
+                <div class="row box col-xl-7">
+                    <div
+                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Descrição</span>
+                        <input class="w-75 input-text " type="text" name="descricao" required>
+                    </div>
+                </div>
 
                 <div class="row box col-xl-7">
                     <div
@@ -33,23 +39,24 @@
                         <input class="w-75 input-text " type="text" value="{{ $unidade_adm->descricao }}" disabled>
                     </div>
                 </div>
-                <div class="row box col-xl-7">
-                    <div
-                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Descrição</span>
-                        <input class="w-75 input-text " type="text" value="{{ $modelo->descricao }}" disabled>
-                    </div>
-                </div>
 
                 <div class="row box col-xl-7">
                     <div
                         class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">Tipo Certificado</span>
-                        <select class="select-form w-100 " name="tipo_certificado" id="tipo_certificado" required>
+                        <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado" required>
                             @foreach ($tipos_certificado as $tipo)
                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+
+                <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
+                    <div
+                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Tipo Certificado (outro)</span>
+                        <input class="w-75 input-text" type="text" name="outro">
                     </div>
                 </div>
 
@@ -103,5 +110,21 @@
     </div>
 
 </div>
+
+    <script>
+        const select_tipo_certificado = document.getElementById("select_tipo_certificado");
+        const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");
+
+        select_tipo_certificado.addEventListener("change", function()
+        {
+            if (select_tipo_certificado.value === "Outro")
+            {
+                outro_tipo_certificado.style.display = "block";
+            } else
+            {
+                outro_tipo_certificado.style.display = "none";
+            }
+        });
+    </script>
 
 @endsection

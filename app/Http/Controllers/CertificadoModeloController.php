@@ -182,7 +182,7 @@ class CertificadoModeloController extends Controller
     public function create_tipo_certificado()
     {
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
 
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
 
@@ -203,18 +203,35 @@ class CertificadoModeloController extends Controller
 
     public function store_tipo_certificado(Request $request)
     {
-        $certificado_modelo = new CertificadoModelo();
+        if($request->tipo_certificado == 'Outro')
+        {
+            $certificado_modelo = new CertificadoModelo();
 
-        $certificado_modelo->unidade_administrativa_id = $request->unidade_administrativa_id;
-        $certificado_modelo->descricao = $request->tipo_certificado . " " . $request->descricao;
-        $certificado_modelo->tipo_certificado = $request->tipo_certificado;
-        $certificado_modelo->texto = $request->texto;
-        $certificado_modelo->fundo = $request->fundo;
-        $certificado_modelo->verso = $request->verso;
+            $certificado_modelo->unidade_administrativa_id = $request->unidade_administrativa_id;
+            $certificado_modelo->descricao = $request->descricao;
+            $certificado_modelo->tipo_certificado = $request->outro;
+            $certificado_modelo->texto = $request->texto;
+            $certificado_modelo->fundo = $request->fundo;
+            $certificado_modelo->verso = $request->verso;
 
-        $certificado_modelo->save();
+            $certificado_modelo->save();
+            
+            return redirect(route('home'))->with(['mensagem' => 'Modelo de certificado cadastrado com sucesso']);
+        } else
+        {
+            $certificado_modelo = new CertificadoModelo();
 
-        $certificado_modelos = CertificadoModelo::all();
-        return redirect(route('home'))->with(['mensagem' => 'Modelo de certificado cadastrado com sucesso']);
+            $certificado_modelo->unidade_administrativa_id = $request->unidade_administrativa_id;
+            $certificado_modelo->descricao = $request->descricao;
+            $certificado_modelo->tipo_certificado = $request->tipo_certificado;
+            $certificado_modelo->texto = $request->texto;
+            $certificado_modelo->fundo = $request->fundo;
+            $certificado_modelo->verso = $request->verso;
+
+            $certificado_modelo->save();
+            
+            return redirect(route('home'))->with(['mensagem' => 'Modelo de certificado cadastrado com sucesso']);
+        }
+        
     }
 }
