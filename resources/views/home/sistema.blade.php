@@ -30,7 +30,7 @@
                         <p>Em definição.</p>
                         
                         <h2>Código-fonte:</h2>
-                        <p><a href="#">GitHub</a></p>
+                        <p><a href="https://github.com/lmtsufape/Certifica" target="_blank">GitHub</a></p>
 
                         <h2>Licença de uso:</h2>
                         <p>Em definição.</p>
@@ -39,8 +39,9 @@
                         <ul>
                             <h3>Docentes:</h2>
                             <ul>Dr. Anderson Fernandes de Alencar</ul>
+                            <ul>Dr. Felipe Guedes de Araújo</ul>
+                            <ul>Dr. Ícaro Lins Leitão da Cunha</ul>
                             <ul>Dr. Igor Medeiros Vanderlei</ul>
-                            <ul>Dr. Jean Carlos Texeira de Araujo</ul>
                             <ul>Dr. Mariel José Pimentel de Andrade</ul>
                             <ul>Dr. Rodrigo Gusmão de Carvalho Rocha</ul>
                         </ul>
@@ -48,17 +49,17 @@
                         
                         <ul>
                             <h3>Desenvolvedores:</h2>
-                            <ul>Douglas</ul>
-                            <ul>Edigar</ul>
+                            <ul>Douglas Filipe Severo Batista</ul>
+                            <ul>Edgar Vinicius Carvalho Vital</ul>
+                            <ul>João Batista Neto</ul>
                             <ul>Lucas Messias Moura de Melo</ul>
-                            <ul>Neto</ul>
                             <ul>Yuri Resende Matias de Oliveira</ul>
                         </ul>
 
                         <ul>
                             <h3>Designer:</h2>
-                            <ul>Nome</ul>
-                            <ul>Nome</ul>                            
+                            <ul>Iasmin Raquel de Souza Barros</ul>                            
+                            <ul>Maria Eduarda Deodato Interaminense</ul>
                         </ul>
                             
                         <ul>
