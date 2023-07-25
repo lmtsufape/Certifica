@@ -24,13 +24,20 @@
         <div class="row box ">
 
             <div class="col-xl-4 border campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">Atividade/Função</span>
-                <select class="select-form w-100 h-100 " name="descricao" id="">
+                <span class="tittle-input">Atividade / Função</span>
+                <select class="select-form w-100 h-100 " name="descricao" id="select_atividade">
                     <option value="" selected hidden>Escolher...</option>
                     @foreach ($descricoes as $descricao)
                         <option value="{{ $descricao }}">{{ $descricao }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="col-xl-3 campo spacing-row1 input-create-box" id="outra_atividade" style="display: none;">
+                <div class="col-xl-12 campo d-flex aligm-items-start justify-content-start flex-column">
+                    <span class="tittle-input">Atividade / Função<span class="ast">*</span></span>
+                    <input class="w-100 h-100 input-text " type="text" name="outra" id="">
+                </div>
             </div>
 
             <div class="col-xl-3 campo spacing-row1 input-create-box">
@@ -43,6 +50,7 @@
             </div>
         </div>
 
+        </br> </br>
 
         <div class="row d-flex justify-content-start align-items-center">
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
@@ -53,4 +61,20 @@
         </div>
 
     </form>
+
+    <script>
+        const select_atividade = document.getElementById("select_atividade");
+        const outra_atividade = document.getElementById("outra_atividade");
+
+        $("#select_atividade").change(function()
+        {
+            if (select_atividade.value === "Outra")
+            {
+                outra_atividade.style.display = "block";
+            } else
+            {
+                outra_atividade.style.display = "none";
+            }
+        });
+    </script>
 @endsection

@@ -35,7 +35,7 @@ class AtividadeController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
+                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outra'];
 
 
         return view('atividade.atividade_create', ['acao' => $acao, 'descricoes' => $descricoes]);
@@ -55,7 +55,22 @@ class AtividadeController extends Controller
             return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
         }
 
-        Atividade::create($request->all());
+        if($request->descricao == 'Outra')
+        {
+            $atividade = new Atividade();
+
+            $atividade->descricao = $request->outra;
+            $atividade->data_inicio = $request->data_inicio;
+            $atividade->data_fim = $request->data_fim;
+            $atividade->acao_id = $request->acao_id;
+
+            $atividade->save();
+
+        } else
+        {
+            Atividade::create($request->all());
+        }
+
 
         return redirect(route('atividade.index', ['acao_id' => $request->acao_id]))->with(['mensagem' => "Atividade cadastrada com sucesso."]);
     }
