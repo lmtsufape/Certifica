@@ -20,34 +20,25 @@
             @csrf
 
             <div class="form-box-modelo-certificado form-row">
-                <input type="hidden" name="unidade_administrativa_id" value="1">
-
-
+                <input type="hidden" name="unidade_administrativa_id" value="{{ $modelo->unidade_administrativa_id }}">
 
                 <div class="row box col-xl-7">
                     <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Unidade Administrativa</span>
-
-                        <select class="select-form w-100 " name="unidade_adm" id="unidade_adm" class="form-select">
-                            <option value="" selected></option>
-                            @foreach ($unidades as $unidade)
-                                @if ($unidade->id === $modelo->unidade_administrativa_id)
-                                    <option value='{{ $unidade->id }}' selected>{{ $unidade->descricao }}</option>
-                                @else
-                                    <option value='{{ $unidade->id }}'>{{ $unidade->descricao }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row box col-xl-7">
-                    <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Titulo</span>
+                        <span class="tittle-input">Descrição</span>
                         <input class="w-100 h-100 input-text" name="descricao" type="text" placeholder="Nome do modelo"
                             value="{{ $modelo->descricao }}">
                     </div>
                 </div>
+
+
+                <div class="row box col-xl-7">
+                    <div
+                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Unidade Administrativa</span>
+                        <input class="w-75 input-text " type="text" value="{{ $modelo->unidadeAdministrativa->descricao }}" disabled>
+                    </div>
+                </div>
+
 
                 <div class="row box d-flex flex-column col-xl-7">
                     <span class="tittle-input w-100">Texto padrão:</span>
