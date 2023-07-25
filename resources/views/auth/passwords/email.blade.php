@@ -32,7 +32,7 @@
                 <div class="row d-flex aligm-items-start justify-content-start mb-3">
                     <div class="col-md-10 input-create-box d-flex aligm-items-start justify-content-start flex-column">
                         <span class="tittle-input">E-mail<span class="ast">*</span></span>
-                        <input class="w-75 input-text " type="text" name="codigo_validacao" required>
+                        <input class="w-75 input-text" name="email" type="text" name="codigo_validacao" required>
                     </div>
                 </div>
 
