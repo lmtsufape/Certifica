@@ -280,17 +280,19 @@ class CertificadoController extends Controller
     public function checar_certificado(Request $request)
     {
         $validacao = Certificado::where('codigo_validacao', $request->codigo_validacao)->first();
-        $user = User::where('cpf', $validacao->cpf_participante)->first();
-        $participante = $user->participacoes->where('atividade_id', $validacao->atividade_id)->first();
-        
-        $marca = 'Apenas Consulta !';
-        
+
         if($validacao != null)
         {
+            $user = User::where('cpf', $validacao->cpf_participante)->first();
+            $participante = $user->participacoes->where('atividade_id', $validacao->atividade_id)->first();
+            
+            $marca = 'Apenas Consulta !';
+        
             return $this->ver_certificado($participante->id, $marca);
+
         } else
         {
-            return view('certificado.validar', ['mensagem' => 'Certificado inválido!']);
+            return redirect()->back()->withErrors('Certificado inválido!');
         }
     }
 

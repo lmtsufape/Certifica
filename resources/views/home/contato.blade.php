@@ -6,17 +6,20 @@
 
 @section('content')
     <div class="container">
+        <div class="card">
 
-        <section class="section-view pb-2 pt-3">
-            <h1 class="titulo-view mb-4 mt-2">Contato</h1>
-
-            <div class="pb-1">
-                <h6 class="mb-3">Laboratório Multidisciplinar de Tecnologias Sociais (LMTS)</h3>
+            
+            <section class="section-view pb-2 pt-3">
+                <h1 class="titulo-view mb-4 mt-2">Contato</h1>
+                
+                <div class="pb-1">
+                    <h6 class="mb-3">Laboratório Multidisciplinar de Tecnologias Sociais (LMTS)</h3>
                     Universidade Federal do Agreste de Pernambuco - UFAPE <br>
                     Avenida Bom Pastor, s/n.º, Bairro Boa Vista - CEP: 55292-270 - Garanhuns - PE <br>
                     Laboratório 16 B <br>
                     E-mail: lmts@ufape.edu.br <br>
-            </div>
-        </section>
+                </div>
+            </section>
+        </div>
     </div>
 @endsection
