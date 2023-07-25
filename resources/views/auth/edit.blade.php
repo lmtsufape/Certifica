@@ -1,91 +1,84 @@
 @extends('layouts.app')
 
+@section('css')
+    <link rel="stylesheet" href="/css/acoes/create.css">
+    <link rel="stylesheet" href="/css/cadastros/cadastroUsuario.css">
+@endsection
+
 @section('title')
     Editar Perfil
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-7">
+    <form class="container-form-cadastro-usuario form card mx-auto shadow-lg p-3 mb-5 bg-white rounded"
+        action="{{ route('perfil.update') }}" method='POST'>
+        <h2 class="text-center mb-3">Editar Perfil</h2>
 
-                <div class="card">
-                    <div class="card-header" style='color:#FFFFFF; background: #972E3F;'>
-                        <div class="row justify-content-center">
-                                <div class="col-md-3">
-                                    <h3>Editar Perfil</h3>
-                                </div>
-                        </div>
-                    </div>
+        @csrf
 
-
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-11">
-                                
-                                <form action="{{route('perfil.update')}}" method='POST'>
-                                    @csrf
-                                    <div class="row">
-                                        <div>
-                                            <label for="name">Nome Completo</label>
-                                            <input name='name' id='name' class="form-control" value="{{$user->name}}">
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="cpf">CPF</label>
-                                            <input name='cpf' id='cpf' class="form-control" value="{{$user->cpf}}">
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="email">E-mail</label>
-                                            <input name='email' id='email' class="form-control" value="{{$user->email}}">
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <label for="celular">Celular</label>
-                                            <input name='celular' id="telefone" class="form-control" value="{{$user->celular}}">
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="perfil">Perfil</label>
-                                            <input name='perfil' id='perfil' class="form-control" value="{{$user->perfil->nome}}" disabled>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <label for="instituicao">Instituição de Vínculo</label>
-                                            <input name='instituicao' id='instituicao' class="form-control" value="{{$instituicao}}" disabled>
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="password">Senha</label>
-                                            <input name='password' id='password' class="form-control" type="password">
-                                        </div>
-                                        
-                                        <div class="col-md-6">
-                                            <label for="password_confirmation">Confirmar Senha</label>
-                                            <input name='password_confirmation' id='password_confirmation' class="form-control" type="password">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row justify-content-center" style="padding-top:5%;">
-                                        <div class="col-3">
-                                            <button type="submit" class="btn btn-outline-dark btn-sm" style="margin-right:20%;">Editar</button>    
-                                            <a href="" class="btn btn-outline-danger btn-sm">Voltar</a>
-                                        </div>
-                                    </div>
-                                </form>
-                                
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Nome completo<span class="ast">*</span></span>
+                <input class="w-100 input-text h-100 " type="text" name="name" id="nome" required value="{{ $user->name }}">
             </div>
         </div>
-    </div>
 
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">CPF<span class="ast">*</span></span>
+                <input class="w-100 h-100 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf" id="cpf" required value="{{ $user->cpf }}">
+            </div>
+        </div>
+
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">E-mail<span class="ast">*</span></span>
+                <input class="input-text w-100 h-100" type="email" name="email" id="" required value="{{ $user->email }}">
+            </div>
+        </div>
+
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Celular<span class="ast">*</span></span>
+                <input class="input-text w-100 h-100" type="text" name="celular" id="telefone" required value="{{ $user->celular }}">
+            </div>
+        </div>
+
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Perfil<span class="ast">*</span></span>
+                <input class="input-text w-100 h-100" type="text" name="celular" id="telefone" disabled value="{{ $user->perfil->nome }}" >
+            </div>
+        </div>
+
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Instituição de Vínculo<span class="ast">*</span></span>
+                <input class="input-text w-100 h-100" type="text" name="celular" id="telefone" disabled value="{{ $instituicao }}" >
+            </div>
+        </div>
+        
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Senha<span class="ast">*</span></span>
+                <input class="input-text w-100 h-100" type="password" name="password" id="password" required>
+            </div>
+        </div>
+
+        <div class="row d-flex aligm-items-start justify-content-center ">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Confirmar senha<span class="ast">*</span></span>
+                <input class="input-text w-100 h-100" type="password" name="password_confirmation" id='password_confirmation' required>
+            </div>
+        </div>
+
+        <div class="row d-flex align-items-center justify-content-evenly ">
+          
+            <button class="col-3" type="submit">Cadastrar</button>
+            
+            <a class="col-3 button text-center" href="{{route('home')}}">Voltar</a>
+
+        </div>
+
+    </form>
 @endsection
