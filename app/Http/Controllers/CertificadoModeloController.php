@@ -158,7 +158,11 @@ class CertificadoModeloController extends Controller
     {
         $certificado_modelo = CertificadoModelo::query()->findOrFail($id);
 
-        $certificado_modelo->delete();
+        try {
+            $certificado_modelo->delete();
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors("Este modelo não pode ser excluído! O modeloe está associado a um ou mais certificados.");
+        }
 
         return redirect(Route('certificado_modelo.index'))->with(['mensagem' => 'Modelo excluido com sucesso']);
     }
