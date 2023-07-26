@@ -17,6 +17,7 @@
 
             <form action="" id="form">
                 <div class="container">              
+                    <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
                     <div class="row head-table search-box d-flex align-items-center justify-content-center">
                         <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                             <span>Nome da Ação</span>

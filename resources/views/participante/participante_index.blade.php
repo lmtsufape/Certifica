@@ -18,6 +18,7 @@
                 <div class="text-center mb-3">
                     <h3>Participantes</h3>
                 </div>
+                <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">Voltar</a>
 
                 <div class="row d-flex align-items-center justify-content-end">
                     @if ($acao->status == null)

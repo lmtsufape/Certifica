@@ -10,6 +10,8 @@
             <h1 class="text-center mb-4">Listar Ações</h1>
 
             <div class="container">
+                <a style="position:absolute;"type="button" class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
+
                 <div class="row d-flex align-items-center justify-content-end">
                     <a class="criar-acao-button" href="{{ route('acao.create') }}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar ação

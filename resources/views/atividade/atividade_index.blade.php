@@ -19,6 +19,8 @@
                 <h3>Atividades / Funções</h3>
             </div>
 
+            <a style="position:absolute" type="button" class="btn btn-sm btn-outline-dark" href="{{route('acao.index')}}">Voltar</a>
+
             <div class="row d-flex align-items-center justify-content-end">
                 <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
                     <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
