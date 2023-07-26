@@ -60,7 +60,7 @@
                                     <img src="/images/acoes/listView/anexo.svg">
                                 </a>
 
-                                <a href="" title="Importar Integrantes" data-bs-toggle="modal" data-bs-target="#modalImportCsv">
+                                <a href="" title="Importar Integrantes" data-bs-toggle="modal" data-bs-target="#modalImportCsv{{$atividade->id}}">
                                     <img src="/images/acoes/listView/csvIcon.svg" alt="">
                                 </a>
                             @endif
@@ -86,7 +86,7 @@
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="modalImportCsv" tabindex="-1" aria-labelledby="modalImportCsvLabel" aria-hidden="true">
+                <div class="modal fade" id="modalImportCsv{{$atividade->id}}" tabindex="-1" aria-labelledby="modalImportCsvLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
