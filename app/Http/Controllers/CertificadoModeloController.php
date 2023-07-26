@@ -140,11 +140,10 @@ class CertificadoModeloController extends Controller
             $modelo->verso = $request->verso->store('public/modelos');
         }
 
-        $modelo->unidade_administrativa_id = $request->unidade_adm;
         $modelo->descricao = $request->descricao;
         $modelo->texto = $request->texto;
 
-        $modelo->save();
+        $modelo->update();
 
         return redirect(route('certificado_modelo.index'))->with(['mensagem' => "Modelo atualizado com sucesso"]);
     }
