@@ -60,30 +60,31 @@
                             <span><b>Observações do Gestor: </b>{{$acao->observacao_gestor}}</span>
                         @endif
                     </div>
-                    <hr>
 
-                    <div class="row justify-content-center">
-                        <h5>Atividades</h5>
-                        @foreach($acao->atividades as $atividade)
-                            <span><b>Descrição: </b>{{$atividade->descricao}}</span>
-                            <div class="col-10">
-                                <span><b>Integrantes:</b></span>
-                                @foreach($atividade->participantes as $participante)
-                                <div>
-                                    <ul>
-                                        <span><b>Nome: </b>{{$participante->user->name}}</span><br>
-                                        <span><b>E-mail: </b>{{$participante->user->email}}</span><br>
-                                        <span><b>Carga Horária: </b>{{$participante->carga_horaria}}</span><br>
-                                        <span><b>Inicio: </b>{{date( 'd/m/Y' , strtotime($atividade->data_inicio))}}</span><br>
-                                        <span><b>Fim: </b>{{date( 'd/m/Y' , strtotime($atividade->data_fim))}}</span><br>
-                                    </ul>
+                    @if(count($acao->atividades))
+                        <hr>
+                        <div class="row justify-content-center">
+                            <h5>Atividades</h5>
+                            @foreach($acao->atividades as $atividade)
+                                <span><b>Descrição: </b>{{$atividade->descricao}}</span>
+                                <div class="col-10">
+                                    <span><b>Integrantes:</b></span>
+                                    @foreach($atividade->participantes as $participante)
+                                    <div>
+                                        <ul>
+                                            <span><b>Nome: </b>{{$participante->user->name}}</span><br>
+                                            <span><b>E-mail: </b>{{$participante->user->email}}</span><br>
+                                            <span><b>Carga Horária: </b>{{$participante->carga_horaria}}</span><br>
+                                            <span><b>Inicio: </b>{{date( 'd/m/Y' , strtotime($atividade->data_inicio))}}</span><br>
+                                            <span><b>Fim: </b>{{date( 'd/m/Y' , strtotime($atividade->data_fim))}}</span><br>
+                                        </ul>
+                                    </div>
+                                    <hr>
+                                    @endforeach
                                 </div>
-                                <hr>
-                                @endforeach
-                            </div>
-                        @endforeach
-                    </div>
-
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
