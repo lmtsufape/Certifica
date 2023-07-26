@@ -211,13 +211,15 @@ class AcaoController extends Controller
         $acao->status = 'Em análise';
         $acao->update();
 
-        $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3);
+        $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3)->first();
 
         //enviar email
-        Mail::to($user)->send( new AcaoSubmetida([
-            'acao'    =>$acao->titulo,
-            'acao_id' => $acao->id,
-        ]));
+        if($user){
+            Mail::to($user)->send( new AcaoSubmetida([
+                'acao'    =>$acao->titulo,
+                'acao_id' => $acao->id,
+            ]));
+        }
 
         return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);
     }
