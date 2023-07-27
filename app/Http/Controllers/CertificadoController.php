@@ -82,11 +82,11 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);;
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);
         }
         else
         {
-            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação submetida !']);;
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação submetida !']);
         }
 
     }
@@ -206,6 +206,8 @@ class CertificadoController extends Controller
             {
                 $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
             }
+            
+            if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
 
             $certificado = new Certificado();
 
