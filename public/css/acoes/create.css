@@ -94,6 +94,7 @@ input:focus,.select-form:focus{
 input[type="file"]{
     display: none;
 }
+
 input[type="date"]{
     margin:0 0 50px 0;
     position: relative;
