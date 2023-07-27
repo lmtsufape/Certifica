@@ -77,9 +77,7 @@
 /*ANALISAR AÇÕES*/
 
 .buttonAnalisar{
-    width: 150px;
-    display: flex;
-    align-items: center;
+    width: 100px;
     justify-content: center;
     border: none;
     font-size: 14px;
