@@ -6,6 +6,16 @@
     height: 150px;
     border: 1px solid transparent;
 }
+.card-preview-create{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    width: 220px;
+    border: 1px solid black;
+    cursor: pointer;
+}
 
 textarea{
     text-align: center;
