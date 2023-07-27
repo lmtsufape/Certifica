@@ -186,5 +186,11 @@ footer .text-icons {
         width: 15px;
         margin: 25px 0 0 0;
     }
+}
 
+@media (height > 650px){
+    footer{
+        position: fixed;
+        bottom: 0;
+    }
 }
