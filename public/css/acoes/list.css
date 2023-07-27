@@ -1,5 +1,8 @@
 
 /*GERAL VIEW*/
+.icon-png{
+    width: 30px;
+}
 .view-list-acoes{
     height: 55vh max-content;
 }
