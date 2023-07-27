@@ -82,17 +82,17 @@ class CertificadoController extends Controller
 
         $certificados_emitidos->each(fn($certificado) => $certificado->save());
 
-        if (Auth::user()->perfil_id == 3)
+        if (Auth::user()->perfil_id == 3 && $acao->usuario_id == Auth::user()->id)
         {
             $acao->status = 'Aprovada';
 
             $acao->update();
 
-            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação aprovada !']);
         }
         else
         {
-            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação submetida !']);
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada !']);
         }
 
     }
