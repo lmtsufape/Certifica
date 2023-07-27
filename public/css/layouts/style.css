@@ -188,9 +188,3 @@ footer .text-icons {
     }
 }
 
-@media (height > 650px){
-    footer{
-        position: fixed;
-        bottom: 0;
-    }
-}
