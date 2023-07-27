@@ -52,6 +52,8 @@ class CertificadoController extends Controller
 
         }
 
+        $certificados_emitidos = collect();
+
         foreach($atividades as $atividade)
         {
             $participantes = Participante::all()->where("atividade_id", $atividade->id);
@@ -63,6 +65,8 @@ class CertificadoController extends Controller
                $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
             }
 
+            if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
+
             foreach($participantes as $participante)
             {
                 $certificado = new Certificado();
@@ -72,21 +76,23 @@ class CertificadoController extends Controller
                 $certificado->certificado_modelo_id = $certificado_modelo->id;
                 $certificado->atividade_id = $atividade->id;
 
-                $certificado->save();
+                $certificados_emitidos->push($certificado);
             }
         }
 
-        if (Auth::user()->perfil_id == 3)
+        $certificados_emitidos->each(fn($certificado) => $certificado->save());
+
+        if (Auth::user()->perfil_id == 3 && $acao->usuario_id == Auth::user()->id)
         {
             $acao->status = 'Aprovada';
 
             $acao->update();
 
-            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);;
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação aprovada !']);
         }
         else
         {
-            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação submetida !']);;
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada !']);
         }
 
     }
@@ -206,6 +212,8 @@ class CertificadoController extends Controller
             {
                 $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
             }
+            
+            if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
 
             $certificado = new Certificado();
 

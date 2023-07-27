@@ -11,6 +11,7 @@
 
             <h1 class="text-center mb-4">Modelos de certificados</h1>
 
+            <a style="position:absolute;" type="button" class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
             @if(Auth::user()->perfil_id == 1)
                 <div class="row d-flex align-items-center justify-content-end">
                     <a class="criar-acao-button" href="{{route('certificado_modelo.create')}}">
