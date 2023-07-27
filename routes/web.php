@@ -223,6 +223,8 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::post('/store_tipo_certificado_modelo', [CertificadoModeloController::class, 'store_tipo_certificado'])->name('tipo_certificado_modelo.store');
 
     Route::get('/gestor/gerar_certificados{acao_id}', [CertificadoController::class, 'gerar_certificados'])->name('gestor.gerar_certificados');
+
+    Route::get('/acoes_submetidas_list', [AcaoController::class, 'list_acoes_submetidas'])->name('acoes_submetidas_list');
 });
 
 

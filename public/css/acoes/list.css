@@ -86,10 +86,38 @@
     border-radius: 5px;
 }
 
+/* Tags */
+.tag {
+    color: #000;
+    border-radius: 2rem;
+    opacity: 75%;
+    border: #FFFFFF;
+    box-shadow: #000;
+}
+
+.tag-devolvida{
+    background: linear-gradient(45deg, rgba(255, 255, 0, 0.518), rgba(255, 238, 0, 0.238));
+    /* border: 1px solid rgba(255, 255, 0, 0.169); */
+}
+
+.tag-reprovada{
+    background: linear-gradient(45deg, rgba(255, 0, 0, 204), rgba(255, 0, 0, 0.267));
+    /* border: 1px solid rgba(255, 0, 0, 0.169); */
+}
+
+.tag-aprovada{
+    background: linear-gradient(45deg, rgba(0, 255, 0, 0.204), rgba(0, 255, 0, 0.267));
+    /* border: 1px solid rgba(0, 255, 0, 0.169); */
+}
+
+.tag-em{
+    background: linear-gradient(45deg, rgba(0, 179, 255, 0.649), rgba(0, 179, 255, 0.267));
+    /* border: 1px solid rgba(0, 179, 255, 0.169); */
+}
+
 
 @media (width < 768px){
     .head-table,.linha-table{
         font-size: 12px;
     }
 }
-
