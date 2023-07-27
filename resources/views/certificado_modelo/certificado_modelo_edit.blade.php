@@ -48,32 +48,33 @@
                     </textarea>
                 </div>
 
-                <div class="row d-flex align-items-center justify-content-evenly col-xl-7">
 
-                    <input hidden type="file" name="fundo" id="plano_fundo" accept="image/*"
-                        value={{ $modelo->fundo }}>
+                <div class="row d-flex align-items-center justify-content-around">
 
-                    <div class="col-5">
-                        <label class="label" for="plano_fundo">
-                            <span>Fundo: </span>
-                            <div class="card-preview border">
-                                <strong>
-                                    <span id="card_plano_fundo">nome arquivo</span>
-                                </strong>
-                                <span>(preview em desenvolvimento)</span>
+                    <div class="col text-center">
+                        <input hidden type="file" name="verso" id="plano_verso" accept="image/*" value={{ $modelo->verso }}>
+
+                        <label class="label" for="plano_verso">
+                            <span>Verso</span>
+                            <div id="card_verso" class="card-preview-create">
+
+                                <img id="img_verso" src="{{$verso}}" alt="" width="100%" height="100%">
+                                <img id="img_verso_new" src="" alt="" width="100%" height="100%">
                             </div>
                         </label>
                     </div>
 
-                    <input hidden type="file" name="verso" id="verso" accept="image/*" value={{ $modelo->verso }}>
+                    <div class="col text-center">
+                        <input hidden type="file" name="fundo" id="plano_fundo" accept="image/*" value={{ $modelo->fundo }}>
 
-                    <div class="col-5">
-                        <label class="label" for="verso">
-                            <span>Verso: </span>
-                            <div class="card-preview border">
-                                <strong><span id="card_verso">nome arquivo</span></strong>
-                                <span>(preview em desenvolvimento)</span>
+                        <label class="label" for="plano_fundo">
+                            <span>Plano de fundo</span>
+
+                            <div id="card_fundo" class="card-preview-create">
+                                <img id="img_fundo" src="{{$fundo}}" alt="" width="100%" height="100%">
+                                <img id="img_fundo_new" src="" alt="" width="100%" height="100%">
                             </div>
+
                         </label>
                     </div>
 
@@ -98,32 +99,36 @@
 
 </div>
 
-    <script>
-        //nome do arquivo de plano de fundo
-        var plano_fundo = document.getElementById('plano_fundo');
-        var card_plano_fundo = document.getElementById('card_plano_fundo');
+<script>
+    //Preview fundo
+    var imgFundo = document.getElementById('img_fundo');
+    var imgFundoNew = document.getElementById('img_fundo_new');
+    var planoFundo = document.getElementById('plano_fundo');
+   
 
-        plano_fundo.addEventListener('change', (e) => {
+    imgFundoNew.style.display = "none"
 
-            var string = e.target.value
+    planoFundo.addEventListener('change', (e) => {
+      
+        imgFundo.style.display = "none"
+        imgFundoNew.style.display = ""
 
-            var dados = string.split(/[\\"]/g)
+        imgFundoNew.src = URL.createObjectURL(e.target.files[0])
+    })
 
-            card_plano_fundo.innerHTML = dados[dados.length - 1]
+    //Preview verso
 
-        })
-        //nome do arquivo da verso
-        var assinatura = document.getElementById('verso');
-        var card_assinatura = document.getElementById('card_verso');
+    var imgVerso = document.getElementById('img_verso');
+    var imgVersoNew = document.getElementById('img_verso_new');
+    var planoVerso = document.getElementById('plano_verso');
+    
+    imgVersoNew.style.display = "none"
 
-        assinatura.addEventListener('change', (e) => {
+    planoVerso.addEventListener('change', (e) => {
+        imgVerso.style.display = "none"
+        imgVersoNew.style.display = ""
 
-            var string = e.target.value
-
-            var dados = string.split(/[\\"]/g)
-
-            card_assinatura.innerHTML = dados[dados.length - 1]
-
-        })
-    </script>
+        imgVersoNew.src = URL.createObjectURL(e.target.files[0])
+    })
+</script>
 @endsection

@@ -102,8 +102,10 @@ class CertificadoModeloController extends Controller
     {
         $unidades = UnidadeAdministrativa::orderBy('descricao')->get();
         $modelo = CertificadoModelo::find($id);
+        $fundo = Storage::url($modelo->fundo);
+        $verso = Storage::url($modelo->verso);
 
-        return view('certificado_modelo.certificado_modelo_edit', ['modelo' => $modelo, 'unidades' => $unidades]);
+        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso'));
     }
 
     /**
