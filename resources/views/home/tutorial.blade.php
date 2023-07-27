@@ -14,13 +14,13 @@
 
                 <p>
                     Clique <a target="_blank"
-                        href="https://drive.google.com/file/d/1fIcEq_dT1trO2Oq-BQB6YB0t2dpuZGDx/view?usp=sharing">aqui</a>
+                        href="https://drive.google.com/drive/folders/1_gicfPwYkoKjYB5dJBlRfLunuRUZdBJE?usp=sharing">aqui</a>
                     para obter o manual em pdf
                 </p>
                 @include('home.guiaView')
                 <p>
                     Clique <a style="color:#B02A3D" target="_blank"
-                        href="https://drive.google.com/file/d/1fIcEq_dT1trO2Oq-BQB6YB0t2dpuZGDx/view?usp=sharing">aqui</a>
+                        href="https://drive.google.com/drive/folders/1_gicfPwYkoKjYB5dJBlRfLunuRUZdBJE?usp=sharing">aqui</a>
                     para obter o manual em pdf
                 </p>
 
