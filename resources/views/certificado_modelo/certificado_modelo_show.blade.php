@@ -35,19 +35,17 @@
                     </textarea>
                 </div>
 
-                <div class="row d-flex align-items-center justify-content-evenly col-xl-7">
+                <div class="row d-flex align-items-center justify-content-around">
 
-                    <div class="col-5">
-                        <span>Fundo: </span>
-                        <div class="card-preview">
+                    <div class="col">
+                        <span>Fundo </span>
+                        <div class="card-preview-create">
                             <img src="{{ $imagem }}" alt="">
-
                         </div>
                     </div>
-                    <div class="col-5">
-                        <span>Verso: </span>
-                        <div class="card-preview">
-
+                    <div class="col">
+                        <span>Verso </span>
+                        <div class="card-preview-create">
                             <img src="{{ $verso }}" alt="">
                         </div>
                     </div>
