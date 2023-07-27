@@ -17,23 +17,24 @@
                 </div>
             </div>
 
-            <div class="list container overflow-scroll">
-                @foreach ($acaos as $acao)
-                    <div class="row linha-table d-flex align-items-center justify-content-start">
-                        <div class="col-4 text-center">
-                            <span class="spacing-col">
-                                {{ $acao->titulo }}
-                            </span>
-                        </div>
-                        <div class="col-4 text-center"><span>{{ $acao->status }}</span></div>
-                        <div class="col-4 text-center">
-                            <a href="{{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}">
-                                <img src="/images/acoes/listView/eye.svg" alt="Visualizar" title="Visualizar">
-                            </a>
-    
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+            <div class="list container overflow-scroll"></div>
         </section>
-    @endsection
+    </div>
+@endsection
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+<script>
+    $(document).ready(function() {
+        carregar_lista();
+    });
+
+    function carregar_lista() {
+        $.ajax({
+            url: "{{ route('acoes_submetidas_list') }}",
+            method: "GET",
+        }).done(function(data) {
+            $(".list").html(data);
+        });
+    }
+</script>

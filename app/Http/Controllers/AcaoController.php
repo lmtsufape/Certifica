@@ -226,10 +226,14 @@ class AcaoController extends Controller
 
     public function acoes_submetidas()
     {
+        return view('gestor_institucional.acoes_submetidas');
+    }
+
+    public function list_acoes_submetidas(){
         $acaos = Acao::all()->where('status', '!=', null)->where
                 ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->sortBy('id');
 
-        return view('gestor_institucional.acoes_submetidas', ['acaos' => $acaos]);
+        return view('gestor_institucional.list_acoes_submetidas', ['acaos' => $acaos]);
     }
 
     public function analisar_acao($acao_id)

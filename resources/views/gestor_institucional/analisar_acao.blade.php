@@ -96,40 +96,6 @@
                 @endforeach
 
             </div>
-
-            <form method="POST" id="formAnaliseAcao" name="formAnaliseAcao" action="{{ route('gestor.acao_update') }}">
-                @csrf
-
-                <input type="hidden" name="id" value="{{ $acao->id }}">
-
-                <div class="container">
-                    <div class="row">
-                        @if($acao->status == "Em análise")
-                            <div class="form-group">
-                                <label for="observacoes">Observações:</label>
-                                <textarea class="form-control" id="observacao_gestor" name="observacao_gestor" rows="3"></textarea>
-                            </div>
-                        @else
-                            <div class="form-group">
-                                <label for="observacoes">Observações:</label>
-                                <textarea class="form-control" id="observacao_gestor" name="observacao_gestor" rows="3" disabled>{{ $acao->observacao_gestor }}</textarea>
-                            </div>
-                        @endif
-                        
-                        @if ($acao->status == "Em análise")
-                            <div class="col d-flex align-items-center justify-content-evenly mt-4">
-                                <button name="action" type="submit" class="buttonAnalisar btn-danger" value="reprovar">Reprovar</button>
-
-                                <button name="action" type="submit" class="buttonAnalisar btn-secondary" value="devolver">Devolver</button>
-
-                                <button name="action" type="submit" class="buttonAnalisar btn-success" value="aprovar">Aprovar</button>
-                            </div>
-                        @endif
-                    </div>
-
-                </div>
-            </form>
-
         </section>
     </div>
 @endsection
