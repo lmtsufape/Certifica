@@ -60,10 +60,10 @@
 
                         <div class="col-2 d-flex align-items-center justify-content-evenly">
 
-                            <div class="col-1">
+                            <div class="col-2">
 
                             </div>
-                            <div class="col-6 d-flex align-items-center justify-content-between">
+                            <div class="col-4 d-flex align-items-center justify-content-between">
 
                                 @if ($acao->status == 'Aprovada')
                                     <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
@@ -95,7 +95,7 @@
                                 @endif
 
                             </div>
-                            <div class="col-5">
+                            <div class="col-6">
 
                             </div>
                         </div>

@@ -93,6 +93,8 @@ footer{
     align-items: center;
     background: #972E3F;
     height: 20vh max-content;
+    position: relative;
+    bottom: 0;
 }
 
 footer .text-icons {

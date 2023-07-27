@@ -49,10 +49,12 @@
                         {{$atividade->nome_participantes}}
                     </div>
 
+                    
 
                     <div class="col-3 d-flex align-items-center justify-content-start">
 
-                        <div class="col-4 d-flex align-items-center justify-content-around">
+                                        
+                        <div class="col-5 d-flex align-items-center justify-content-evenly">
                             <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}" title="Integrantes">
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
@@ -77,7 +79,7 @@
                             </a>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-7">
 
                         </div>
                     </div>
