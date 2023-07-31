@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="list container overflow-scroll"></div>
+            <div class="list container"></div>
         </section>
     </div>
 @endsection

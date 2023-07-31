@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="list container overflow-scroll">
+        <div class="list container">
             @foreach ($atividades as $atividade)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
                     <div class="col-2"><span class="spacing-col">{{ $atividade->descricao }}</span></div>

@@ -4,15 +4,18 @@
     width: 30px;
 }
 .view-list-acoes{
-    height: 55vh max-content;
+    height:max-content;
 }
 .list{
-    height: 28vh;
+    height:max-content;
     width: 100%;
+    min-height: 28vh;
 }
+/*
 .list::-webkit-scrollbar{
     display: none;
 }
+*/
 .head-table{
     border: 1px solid transparent;
     background: #972E3F;
