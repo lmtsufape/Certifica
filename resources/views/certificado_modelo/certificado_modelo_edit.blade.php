@@ -9,126 +9,131 @@
 @endsection
 
 @section('content')
-<div class="row">
+    <div class="row">
 
-    <div class="container container-form-modelo">
-        <h2 class="text-center">ATUALIZAR MODELO DE CERTIFICADO</h2>
+        <div class="container container-form-modelo">
+            <h2 class="text-center">ATUALIZAR MODELO DE CERTIFICADO</h2>
 
-        <form action="{{ Route('certificado_modelo.update', ['id' => $modelo->id]) }}" method="POST"
-            enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
+            <form action="{{ Route('certificado_modelo.update', ['id' => $modelo->id]) }}" method="POST"
+                enctype="multipart/form-data">
+                @method('PUT')
+                @csrf
 
-            <div class="form-box-modelo-certificado form-row">
-                <input type="hidden" name="unidade_administrativa_id" value="{{ $modelo->unidade_administrativa_id }}">
+                <div class="form-box-modelo-certificado form-row">
+                    <input type="hidden" name="unidade_administrativa_id" value="{{ $modelo->unidade_administrativa_id }}">
 
-                <div class="row box col-xl-7">
-                    <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Descrição</span>
-                        <input class="w-100 h-100 input-text" name="descricao" type="text" placeholder="Nome do modelo"
-                            value="{{ $modelo->descricao }}">
+                    <div class="row box col-xl-7">
+                        <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Descrição</span>
+                            <input class="w-100 h-100 input-text" name="descricao" type="text"
+                                placeholder="Nome do modelo" value="{{ $modelo->descricao }}">
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="row box col-xl-7">
-                    <div
-                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Unidade Administrativa</span>
-                        <input class="w-75 input-text " type="text" value="{{ $modelo->unidadeAdministrativa->descricao }}" disabled>
+                    <div class="row box col-xl-7">
+                        <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Unidade Administrativa</span>
+                            <input class="w-75 input-text " type="text"
+                                value="{{ $modelo->unidadeAdministrativa->descricao }}" disabled>
+                        </div>
                     </div>
-                </div>
 
 
-                <div class="row box d-flex flex-column col-xl-7">
-                    <span class="tittle-input w-100">Texto padrão:</span>
+                    <div class="row box d-flex flex-column col-xl-7">
+                        <span class="tittle-input w-100">Texto padrão:</span>
 
-                    <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
+                        <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
                         {{ $modelo->texto }}
                     </textarea>
-                </div>
-
-
-                <div class="row d-flex align-items-center justify-content-around">
-
-                    <div class="col text-center">
-                        <input hidden type="file" name="verso" id="plano_verso" accept="image/*" value={{ $modelo->verso }}>
-
-                        <label class="label" for="plano_verso">
-                            <span>Verso</span>
-                            <div id="card_verso" class="card-preview-create">
-
-                                <img id="img_verso" src="{{$verso}}" alt="" width="100%" height="100%">
-                                <img id="img_verso_new" src="" alt="" width="100%" height="100%">
-                            </div>
-                        </label>
                     </div>
 
-                    <div class="col text-center">
-                        <input hidden type="file" name="fundo" id="plano_fundo" accept="image/*" value={{ $modelo->fundo }}>
 
-                        <label class="label" for="plano_fundo">
-                            <span>Plano de fundo</span>
+                    <div class="row d-flex align-items-center justify-content-around">
 
-                            <div id="card_fundo" class="card-preview-create">
-                                <img id="img_fundo" src="{{$fundo}}" alt="" width="100%" height="100%">
-                                <img id="img_fundo_new" src="" alt="" width="100%" height="100%">
-                            </div>
+                        <div class="col text-center">
+                            <input hidden type="file" name="verso" id="plano_verso" accept="image/*"
+                                value={{ $modelo->verso }}>
 
-                        </label>
+                            <label class="label" for="plano_verso">
+                                <span>Verso</span>
+                                <div id="card_verso" class="card-preview-create">
+
+                                    <img id="img_verso" src="{{ $verso }}" alt="" width="100%"
+                                        height="100%">
+                                    <img id="img_verso_new" src="" alt="" width="100%" height="100%">
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="col text-center">
+                            <input hidden type="file" name="fundo" id="plano_fundo" accept="image/*"
+                                value={{ $modelo->fundo }}>
+
+                            <label class="label" for="plano_fundo">
+                                <span>Plano de fundo</span>
+
+                                <div id="card_fundo" class="card-preview-create">
+                                    <img id="img_fundo" src="{{ $fundo }}" alt="" width="100%"
+                                        height="100%">
+                                    <img id="img_fundo_new" src="" alt="" width="100%" height="100%">
+                                </div>
+
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row d-flex justify-content-start align-items-center mt-4 col-xl-7">
+
+                        <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                            <a class="d-flex justify-content-center align-items-center cancel"
+                                href={{ route('certificado_modelo.index') }}>Voltar</a>
+
+                            <button class="submit" type="submit">Salvar</button>
+                        </div>
                     </div>
 
                 </div>
+            </form>
+        </div>
+        <div>
+            <x-legenda />
+        </div>
 
-
-                <div class="row d-flex justify-content-start align-items-center mt-4 col-xl-7">
-
-                    <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                        <a class="d-flex justify-content-center align-items-center cancel"
-                            href={{ route('certificado_modelo.show', ['id' => $modelo->id]) }}>Voltar</a>
-                        <button class="submit" type="submit">Salvar</button>
-                    </div>
-                </div>
-
-            </div>
-        </form>
     </div>
-    <div>
-        <x-legenda/>
-    </div>
 
-</div>
+    <script>
+        //Preview fundo
+        var imgFundo = document.getElementById('img_fundo');
+        var imgFundoNew = document.getElementById('img_fundo_new');
+        var planoFundo = document.getElementById('plano_fundo');
 
-<script>
-    //Preview fundo
-    var imgFundo = document.getElementById('img_fundo');
-    var imgFundoNew = document.getElementById('img_fundo_new');
-    var planoFundo = document.getElementById('plano_fundo');
-   
 
-    imgFundoNew.style.display = "none"
+        imgFundoNew.style.display = "none"
 
-    planoFundo.addEventListener('change', (e) => {
-      
-        imgFundo.style.display = "none"
-        imgFundoNew.style.display = ""
+        planoFundo.addEventListener('change', (e) => {
 
-        imgFundoNew.src = URL.createObjectURL(e.target.files[0])
-    })
+            imgFundo.style.display = "none"
+            imgFundoNew.style.display = ""
 
-    //Preview verso
+            imgFundoNew.src = URL.createObjectURL(e.target.files[0])
+        })
 
-    var imgVerso = document.getElementById('img_verso');
-    var imgVersoNew = document.getElementById('img_verso_new');
-    var planoVerso = document.getElementById('plano_verso');
-    
-    imgVersoNew.style.display = "none"
+        //Preview verso
 
-    planoVerso.addEventListener('change', (e) => {
-        imgVerso.style.display = "none"
-        imgVersoNew.style.display = ""
+        var imgVerso = document.getElementById('img_verso');
+        var imgVersoNew = document.getElementById('img_verso_new');
+        var planoVerso = document.getElementById('plano_verso');
 
-        imgVersoNew.src = URL.createObjectURL(e.target.files[0])
-    })
-</script>
+        imgVersoNew.style.display = "none"
+
+        planoVerso.addEventListener('change', (e) => {
+            imgVerso.style.display = "none"
+            imgVersoNew.style.display = ""
+
+            imgVersoNew.src = URL.createObjectURL(e.target.files[0])
+        })
+    </script>
 @endsection

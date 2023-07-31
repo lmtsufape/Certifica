@@ -35,7 +35,7 @@
         </div>
 
 
-        <div class="list container overflow-scroll">
+        <div class="list container">
             @foreach($certificado_modelos as $modelo)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
                     <div class="col-4"><span class="spacing-col">{{$modelo->descricao}}</span></div>
@@ -44,16 +44,19 @@
 
 
 
-                        <span class="col-2 d-flex align-items-center justify-content-around">
+                        <span class="col-3 d-flex align-items-center justify-content-around">
                             <a href="{{route('certificado_modelo.show', ['id'=>$modelo->id])}}">
                                 <img src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar">
+                            </a>
+                            <a href="{{Route('certificado_modelo.edit', ['id'=>$modelo->id])}}">
+                                <img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar Modelo de certificado">
                             </a>
                             <a href="{{route('certificado_modelo.delete', ['id' => $modelo->id])}}">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Excluir">
                             </a>
                         </span>
 
-                        <span class="col-10 "></span>
+                        <span class="col-9 "></span>
 
                     </div>
                 </div>

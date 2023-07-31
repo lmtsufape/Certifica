@@ -65,7 +65,7 @@
             </div>
 
             <!-- Insere os dados na tabela via ajax -->
-            <div class="list container overflow-scroll"></div>
+            <div class="list container"></div>
         </section>
     @endsection
 

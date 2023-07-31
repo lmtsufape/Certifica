@@ -48,7 +48,7 @@
                     <div class="col-2 text-center"><span>Funcionalidades</span></div>
                 </div>
             </div>
-            <div class="list container overflow-scroll"></div>
+            <div class="list container"></div>
         </section>
 @endsection
 

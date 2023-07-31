@@ -36,8 +36,10 @@ class ParticipanteController extends Controller
         $atividade = Atividade::findOrFail($atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
-        return view('participante.participante_index', ['participantes' => $participantes, 'atividade' => $atividade,
-            'acao' => $acao]);
+        $cont = 0;
+
+        return view('participante.participante_index',compact('participantes','atividade','acao','cont'));
+    
     }
 
     /**

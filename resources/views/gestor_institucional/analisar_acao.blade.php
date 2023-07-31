@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="list container overflow-scroll">
+            <div class="list container">
                 <div class="row linha-table d-flex align-items-center justify-content-start">
                     <div class="col-4 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
                     <div class="col-3 text-start">
