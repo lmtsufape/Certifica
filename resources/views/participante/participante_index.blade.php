@@ -16,9 +16,12 @@
                 <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
 
                 <div class="text-center mb-3">
-                    <h3>Participantes</h3>
+                    <h3>Participantes / {{$atividade->descricao}}</h3>
                 </div>
-                <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">Voltar</a>
+
+                <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">
+                    Voltar
+                </a>
 
                 <div class="row d-flex align-items-center justify-content-end">
                     @if ($acao->status == null)
@@ -30,7 +33,8 @@
                 </div>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
-                    <div class="col-4"><span class="spacing-col">Nome</span></div>
+                    <div class="col-1"></div>
+                    <div class="col-3"><span>Nome</span></div>
                     <div class="col-2"><span>CPF</span></div>
                     <div class="col-2"><span>CH</span></div>
                     <div class="col-2"><span>Atividade / Função</span></div>
@@ -41,8 +45,11 @@
             <div class="list container overflow-scroll">
                 @foreach ($participantes as $participante)
                     <div class="row linha-table d-flex align-items-center justify-content-center">
-                        <div class="col-4">
-                            <span class="spacing-col">
+                        <div class="col-1 text-center">
+                            {{++$cont}}
+                        </div>
+                        <div class="col-3">
+                            <span>
                                 {{ $participante->user->name }}
                             </span>
                         </div>
