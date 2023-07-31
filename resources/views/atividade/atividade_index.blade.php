@@ -45,7 +45,7 @@
                             collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}</span>
                     </div>
 
-                    <div class="col-5 ">
+                    <div class="col-5 titulo-span" title="{{$atividade->nome_participantes}}">
                         {{$atividade->nome_participantes}}
                     </div>
 

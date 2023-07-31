@@ -93,7 +93,7 @@ footer{
     align-items: center;
     background: #972E3F;
     height: 20vh max-content;
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 
