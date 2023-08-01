@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Cadastrar Participantes
+    Cadastrar Integrante
 @endsection
 
 @section('css')
@@ -10,10 +10,10 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center mb-4">Atividade/Função: {{ $atividade->descricao }}</h1>
-    <h2 class="text-center mb-4">Cadastrar Participante</h2>
-    <form class="container form form-box" action="{{ Route('participante.store') }}" method="POST"
-        enctype="multipart/form-data">
+
+    <h1 class="text-center mb-4">Atividade / Função: {{$atividade->descricao}}</h1>
+    <h2 class="text-center mb-4">Cadastrar Integrante</h2> 
+    <form class="container form form-box" action="{{ Route('participante.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <input type="hidden" name="atividade_id" value="{{ $atividade->id }}">
@@ -90,7 +90,7 @@
 
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                 <a class="d-flex justify-content-center align-items-center cancel"
-                    href={{ Route('participante.index', ['atividade_id' => $atividade->id]) }}> Cancelar</a>
+                   href="{{ Route('participante.index',['atividade_id' => $atividade->id]) }}"> Cancelar</a>
                 <button class="submit" type="submit">Cadastrar</button>
             </div>
         </div>

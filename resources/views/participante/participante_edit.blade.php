@@ -10,8 +10,8 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center mb-4">Atividade/Função: {{ $atividade->descricao }}</h1>
-    <h2 class="text-center mb-4">Editar Participante</h2>
+    <h1 class="text-center mb-4">Atividade / Função: {{ $atividade->descricao }}</h1>
+    <h2 class="text-center mb-4">Editar Integrante</h2>
 
     <form class="container form form-box" action="{{ Route('participante.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
