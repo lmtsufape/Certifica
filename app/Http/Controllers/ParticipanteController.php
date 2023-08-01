@@ -36,8 +36,10 @@ class ParticipanteController extends Controller
         $atividade = Atividade::findOrFail($atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
-        return view('participante.participante_index', ['participantes' => $participantes, 'atividade' => $atividade,
-            'acao' => $acao]);
+        $cont = 0;
+
+        return view('participante.participante_index',compact('participantes','atividade','acao','cont'));
+    
     }
 
     /**
@@ -263,6 +265,8 @@ class ParticipanteController extends Controller
                         'nome' => $row[0],
                         'cpf'  => $cpf,
                         'email' => $row[2],
+                        'perfil_id' => 4,
+                        'instituicao' => 'outra',
                     ];
 
                     $user = $this->createUser($attributes);

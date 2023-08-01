@@ -98,6 +98,8 @@ class RegisterController extends Controller
         $instituicoes = Instituicao::all()->sortBy('id');
         $cursos = Curso::all()->sortBy('id');
 
+    
+
         return view('auth.register', compact('perfis', 'instituicoes', 'cursos'));
     }
 

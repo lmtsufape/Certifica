@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="list container overflow-scroll">
+            <div class="list container">
 
                 @foreach ($naturezas as $natureza)
                     <div class="row linha-table d-flex align-items-center justify-content-center">

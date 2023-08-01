@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    
+
 
     <div class="row">
         @if ($errors->any())
@@ -21,7 +21,8 @@
     </div>
 
 
-    <form class="container-form-cadastro-usuario form card mx-auto shadow-lg p-3 mb-5 bg-white rounded" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+    <form class="container-form-cadastro-usuario form card mx-auto shadow-lg p-3 mb-5 bg-white rounded"
+        action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
         <h2 class="text-center mb-3">Cadastro de Usuário</h2>
 
         @csrf
@@ -32,10 +33,12 @@
                 <input class="w-100 input-text h-100 " type="text" name="name" id="nome" required>
             </div>
         </div>
+
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">CPF<span class="ast">*</span></span>
-                <input class="w-100 h-100 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf" id="cpf" required>
+                <input class="w-100 h-100 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf"
+                    id="cpf" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
@@ -106,14 +109,24 @@
                 <select class="select-form w-100 " name="instituicao_id" id="select_instituicao" required>
                     <option selected hidden></option>
                     @foreach ($instituicoes as $instituicao)
-                        <option value="{{ $instituicao->id }}"> {{ $instituicao->nome }}</option>
+                        <option value="{{ $instituicao->id }}"
+                            @if (old('instituicao_id') == $instituicao->id) selected
+                            @elseif(isset($user) && $user->instituicao_id == $instituicao->id) selected @endif>
+                            {{ $instituicao->nome }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
 
-        <input type="hidden" name="instituicao" value="{{ null }}">
-        
+        <div class="row camporegister_dinamico_hide" id="outra_instituicao">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Outra Instituição<span class="ast">*</span></span>
+                <input class="w-100 h-100 input-text" type="text" name="instituicao" id=""
+                    @if (isset($user) && $user->instituicao_id == 2) value="{{ $user->instituicao }}" @endif>
+            </div>
+        </div>
+
+
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Senha<span class="ast">*</span></span>
@@ -123,13 +136,14 @@
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">Confirmar senha<span class="ast">*</span></span>
-                <input class="input-text w-100 h-100" type="password" name="password_confirmation" id="confirmacao_senha" required>
+                <input class="input-text w-100 h-100" type="password" name="password_confirmation"
+                    id="confirmacao_senha" required>
             </div>
         </div>
         <div class="row d-flex align-items-center justify-content-center">
-          
+
             <button class="col-3" type="submit">Cadastrar</button>
-          
+
         </div>
     </form>
 
@@ -176,6 +190,23 @@
                 cursosprof.classList.add("camporegister_dinamico_hide")
             }
         })
+
+        //campo outros 
+
+        var select_instituicao = document.getElementById("select_instituicao");
+        var outra_instituicao = document.getElementById("outra_instituicao");
+
+        select_instituicao.addEventListener("change", (e) => {
+        
+            if(e.target.value == 1){
+                outra_instituicao.classList.remove("camporegister_dinamico_show")
+                outra_instituicao.classList.add("camporegister_dinamico_hide")
+            }else{
+                outra_instituicao.classList.remove("camporegister_dinamico_hide")
+                outra_instituicao.classList.add("camporegister_dinamico_show")
+            }   
+        })
+
     </script>
 
 @endsection

@@ -74,7 +74,7 @@
 
         <div class="row d-flex align-items-center justify-content-evenly ">
           
-            <button class="col-3" type="submit">Cadastrar</button>
+            <button class="col-3" type="submit">Salvar</button>
             
             <a class="col-3 button text-center" href="{{route('home')}}">Voltar</a>
 
