@@ -5,10 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container section-geral">
         <div class="card">
-
-            
             <section class="section-view pb-2 pt-3">
                 <h1 class="titulo-view mb-4 mt-2">Contato</h1>
                 

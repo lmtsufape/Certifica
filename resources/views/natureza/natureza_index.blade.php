@@ -11,7 +11,7 @@
 @section('content')
     <div class='container'>
         <section class="view-list-acoes">
-            <div class="container">
+            <div class="container ">
 
                 <div class="text-center mb-3">
                     <h3>Tipos de Natureza</h3>

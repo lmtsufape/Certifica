@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<section class="container">
+<section class="container section-geral">
     <section class="section-view">
         <div class="card">
             <div class="card-body">
