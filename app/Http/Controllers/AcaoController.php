@@ -171,8 +171,9 @@ class AcaoController extends Controller
         if($request->file('anexo')){
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
             $acao->anexo = $request->file('anexo')->storeAs('anexos/'.$acao->id, $nomeAnexo);
-            $acao->update();
         }
+        
+        $acao->update();
 
         return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
     }

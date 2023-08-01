@@ -16,7 +16,7 @@
                 <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
 
                 <div class="text-center mb-3">
-                    <h3>Participantes / {{$atividade->descricao}}</h3>
+                    <h3>Integrantes</h3>
                 </div>
 
                 <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">
@@ -27,7 +27,7 @@
                     @if ($acao->status == null)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
-                            Participante
+                            Integrante
                         </button>
                     @endif
                 </div>

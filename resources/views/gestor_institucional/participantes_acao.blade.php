@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    Participantes
+    Integrantes
 @endsection
 
 @section('content')
     <div style="border-bottom: #949494 2px solid; padding-bottom: 5px; margin-bottom: 10px">
         <h2>Atividade: {{ $atividade->descricao }}</h2>
-        <h2>Participantes cadastrados</h2>
+        <h2>Integrantes cadastrados</h2>
     </div>
 
     <table class="table">

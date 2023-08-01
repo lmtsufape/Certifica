@@ -10,7 +10,12 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
     <section class="view-create-acao">
+=======
+    <h1 class="text-center mb-4">Atividade / Função: {{ $atividade->descricao }}</h1>
+    <h2 class="text-center mb-4">Editar Integrante</h2>
+>>>>>>> 2840120919e073ce9575567e78f5932a3061dfa2
 
 
         <h1 class="text-center mb-4">Atividade/Função: {{ $atividade->descricao }}</h1>
@@ -73,6 +78,26 @@
                     informações de Nome, Email e CPF.</small>
             </div>
 
+<<<<<<< HEAD
         </form>
     </section>
+=======
+        </div>
+
+        <div class="row box">
+            <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                <a class="d-flex justify-content-center align-items-center cancel"
+                    href="{{ Route('participante.index', ['atividade_id' => $atividade->id]) }}"> Cancelar</a>
+                <button class="submit" type="submit">Editar</button>
+            </div>
+        </div>
+
+        <div class="alert alert-warning text-center mb-0 mt-4" role="alert"><strong>Atenção:</strong>
+            <small style="color: red">É necessário editar o perfil do usuário vinculado a este CPF para alterar as
+                informações de Nome, Email e CPF.</small>
+        </div>
+
+    </form>
+    
+>>>>>>> 2840120919e073ce9575567e78f5932a3061dfa2
 @endsection

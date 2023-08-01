@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Cadastrar Participantes
+    Cadastrar Integrante
 @endsection
 
 @section('css')
@@ -10,7 +10,15 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
     <section class="view-create-acao">
+=======
+
+    <h1 class="text-center mb-4">Atividade / Função: {{$atividade->descricao}}</h1>
+    <h2 class="text-center mb-4">Cadastrar Integrante</h2> 
+    <form class="container form form-box" action="{{ Route('participante.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+>>>>>>> 2840120919e073ce9575567e78f5932a3061dfa2
 
         <h1 class="text-center mb-4">Atividade/Função: {{ $atividade->descricao }}</h1>
         <h2 class="text-center mb-4">Cadastrar Participante</h2>
@@ -116,4 +124,29 @@
     </section>
 
 
+<<<<<<< HEAD
+=======
+            <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                <a class="d-flex justify-content-center align-items-center cancel"
+                   href="{{ Route('participante.index',['atividade_id' => $atividade->id]) }}"> Cancelar</a>
+                <button class="submit" type="submit">Cadastrar</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        var div_Inst = document.getElementById("select_instituicao");
+        var div_outrasInst = document.getElementById("outra_instituicao");
+
+        div_outrasInst.style.visibility = "hidden"
+
+        div_Inst.addEventListener("change", (e) => {
+            if (e.target.value == 1) {
+                div_outrasInst.style.visibility = "hidden"
+            } else if (e.target.value == 2) {
+                div_outrasInst.style.visibility = ""
+            }
+        })
+    </script>
+>>>>>>> 2840120919e073ce9575567e78f5932a3061dfa2
 @endsection
