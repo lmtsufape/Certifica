@@ -27,7 +27,7 @@
                     @if ($acao->status == null)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
-                            Participante
+                            Integrante
                         </button>
                     @endif
                 </div>
