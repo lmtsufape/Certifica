@@ -265,6 +265,8 @@ class ParticipanteController extends Controller
                         'nome' => $row[0],
                         'cpf'  => $cpf,
                         'email' => $row[2],
+                        'perfil_id' => 4,
+                        'instituicao' => 'outra',
                     ];
 
                     $user = $this->createUser($attributes);
