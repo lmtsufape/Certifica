@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class='container'>
+    <div class='container section-geral'>
         <section class="section-view pb-3 pt-4">
             <h2 class="titulo-view mb-4">Editar Unidade Administrativa</h2>
 

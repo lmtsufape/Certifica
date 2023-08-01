@@ -19,6 +19,11 @@ a:hover{
 
 .view-create-acao{
     height: max-content;
+    min-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /*Spacing vars*/

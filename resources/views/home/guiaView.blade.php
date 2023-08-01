@@ -9,7 +9,7 @@
 </head>
 
 <body >
-    <div class="container">
+    <div class="container section-geral">
         <div class="d-flex align-items-center justify-content-between">
             <img src="/images/GuiaDoCoordenador/image001.jpg" alt="" style="margin: auto">
         </div>

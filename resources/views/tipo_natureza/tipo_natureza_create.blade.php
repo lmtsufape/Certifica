@@ -6,8 +6,8 @@
 @endsection
 
 @section('content')
-    <div class='container'>
-        <section class="section-view pb-3 pt-4">
+    <div class='container section-geral'>
+        <section class="section-view">
             <h2 class="titulo-view mb-4">Cadastrar Tipo de Natureza</h2>
 
             <form action={{ Route('tipo_natureza.store') }} method="POST" enctype="multipart/form-data">
