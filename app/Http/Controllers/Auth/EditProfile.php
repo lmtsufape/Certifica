@@ -63,6 +63,6 @@ class EditProfile extends Controller
 
         $user->save();
 
-        return redirect(route('perfil.edit'))->with(['mensagem' => "Dados atualizados com sucesso"]);
+        return redirect(Route('home'))->with(['mensagem' => 'Dados atualizados com sucesso']);
     }
 }

@@ -23,12 +23,14 @@
             </div>
         </div>
 
+        @if(Auth::user()->perfil_id != 3)
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">CPF<span class="ast">*</span></span>
                 <input class="w-100 h-100 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf" id="cpf" required value="{{ $user->cpf }}">
             </div>
         </div>
+        @endif
 
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
