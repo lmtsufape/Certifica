@@ -96,18 +96,6 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
     Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
 
 
-    //Rotas Usuário
-    Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
-
-    Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
-    Route::post('/usuario/store', [UsuarioController::class, 'store'])->name('usuario.store');
-
-    Route::get('/usuario/edit/{usuario_id}', [UsuarioController::class, 'edit'])->name('usuario.edit');
-    Route::post('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
-
-    Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
-
-
     //Rotas Certificado Modelo
     Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
     Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
@@ -126,6 +114,18 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
     Route::get('certificado_modelo/{id}/{imagem}/img',[CertificadoModeloController::class, 'showImg'])->name('certificado_modelo.show_img');
 
     Route::get('/certificado_modelo/{id}/show', [CertificadoModeloController::class, 'show'])->name('certificado_modelo.show');
+
+    //Rotas Usuário
+    Route::get('/usuario', [UsuarioController::class, 'index'])->name('usuario.index');
+
+    Route::get('/usuario/create', [UsuarioController::class, 'create'])->name('usuario.create');
+    Route::post('/usuario/store', [UsuarioController::class, 'store'])->name('usuario.store');
+
+    Route::get('/usuario/edit/{usuario_id}', [UsuarioController::class, 'edit'])->name('usuario.edit');
+    Route::post('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
+
+    Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
+    
 
     Route::name('relatorios.')->group(function () {
         Route::get('/relatorios', [RelatorioController::class, 'index'])->name('index');
