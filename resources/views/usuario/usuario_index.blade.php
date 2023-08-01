@@ -50,6 +50,8 @@
                                 Coordenador
                             @elseif($user->perfil_id == 3)
                                 Gestor Institucional
+                            @elseif($user->perfil_id == 4)
+                                Integrante
                             @endif
                         </div>
                         <div class="col-2 d-flex">

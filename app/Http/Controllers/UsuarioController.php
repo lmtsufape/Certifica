@@ -22,7 +22,13 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        return view('usuario.usuario_index', ['usuarios' => User::all()->sortBy('id')]);
+        if(Auth::user()->perfil_id == 3) {
+            $usuarios = User::where('perfil_id', '!=', 1)->where('perfil_id', '!=', 3)->get()->sortBy('id');
+        } else {
+            $usuarios = User::all()->sortBy('id');
+        }
+
+        return view('usuario.usuario_index', compact('usuarios'));
     }
 
     /**
@@ -101,18 +107,30 @@ class UsuarioController extends Controller
      * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($usuario_id)
     {
-        $usuario = User::findOrFail($id);
+        $usuario = User::findOrFail($usuario_id);
 
         $perfil = Perfil::findOrFail($usuario->perfil_id);
-        $unidade_administrativa = UnidadeAdministrativa::findOrFail($usuario->unidade_administrativa_id);
 
-        $perfils = Perfil::all()->sortBy('id');
-        $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
 
-        return view('usuario.usuario_edit', ['usuario' => $usuario, 'perfils' => $perfils, 'perf' => $perfil,
-            'unidade_administrativas' => $unidade_administrativas, 'un_administrativa' => $unidade_administrativa]);
+        if($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
+            $perfils = Perfil::where('nome', '!=', 'Gestor Institucional')->where('nome', '!=', 'Administrador')->get();
+
+            return view('usuario.usuario_edit', compact('usuario', 'perfil', 'perfils'));
+        } else if($usuario->perfil_id == 1) {
+            $perfils = Perfil::where('nome', '!=', 'Gestor Institucional')->where('nome', '!=', 'Administrador')->get();
+
+            return view('usuario.usuario_edit', compact('usuario', 'perfil', 'perfils'));
+        } else if($usuario->perfil_id == 3) {
+            $perfils = Perfil::where('nome', 'Administrador')->get();
+
+            $unidade_administrativa = UnidadeAdministrativa::findOrFail($usuario->unidade_administrativa_id);
+            
+            $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
+
+            return view('usuario.usuario_edit', compact('usuario', 'perfil', 'perfils', 'unidade_administrativa', 'unidade_administrativas'));
+        }
     }
 
     /**
@@ -126,10 +144,22 @@ class UsuarioController extends Controller
     {
         $usuario = User::findOrFail($request->id);
 
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
-        $usuario->perfil_id = $request->perfil_id;
-        $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+        if($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
+            $usuario->name = $request->name;
+            $usuario->cpf = $request->cpf;
+            $usuario->email = $request->email;
+            $usuario->perfil_id = $request->perfil_id;
+        } else if($usuario->perfil_id == 1) {
+            $usuario->name = $request->name;
+            $usuario->email = $request->email;
+            $usuario->perfil_id = $request->perfil_id;
+        } else {
+            $usuario->name = $request->name;
+            $usuario->email = $request->email;
+            $usuario->perfil_id = $request->perfil_id;
+            $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+        }
+        
 
         $usuario->update();
 
