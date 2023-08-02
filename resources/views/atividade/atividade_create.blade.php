@@ -25,7 +25,7 @@
             <input value="{{ $acao->titulo }}" hidden class="w-75 input-text" type="text" name="titulo"id="">
 
 
-            <div class="row box ">
+            <div class="row box justify-content-center">
 
                 <div
                     class="col-xl-4 border campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
@@ -59,9 +59,9 @@
 
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                    <a class="d-flex justify-content-center align-items-center cancel"
-                        href={{ Route('atividade.index', ['acao_id' => $acao->id]) }}> Cancelar</a>
-                    <button class="submit" type="submit">Cadastrar</button>
+                    <a class="button d-flex justify-content-center align-items-center cancel"
+                        href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"> Voltar</a>
+                    <button class="button submit" type="submit">Cadastrar</button>
                 </div>
             </div>
 

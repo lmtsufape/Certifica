@@ -93,10 +93,10 @@
                 <div class="row d-flex justify-content-start align-items-center mt-4 col-xl-7">
 
                     <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                        <a class="d-flex justify-content-center align-items-center cancel"
-                            href="{{ route('certificado_modelo.index', ['id' => $modelo->id]) }}">Cancelar</a>
+                        <a class="button mt-4 d-flex justify-content-center align-items-center cancel"
+                            href="{{ route('certificado_modelo.index', ['id' => $modelo->id]) }}">Voltar</a>
 
-                        <button class="submit" type="submit">Salvar</button>
+                        <button class="button mt-4 submit" type="submit">Salvar</button>
 
                     </div>
                 </div>

@@ -56,9 +56,9 @@
                                 
                                 <div class="col d-flex align-items-center justify-content-evenly mt-4">
                                     <div>
-                                        <button name="action" type="submit" class="btn-danger buttonAnalisar" value="reprovar">Reprovar</button>
-                                        <button name="action" type="submit" class="btn-secondary buttonAnalisar" value="devolver">Devolver</button>
-                                        <button name="action" type="submit" class="btn-success buttonAnalisar" value="aprovar">Aprovar</button>
+                                        <button name="action" type="submit" class="button btn-danger buttonAnalisar" value="reprovar">Reprovar</button>
+                                        <button name="action" type="submit" class="button btn-secondary buttonAnalisar" value="devolver">Devolver</button>
+                                        <button name="action" type="submit" class="button buttonAnalisar" value="aprovar">Aprovar</button>
                                     </div>
                                 </div>
                             </div>

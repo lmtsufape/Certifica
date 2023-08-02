@@ -53,9 +53,9 @@
 
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                    <a class="d-flex justify-content-center align-items-center cancel"
-                        href={{ Route('atividade.index', ['acao_id' => $acao->id]) }}> Cancelar</a>
-                    <button class="submit" type="submit">Atualizar</button>
+                    <a class="button mt-4 d-flex justify-content-center align-items-center cancel"
+                        href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"> Voltar</a>
+                    <button class="button mt-4 submit" type="submit">Editar</button>
                 </div>
             </div>
 
