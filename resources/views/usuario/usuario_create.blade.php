@@ -96,9 +96,9 @@
 
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                    <a class="d-flex justify-content-center align-items-center cancel" href="{{ route('usuario.index') }}">
-                        Cancelar</a>
-                    <button class="submit" type="submit">Cadastrar</button>
+                    <a class="button d-flex justify-content-center align-items-center cancel" href="{{ route('usuario.index') }}">
+                        Voltar</a>
+                    <button class="button submit" type="submit">Cadastrar</button>
                 </div>
             </div>
         </form>

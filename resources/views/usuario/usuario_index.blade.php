@@ -19,7 +19,7 @@
 
                 <div class="row d-flex align-items-center justify-content-end">
                     <div class="col">
-                        <a class="btn btn-sm btn-outline-dark" href="{{url()->previous()}}">Voltar</a>
+                        <a class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
                     </div>
 
                     <div class="col-9"></div>

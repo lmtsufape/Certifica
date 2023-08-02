@@ -141,6 +141,10 @@
     opacity: 1;
 }
 
+.button.btn-secondary{
+    background-color: rgba(13, 14, 14, 0.758);
+}
+
 .btn-secondary{
     padding: 3px 16px;
     min-width: 100px;
