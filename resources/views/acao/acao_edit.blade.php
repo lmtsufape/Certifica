@@ -119,9 +119,9 @@
 
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                    <a class="d-flex justify-content-center align-items-center cancel"
-                        href={{ route('acao.index') }}>Cancelar</a>
-                    <button class="submit" type="submit">Salvar</button>
+                    <a class="button d-flex justify-content-center align-items-center cancel"
+                        href="{{ route('acao.index') }}">Voltar</a>
+                    <button class="button submit" type="submit">Editar</button>
                 </div>
             </div>
         </div>

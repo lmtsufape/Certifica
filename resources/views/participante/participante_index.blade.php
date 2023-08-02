@@ -19,11 +19,13 @@
                     <h3>Integrantes</h3>
                 </div>
 
-                <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">
-                    Voltar
-                </a>
-
                 <div class="row d-flex align-items-center justify-content-end">
+                    <div class="col">
+                        <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">
+                            Voltar
+                        </a>
+                    </div>
+                    <div class="col-9"></div>
                     @if ($acao->status == null)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
@@ -123,15 +125,21 @@
                     </div>
                     <form class="container form"
                         action="{{ Route('participante.create', ['atividade_id' => $atividade->id]) }}" method="GET">
-                        <div class="modal-body">
-                            <label>CPF:</label>
+                        <div class="modal-body row justify-content-center">
+                            <label style="margin-left:20%;">CPF:</label>
                             <input class="w-75 form-control" type="text" name="cpf" id="cpf"
                                 placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                                 title="Digite um CPF válido (000.000.000-00)" required>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-success">Enviar</button>
+                        <div class="modal-footer row justify-content-center">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn button">Enviar</button>
+
+                            </div>
                         </div>
                     </form>
 
