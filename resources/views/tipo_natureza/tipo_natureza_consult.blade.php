@@ -18,8 +18,14 @@
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-end">
+                    <div class="col">
+                        <a class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
+                    </div>
+                    
+                    <div class="col-8"></div>
+
                     <a class="criar-acao-button" href="{{route('tipo_natureza.create')}}">
-                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Tipo de Natureza
                     </a>
                 </div>
                 <div class="row head-table d-flex align-items-center justify-content-center">

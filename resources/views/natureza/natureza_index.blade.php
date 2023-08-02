@@ -14,12 +14,18 @@
             <div class="container ">
 
                 <div class="text-center mb-3">
-                    <h3>Tipos de Natureza</h3>
+                    <h3>Naturezas</h3>
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-end">
+                    <div class="col">
+                            <a class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
+                    </div>
+                    
+                    <div class="col-9"></div>
+                    
                     <a class="criar-acao-button" href="{{route('natureza.create')}}">
-                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Natureza
                     </a>
                 </div>
                 <div class="row head-table d-flex align-items-center justify-content-center">

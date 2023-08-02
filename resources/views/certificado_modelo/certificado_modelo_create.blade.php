@@ -95,13 +95,13 @@
 
                 <div class="mt-5 row align-items-center justify-content-evenly">
                     <div class="col-2">
-                        <a class="button" href="{{ route('certificado_modelo.index') }}">
-                            Cancelar
+                        <a class="button d-flex justify-content-center align-items-center cancel" href="{{ route('certificado_modelo.index') }}">
+                            Voltar
                         </a>
                     </div>
 
                     <div class="col-2">
-                        <button type="submit" class="cadastrar">Cadastrar</button>
+                        <button type="submit" class="button submit">Cadastrar</button>
                     </div>
 
                 </div>
