@@ -18,6 +18,12 @@
                 </div>
 
                 <div class="row d-flex align-items-center justify-content-end">
+                    <div class="col">
+                        <a class="btn btn-sm btn-outline-dark" href="{{url()->previous()}}">Voltar</a>
+                    </div>
+
+                    <div class="col-9"></div>
+
                     <a class="criar-acao-button" href="{{ route('usuario.create') }}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Cadastrar usuário
                     </a>
