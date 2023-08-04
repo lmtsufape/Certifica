@@ -41,7 +41,7 @@
                 <a class="link-opt" href={{ route('usuario.index') }}>
                     <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
                         <img class="icon-opt mt-4" src={{ '/images/home/usuarios.svg' }} alt="">
-                        <span class="text-center"> Usuarios </span>
+                        <span class="text-center"> Usuários </span>
                     </div>
                 </a>
                 <a class="link-opt" href="{{route('relatorios.index')}}">
