@@ -73,7 +73,7 @@ class User extends Authenticatable
         'name.max'            => 'O nome deve ter menos de 255 caracteres',
         'email.required'      => 'O email deve ser preenchido',
         'email.string'        => 'O email deve possuir apenas letras',
-        'email.email'         => 'O campo email deve ser preenchido com um endereço de email válido',
+        'email.email'         => 'E-mail inválido',
         'email.max'           => 'O email deve possuir no máximo 255 caracteres',
         'email.unique'        => 'O email informado já está cadastrado no sistema',
         'password.min'        => 'A senha deve possuir 8 ou mais caracteres',

@@ -53,6 +53,6 @@ class Cpf implements Rule
      */
     public function message()
     {
-        return 'CPF inválido!';
+        return 'CPF inválido';
     }
 }
