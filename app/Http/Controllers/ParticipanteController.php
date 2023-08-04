@@ -73,17 +73,24 @@ class ParticipanteController extends Controller
     {
         $attributes = $request->all();
 
+        
+        if(!$attributes['instituicao']){
+            $instituicao = Instituicao::find($attributes['instituicao_id']);
+
+            $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras"; 
+        }
+            
         try {
-            ParticipanteValidator::validate($request->all());
+            ParticipanteValidator::validate($attributes);
         } catch (ValidationException $exception) {
-            return redirect(route('participante.create', ['atividade_id' => $request->atividade_id, 'cpf' => $attributes['cpf']]))
+            return redirect(route('participante.create', ['atividade_id' => $attributes['atividade_id'], 'cpf' => $attributes['cpf']]))
                 ->withErrors($exception->validator)->withInput();
         }
 
-        $atividade = Atividade::find(request('atividade_id'));
+        $atividade = Atividade::find($attributes['atividade_id']);
 
         if($atividade->participantes->where('user.cpf', $attributes['cpf'])->first()){
-            return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
+            return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
                             ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
         }
 
@@ -97,7 +104,7 @@ class ParticipanteController extends Controller
         $attributes['user_id'] = $user->id;
         Participante::create($attributes);
 
-        return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
+        return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
             ->with(['mensagem' => 'Participante cadastrado com sucesso']);
     }
 
@@ -114,8 +121,8 @@ class ParticipanteController extends Controller
             'name' => $attributes['nome'],
             'email' => $attributes['email'],
             'cpf' => $attributes['cpf'],
-            'instituicao_id' => $attributes['instituicao_id'] ?? null,
-            'instituicao' => $attributes['instituicao'] ?? null,
+            'instituicao_id' => $attributes['instituicao_id'] ?? 2,
+            'instituicao' => $attributes['instituicao'] ?? "Outras",
             'password' => Hash::make($password),
             'perfil_id' => 4
         ];
