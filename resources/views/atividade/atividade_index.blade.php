@@ -116,14 +116,15 @@
                                                 <input type="file" accept=".csv" name="participantes_csv" id="participantes_csv"
                                                     class="form-control form-control-sm" style="margin-top:5%" required>
                                             </div>
-
-                                            <div class="row justify-content-center">
-                                                <div class="col-5" style="margin-left:10%; margin-top:25px;">
-                                                    <button type="button" class="btn btn-sm btn-secondary"
-                                                    data-bs-dismiss="modal">Fechar</button>
+                                        </div>
+                                        <div class="row justify-content-center mt-4">
+                                                <div class="col-2">
+                                                    <button type="button" class="btn btn-sm btn-dark"
+                                                        data-bs-dismiss="modal">Fechar</button>
+                                                </div>
+                                                <div class="col-2">
                                                     <button type="submit" class="btn btn-sm btn-success">Importar</button>
                                                 </div>
-                                            </div>
                                         </div>
                                     </form>
 

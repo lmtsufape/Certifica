@@ -267,13 +267,17 @@ class ParticipanteController extends Controller
                         'email' => $row[2],
                         'perfil_id' => 4,
                         'instituicao' => 'outra',
+                        'instituicao_id' => 2,
                     ];
 
                     $user = $this->createUser($attributes);
 
                 } catch (\Throwable $th) {
                     $confirm = False;
-                    array_push($participantes, $row[0]);
+
+                    $message = $row[0]." (".$th->getMessage().")";
+
+                    array_push($participantes, $message);
                 }
             } 
 
