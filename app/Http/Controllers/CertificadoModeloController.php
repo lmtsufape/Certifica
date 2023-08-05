@@ -105,7 +105,10 @@ class CertificadoModeloController extends Controller
         $fundo = Storage::url($modelo->fundo);
         $verso = Storage::url($modelo->verso);
 
-        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso'));
+        $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
+
+        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_certificado'));
     }
 
     /**
@@ -140,6 +143,12 @@ class CertificadoModeloController extends Controller
          elseif(isset($request->verso)) //caso a imagem do verso tenha sido mudada
         {
             $modelo->verso = $request->verso->store('public/modelos');
+        }
+
+        if($request->tipo_certificado == 'Outro') {
+            $modelo->tipo_certificado = $request->outro;
+        } else {
+            $modelo->tipo_certificado = $request->tipo_certificado;
         }
 
         $modelo->descricao = $request->descricao;

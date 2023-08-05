@@ -39,6 +39,27 @@
                         </div>
                     </div>
 
+                    <div class="row box col-xl-7">
+                        <div
+                            class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Tipo Certificado</span>
+                            <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado" required>
+                                <option value="{{ $modelo->tipo_certificado }}"> {{ $modelo->tipo_certificado }}</option>
+                                @foreach ($tipos_certificado as $tipo)
+                                    <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                	 </div>
+
+                     <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
+                        <div
+                            class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Tipo Certificado (outro)</span>
+                            <input class="w-75 input-text" type="text" name="outro">
+                        </div>
+                     </div>
+
 
                     <div class="row box d-flex flex-column col-xl-7">
                         <span class="tittle-input w-100">Texto padrão:</span>
@@ -135,5 +156,21 @@
 
             imgVersoNew.src = URL.createObjectURL(e.target.files[0])
         })
+    </script>
+
+    <script>
+        const select_tipo_certificado = document.getElementById("select_tipo_certificado");
+        const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");
+
+        select_tipo_certificado.addEventListener("change", function()
+        {
+            if (select_tipo_certificado.value === "Outro")
+            {
+                outro_tipo_certificado.style.display = "block";
+            } else
+            {
+                outro_tipo_certificado.style.display = "none";
+            }
+        });
     </script>
 @endsection
