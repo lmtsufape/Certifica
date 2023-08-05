@@ -9,122 +9,122 @@
 @endsection
 
 @section('content')
-<div class="row">
+    <div class="row">
 
-    <div class="container container-form-modelo">
-        <h2 class="text-center">CRIAR MODELO DE CERTIFICADO</h2>
+        <div class="container container-form-modelo">
+            <h2 class="text-center">CRIAR MODELO DE CERTIFICADO</h2>
 
-        <form action="{{ Route('tipo_certificado_modelo.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+            <form action="{{ Route('tipo_certificado_modelo.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-            <div class="form-box-modelo-certificado form-row">
+                <div class="form-box-modelo-certificado form-row">
 
-                <input name="fundo" type="hidden" id="imagem" value="{{ $modelo->fundo }}">
-                <input name="verso" type="hidden" id="verso" value="{{ $modelo->verso }}">
-                <input name="unidade_administrativa_id" type="hidden" id="unidade_administrativa_id"
-                    value=" {{ $modelo->unidade_administrativa_id }} ">
+                    <input name="fundo" type="hidden" id="imagem" value="{{ $modelo->fundo }}">
+                    <input name="verso" type="hidden" id="verso" value="{{ $modelo->verso }}">
+                    <input name="unidade_administrativa_id" type="hidden" id="unidade_administrativa_id"
+                        value=" {{ $modelo->unidade_administrativa_id }} ">
 
-                <div class="row box col-xl-7">
-                    <div
-                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Descrição</span>
-                        <input class="w-75 input-text " type="text" name="descricao" required>
+                    <div class="row box col-xl-7">
+                        <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Descrição</span>
+                            <input class="w-75 input-text " type="text" name="descricao" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row box col-xl-7">
-                    <div
-                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Unidade Administrativa</span>
-                        <input class="w-75 input-text " type="text" value="{{ $unidade_adm->descricao }}" disabled>
+                    <div class="row box col-xl-7">
+                        <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Unidade Administrativa</span>
+                            <input class="w-75 input-text " type="text" value="{{ $unidade_adm->descricao }}" disabled>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row box col-xl-7">
-                    <div
-                        class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Tipo Certificado</span>
-                        <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado" required>
-                            @foreach ($tipos_certificado as $tipo)
-                                <option value="{{ $tipo }}">{{ $tipo }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row box col-xl-7">
+                        <div
+                            class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Tipo Certificado</span>
+                            <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado"
+                                required>
+                                @foreach ($tipos_certificado as $tipo)
+                                    <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
-                    <div
-                        class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Tipo Certificado (outro)</span>
-                        <input class="w-75 input-text" type="text" name="outro">
+                    <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
+                        <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Tipo Certificado (outro)</span>
+                            <input class="w-75 input-text" type="text" name="outro">
+                        </div>
                     </div>
-                </div>
 
-                <div class="row box d-flex flex-column col-xl-7">
+                    <div class="row box d-flex flex-column col-xl-7">
 
-                    <span class="tittle-input w-100">Texto padrão:</span>
+                        <span class="tittle-input w-100">Texto padrão:</span>
 
 
-                    <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
+                        <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
                         {{ $modelo->texto }}
                     </textarea>
-                </div>
+                    </div>
 
-                <div class="row d-flex align-items-center justify-content-evenly col-xl-7">
+                    <div class="row d-flex align-items-center justify-content-evenly col-xl-7">
 
-                    <div class="col-5">
-                        <span>Fundo: </span>
-                        <div class="card-preview">
-                            <img src="{{ $img_fundo }}" alt="">
+                        <div class="col-5">
+                            <span>Fundo: </span>
+                            <div class="card-preview">
+                                <img src="{{ $img_fundo }}" alt="">
+
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <span>Verso: </span>
+                            <div class="card-preview">
+
+                                <img src="{{ $img_verso }}" alt="">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row d-flex justify-content-start align-items-center mt-4 col-xl-7">
+
+                        <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                            <a class="button mt-4 d-flex justify-content-center align-items-center cancel"
+                                href="{{ route('certificado_modelo.index', ['id' => $modelo->id]) }}">Voltar</a>
+
+                            <button class="button mt-4 submit" type="submit">Salvar</button>
 
                         </div>
                     </div>
-                    <div class="col-5">
-                        <span>Verso: </span>
-                        <div class="card-preview">
-
-                            <img src="{{ $img_verso }}" alt="">
-                        </div>
-                    </div>
 
                 </div>
+            </form>
+        </div>
 
+        <div>
+            <x-legenda />
+        </div>
 
-                <div class="row d-flex justify-content-start align-items-center mt-4 col-xl-7">
-
-                    <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                        <a class="button mt-4 d-flex justify-content-center align-items-center cancel"
-                            href="{{ route('certificado_modelo.index', ['id' => $modelo->id]) }}">Voltar</a>
-
-                        <button class="button mt-4 submit" type="submit">Salvar</button>
-
-                    </div>
-                </div>
-
-            </div>
-        </form>
     </div>
-
-    <div>
-        <x-legenda/>
-    </div>
-
-</div>
 
     <script>
         const select_tipo_certificado = document.getElementById("select_tipo_certificado");
         const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");
 
-        select_tipo_certificado.addEventListener("change", function()
-        {
-            if (select_tipo_certificado.value === "Outro")
-            {
+        select_tipo_certificado.addEventListener("change", function() {
+            if (select_tipo_certificado.value === "Outro") {
                 outro_tipo_certificado.style.display = "block";
-            } else
-            {
+            } else {
                 outro_tipo_certificado.style.display = "none";
             }
         });
     </script>
 
+    <script>
+        // correcao text area
+        var textarea = document.getElementById("texto")
+        textarea.innerHTML = textarea.innerHTML.trim()
+    </script>
 @endsection

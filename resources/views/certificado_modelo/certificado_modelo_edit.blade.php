@@ -65,8 +65,8 @@
                         <span class="tittle-input w-100">Texto padrão:</span>
 
                         <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
-                        {{ $modelo->texto }}
-                    </textarea>
+                            {{ $modelo->texto }}
+                        </textarea>
                     </div>
 
 
@@ -172,5 +172,12 @@
                 outro_tipo_certificado.style.display = "none";
             }
         });
+    </script>
+
+    
+    <script>
+        // correcao text area
+        var textarea = document.getElementById("texto")
+        textarea.innerHTML = textarea.innerHTML.trim()
     </script>
 @endsection

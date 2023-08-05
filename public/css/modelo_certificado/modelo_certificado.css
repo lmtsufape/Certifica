@@ -18,8 +18,9 @@
 }
 
 textarea{
-    text-align: center;
+    text-align: start;
     padding: 0;
+    text-indent: -10px;
     border: none;
     height: 100%;
     min-height: 100px;
