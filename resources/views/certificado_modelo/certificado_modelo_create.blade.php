@@ -37,9 +37,9 @@
 
                         <span class="tittle-input w-100">Texto padrão:</span>
 
-                        <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto">
+                        <textarea name="texto" class="w-100 campo input-create-box text-area-campo" id="texto" style="text-align: left">
                        
-                    </textarea>
+                         </textarea>
                     </div>
 
                 </div>
@@ -95,7 +95,8 @@
 
                 <div class="mt-5 row align-items-center justify-content-evenly">
                     <div class="col-2">
-                        <a class="button d-flex justify-content-center align-items-center cancel" href="{{ route('certificado_modelo.index') }}">
+                        <a class="button d-flex justify-content-center align-items-center cancel"
+                            href="{{ route('certificado_modelo.index') }}">
                             Voltar
                         </a>
                     </div>
@@ -143,5 +144,12 @@
 
             imgVerso.src = URL.createObjectURL(e.target.files[0])
         })
+    </script>
+
+    <script>
+        // correcao text area
+
+        var textarea = document.getElementById("texto")
+        textarea.innerHTML = textarea.innerHTML.trim()
     </script>
 @endsection
