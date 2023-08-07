@@ -93,18 +93,19 @@
                     </div>
                 </div>
 
-                <div class="mt-5 row align-items-center justify-content-evenly">
-                    <div class="col-2">
-                        <a class="button d-flex justify-content-center align-items-center cancel"
-                            href="{{ route('certificado_modelo.index') }}">
-                            Voltar
+                <div class="mt-5 row align-items-center justify-content-around">
+
+                    <div class="col d-flex justify-content-center">
+                        <a href="{{ route('certificado_modelo.index') }}">
+                            <button class="button submit" type="button">Voltar</button>
                         </a>
+                       
                     </div>
 
-                    <div class="col-2">
+                    <div class="col d-flex justify-content-center">
                         <button type="submit" class="button submit">Cadastrar</button>
                     </div>
-
+                    
                 </div>
 
             </form>
