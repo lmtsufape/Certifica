@@ -16,16 +16,22 @@
                 <h3>Unidades Administrativas</h3>
             </div>
 
-            <div class="row d-flex align-items-center justify-content-end">
-                <div class="col">
-                    <a class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
-                </div>
-            
-                <div class="col-8"></div>
+            <div class="row d-flex align-items-center justify-content-between">
 
-                <a class="criar-acao-button" href="{{ route('unidade_administrativa.create') }}">
-                    <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Unidade Administrativa
-                </a>
+                <div class="col-1">
+                    <a type="button" class="button d-flex align-items-center justify-content-around between"
+                        href="{{ route('home') }}">
+                        Voltar
+                        <img src="/images/acoes/listView/voltar.svg" alt="">
+                    </a>
+                </div>
+
+                <div class="col-8 text-end">
+                    <a class="criar-acao-button" href="{{ route('unidade_administrativa.create') }}">
+                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Unidade
+                        Administrativa
+                    </a>
+                </div>
             </div>
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-9"><span class="spacing-col">Descrição</span></div>

@@ -14,17 +14,22 @@
 
             <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
 
-                <div class="text-center mb-3">
-                    <h3>Integrantes</h3>
+            <div class="text-center mb-3">
+                <h3>Integrantes</h3>
+            </div>
+
+    
+            <div class="row d-flex align-items-center justify-content-between">
+
+                <div class="col-1">
+                    <a type="button" class="button d-flex align-items-center justify-content-around between"
+                        href="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">
+                        Voltar
+                        <img src="/images/acoes/listView/voltar.svg" alt="">
+                    </a>
                 </div>
 
-                <div class="row d-flex align-items-center justify-content-end">
-                    <div class="col">
-                        <a type="button" class="btn btn-sm btn-outline-dark" href="{{route('atividade.index', ['acao_id'=>$acao->id])}}">
-                            Voltar
-                        </a>
-                    </div>
-                    <div class="col-9"></div>
+                <div class="col-9 text-end">
                     @if ($acao->status == null)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
@@ -32,16 +37,18 @@
                         </button>
                     @endif
                 </div>
-
-                <div class="row head-table d-flex align-items-center justify-content-center">
-                    <div class="col-1"></div>
-                    <div class="col-3"><span>Nome</span></div>
-                    <div class="col-2"><span>CPF</span></div>
-                    <div class="col-2"><span>CH</span></div>
-                    <div class="col-2"><span>Atividade / Função</span></div>
-                    <div class="col-2"><span>Funcionalidades</span></div>
-                </div>
             </div>
+
+
+            <div class="row head-table d-flex align-items-center justify-content-center">
+                <div class="col-1"></div>
+                <div class="col-3"><span>Nome</span></div>
+                <div class="col-2"><span>CPF</span></div>
+                <div class="col-2"><span>CH</span></div>
+                <div class="col-2"><span>Atividade / Função</span></div>
+                <div class="col-2"><span>Funcionalidades</span></div>
+            </div>
+        </div>
 
         <div class="list container">
             @foreach ($participantes as $participante)
@@ -139,7 +146,7 @@
                     <div class="modal-footer row justify-content-center">
                         <div class="col-3">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            
+
                         </div>
                         <div class="col-3">
                             <button type="submit" class="btn button">Enviar</button>

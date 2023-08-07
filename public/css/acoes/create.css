@@ -111,15 +111,8 @@ input[type="date"]{
     width: 170px;
     height: 40px;
     border: 0.5px solid #9B979E;
-    text-decoration: none;
-    color: black;
-       
+    text-decoration: none;  
 }
-.cancel:hover {
-    color: black;
-}
-
-
 .boxicon{
     margin: 0 10px;
 }
