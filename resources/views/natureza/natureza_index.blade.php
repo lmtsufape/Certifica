@@ -12,26 +12,32 @@
     <section class="view-list-acoes">
         <div class="container ">
 
-                <div class="text-center mb-3">
-                    <h3>Naturezas</h3>
+            <div class="text-center mb-3">
+                <h3>Naturezas</h3>
+            </div>
+
+            <div class="row d-flex align-items-center justify-content-between">
+                <div class="col-1">
+                    <a type="button" class="button d-flex align-items-center justify-content-around between"
+                        href="{{ route('home') }}">
+                        Voltar
+                        <img src="/images/acoes/listView/voltar.svg" alt="">
+                    </a>
                 </div>
 
-                <div class="row d-flex align-items-center justify-content-end">
-                    <div class="col">
-                            <a class="btn btn-sm btn-outline-dark" href="{{route('home')}}">Voltar</a>
-                    </div>
-                    
-                    <div class="col-9"></div>
-                    
-                    <a class="criar-acao-button" href="{{route('natureza.create')}}">
+
+                <div class="col-9 text-end">
+                    <a class="criar-acao-button" href="{{ route('natureza.create') }}">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar Natureza
                     </a>
                 </div>
-                <div class="row head-table d-flex align-items-center justify-content-center">
-                    <div class="col-9"><span class="spacing-col">Descrição</span></div>
-                    <div class="col-3"><span>Funcionalidades</span></div>
-                </div>
             </div>
+
+            <div class="row head-table d-flex align-items-center justify-content-center">
+                <div class="col-9"><span class="spacing-col">Descrição</span></div>
+                <div class="col-3"><span>Funcionalidades</span></div>
+            </div>
+        </div>
         </div>
 
         <div class="list container">

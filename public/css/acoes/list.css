@@ -132,9 +132,11 @@
 }
 
 .button {
+    text-align: center;
     background-color: #B02A3D;
     border: none;
     color: white;
+    text-decoration: none;
     padding: 3px 16px;
     min-width: 100px;
     border-radius: 5px;
@@ -144,6 +146,7 @@
 
 .button:hover{
     opacity: 1;
+    color: white;
 }
 
 .button.btn-secondary{

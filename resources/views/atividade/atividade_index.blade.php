@@ -19,20 +19,27 @@
                 <h3>Atividades / Funções</h3>
             </div>
 
-            
-            <div class="row d-flex align-items-center justify-content-end">
-                <div class="col">
-                    <a style="display:inline" type="button" class="btn btn-sm btn-outline-dark" href="{{route('acao.index')}}">Voltar</a>
+
+            <div class="row d-flex align-items-center justify-content-between">
+
+                <div class="col-1">
+                    <a type="button" class="button d-flex align-items-center justify-content-around between"
+                        href="{{ route('acao.index') }}">
+                        Voltar
+                        <img src="/images/acoes/listView/voltar.svg" alt="">
+                    </a>
                 </div>
 
-                <div class="col-9"></div>
-                @if(!$acao->status || $acao->status == 'Devolvida')
-                    <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
-                        <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
-                    </a>
-                @endif
+                <div class="col-8 text-end">
+                    @if (!$acao->status || $acao->status == 'Devolvida')
+                        <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
+                            <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                        </a>
+                    @endif
+                </div>
             </div>
 
+    
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-2"><span class="spacing-col">Atividade / Função</span></div>
                 <div class="col-2"><span>Período</span></div>
@@ -51,17 +58,18 @@
                             collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}</span>
                     </div>
 
-                    <div class="col-5 titulo-span" title="{{$atividade->nome_participantes}}">
-                        {{$atividade->nome_participantes}}
+                    <div class="col-5 titulo-span" title="{{ $atividade->nome_participantes }}">
+                        {{ $atividade->nome_participantes }}
                     </div>
 
-                    
+
 
                     <div class="col-3 d-flex align-items-center justify-content-start">
 
-                                        
+
                         <div class="col-5 d-flex align-items-center justify-content-evenly">
-                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}" title="Integrantes">
+                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
+                                title="Integrantes">
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
 
@@ -70,7 +78,8 @@
                                     <img src="/images/acoes/listView/anexo.svg">
                                 </a>
 
-                                <a href="" title="Importar Integrantes" data-bs-toggle="modal" data-bs-target="#modalImportCsv{{$atividade->id}}">
+                                <a href="" title="Importar Integrantes" data-bs-toggle="modal"
+                                    data-bs-target="#modalImportCsv{{ $atividade->id }}">
                                     <img src="/images/acoes/listView/csvIcon.svg" alt="">
                                 </a>
                             @endif
@@ -79,8 +88,7 @@
                                 <img src="/images/acoes/listView/editar.svg" alt="">
                             </a>
                             <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')"
-                                href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}" 
-                                title="Excluir">
+                                href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}" title="Excluir">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                             </a>
                         </div>
@@ -96,35 +104,39 @@
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="modalImportCsv{{$atividade->id}}" tabindex="-1" aria-labelledby="modalImportCsvLabel" aria-hidden="true">
+                <div class="modal fade" id="modalImportCsv{{ $atividade->id }}" tabindex="-1"
+                    aria-labelledby="modalImportCsvLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Integrantes</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Integrantes
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
 
 
                             <div class="modal-body">
                                 <div class="container">
                                     <form class="form"
-                                        action="{{ Route('import_participantes', ['atividade_id' => $atividade->id]) }}" method="POST"
-                                        enctype="multipart/form-data">
+                                        action="{{ Route('import_participantes', ['atividade_id' => $atividade->id]) }}"
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row align-items-start">
                                             <div>
-                                                <input type="file" accept=".csv" name="participantes_csv" id="participantes_csv"
-                                                    class="form-control form-control-sm" style="margin-top:5%" required>
+                                                <input type="file" accept=".csv" name="participantes_csv"
+                                                    id="participantes_csv" class="form-control form-control-sm"
+                                                    style="margin-top:5%" required>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center mt-4">
-                                                <div class="col-2">
-                                                    <button type="button" class="btn btn-sm btn-dark"
-                                                        data-bs-dismiss="modal">Fechar</button>
-                                                </div>
-                                                <div class="col-2">
-                                                    <button type="submit" class="btn btn-sm btn-success">Importar</button>
-                                                </div>
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-sm btn-dark"
+                                                    data-bs-dismiss="modal">Fechar</button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Importar</button>
+                                            </div>
                                         </div>
                                     </form>
 
@@ -133,7 +145,6 @@
                         </div>
                     </div>
                 </div>
-
             @endforeach
         </div>
     </section>
