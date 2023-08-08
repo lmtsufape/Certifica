@@ -41,9 +41,9 @@
             </div>
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-4"><span class="spacing-col">Descrição</span></div>
-                <div class="col-4"><span>Únidade Administrativa</span></div>
-                <div class="col-4"><span>Funcionalidades</span></div>
+                <div class="col-5"><span class="spacing-col">Descrição</span></div>
+                <div class="col-5"><span>Únidade Administrativa</span></div>
+                <div class="col-2"><span>Funcionalidades</span></div>
             </div>
         </div>
 
@@ -51,17 +51,17 @@
         <div class="list container">
             @foreach ($certificado_modelos as $modelo)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-4"><span class="spacing-col">{{ $modelo->descricao }}</span></div>
-                    <div class="col-4"><span>
+                    <div class="col-5"><span class="spacing-col">{{ $modelo->descricao }}</span></div>
+                    <div class="col-5"><span>
                             @if ($modelo->unidadeAdministrativa)
                                 {{ $modelo->unidadeAdministrativa->descricao }}
                             @endif
                         </span></div>
-                    <div class="col-4 d-flex align-items-center justify-content-around">
+                    <div class="col-2 d-flex align-items-center justify-content-around">
 
 
-
-                        <span class="col-3 d-flex align-items-center justify-content-around">
+                        <div class="col-1"></div>
+                        <span class="col-7 d-flex align-items-center justify-content-around">
                             <a href="{{ route('certificado_modelo.show', ['id' => $modelo->id]) }}">
                                 <img src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar">
                             </a>
@@ -73,8 +73,9 @@
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Excluir">
                             </a>
                         </span>
+                        <div class="col-5">
 
-                        <span class="col-9 "></span>
+                        </div>
 
                     </div>
                 </div>

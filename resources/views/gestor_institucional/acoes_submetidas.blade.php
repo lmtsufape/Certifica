@@ -10,9 +10,7 @@
 
         <div class="container">
 
-           
-
-
+        
             <div class="row d-flex align-items-center justify-content-start">
                 <div class="col-1">
                     <a type="button" class="button d-flex align-items-center justify-content-around between"

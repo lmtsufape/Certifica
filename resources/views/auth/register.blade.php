@@ -87,8 +87,8 @@
 
         <div class="row camporegister_dinamico_hide" id="professor_cursos">
 
-            <div class="col-md-8 border align-center">
-                <label for="cursos">Cursos<span class="ast">*</span></label>
+            <div class="col-md-10 border align-center">
+                <label style="font-weight: bold" for="cursos">Cursos<span class="ast">*</span></label>
 
                 <br>
 
@@ -98,6 +98,7 @@
                             value="{{ $curso->id }}">
                         <label class="form-check-label" for="inlineCheckbox1">{{ $curso->nome }}</label>
                     </div>
+                    <br>
                 @endforeach
             </div>
         </div>
