@@ -14,6 +14,8 @@
 
             <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
 
+            <h2 class="text-center mb-4">Atividade: {{$atividade->descricao}} </h2>
+
             <div class="text-center mb-3">
                 <h3>Integrantes</h3>
             </div>
@@ -41,7 +43,7 @@
 
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-1"></div>
+                <div class="col-1 text-center">N°</div>
                 <div class="col-3"><span>Nome</span></div>
                 <div class="col-2"><span>CPF</span></div>
                 <div class="col-2"><span>CH</span></div>
