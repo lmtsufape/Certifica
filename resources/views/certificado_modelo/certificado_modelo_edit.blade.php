@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/acoes/create.css">
     <link rel="stylesheet" href="/css/modelo_certificado/modelo_certificado.css">
     <link rel="stylesheet" href="/css/cadastros/cadastrarAcao.css">
+    <link rel="stylesheet" href="/css/modelo_certificado/modal-legendas.css">
 @endsection
 
 @section('content')
@@ -13,6 +14,22 @@
 
         <div class="container container-form-modelo">
             <h2 class="text-center">ATUALIZAR MODELO DE CERTIFICADO</h2>
+            <!--icone p ativar o modal -->
+
+
+            <p class="d-flex align-items-center justify-content-center">
+
+                <span class="all-text">
+                    Clique
+                    <a class="link-modal" data-bs-toggle="modal" data-bs-target="#modal-Legenda">aqui</a>
+                    para visualizar as variáveis
+                </span>
+
+                <a data-bs-toggle="modal" data-bs-target="#modal-Legenda">
+                    <img class="lamp-legendas-icon" src="/images/modal-legenda/lamp.svg" alt="variaveis">
+                </a>
+
+            </p>
 
             <form action="{{ Route('certificado_modelo.update', ['id' => $modelo->id]) }}" method="POST"
                 enctype="multipart/form-data">
@@ -43,22 +60,22 @@
                         <div
                             class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
                             <span class="tittle-input">Tipo Certificado</span>
-                            <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado" required>
+                            <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado"
+                                required>
                                 <option value="{{ $modelo->tipo_certificado }}"> {{ $modelo->tipo_certificado }}</option>
                                 @foreach ($tipos_certificado as $tipo)
                                     <option value="{{ $tipo }}">{{ $tipo }}</option>
                                 @endforeach
                             </select>
                         </div>
-                	 </div>
+                    </div>
 
-                     <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
-                        <div
-                            class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                    <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
+                        <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
                             <span class="tittle-input">Tipo Certificado (outro)</span>
                             <input class="w-75 input-text" type="text" name="outro">
                         </div>
-                     </div>
+                    </div>
 
 
                     <div class="row box d-flex flex-column col-xl-7">
@@ -119,10 +136,9 @@
                 </div>
             </form>
         </div>
-        <div>
-            <x-legenda />
-        </div>
 
+        <!--modal legendas -->
+        @include('components.modal-Legenda')
     </div>
 
     <script>
@@ -162,19 +178,16 @@
         const select_tipo_certificado = document.getElementById("select_tipo_certificado");
         const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");
 
-        select_tipo_certificado.addEventListener("change", function()
-        {
-            if (select_tipo_certificado.value === "Outro")
-            {
+        select_tipo_certificado.addEventListener("change", function() {
+            if (select_tipo_certificado.value === "Outro") {
                 outro_tipo_certificado.style.display = "block";
-            } else
-            {
+            } else {
                 outro_tipo_certificado.style.display = "none";
             }
         });
     </script>
 
-    
+
     <script>
         // correcao text area
         var textarea = document.getElementById("texto")

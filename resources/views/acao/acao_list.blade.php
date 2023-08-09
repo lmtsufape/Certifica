@@ -35,6 +35,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modal-info{{$acao->id}}" role="dialog">
+        
         <div class="modal-dialog modal-dialog-centered">
     
             <div class="modal-content">

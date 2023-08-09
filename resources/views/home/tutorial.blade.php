@@ -11,7 +11,6 @@
 
                 <h1 class="titulo-card mb-4 mt-4">Tutorial de uso</h1>
 
-
                 <p>
                     Clique <a target="_blank"
                         href="https://drive.google.com/drive/folders/1_gicfPwYkoKjYB5dJBlRfLunuRUZdBJE?usp=sharing">aqui</a>
