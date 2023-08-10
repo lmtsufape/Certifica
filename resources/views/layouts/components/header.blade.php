@@ -39,13 +39,14 @@
                 <ul id="menu_normal" class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="/">Início</a></li>
                     <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
                             Verificação de Autenticidade
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                   
                 </ul>
             @endif
 

@@ -12,8 +12,8 @@
 @section('content')
     <section class="view-create-acao">
 
-        <h1 class="text-center mb-4">Atividade/Função: {{ $atividade->descricao }}</h1>
-        <h2 class="text-center mb-4">Cadastrar Participante</h2>
+        <h1 class="text-center mb-4">Atividade / função: {{ $atividade->descricao }}</h1>
+        <h2 class="text-center mb-4">Cadastrar participante</h2>
         <form class="container form form-box" action="{{ Route('participante.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf

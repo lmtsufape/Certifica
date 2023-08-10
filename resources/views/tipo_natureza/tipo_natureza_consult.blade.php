@@ -13,7 +13,7 @@
         <div class="container">
 
             <div class="text-center mb-3">
-                <h3>Tipos de Natureza</h3>
+                <h3>Tipos de natureza</h3>
             </div>
 
             <div class="row d-flex align-items-center justify-content-between">

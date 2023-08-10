@@ -7,55 +7,17 @@
 @section('content')
     <div class='container'>
         <section class="view-list-acoes">
-            <h1 class="text-center mb-4">Ação</h1>
 
-            <div class="container">
-                <div class="row head-table d-flex align-items-center justify-content-start">
-                    <div class="col-4 text-start"><span class="spacing-col">Título</span></div>
-                    <div class="col-3 text-start"><span>Início</span></div>
-                    <div class="col-3 text-start"><span>Fim</span></div>
-                    <div class="col-2 text-start"><span>Funcionalidades</span></div>
-                </div>
-            </div>
-
-            <div class="list container">
-                <div class="row linha-table d-flex align-items-center justify-content-start">
-                    <div class="col-4 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
-                    <div class="col-3 text-start">
-                        <span>
-                            {{ collect(explode('-', $acao->data_inicio))->reverse()->join('/') }}
-                        </span>
-                    </div>
-                    <div class="col-3 text-start">
-                        <span>
-                            {{ collect(explode('-', $acao->data_fim))->reverse()->join('/') }}
-                        </span>
-                    </div>
-                    <div class="col-2">
-                        <div class="col-6 d-flex align-items-start justify-content-start">
-                            <span class="col spacing-col">
-                                @if ($acao->anexo != null)
-                                    <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">
-                                        <img src="/images/acoes/listView/anexo.svg" alt="Visualizar" title="Baixar Anexo">
-                                    </a>
-                                @endif
-                            </span>
-
-                            <span class="col-6 text-center">
-                                <a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}">
-                                    <img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar">
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <h1 class="text-center mb-4">Ação institucional:
+                @if ($acao->anexo != null)
+                    <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">anexo</a>
+                @endif
+            </h1>
 
             <div class="container">
 
                 <div class="text-center mb-3">
-                    <h3>Atividades - {{ $acao->titulo }}</h3>
+                    <h3>Atividades / {{ $acao->titulo }}</h3>
                 </div>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
@@ -77,19 +39,19 @@
                                 {{ collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}
                             </span>
                         </div>
-                        <div class="col-2">
-                            <div class="col-6 d-flex align-items-start justify-content-start">
-                                <span class="col-6 text-center">
-                                    <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
-                                        <img src="/images/atividades/participantes.svg" alt="" title="Integrantes">
-                                    </a>
-                                </span>
-                            
-                                <span class="col spacing-col">
-                                    <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
-                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                                    </a>
-                                </span>
+                        <div class="col-2 ">
+
+                            <div class="col-1"></div>
+                            <div class="col-9 d-flex align-items-center justify-content-evenly">
+
+                                <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
+                                    <img src="/images/atividades/participantes.svg" alt="" title="Integrantes">
+                                </a>
+
+                                <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
+                                    <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                </a>
+
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
 @section('content')
     <div class='container section-geral'>
         <section class="section-view pb-3 pt-4">
-            <h2 class="titulo-view mb-4">Editar Unidade Administrativa</h2>
+            <h2 class="titulo-view mb-4">Editar unidade administrativa</h2>
 
             <form action="{{Route('unidade_administrativa.update')}}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-start">
-                        <button type="submit" class="">Atualizar</button>
+                        <button type="submit" class="">Salvar</button>
                     </div>
                 </div>
             </form>

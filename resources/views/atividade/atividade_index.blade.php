@@ -13,10 +13,10 @@
 
         <div class="container">
 
-            <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
+            <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
 
             <div class="text-center mb-3">
-                <h3>Atividades / Funções</h3>
+                <h3>Atividades / funções</h3>
             </div>
 
 
@@ -43,8 +43,8 @@
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-2"><span class="spacing-col">Atividade / Função</span></div>
                 <div class="col-2"><span>Período</span></div>
-                <div class="col-5"><span>Integrantes</span></div>
-                <div class="col-3"><span>Funcionalidades</span></div>
+                <div class="col-6"><span>Integrantes</span></div>
+                <div class="col-2"><span>Funcionalidades</span></div>
             </div>
         </div>
 
@@ -58,16 +58,15 @@
                             collect(explode('-', $atividade->data_fim))->reverse()->join('/') }}</span>
                     </div>
 
-                    <div class="col-5 titulo-span" title="{{ $atividade->nome_participantes }}">
+                    <div class="col-6 titulo-span" title="{{ $atividade->nome_participantes }}">
                         {{ $atividade->nome_participantes }}
                     </div>
 
 
 
-                    <div class="col-3 d-flex align-items-center justify-content-start">
+                    <div class="col-2 d-flex align-items-center justify-content-start">
 
-
-                        <div class="col-5 d-flex align-items-center justify-content-evenly">
+                        <div class="col-7 d-flex align-items-center justify-content-evenly">
                             <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
                                 title="Integrantes">
                                 <img src="/images/atividades/participantes.svg" alt="">
@@ -93,9 +92,7 @@
                             </a>
                         </div>
 
-                        <div class="col-7">
-
-                        </div>
+                        <div class="col-5"></div>
                     </div>
                 </div>
 

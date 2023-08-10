@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="view-list-acoes">
-        <h1 class="text-center mb-4">Meus Certificados</h1>
+        <h1 class="text-center mb-4">Meus certificados</h1>
 
         <form action="" id="form" class="container">
             <div>

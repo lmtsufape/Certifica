@@ -6,13 +6,31 @@
     <link rel="stylesheet" href="/css/acoes/create.css">
     <link rel="stylesheet" href="/css/modelo_certificado/modelo_certificado.css">
     <link rel="stylesheet" href="/css/cadastros/cadastrarAcao.css">
+    <link rel="stylesheet" href="/css/modelo_certificado/modal-legendas.css">
 @endsection
 
 @section('content')
     <div class="row">
 
         <div class="container container-form-modelo">
-            <h2 class="text-center">CRIAR MODELO DE CERTIFICADO</h2>
+            <h2 class="text-center">Criar modelo de certificado</h2>
+
+            <!--icone p ativar o modal -->
+
+
+            <p class="d-flex align-items-center justify-content-center">
+
+                <span class="all-text">
+                    Clique
+                    <a class="link-modal" data-bs-toggle="modal" data-bs-target="#modal-Legenda">aqui</a>
+                    para visualizar as variáveis
+                </span>
+
+                <a data-bs-toggle="modal" data-bs-target="#modal-Legenda">
+                    <img class="lamp-legendas-icon" src="/images/modal-legenda/lamp.svg" alt="variaveis">
+                </a>
+
+            </p>
 
             <form action="{{ Route('tipo_certificado_modelo.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -103,9 +121,9 @@
             </form>
         </div>
 
-        <div>
-            <x-legenda />
-        </div>
+        
+        <!--modal legendas -->
+        @include('components.modal-Legenda')
 
     </div>
 

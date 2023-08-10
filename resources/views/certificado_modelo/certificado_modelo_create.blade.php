@@ -6,12 +6,40 @@
 @section('css')
     <link rel="stylesheet" href="/css/acoes/create.css">
     <link rel="stylesheet" href="/css/modelo_certificado/modelo_certificado.css">
+
+    <link rel="stylesheet" href="/css/modelo_certificado/modal-legendas.css">
 @endsection
 
 @section('content')
     <div class="row">
+
+
+
         <div class="container container-form-modelo">
+
+
+
+            <!--View -->
+
             <h2 class="text-center">CADASTRAR MODELO DE CERTIFICADOS</h2>
+
+            <!--icone p ativar o modal -->
+
+
+            <p class="d-flex align-items-center justify-content-center">
+
+                <span class="all-text">
+                    Clique
+                    <a class="link-modal" data-bs-toggle="modal" data-bs-target="#modal-Legenda">aqui</a>
+                    para visualizar as variáveis
+                </span>
+
+                <a data-bs-toggle="modal" data-bs-target="#modal-Legenda">
+                    <img class="lamp-legendas-icon" src="/images/modal-legenda/lamp.svg" alt="variaveis">
+                </a>
+
+            </p>
+
 
             <form class="container form" action="{{ Route('certificado_modelo.store') }}" method="POST"
                 enctype="multipart/form-data">
@@ -74,8 +102,6 @@
 
                         </label>
                     </div>
-
-
                 </div>
 
 
@@ -99,22 +125,22 @@
                         <a href="{{ route('certificado_modelo.index') }}">
                             <button class="button submit" type="button">Voltar</button>
                         </a>
-                       
+
                     </div>
 
                     <div class="col d-flex justify-content-center">
                         <button type="submit" class="button submit">Cadastrar</button>
                     </div>
-                    
-                </div>
 
+                </div>
             </form>
 
-            <div>
-                <x-legenda />
-            </div>
+            <!--modal legendas -->
+            @include('components.modal-Legenda')
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
     <script>
         //Preview fundo

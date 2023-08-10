@@ -13,8 +13,8 @@
     <section class="view-create-acao"> 
 
 
-        <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
-        <h2 class="text-center mb-5">Cadastrar Atividade/Função</h2>
+        <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
+        <h2 class="text-center mb-5">Cadastrar atividade / função</h2>
 
         <form class="container form form-box " action="{{ Route('atividade.store') }}" method="POST"
             enctype="multipart/form-data">
@@ -47,12 +47,13 @@
 
                 <div class="col-xl-3 campo spacing-row1 input-create-box">
                     <span class="tittle-input w-50">Data de Início</span>
-                    <input class="w-100 h-75" type="date" name="data_inicio" id="">
+                    <input class="w-100 h-50" type="date" name="data_inicio" id="">
                 </div>
                 <div class="col-xl-3 campo input-create-box">
                     <span class="tittle-input w-50">Data de Término</span>
-                    <input class="w-100 h-75" type="date" name="data_fim" id="">
+                    <input class="w-100 h-50" type="date" name="data_fim" id="">
                 </div>
+                
             </div>
 
             </br> </br>

@@ -16,7 +16,7 @@
     <div class="row linha-table d-flex align-items-center justify-content-start">
         <div class="col-2 text-center titulo-span" title="{{$acao->titulo}}"><span>{{$acao->titulo}}</span></div>
         <div class="col-2 titulo-span text-center"><span class="spacing-col">{{$acao->tipo_natureza->natureza->descricao}}</span></div>
-        <div class="col-2 text-center"><span>{{$acao->tipo_natureza->descricao}}</span></div>
+        <div class="col-2 text-center titulo-span" title="{{$acao->tipo_natureza->descricao}}"><span>{{$acao->tipo_natureza->descricao}}</span></div>
         <div class="col-2 text-center titulo-span" title="{{$acao->nome_atividades}}"><span>{{$acao->nome_atividades}}</span></div>
         <div class="col-1 text-center"><span>{{$acao->total}}</span></div>
         <div class="col-1 text-center">
@@ -25,8 +25,8 @@
                     </a>
             </span>        
         </div>
-        <div class="col-2 text-center"><span>{{$acao->user->name}}</span></div>
-    </div>
+        <div title="{{$acao->user->name}}" class="col-2 text-center titulo-span"><span>{{$acao->user->name}}</span></div>
+    </div> 
 @endforeach
 <script>
     $(".total").html("<strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>");

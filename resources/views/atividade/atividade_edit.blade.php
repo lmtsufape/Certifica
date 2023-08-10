@@ -12,8 +12,8 @@
 @section('content')
     <section class="create-acao-view">
 
-        <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
-        <h1 class="text-center mb-5">Editar Atividade / Função</h1>
+        <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
+        <h1 class="text-center mb-5">Editar atividade / função</h1>
 
         <form class="container form form-box" action="{{ Route('atividade.update') }}" method="POST"
             enctype="multipart/form-data">
@@ -55,7 +55,7 @@
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="button mt-4 d-flex justify-content-center align-items-center cancel"
                         href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"> Voltar</a>
-                    <button class="button mt-4 submit" type="submit">Editar</button>
+                    <button class="button mt-4 submit" type="submit">Salvar</button>
                 </div>
             </div>
 

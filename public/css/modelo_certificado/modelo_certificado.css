@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 150px;
-    border: 1px solid transparent;
+    border: 1px solid black;
 }
 .card-preview-create{
     display: flex;
@@ -18,7 +18,7 @@
 }
 
 textarea{
-    text-align: start;
+    text-align: justify;
     padding: 0;
     text-indent: -10px;
     border: none;

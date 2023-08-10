@@ -1,0 +1,37 @@
+
+
+
+a:hover {
+    color: #972E3F;
+}
+
+.header-legenda{
+    background-color: #972E3F;
+    color: white;
+    text-align: center;
+}
+
+.card-legenda{
+    width: max-content;
+    position: fixed;
+    top: 50%;
+    right: 0px;
+    max-inline-size: 28%;
+}
+
+
+.lamp-legendas-icon{
+    width: 20px;
+    height: max-content; 
+    margin: 0 0 5px 5px;
+    cursor: pointer;
+}
+.all-text{
+    font-weight: bold;
+}
+.link-modal{
+    text-decoration: underline;
+    cursor: pointer;
+
+}
+

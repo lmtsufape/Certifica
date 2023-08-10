@@ -13,8 +13,8 @@
     <section class="view-create-acao">
 
 
-        <h1 class="text-center mb-4">Atividade/Função: {{ $atividade->descricao }}</h1>
-        <h2 class="text-center mb-4">Editar Participante</h2>
+        <h1 class="text-center mb-4">Atividade / função: {{ $atividade->descricao }}</h1>
+        <h2 class="text-center mb-4">Editar participante</h2>
 
         <form class="container form form-box" action="{{ Route('participante.update') }}" method="POST"
             enctype="multipart/form-data">
@@ -64,11 +64,12 @@
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="button d-flex justify-content-center align-items-center cancel"
                         href="{{ Route('participante.index', ['atividade_id' => $atividade->id]) }}">Voltar</a>
-                    <button class="button submit" type="submit">Editar</button>
+                    <button class="button submit" type="submit">Salvar</button>
                 </div>
             </div>
 
-            <div class="alert alert-warning text-center mb-0 mt-4" role="alert"><strong>Atenção:</strong>
+            <div class="alert alert-danger text-center mb-0 mt-4" role="alert">
+                <strong>Atenção:</strong>
                 <small style="color: red">É necessário editar o perfil do usuário vinculado a este CPF para alterar as
                     informações de Nome, Email e CPF.</small>
             </div>
