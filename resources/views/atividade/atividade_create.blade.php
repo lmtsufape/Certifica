@@ -13,8 +13,8 @@
     <section class="view-create-acao"> 
 
 
-        <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
-        <h2 class="text-center mb-5">Cadastrar Atividade/Função</h2>
+        <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
+        <h2 class="text-center mb-5">Cadastrar atividade / função</h2>
 
         <form class="container form form-box " action="{{ Route('atividade.store') }}" method="POST"
             enctype="multipart/form-data">

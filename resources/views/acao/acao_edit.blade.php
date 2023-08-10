@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <h1 class="text-center">Editar Ação</h1>
+    <h1 class="text-center">Editar ação</h1>
 
     <form class="container form" action="{{ route('acao.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -121,7 +121,7 @@
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="button d-flex justify-content-center align-items-center cancel"
                         href="{{ route('acao.index') }}">Voltar</a>
-                    <button class="button submit" type="submit">Editar</button>
+                    <button class="button submit" type="submit">Salvar</button>
                 </div>
             </div>
         </div>

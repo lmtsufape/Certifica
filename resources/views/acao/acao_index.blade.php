@@ -6,7 +6,7 @@
 
 @section('content')
     <section class="view-list-acoes">
-        <h1 class="text-center mb-4">Listar Ações</h1>
+        <h1 class="text-center mb-4">Listar ações</h1>
 
         <div class="container">
             <div class="row d-flex align-items-center justify-content-between">

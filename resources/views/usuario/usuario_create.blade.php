@@ -13,7 +13,7 @@
     <section class="view-create-acao">
 
 
-        <h2 class="text-center mb-4">Cadastrar Usuário </h2>
+        <h2 class="text-center mb-4">Cadastrar usuário </h2>
         <form class="container form form-box" action="{{ Route('usuario.store') }}" method="POST"
             enctype="multipart/form-data">
             @csrf

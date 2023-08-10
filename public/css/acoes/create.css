@@ -167,11 +167,7 @@ button {
     min-width: 100px;
     padding: 3px 16px;
     border-radius: 5px;
-    opacity: 0.8;
     transition: all ease-in-out .1s;
-}
-button:hover{
-    opacity: 1;
 }
 .button {
     background-color: #B02A3D;
@@ -180,10 +176,5 @@ button:hover{
     padding: 3px 16px;
     min-width: 100px;
     border-radius: 5px;
-    opacity: 0.8;
     transition: all ease-in-out .1s;
-}
-
-.button:hover{
-    opacity: 1;
 }
