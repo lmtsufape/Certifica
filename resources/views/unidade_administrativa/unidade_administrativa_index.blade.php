@@ -13,7 +13,7 @@
         <div class="container">
 
             <div class="text-center mb-3">
-                <h3>Unidades Administrativas</h3>
+                <h3>Unidades administrativas</h3>
             </div>
 
             <div class="row d-flex align-items-center justify-content-between">

@@ -8,7 +8,7 @@
 @section('content')
     <div class='container section-geral'>
         <section class="section-view">
-            <h2 class="titulo-view mb-4">Editar Tipo de Natureza</h2>
+            <h2 class="titulo-view mb-4">Editar tipo de natureza</h2>
 
             <form action={{Route('tipo_natureza.update', ['id' => $tipo_natureza->id])}} method="POST" enctype="multipart/form-data">
                 @csrf
@@ -43,7 +43,7 @@
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">
-                        <button type="submit" class="">Atualizar</button>
+                        <button type="submit" class="">Salvar</button>
                     </div>
                 </div>
             </form>

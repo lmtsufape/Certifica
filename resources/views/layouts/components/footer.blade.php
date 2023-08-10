@@ -24,7 +24,7 @@
 
                         <img class="logo-ufape" src="/images/layouts/footer/UFAPElogo.png" alt="Logo">
                     </a>
-                    <a href="http://lmts.uag.ufrpe.br/" target="_blank">
+                    <a href="http://www.lmts.ufape.edu.br/" target="_blank">
 
                         <img class="logo-lmts" src="/images/layouts/footer/LMTSlogo.png" alt="Logo">
                     </a>

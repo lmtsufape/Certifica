@@ -13,7 +13,7 @@
     <div class="row">
 
         <div class="container container-form-modelo">
-            <h2 class="text-center">CRIAR MODELO DE CERTIFICADO</h2>
+            <h2 class="text-center">Criar modelo de certificado</h2>
 
             <!--icone p ativar o modal -->
 

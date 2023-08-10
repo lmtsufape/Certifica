@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <h2 class="text-center mb-4">Editar Usuário</h2>
+    <h2 class="text-center mb-4">Editar usuário</h2>
     <form class="container form" action="{{ Route('usuario.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
@@ -77,7 +77,7 @@
         <div class="row d-flex justify-content-start align-items-center">
             <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                 <a class="button d-flex justify-content-center align-items-center cancel" href="{{route('usuario.index')}}"> Voltar</a>
-                <button class="button submit" type="submit">Editar</button>
+                <button class="button submit" type="submit">Salvar</button>
             </div>
         </div>
     </form>

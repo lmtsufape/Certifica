@@ -12,7 +12,7 @@
     <section class="view-list-acoes">
         <div class="container">
 
-            <h1 class="text-center mb-4">Ação Institucional: {{ $acao->titulo }}</h1>
+            <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
 
             <h2 class="text-center mb-4">Atividade: {{$atividade->descricao}} </h2>
 

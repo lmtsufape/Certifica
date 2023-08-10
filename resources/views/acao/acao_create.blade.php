@@ -8,7 +8,7 @@
 @section('content')
     <section class="view-create-acao">
 
-        <h1 class="text-center">Cadastrar Ação</h1>
+        <h1 class="text-center">Cadastrar ação</h1>
 
         <form class="container form" action="{{ Route('acao.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

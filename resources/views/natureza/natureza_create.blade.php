@@ -12,7 +12,7 @@
 @section('content')
     <div class='container section-geral'>
         <section class="section-view pb-3 pt-4">
-            <h2 class="titulo-view mb-4">Cadastrar Natureza</h2>
+            <h2 class="titulo-view mb-4">Cadastrar natureza</h2>
 
             <form action={{Route('natureza.store')}} method="POST" enctype="multipart/form-data">
                 @csrf
