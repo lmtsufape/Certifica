@@ -1,8 +1,8 @@
 @foreach ($acoes as $acao)
     <div class="row linha-table d-flex align-items-center justify-content-start">
-        <div class="col-5 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
+        <div title="{{$acao->titulo}}" class="col-5 titulo-span text-start"><span class="spacing-col">{{ $acao->titulo }}</span></div>
         <div class="col-1 text-center"><span>{{$acao->tipo_natureza->natureza->descricao}}</span></div>
-        <div class="col-2 text-center titulo-span"><span>{{$acao->tipo_natureza->descricao}}</span></div>
+        <div title="{{$acao->tipo_natureza->descricao}}" class="col-2 text-center titulo-span"><span>{{$acao->tipo_natureza->descricao}}</span></div>
         <div class="col-1 text-center tag tag-{{$acao->status}}"><span>{{ $acao->status }}</span></div>
         <div class="col-1 text-center">
             <span>

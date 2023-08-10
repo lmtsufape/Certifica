@@ -68,7 +68,8 @@
                 </div>
             </div>
 
-            <div class="alert alert-warning text-center mb-0 mt-4" role="alert"><strong>Atenção:</strong>
+            <div class="alert alert-danger text-center mb-0 mt-4" role="alert">
+                <strong>Atenção:</strong>
                 <small style="color: red">É necessário editar o perfil do usuário vinculado a este CPF para alterar as
                     informações de Nome, Email e CPF.</small>
             </div>
