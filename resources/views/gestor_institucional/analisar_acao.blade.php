@@ -8,17 +8,16 @@
     <div class='container'>
         <section class="view-list-acoes">
 
-            <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
-            @if ($acao->anexo != null)
-                <h6 class=" mb-5">Clique <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">aqui</a>
-                    para obter o anexo da ação
-                </h6>
-            @endif
+            <h1 class="text-center mb-4">Ação institucional:
+                @if ($acao->anexo != null)
+                    <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}">anexo</a>
+                @endif
+            </h1>
 
             <div class="container">
 
                 <div class="text-center mb-3">
-                    <h3>Atividades</h3>
+                    <h3>Atividades / {{ $acao->titulo }}</h3>
                 </div>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
