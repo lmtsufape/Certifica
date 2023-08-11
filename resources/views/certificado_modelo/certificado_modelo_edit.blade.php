@@ -141,56 +141,6 @@
         @include('components.modal-Legenda')
     </div>
 
-    <script>
-        //Preview fundo
-        var imgFundo = document.getElementById('img_fundo');
-        var imgFundoNew = document.getElementById('img_fundo_new');
-        var planoFundo = document.getElementById('plano_fundo');
-
-
-        imgFundoNew.style.display = "none"
-
-        planoFundo.addEventListener('change', (e) => {
-
-            imgFundo.style.display = "none"
-            imgFundoNew.style.display = ""
-
-            imgFundoNew.src = URL.createObjectURL(e.target.files[0])
-        })
-
-        //Preview verso
-
-        var imgVerso = document.getElementById('img_verso');
-        var imgVersoNew = document.getElementById('img_verso_new');
-        var planoVerso = document.getElementById('plano_verso');
-
-        imgVersoNew.style.display = "none"
-
-        planoVerso.addEventListener('change', (e) => {
-            imgVerso.style.display = "none"
-            imgVersoNew.style.display = ""
-
-            imgVersoNew.src = URL.createObjectURL(e.target.files[0])
-        })
-    </script>
-
-    <script>
-        const select_tipo_certificado = document.getElementById("select_tipo_certificado");
-        const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");
-
-        select_tipo_certificado.addEventListener("change", function() {
-            if (select_tipo_certificado.value === "Outro") {
-                outro_tipo_certificado.style.display = "block";
-            } else {
-                outro_tipo_certificado.style.display = "none";
-            }
-        });
-    </script>
-
-
-    <script>
-        // correcao text area
-        var textarea = document.getElementById("texto")
-        textarea.innerHTML = textarea.innerHTML.trim()
-    </script>
+    <script src="/js/modelo_certificado/modelo_certificado-edit.js"></script>
+    <script src="/js/modelo_certificado/modelo_certificado-geral.js"></script>
 @endsection

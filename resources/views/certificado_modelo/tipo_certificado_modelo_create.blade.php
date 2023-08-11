@@ -127,22 +127,7 @@
 
     </div>
 
-    <script>
-        const select_tipo_certificado = document.getElementById("select_tipo_certificado");
-        const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");
 
-        select_tipo_certificado.addEventListener("change", function() {
-            if (select_tipo_certificado.value === "Outro") {
-                outro_tipo_certificado.style.display = "block";
-            } else {
-                outro_tipo_certificado.style.display = "none";
-            }
-        });
-    </script>
-
-    <script>
-        // correcao text area
-        var textarea = document.getElementById("texto")
-        textarea.innerHTML = textarea.innerHTML.trim()
-    </script>
+    <script src="/js/modelo_certificado/modelo_certificado-edit.js"></script>
+    <script src="/js/modelo_certificado/modelo_certificado-geral.js" ></script>
 @endsection
