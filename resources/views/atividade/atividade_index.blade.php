@@ -66,7 +66,7 @@
 
                     <div class="col-2 d-flex align-items-center justify-content-start">
 
-                        <div class="col-7 d-flex align-items-center justify-content-evenly">
+                        <div class="col-8 d-flex align-items-center justify-content-around">
                             <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
                                 title="Integrantes">
                                 <img src="/images/atividades/participantes.svg" alt="">
@@ -92,7 +92,7 @@
                             </a>
                         </div>
 
-                        <div class="col-5"></div>
+                        <div class="col-4"></div>
                     </div>
                 </div>
 

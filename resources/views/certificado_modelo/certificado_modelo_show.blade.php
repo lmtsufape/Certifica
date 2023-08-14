@@ -91,9 +91,5 @@
 
     </div>
 
-    <script>
-        // correcao text area
-        var textarea = document.getElementById("texto")
-        textarea.innerHTML = textarea.innerHTML.trim()
-    </script>
+    <script src="/js/modelo_certificado/modelo_certificado-geral.js" ></script>
 @endsection
