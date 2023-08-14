@@ -50,17 +50,24 @@ class ZipCertificados implements ShouldQueue
     {
         $certificados = [];
         $zip = new ZipArchive();
-        $zipname = sys_get_temp_dir()."/certificados.zip";
 
+        //caminho para o diretório onde ficaram armazenados o zip e os PDFs
+        $caminho = Storage::path("certificados/".str_replace(' ', '_', $this->acao->titulo));
+        //Cria o diretório caso não exista
+        Storage::makeDirectory("certificados/".str_replace(' ', '_', $this->acao->titulo));
+        //caminho para o zip
+        $zipname = $caminho."/certificados.zip";
+
+        //adiciona os PDFs ao ZIP
         if($zip->open($zipname, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE) == true){
             foreach ($this->acao->atividades as $atividade) {
                 foreach( $atividade->participantes as $participante){
-                    $nomePDF = 'certificado - '.$participante->user->name.'.pdf';
+                    $nomePDF = $caminho.'/certificado - '.$participante->user->name.'.pdf';
                     array_push($certificados, $nomePDF);
 
-                    $pdf = $this->montar_certificado($participante, $atividade, $this->acao, $nomePDF);
+                    $pdf = $this->montar_certificado($participante, $atividade, $nomePDF);
 
-                    $zip->addFile($nomePDF);
+                    $zip->addFile($nomePDF, 'certificado - '.$participante->user->name.'.pdf');
                 }
             }
         }
@@ -78,11 +85,13 @@ class ZipCertificados implements ShouldQueue
             'acao'  => $this->acao->titulo,
             'anexo' => $zipname,
         ]));
+
+        File::delete($zipname);
     }
 
-    private function montar_certificado($participante, $atividade, $acao, $nomePDF){
+    private function montar_certificado($participante, $atividade, $nomePDF){
         Carbon::setLocale('pt_BR');
-        $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
+        $tipo_natureza = TipoNatureza::findOrFail($this->acao->tipo_natureza_id);
         $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
 
 
@@ -97,7 +106,7 @@ class ZipCertificados implements ShouldQueue
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $this->acao, $atividade, $natureza, $tipo_natureza);
 
         $imagem = Storage::url($modelo->fundo);
 
