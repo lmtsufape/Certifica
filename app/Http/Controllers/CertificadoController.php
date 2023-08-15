@@ -134,7 +134,7 @@ class CertificadoController extends Controller
 
         $nomePDF = 'certificado.pdf';
 
-        $pdf->set_option("dpi", 200);
+        $pdf->set_option("dpi", 150);
         $pdf->setPaper('a4', 'landscape');
 
         if($marca){
