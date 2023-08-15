@@ -20,7 +20,7 @@
                 background-size: cover;
                 font-family: Arial, sans-serif;
                 text-align: center;
-                padding-top: 100px;
+                padding-top: 75px;
             }
 
             .verso_certificado {
@@ -28,52 +28,52 @@
                 background-size: cover;
                 font-family: Arial, sans-serif;
                 text-align: center;
-                padding-top: 100px;
+                padding-top: 75px;
             }
 
             .texto_certificado {
-                font-size: 50px;
+                font-size: 38px;
                 color: #000000;
                 text-shadow: 4px 4px #000;
-                margin-top: 550px;
-                margin-left: 600px;
-                margin-right: 250px;
+                margin-top: 412px;
+                margin-left: 450px;
+                margin-right: 187px;
                 text-align: justify;
             }
 
             .codigo_validacao {
-                font-size: 32px;
+                font-size: 24px;
                 width:28%;
-                margin-left:1500px;
-                margin-top: 40px;
+                margin-left:1180px;
+                margin-top: 30px;
             }
 
             .qrcode {
                 height: 25%;
-                margin-top: 40px;
-                margin-left: 1320px;
+                margin-top: 30px;
+                margin-left: 1100px;
             }
 
 
             .texto_verso_superior{
-                font-size:32px;
+                font-size:24px;
                 width:28%;
                 font-weight:bold;
-                margin-left:1500px;
-                margin-top: 320px;
+                margin-left:1180px;
+                margin-top: 240px;
 
             }
 
             .texto_verso_inferior{
-                font-size:32px;
+                font-size:24px;
                 width:28%;
-                margin-left:1500px;
-                margin-top: 40px;
+                margin-left:1180px;
+                margin-top: 30px;
             }
 
             .logo {
-                margin-right: 200;
-                margin-top: 200;
+                margin-right: 150;
+                margin-top: 150;
             }
 
         </style>
@@ -85,7 +85,7 @@
 
             <br> <br> <br>
 
-            <div style="text-align: center; font-size: 50px; margin-left: 400px; "> Garanhuns, {{ $data_atual }} </div>
+            <div style="text-align: center; font-size: 38px; margin-left: 300px; "> Garanhuns, {{ $data_atual }} </div>
         </p>
     </body>
 
