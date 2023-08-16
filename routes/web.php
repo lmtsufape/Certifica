@@ -83,19 +83,6 @@ Route::group(['middleware' => 'checkAdministrador'], function ()
 
     Route::get('/natureza/{natureza_id}/delete', [NaturezaController::class, 'delete'])->name('natureza.delete');
 
-
-    //Rotas Tipo Natureza
-    Route::get('/tipo_natureza/index', [TipoNaturezaController::class, 'show'])->name('tipo_natureza.index');
-
-    Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
-    Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
-
-    Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
-    Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
-
-    Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
-
-
     //Rotas Certificado Modelo
     Route::get('/certificado_modelo/create', [CertificadoModeloController::class, 'create'])->name('certificado_modelo.create');
     Route::post('/store_certificado_modelo', [CertificadoModeloController::class, 'store'])->name('certificado_modelo.store');
@@ -132,6 +119,18 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
 
         Route::get('/relatorios/filtro', [RelatorioController::class, 'filtro'])->name('filtro');
     });
+
+
+    //Rotas Tipo Natureza
+    Route::get('/tipo_natureza/index', [TipoNaturezaController::class, 'index'])->name('tipo_natureza.index');
+
+    Route::get('/tipo_natureza/create', [TipoNaturezaController::class, 'create'])->name('tipo_natureza.create');
+    Route::post('/store_tipo_natureza', [TipoNaturezaController::class, 'store'])->name('tipo_natureza.store');
+
+    Route::get('/tipo_natureza/{id}/edit', [TipoNaturezaController::class, 'edit'])->name('tipo_natureza.edit');
+    Route::put('/tipo_natureza/{id}/update', [TipoNaturezaController::class, 'update'])->name('tipo_natureza.update');
+
+    Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
 
 });
 

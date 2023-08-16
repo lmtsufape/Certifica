@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateTipoNaturezaRequest;
 use App\Validates\TipoNaturezaValidator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 
 class TipoNaturezaController extends Controller
@@ -20,9 +21,16 @@ class TipoNaturezaController extends Controller
      */
     public function index()
     {
-        $tipoNaturezas = TipoNatureza::all()->sortBy('id');
+        if(Auth::user()->perfil_id == 3)
+        {
+            $tipo_naturezas = Natureza::join('tipo_naturezas', 'naturezas.id', '=', 'tipo_naturezas.natureza_id')->
+                where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
+        } else
+        {
+            $tipo_naturezas = TipoNatureza::all()->sortBy('id');
+        }
 
-        return view('tipo_natureza.tipo_natureza_consult', compact('tipoNaturezas'));
+        return view('tipo_natureza.tipo_natureza_consult', compact('tipo_naturezas'));
 
     }
 
@@ -33,7 +41,17 @@ class TipoNaturezaController extends Controller
      */
     public function create()
     {
-        $naturezas = Natureza::all()->sortBy('id');
+        if(Auth::user()->perfil_id == 3)
+        {
+            $natureza = Natureza::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
+
+            return view('tipo_natureza.tipo_natureza_create', compact('natureza'));
+        } else
+        {
+            $naturezas = Natureza::all()->sortBy('id');
+
+            return view('tipo_natureza.tipo_natureza_create', compact('naturezas'));
+        }
 
         return view('tipo_natureza.tipo_natureza_create', compact('naturezas'));
     }

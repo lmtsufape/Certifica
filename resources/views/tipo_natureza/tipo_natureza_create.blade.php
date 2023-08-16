@@ -20,18 +20,33 @@
                             placeholder="Descrição" required>
                     </div>
                 </div>
-                <div class="row d-flex aligm-items-start justify-content-start mb-3">
-                    <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
-                        <span class="tittle-input">Natureza <span class="ast">*</span> </span>
 
-                        <select name="natureza_id" id="tipo_natureza" class="select-form w-100 " required>
-                            <option value="" selected hidden>-- Natureza --</option>
-                            @foreach ($naturezas as $natureza)
-                                <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
-                            @endforeach
-                        </select>
+                @if (Auth::user()->perfil_id == 1)
+                    <div class="row d-flex aligm-items-start justify-content-start mb-3">
+                        <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Natureza <span class="ast">*</span> </span>
+
+                            <select name="natureza_id" id="tipo_natureza" class="select-form w-100 " required>
+                                <option value="" selected hidden>-- Natureza --</option>
+                                @foreach ($naturezas as $natureza)
+                                    <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
+                @elseif(Auth::user()->perfil_id == 3)
+                    <input type="hidden" value="{{ $natureza->id }}" name="natureza_id">
+
+                    <div class="row d-flex aligm-items-start justify-content-start mb-3">
+                        <div class="col-md-6 input-create-box d-flex aligm-items-start justify-content-start flex-column">
+                            <span class="tittle-input">Natureza <span class="ast">*</span> </span>
+
+                            <select name="natureza_id" id="tipo_natureza" class="select-form w-100 " disabled>
+                                <option value="" selected hidden>{{ $natureza->descricao }}</option>
+                            </select>
+                        </div>
+                    </div>
+                @endif
                 
                 <div class="row col-md-6 d-flex align-items-center justify-content-start">
                     <div class="col-3 text-center d-flex align-items-center justify-content-start">
