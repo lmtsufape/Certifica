@@ -224,6 +224,8 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::get('/gestor/gerar_certificados{acao_id}', [CertificadoController::class, 'gerar_certificados'])->name('gestor.gerar_certificados');
 
     Route::get('/acoes_submetidas_list', [AcaoController::class, 'list_acoes_submetidas'])->name('acoes_submetidas_list');
+    
+    Route::get('/participante/preview_certificado/{participante_id}', [CertificadoController::class, 'previsualizar_certificado'])->name('certificado.preview');
 });
 
 
