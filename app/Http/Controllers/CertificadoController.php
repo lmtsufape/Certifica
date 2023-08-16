@@ -333,4 +333,53 @@ class CertificadoController extends Controller
 
         return str_replace($antes, $depois, $modelo->texto);
     }
+
+    public function previsualizar_certificado($participante_id)
+    {
+        Carbon::setLocale('pt_BR');
+
+        $participante = Participante::findOrFail($participante_id);
+
+        $atividade = Atividade::findOrFail($participante->atividade_id);
+        $acao = Acao::findOrFail($atividade->acao_id);
+
+        $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
+        $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
+
+        $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
+
+        $modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $participante->atividade->descricao)->first();
+
+        if(!$modelo)
+        {
+            $modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
+        }
+
+        $certificado = new Certificado();
+
+        $certificado->cpf_participante = $participante->user->cpf;
+        $certificado->codigo_validacao = Str::random(15);
+        $certificado->certificado_modelo_id = $modelo->id;
+        $certificado->atividade_id = $participante->atividade->id;
+
+        $atividade->descricao = Str::lower($atividade->descricao);
+
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
+
+        $imagem = Storage::url($modelo->fundo);
+
+        $verso = Storage::url($modelo->verso);
+
+        $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.'XXYYXXYY'));
+
+        $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
+                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso'));
+
+        $nomePDF = 'certificado.pdf';
+
+        $pdf->set_option("dpi", 150);
+        $pdf->setPaper('a4', 'landscape');
+
+        return $pdf->stream($nomePDF);
+    }
 }
