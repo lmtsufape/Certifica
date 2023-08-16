@@ -95,6 +95,7 @@
                     </div>
 
                     <div class="row box">
+                        
                         <div class="col-xl-3 campo spacing-row2 input-create-box ">
                             <span class="tittle-input"> Data de Início<span class="ast">*</span> </span>
                             <input class="w-100 h-75" type="date" name="data_inicio" id=""
@@ -124,12 +125,19 @@
                 @endif
 
                 <div class="row d-flex justify-content-start align-items-center">
+
                     <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+
                         <a class="button mt-4 d-flex justify-content-center align-items-center cancel"
                             href="{{ url()->previous() }}">Voltar</a>
+
+
                         <button class="button submit mt-4" type="submit">Cadastrar</button>
+
                     </div>
+
                 </div>
+
             </div>
         </form>
     </section>
