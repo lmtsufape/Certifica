@@ -52,8 +52,6 @@ class TipoNaturezaController extends Controller
 
             return view('tipo_natureza.tipo_natureza_create', compact('naturezas'));
         }
-
-        return view('tipo_natureza.tipo_natureza_create', compact('naturezas'));
     }
 
     /**
