@@ -67,7 +67,7 @@
                 <div class="row box">
 
                     <div class="col-md-6 text-center">
-                        <input type="file" name="verso" id="plano_verso" accept="image/*">
+                        <input hidden type="file" name="verso" id="plano_verso" accept="image/*">
 
                         <label class="label" for="plano_verso">
                             <span>Verso</span>
