@@ -77,7 +77,7 @@ class ZipCertificados implements ShouldQueue
 
         $caminho_excluir = "certificados_".str_replace(' ', '_', $this->acao->titulo);
 
-        ExcluirCertificados::dispatch($caminho_excluir)->delay(now()->addMinutes(2));
+        ExcluirCertificados::dispatch($caminho_excluir)->delay(now()->addHours(24));
     }
 
     private function montar_certificado($participante, $atividade, $nomePDF)
