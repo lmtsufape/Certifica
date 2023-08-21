@@ -16,7 +16,8 @@
         "livewire/livewire": "^2.5",
         "mpdf/mpdf": "^6.1",
         "nesbot/carbon": "^2.66",
-        "simplesoftwareio/simple-qrcode": "^4.2"
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "ext-zip": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

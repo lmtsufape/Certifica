@@ -33,7 +33,7 @@ class EnviarZipCertificados extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Certificados',
+            subject: 'Download do certificado disponível',
         );
     }
 
@@ -60,8 +60,6 @@ class EnviarZipCertificados extends Mailable
      */
     public function attachments()
     {
-        return [
-            Attachment::fromPath($this->data['anexo'])->as('certificados.zip')->withMime('application/zip'),
-        ];
+        return [];
     }
 }

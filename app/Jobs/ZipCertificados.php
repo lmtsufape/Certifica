@@ -25,75 +25,66 @@ use Throwable;
 use Carbon\Carbon;
 use App\Mail\EnviarZipCertificados;
 
-
 class ZipCertificados implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private $acao;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
     public function __construct(Acao $acao)
     {
         $this->acao = $acao;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle()
     {
         $certificados = [];
         $zip = new ZipArchive();
+        $batchCount = 0; // Contador para controlar os lotes
 
-        //caminho para o diretório onde ficaram armazenados o zip e os PDFs
-        $caminho = Storage::path("certificados/".str_replace(' ', '_', $this->acao->titulo));
-        //Cria o diretório caso não exista
-        Storage::makeDirectory("certificados/".str_replace(' ', '_', $this->acao->titulo));
-        //caminho para o zip
-        $zipname = $caminho."/certificados.zip";
+        $caminho = Storage::path("certificados_".str_replace(' ', '_', $this->acao->titulo));
+        Storage::makeDirectory("certificados_".str_replace(' ', '_', $this->acao->titulo));
+        $zipname = $caminho."\certificados.zip";
 
-        //adiciona os PDFs ao ZIP
-        if($zip->open($zipname, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE) == true){
+        if ($zip->open($zipname, ZipArchive::CREATE | ZipArchive::OVERWRITE) == true) {
             foreach ($this->acao->atividades as $atividade) {
-                foreach( $atividade->participantes as $participante){
-                    $nomePDF = $caminho.'/certificado - '.$participante->user->name.'.pdf';
+                foreach ($atividade->participantes as $participante) {
+                    $nomePDF = $caminho.'\certificado - '.$participante->user->name.'.pdf';
                     array_push($certificados, $nomePDF);
 
                     $pdf = $this->montar_certificado($participante, $atividade, $nomePDF);
 
                     $zip->addFile($nomePDF, 'certificado - '.$participante->user->name.'.pdf');
+
+                    $batchCount++;
+
+                    if ($batchCount >= 10) {
+                        $batchCount = 0;
+                    }
                 }
             }
+
+            $zip->close();
         }
 
-        // Fecha arquivo Zip aberto
-        $zip->close();
-
-        //exclui os pdf gerados
-        foreach ($certificados as $certificado){
-            File::delete($certificado);
+        foreach ($certificados as $certificado) {
+            Storage::delete($certificado);
         }
 
-        //enviar email com os certificados
         Mail::to($this->acao->user->email, $this->acao->user->name)->send(new EnviarZipCertificados([
             'acao'  => $this->acao->titulo,
             'anexo' => $zipname,
         ]));
 
-        File::delete($zipname);
+        $caminho_excluir = "certificados_".str_replace(' ', '_', $this->acao->titulo);
+
+        ExcluirCertificados::dispatch($caminho_excluir)->delay(now()->addMinutes(2));
     }
 
-    private function montar_certificado($participante, $atividade, $nomePDF){
+    private function montar_certificado($participante, $atividade, $nomePDF)
+    {
         Carbon::setLocale('pt_BR');
         $tipo_natureza = TipoNatureza::findOrFail($this->acao->tipo_natureza_id);
         $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
-
 
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
@@ -119,12 +110,11 @@ class ZipCertificados implements ShouldQueue
                             'imagem', 'data_atual', 'certificado', 'qrcode', 'verso'));
 
 
-        $pdf->set_option("dpi", 200)->setPaper('a4', 'landscape');
+        $pdf->set_option("dpi", 150)->setPaper('a4', 'landscape');
         $pdf->render();
         $output = $pdf->output();
 
 
         return file_put_contents($nomePDF, $output);
-
     }
 }
