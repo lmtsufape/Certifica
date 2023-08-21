@@ -27,17 +27,19 @@
 
             @elseif($acao->status == 'Aprovada')
                 <a href="{{ route('certificados.download', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/zipcertificados.svg" alt="" title="Baixar Certificados"></a>
+
+                <!-- <a href="{{ route('certificados.deletar', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/zipcertificados.svg" alt="" title="Deletar Certificados"></a> -->
             @endif
 
         </div>
     </div>
-    
+
 
     <!-- Modal -->
     <div class="modal fade" id="modal-info{{$acao->id}}" role="dialog">
-        
+
         <div class="modal-dialog modal-dialog-centered">
-    
+
             <div class="modal-content">
                 <div class="modal-header" style="background: #972E3F; color: white;">
                     <h5 class="modal-title"><b>Detalhes da Ação Institucional</b></h5>
@@ -51,7 +53,7 @@
                         <span><b>Inicio: </b>{{date( 'd/m/Y' , strtotime($acao->data_inicio))}}</span>
                         <span><b>Fim: </b>{{date( 'd/m/Y' , strtotime($acao->data_fim))}}</span>
                         @if($acao->anexo)
-                            <span><b>Anexo: </b> 
+                            <span><b>Anexo: </b>
                                 <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}" title="Baixar Anexo">
                                     <img src="/images/acoes/listView/anexo.svg"alt="Visualizar">
                                 </a>

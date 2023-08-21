@@ -112,7 +112,7 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
     Route::post('/usuario/update', [UsuarioController::class, 'update'])->name('usuario.update');
 
     Route::get('/usuario/{usuario_id}/delete', [UsuarioController::class, 'delete'])->name('usuario.delete');
-    
+
 
     Route::name('relatorios.')->group(function () {
         Route::get('/relatorios', [RelatorioController::class, 'index'])->name('index');
@@ -194,6 +194,8 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('/acao/{acao_id}/atividade/gerar-certificados', [AcaoController::class, 'download_certificados'])->name('certificados.download');
 
+    Route::get('/acao/{acao_id}/atividade/deletar-certificados', [AcaoController::class, 'deletar_certificados'])->name('certificados.deletar');
+
     Route::get('/acao/get/tipo_natureza/{natureza_id}', [AcaoController::class, 'get_tipo_natureza'])->name('acao.get_tipo_natureza');
 
     Route::post('/participante/index/{atividade_id}/import', [ParticipanteController::class, 'import_participantes'])->name('import_participantes');
@@ -201,7 +203,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/participante/invalidar_certificado/{participante_id}', [CertificadoController::class, 'invalidar_certificado'])->name('participante.invalidar_certificado');
 
     Route::get('/participante/reemitir_certificado/{participante_id}', [CertificadoController::class, 'reemitir_certificado'])->name('participante.reemitir_certificado');
-    
+
 });
 
 
@@ -224,7 +226,7 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::get('/gestor/gerar_certificados{acao_id}', [CertificadoController::class, 'gerar_certificados'])->name('gestor.gerar_certificados');
 
     Route::get('/acoes_submetidas_list', [AcaoController::class, 'list_acoes_submetidas'])->name('acoes_submetidas_list');
-    
+
     Route::get('/participante/preview_certificado/{participante_id}', [CertificadoController::class, 'previsualizar_certificado'])->name('certificado.preview');
 });
 

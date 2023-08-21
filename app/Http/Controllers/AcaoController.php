@@ -173,7 +173,7 @@ class AcaoController extends Controller
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
             $acao->anexo = $request->file('anexo')->storeAs('anexos/'.$acao->id, $nomeAnexo);
         }
-        
+
         $acao->update();
 
         return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
@@ -302,11 +302,36 @@ class AcaoController extends Controller
         return Storage::download($acao->anexo);
     }
 
-    public function download_certificados($id){
+    public function download_certificados($id)
+    {
         $acao = Acao::find($id);
-        ZipCertificados::dispatch($acao);
-        
-        return redirect()->back()->with(['mensagem' => 'Em alguns instantes um e-mail será enviado para você com um arquivo .zip contendo os certificados!']);
+
+        $caminho = "app\certificados_".str_replace(' ', '_', $acao->titulo);
+
+        $filePath = storage_path($caminho.'\certificados.zip');
+
+        if (file_exists($filePath))
+        {
+            return response()->download($filePath, 'certificados.zip');
+        }
+        else
+        {
+            ZipCertificados::dispatch($acao);
+        }
+
+        return redirect()->back()->with(['mensagem' => 'Quando todos os certificados estiverem disponível para download, você será notificado por e-mail!']);
+
+    }
+
+    public function deletar_certificados($acao_id)
+    {
+        $acao = Acao::find($acao_id);
+
+        $caminho = "certificados_".str_replace(' ', '_', $acao->titulo);
+
+        Storage::deleteDirectory($caminho);
+
+        return redirect()->back()->with(['mensagem' => 'Quando todos os certificados estiverem disponívcis para download, você será notificado por e-mail!']);
 
     }
 
