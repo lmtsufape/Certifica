@@ -43,12 +43,12 @@ class ZipCertificados implements ShouldQueue
 
         $caminho = Storage::path("certificados_".str_replace(' ', '_', $this->acao->titulo));
         Storage::makeDirectory("certificados_".str_replace(' ', '_', $this->acao->titulo));
-        $zipname = $caminho."\certificados.zip";
+        $zipname = $caminho.DIRECTORY_SEPARATOR."certificados.zip";
 
         if ($zip->open($zipname, ZipArchive::CREATE | ZipArchive::OVERWRITE) == true) {
             foreach ($this->acao->atividades as $atividade) {
                 foreach ($atividade->participantes as $participante) {
-                    $nomePDF = $caminho.'\certificado - '.$participante->user->name.'.pdf';
+                    $nomePDF = $caminho.DIRECTORY_SEPARATOR.'certificado - '.$participante->user->name.'.pdf';
                     array_push($certificados, $nomePDF);
 
                     $pdf = $this->montar_certificado($participante, $atividade, $nomePDF);
@@ -77,7 +77,7 @@ class ZipCertificados implements ShouldQueue
 
         $caminho_excluir = "certificados_".str_replace(' ', '_', $this->acao->titulo);
 
-        ExcluirCertificados::dispatch($caminho_excluir)->delay(now()->addHours(24));
+        ExcluirCertificados::dispatch($caminho_excluir)->delay(now()->addHours(2));
     }
 
     private function montar_certificado($participante, $atividade, $nomePDF)

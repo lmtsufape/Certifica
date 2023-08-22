@@ -306,9 +306,9 @@ class AcaoController extends Controller
     {
         $acao = Acao::find($id);
 
-        $caminho = "app\certificados_".str_replace(' ', '_', $acao->titulo);
+        $caminho = "app".DIRECTORY_SEPARATOR."certificados_".str_replace(' ', '_', $acao->titulo);
 
-        $filePath = storage_path($caminho.'\certificados.zip');
+        $filePath = storage_path($caminho.DIRECTORY_SEPARATOR.'certificados.zip');
 
         if (file_exists($filePath))
         {
