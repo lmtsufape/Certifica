@@ -10,8 +10,21 @@
 
         <div class="col-sm-5 d-flex align-items-center justify-content-end">
             @if (Auth::check())
-                <ul class="navbar-nav ms-auto mr-4">
+                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
+                    alt="">
+
+                <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
+
+                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
+                            Verificação de Autenticidade
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
                     <li class="nav-item dropdown">
+
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
                             style="color: white">
@@ -46,32 +59,78 @@
                         </a>
                     </li>
                     <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-                   
+
                 </ul>
             @endif
 
         </div>
     </div>
-    <div id="menu_responsivo_div" class="menu_responsivo_div">
 
-        <ul id="menu_responsivo" class="box-menu-responsivo some">
-            <li><a class="dropdown-item" href="/">Inicio</a></li>
-            <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-            <li>
-                <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
-                    Verificação de Autenticidade
-                </a>
-            </li>
-            <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-            <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
-        </ul>
-    </div>
+
+    <!--Menu oculto responsivo -->
+    @if (Auth::check())
+        <div id="menu_responsivo_div" class="menu_responsivo_div ">
+
+            <ul id="menu_responsivo" class="box-menu-responsivo some">
+
+                <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+                <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
+                        Verificação de Autenticidade
+                    </a>
+                </li>
+                <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
+                <li class="nav-item dropdown">
+
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
+                        style="color: white">
+                        <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('perfil.edit') }}">
+                            {{ __('Editar Perfil') }}
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('logout') }}">
+                            {{ __('Sair') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    @else
+        <div id="menu_responsivo_div" class="menu_responsivo_div ">
+
+            <ul id="menu_responsivo" class="box-menu-responsivo some">
+                <li><a class="dropdown-item" href="/">Inicio</a></li>
+                <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
+                        Verificação de Autenticidade
+                    </a>
+                </li>
+                <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
+                <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+            </ul>
+        </div>
+    @endif
+
+
+
 
     <script>
         //DOM 
         var hamburguer = document.getElementById("hamburguer_button");
         var click = 0;
         var menu_responsivo = document.getElementById("menu_responsivo");
+
         
 
         //logica do menu responsivo sumindo e voltando ao clicar
