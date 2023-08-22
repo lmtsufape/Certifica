@@ -319,7 +319,7 @@ class AcaoController extends Controller
             ZipCertificados::dispatch($acao);
         }
 
-        return redirect()->back()->with(['mensagem' => 'Quando todos os certificados estiverem disponível para download, você será notificado por e-mail!']);
+        return redirect()->back()->with(['mensagem' => 'Quando todos os certificados estiverem disponíveis para download, você será notificado por e-mail!']);
 
     }
 
