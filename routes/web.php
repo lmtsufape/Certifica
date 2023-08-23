@@ -194,6 +194,8 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('/acao/{acao_id}/atividade/gerar-certificados', [AcaoController::class, 'download_certificados'])->name('certificados.download');
 
+    Route::get('/acao/{acao_id}/lembrete', [AcaoController::class, 'lembrete_certificado_disponivel'])->name('certificados.lembrete');
+
     Route::get('/acao/{acao_id}/atividade/deletar-certificados', [AcaoController::class, 'deletar_certificados'])->name('certificados.deletar');
 
     Route::get('/acao/get/tipo_natureza/{natureza_id}', [AcaoController::class, 'get_tipo_natureza'])->name('acao.get_tipo_natureza');
