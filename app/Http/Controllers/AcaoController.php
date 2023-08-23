@@ -45,6 +45,7 @@ class AcaoController extends Controller
 
         return view('acao.acao_index', compact('acaos', 'naturezas'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -52,15 +53,12 @@ class AcaoController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->perfil_id == 3)
-        {
+        if (Auth::user()->perfil_id == 3) {
             $natureza = Natureza::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
             $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
 
             return view('acao.acao_create', compact('natureza', 'tipo_naturezas'));
-        }
-        else
-        {
+        } else {
             $naturezas = Natureza::all()->sortBy('id');
 
             return view('acao.acao_create', compact('naturezas'));
@@ -70,7 +68,7 @@ class AcaoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAcaoRequest  $request
+     * @param \App\Http\Requests\StoreAcaoRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -93,14 +91,11 @@ class AcaoController extends Controller
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
-        if(Auth::user()->perfil_id == 3)
-        {
+        if (Auth::user()->perfil_id == 3) {
             $acao->anexo = null;
-        }
-        else
-        {
+        } else {
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
-            $acao->anexo = $request->file('anexo')->storeAs('anexos/'.$acao->id, $nomeAnexo);
+            $acao->anexo = $request->file('anexo')->storeAs('anexos/' . $acao->id, $nomeAnexo);
         }
 
 
@@ -112,7 +107,7 @@ class AcaoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Acao  $acao
+     * @param \App\Models\Acao $acao
      * @return \Illuminate\Http\Response
      */
     public function show($acao_id)
@@ -123,7 +118,7 @@ class AcaoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Acao  $acao
+     * @param \App\Models\Acao $acao
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -138,15 +133,15 @@ class AcaoController extends Controller
         $nomeAnexo = $acao->anexo ? explode("/", $acao->anexo)[2] : "";
 
 
-        return view('acao.acao_edit', compact('acao','natureza', 'tipo_natureza', 'naturezas',
+        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas',
             'tipo_naturezas', 'nomeAnexo'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAcaoRequest  $request
-     * @param  \App\Models\Acao  $acao
+     * @param \App\Http\Requests\UpdateAcaoRequest $request
+     * @param \App\Models\Acao $acao
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -169,9 +164,9 @@ class AcaoController extends Controller
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
-        if($request->file('anexo')){
+        if ($request->file('anexo')) {
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
-            $acao->anexo = $request->file('anexo')->storeAs('anexos/'.$acao->id, $nomeAnexo);
+            $acao->anexo = $request->file('anexo')->storeAs('anexos/' . $acao->id, $nomeAnexo);
         }
 
         $acao->update();
@@ -182,14 +177,14 @@ class AcaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Acao  $acao
+     * @param \App\Models\Acao $acao
      * @return \Illuminate\Http\Response
      */
     public function delete($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
 
-        if($acao->atividades()->first()){
+        if ($acao->atividades()->first()) {
             return redirect(route('acao.index'))->with(['error_mensage' => 'A ação não pode ser excluída.
                                                                 Existe uma ou mais atividades vinculadas a ela.']);
         }
@@ -205,7 +200,7 @@ class AcaoController extends Controller
 
         $message = AcaoValidator::validate_acao($acao);
 
-        if($message){
+        if ($message) {
             return redirect()->back()->with(['alert_mensage' => $message]);
 
         }
@@ -216,9 +211,9 @@ class AcaoController extends Controller
         $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3)->first();
 
         //enviar email
-        if($user){
-            Mail::to($user)->send( new AcaoSubmetida([
-                'acao'    =>$acao->titulo,
+        if ($user) {
+            Mail::to($user)->send(new AcaoSubmetida([
+                'acao' => $acao->titulo,
                 'acao_id' => $acao->id,
             ]));
         }
@@ -231,9 +226,10 @@ class AcaoController extends Controller
         return view('gestor_institucional.acoes_submetidas');
     }
 
-    public function list_acoes_submetidas(){
+    public function list_acoes_submetidas()
+    {
         $acaos = Acao::all()->where('status', '!=', null)->where
-                ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->sortBy('id');
+        ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->sortBy('id');
 
         return view('gestor_institucional.list_acoes_submetidas', ['acaos' => $acaos]);
     }
@@ -252,20 +248,15 @@ class AcaoController extends Controller
 
         $message = $request->action == "aprovar" ? CertificadoModeloValidator::validate_acao($acao) : null;
 
-        if($message){
+        if ($message) {
             return redirect()->back()->with(['alert_mensage' => $message]);
         }
 
-        if($request->action == 'reprovar')
-        {
-           $status = 'Reprovada';
-        }
-        elseif($request->action == 'devolver')
-        {
+        if ($request->action == 'reprovar') {
+            $status = 'Reprovada';
+        } elseif ($request->action == 'devolver') {
             $status = 'Devolvida';
-        }
-        else
-        {
+        } else {
             $status = 'Aprovada';
         }
 
@@ -277,27 +268,26 @@ class AcaoController extends Controller
 
         //enviar email para o coordenador
         Mail::to($acao->user->email, $acao->user->name)->send(new AnalisarAcao([
-            'acao'   => $acao->titulo,
+            'acao' => $acao->titulo,
             'status' => $acao->status,
-            'id'     => $acao->id,
+            'id' => $acao->id,
         ]));
 
-        if($status == 'Aprovada')
-        {
+        if ($status == 'Aprovada') {
             //enviar email para os integrantes
             Mail::to($acao->participantes())->send(new CertificadoDisponivel([
-                'acao'   => $acao->titulo,
+                'acao' => $acao->titulo,
             ]));
 
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
-        } else
-        {
+        } else {
             return redirect(Route('gestor.acoes_submetidas'));
         }
 
     }
 
-    public function download_anexo($id){
+    public function download_anexo($id)
+    {
         $acao = Acao::findOrFail($id);
         return Storage::download($acao->anexo);
     }
@@ -306,16 +296,13 @@ class AcaoController extends Controller
     {
         $acao = Acao::find($id);
 
-        $caminho = "app".DIRECTORY_SEPARATOR."certificados_".str_replace(' ', '_', $acao->titulo);
+        $caminho = "app" . DIRECTORY_SEPARATOR . "certificados_" . str_replace(' ', '_', $acao->titulo);
 
-        $filePath = storage_path($caminho.DIRECTORY_SEPARATOR.'certificados.zip');
+        $filePath = storage_path($caminho . DIRECTORY_SEPARATOR . 'certificados.zip');
 
-        if (file_exists($filePath))
-        {
+        if (file_exists($filePath)) {
             return response()->download($filePath, 'certificados.zip');
-        }
-        else
-        {
+        } else {
             ZipCertificados::dispatch($acao);
         }
 
@@ -327,7 +314,7 @@ class AcaoController extends Controller
     {
         $acao = Acao::find($acao_id);
 
-        $caminho = "certificados_".str_replace(' ', '_', $acao->titulo);
+        $caminho = "certificados_" . str_replace(' ', '_', $acao->titulo);
 
         Storage::deleteDirectory($caminho);
 
@@ -343,31 +330,41 @@ class AcaoController extends Controller
     }
 
 
-    public function filtro(){
+    public function filtro()
+    {
         $acoes = Auth::user()->acoes();
 
 
-        if(request('buscar_acao')){
+        if (request('buscar_acao')) {
             $acoes = Acao::search_acao_by_name($acoes, request('buscar_acao'));
         }
 
-        if(request('status')){
+        if (request('status')) {
             $acoes = Acao::search_acao_by_status($acoes, request('status'));
         }
 
 
-        if(request('data')){
+        if (request('data')) {
             $acoes = Acao::search_acao_by_data($acoes, request('data'));
         }
 
         $acoes = $acoes->get();
 
-        if(request('natureza')){
+        if (request('natureza')) {
             $acoes = Acao::search_acao_by_natureza($acoes, request('natureza'));
         }
 
 
-
         return view('acao.acao_list', compact('acoes'));
+    }
+
+    public function lembrete_certificado_disponivel($acao_id)
+    {
+        $acao = Acao::findOrFail($acao_id);
+
+        Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+            'acao' => $acao->titulo,]));
+
+        return redirect()->back()->with(['mensagem' => 'Lembrete enviado aos integrantes!']);
     }
 }
