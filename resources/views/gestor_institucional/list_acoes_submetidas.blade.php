@@ -1,6 +1,6 @@
 @foreach ($acaos as $acao)
     <div class="row linha-table d-flex align-items-center justify-content-start">
-        <div class="col-4 text-center">
+        <div class="col-4 text-center titulo-span">
             <span class="spacing-col">
                 {{ $acao->titulo }}
             </span>
