@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AcaoSubmetida;
+use App\Mail\CertificadoDisponivel;
 use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Certificado;
@@ -14,6 +16,7 @@ use App\Models\TipoNatureza;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -21,7 +24,7 @@ use Illuminate\Http\Request;
 use App\Validates\AcaoValidator;
 use App\Models\User;
 use Dompdf\FontMetrics;
-use Dompdf\Options; 
+use Dompdf\Options;
 
 
 class CertificadoController extends Controller
@@ -44,9 +47,9 @@ class CertificadoController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
         $atividades = $acao->atividades()->get();
-        
+
         $message = AcaoValidator::validate_acao($acao);
-        
+
         if($message){
             return redirect()->back()->with(['alert_mensage' => $message]);
 
@@ -88,11 +91,15 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação aprovada !']);
+            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+                'acao' => $acao->titulo,
+            ]));
+
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
         }
         else
         {
-            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada !']);
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
         }
 
     }
@@ -138,28 +145,28 @@ class CertificadoController extends Controller
         $pdf->setPaper('a4', 'landscape');
 
         if($marca){
-            $options = new Options(); 
-            
-            $pdf->render(); 
-            
-            $canvas = $pdf->getCanvas(); 
-            
-            $fontMetrics = new FontMetrics($canvas, $options); 
-            
-            $w = $canvas->get_width(); 
-            $h = $canvas->get_height(); 
-            
-            $font = $fontMetrics->getFont('times'); 
-            
-            $txtHeight = $fontMetrics->getFontHeight($font, 75); 
-            $textWidth = $fontMetrics->getTextWidth($marca, $font, 75); 
-            
-            $canvas->set_opacity(.2, "Multiply"); 
-            
-            $x = (($w-$textWidth)/2); 
-            $y = (($h-$txtHeight)/2); 
+            $options = new Options();
 
-            $canvas->page_text($x, $y, $marca, $font, 75); 
+            $pdf->render();
+
+            $canvas = $pdf->getCanvas();
+
+            $fontMetrics = new FontMetrics($canvas, $options);
+
+            $w = $canvas->get_width();
+            $h = $canvas->get_height();
+
+            $font = $fontMetrics->getFont('times');
+
+            $txtHeight = $fontMetrics->getFontHeight($font, 75);
+            $textWidth = $fontMetrics->getTextWidth($marca, $font, 75);
+
+            $canvas->set_opacity(.2, "Multiply");
+
+            $x = (($w-$textWidth)/2);
+            $y = (($h-$txtHeight)/2);
+
+            $canvas->page_text($x, $y, $marca, $font, 75);
          }
 
         return $pdf->stream($nomePDF);
@@ -185,10 +192,10 @@ class CertificadoController extends Controller
         if(!$certificado)
         {
             return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi invalidado anteriormente, emita um novo!']);
-        } 
+        }
         else
         {
-            $certificado->delete(); 
+            $certificado->delete();
 
             return redirect()->back()->with(['mensagem' => 'Certificado invalidado com sucesso, emita um novo!']);
         }
@@ -212,7 +219,7 @@ class CertificadoController extends Controller
             {
                 $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
             }
-            
+
             if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
 
             $certificado = new Certificado();
@@ -293,9 +300,9 @@ class CertificadoController extends Controller
         {
             $user = User::where('cpf', $validacao->cpf_participante)->first();
             $participante = $user->participacoes->where('atividade_id', $validacao->atividade_id)->first();
-            
+
             $marca = 'Apenas Consulta !';
-        
+
             return $this->ver_certificado($participante->id, $marca);
 
         } else

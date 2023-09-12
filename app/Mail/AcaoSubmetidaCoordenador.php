@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AcaoSubmetida extends Mailable
+class AcaoSubmetidaCoordenador extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -43,10 +43,9 @@ class AcaoSubmetida extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.acao_submetida',
+            view: 'email.acao_submetida_coordenador',
             with: [
                 'acao'   => $this->data['acao'],
-                'link'   => route('gestor.analisar_acao', ['acao_id' => $this->data['acao_id']]),
                 'imagem' => public_path().'/images/layouts/header/logo-certifica.png',
             ],
         );

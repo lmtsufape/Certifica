@@ -31,7 +31,7 @@ class UsuarioNaoCadastrado extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Finalização de cadastro',
+            subject: 'UFAPE / Sistema Certifica - Adição como integrante em uma ação institucional',
         );
     }
 

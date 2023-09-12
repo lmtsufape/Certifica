@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AcaoSubmetida extends Mailable
+class LembreteCertificadoDisponivel extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class AcaoSubmetida extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'UFAPE / Sistema Certifica - Ação Submetida',
+            subject: 'UFAPE / Sistema Certifica - Lembrete: Certificado Disponível',
         );
     }
 
@@ -43,10 +43,10 @@ class AcaoSubmetida extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.acao_submetida',
+            view: 'email.lembrete_certificado_disponivel',
             with: [
-                'acao'   => $this->data['acao'],
-                'link'   => route('gestor.analisar_acao', ['acao_id' => $this->data['acao_id']]),
+                'acao' => $this->data['acao'],
+                'link'   => "/meus-certificados",
                 'imagem' => public_path().'/images/layouts/header/logo-certifica.png',
             ],
         );

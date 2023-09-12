@@ -31,7 +31,7 @@ class CertificadoDisponivel extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Certificado Disponível',
+            subject: 'UFAPE / Sistema Certifica - Certificado Disponível',
         );
     }
 

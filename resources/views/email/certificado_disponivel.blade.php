@@ -18,8 +18,6 @@
 </head>
 
 <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
-    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account.
-    </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td bgcolor="#972E3F" align="center">
@@ -35,7 +33,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Certificado Disponível!</h1> <img src="{{$message->embed($imagem)}}" width="125" height="120" style="display: block; border: 0px;" />
+                            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Certificado Disponível</h1> <img src="{{$message->embed($imagem)}}" width="125" height="120" style="display: block; border: 0px;" />
                         </td>
                     </tr>
                 </table>
@@ -46,7 +44,19 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Seu certificado referente a ação institucional <b>{{$acao}}</b> já está disponível. Clique no botão abaixo para acessar os seus certificados.</p>
+                            <p style="margin: 0;">
+                                Saudações!
+
+                                <br> <br>
+
+                                Seu certificado referente a ação institucional <b>{{$acao}}</b> já está disponível.
+                                Clique no botão abaixo para acessar os seus certificados:
+
+                                <br> <br>
+
+                                *Obs:* Caso ainda não possua cadastro na plataforma, lembramos que você recebeu anteriormente
+                                um e-mail com os dados de acesso provisório a plataforma por qual do qual finalizará o seu cadastro.
+                            </p>
                         </td>
                     </tr>
                     <tr>
