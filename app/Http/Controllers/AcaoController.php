@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\LembreteCertificadoDisponivel;
 use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Natureza;
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AnalisarAcao;
 use App\Mail\CertificadoDisponivel;
 use App\Mail\AcaoSubmetida;
+use App\Mail\AcaoSubmetidaCoordenador;
 use App\Jobs\ZipCertificados;
 
 
@@ -216,6 +218,11 @@ class AcaoController extends Controller
                 'acao' => $acao->titulo,
                 'acao_id' => $acao->id,
             ]));
+
+            Mail::to(Auth::user()->email)->send(new AcaoSubmetidaCoordenador([
+                'acao' => $acao->titulo,
+                'acao_id' => $acao->id,
+            ]));
         }
 
         return redirect(Route('acao.index'))->with(['mensagem' => 'Ação submetida !']);
@@ -362,7 +369,7 @@ class AcaoController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
 
-        Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+        Mail::to($acao->participantes())->send(new LembreteCertificadoDisponivel([
             'acao' => $acao->titulo,]));
 
         return redirect()->back()->with(['mensagem' => 'Lembrete enviado aos integrantes!']);

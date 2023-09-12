@@ -18,8 +18,6 @@
 </head>
 
 <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
-    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account.
-    </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td bgcolor="#972E3F" align="center">
@@ -35,7 +33,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Atualização de Status!</h1> <img src="{{$message->embed($imagem)}}" width="125" height="120" style="display: block; border: 0px;" />
+                            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Ação Avaliada</h1> <img src="{{$message->embed($imagem)}}" width="125" height="120" style="display: block; border: 0px;" />
                         </td>
                     </tr>
                 </table>
@@ -46,7 +44,15 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">A ação institucional <b>{{$acao}}</b> foi avaliada. Clique no botão abaixo para vê-la.</p>
+                            <p style="margin: 0;">
+                                Saudações!
+
+                                <br> <br>
+
+                                A ação institucional <b>{{$acao}}</b> foi avaliada. Clique no botão abaixo para acessar o parecer,
+                                em caso de reprovação ou devolução para correções, ou para baixar os certificados, em caso de
+                                aprovação:
+                            </p>
                         </td>
                     </tr>
                     <tr>

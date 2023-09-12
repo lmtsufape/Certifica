@@ -31,7 +31,7 @@ class AnalisarAcao extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Atualização de Status',
+            subject: 'UFAPE / Sistema Certifica - Ação Avaliada',
         );
     }
 
@@ -48,7 +48,7 @@ class AnalisarAcao extends Mailable
                 'acao'   => $this->data['acao'],
                 'status' => $this->data['status'],
                 'link'   => "/acao/".$this->data['id']."/atividade",
-                'imagem' => public_path().'/images/layouts/header/logo-certifica.png' 
+                'imagem' => public_path().'/images/layouts/header/logo-certifica.png'
                 ]
         );
     }
