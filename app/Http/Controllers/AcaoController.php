@@ -282,7 +282,7 @@ class AcaoController extends Controller
 
         if ($status == 'Aprovada') {
             //enviar email para os integrantes
-            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+            Mail::bcc($acao->participantes())->send(new CertificadoDisponivel([
                 'acao' => $acao->titulo,
             ]));
 
@@ -369,7 +369,7 @@ class AcaoController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
 
-        Mail::to($acao->participantes())->send(new LembreteCertificadoDisponivel([
+        Mail::bcc($acao->participantes())->send(new LembreteCertificadoDisponivel([
             'acao' => $acao->titulo,]));
 
         return redirect()->back()->with(['mensagem' => 'Lembrete enviado aos integrantes!']);
