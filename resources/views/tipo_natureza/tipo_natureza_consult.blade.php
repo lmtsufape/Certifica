@@ -36,7 +36,7 @@
 
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-9"><span class="spacing-col">Descrição</span></div>
-                <div class="col-3"><span>Funcionalidades</span></div>
+                <div class="col-3"><span class="spacing-col">Funcionalidades</span></div>
             </div>
         </div>
         </div>
@@ -52,7 +52,7 @@
 
                     <div class="col-3 d-flex ">
 
-                        <div class="col-6 d-flex align-items-center justify-content-evenly">
+                        <div class="col-7 d-flex align-items-center justify-content-evenly">
                             <span>
                                 <a href="{{ route('tipo_natureza.edit', ['id' => $natureza->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar">
