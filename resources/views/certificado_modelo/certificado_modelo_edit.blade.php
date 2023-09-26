@@ -55,20 +55,21 @@
                                 value="{{ $modelo->unidadeAdministrativa->descricao }}" disabled>
                         </div>
                     </div>
-
-                    <div class="row box col-xl-7">
-                        <div
-                            class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
-                            <span class="tittle-input">Tipo Certificado</span>
-                            <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado"
-                                required>
-                                <option value="{{ $modelo->tipo_certificado }}"> {{ $modelo->tipo_certificado }}</option>
-                                @foreach ($tipos_certificado as $tipo)
-                                    <option value="{{ $tipo }}">{{ $tipo }}</option>
-                                @endforeach
-                            </select>
+                    @if(Auth::user()->perfil_id == 3)
+                        <div class="row box col-xl-7">
+                            <div
+                                class="campo spacing-row2 input-create-box d-flex align-items-start justify-content-start flex-column">
+                                <span class="tittle-input">Tipo Certificado</span>
+                                <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado"
+                                    required>
+                                    <option value="{{ $modelo->tipo_certificado }}"> {{ $modelo->tipo_certificado }}</option>
+                                    @foreach ($tipos_certificado as $tipo)
+                                        <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <div class="row box col-xl-7" id="outro_tipo_certificado" style="display: none;">
                         <div class="campo input-create-box d-flex aligm-items-start justify-content-start flex-column">
