@@ -236,7 +236,7 @@ class AcaoController extends Controller
     public function list_acoes_submetidas()
     {
         $acaos = Acao::all()->where('status', '!=', null)->where
-        ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->sortBy('id');
+        ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('created_at', 'desc');
 
         return view('gestor_institucional.list_acoes_submetidas', ['acaos' => $acaos]);
     }
