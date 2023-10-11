@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-    
+
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-2"><span class="spacing-col">Atividade / Função</span></div>
                 <div class="col-2"><span>Período</span></div>
@@ -81,15 +81,17 @@
                                     data-bs-target="#modalImportCsv{{ $atividade->id }}">
                                     <img src="/images/acoes/listView/csvIcon.svg" alt="">
                                 </a>
-                            @endif
 
-                            <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
-                                <img src="/images/acoes/listView/editar.svg" alt="">
-                            </a>
-                            <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')"
-                                href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}" title="Excluir">
-                                <img src="/images/acoes/listView/lixoIcon.svg" alt="">
-                            </a>
+
+                                <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
+                                    <img src="/images/acoes/listView/editar.svg" alt="">
+                                </a>
+
+                                <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')"
+                                    href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}" title="Excluir">
+                                    <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                                </a>
+                            @endif
                         </div>
 
                         <div class="col-4"></div>
