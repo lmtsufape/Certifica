@@ -20,7 +20,7 @@
                 <h3>Integrantes</h3>
             </div>
 
-    
+
             <div class="row d-flex align-items-center justify-content-between">
 
                 <div class="col-1">
@@ -100,7 +100,7 @@
                                 </a>
                             @endif
 
-                            @if (Auth::user()->perfil_id == 2 || Auth::user()->perfil_id == 3)
+                            @if ((Auth::user()->perfil_id == 2 || Auth::user()->perfil_id == 3) && $acao->status != 'Aprovada')
                                 <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
                                     href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
