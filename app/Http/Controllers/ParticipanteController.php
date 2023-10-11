@@ -124,7 +124,8 @@ class ParticipanteController extends Controller
             'instituicao_id' => $attributes['instituicao_id'] ?? 2,
             'instituicao' => $attributes['instituicao'] ?? "Outras",
             'password' => Hash::make($password),
-            'perfil_id' => 4
+            'perfil_id' => 4,
+            'cadastro_finalizado' => false
         ];
 
         $userAttributes['password_confirmation'] = $userAttributes['password'];

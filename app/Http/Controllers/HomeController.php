@@ -25,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->cadastro_finalizado === false){
+            return view('usuario.finalizar_cadastro')->with(['mensagem' => 'Finalize seu cadastro para ter acesso ao sistema']);
+        }
+
         if(Auth::user()->perfil_id == 1){
 
             return view('administrador.index'); //admin
