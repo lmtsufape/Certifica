@@ -55,15 +55,15 @@ class Acao extends Model
 
     public function participantes(){
         $participantes = collect();
-        
+
         $this->atividades->each(function($atividade)  use ($participantes)
         {
             $atividade->participantes->each(function($participante) use ($participantes)
             {
                 $participantes->push($participante->user);
             });
-            
-            
+
+
         });
 
         return $participantes;
@@ -89,27 +89,31 @@ class Acao extends Model
     }
 
 
-    public static function search_acao_by_natureza($acoes, $natureza_id){    
+    public static function search_acao_by_natureza($acoes, $natureza_id){
         $natureza = Natureza::find($natureza_id);
         return $acoes->whereIn('tipo_natureza', $natureza->tipoNatureza);
     }
 
-    public static function search_acao_by_tipo_natureza($acoes, $tipo_natureza_id){    
+    public static function search_acao_by_tipo_natureza($acoes, $tipo_natureza_id){
         $tipoNatureza = TipoNatureza::find($tipo_natureza_id);
         return $acoes->where('tipo_natureza', $tipoNatureza);
     }
 
-    public static function search_acao_by_ano($acoes, $ano){    
+    public static function search_acao_by_ano($acoes, $ano){
         return $acoes->where('updated_at.year', $ano);
     }
 
     //cria um campo em cada atividade com o nome dos participantes
     public function get_participantes_name(){
-        $this->atividades->each(fn ($atividade) => 
+        $this->atividades->each(fn ($atividade) =>
                 $atividade->participantes->each( function ($participante) use ($atividade){
-                    $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName() 
+                    $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName()
                                                     : $atividade->nome_participantes.", ".$participante->user->firstName();
+                    $atividade->lista_nomes = $atividade->participantes->map(function ($participante) {
+                        return $participante->user->name; // Supondo que exista um método fullName() para obter o nome completo do usuário.
+                    })->implode(", \n");
                 })
         );
+
     }
 }
