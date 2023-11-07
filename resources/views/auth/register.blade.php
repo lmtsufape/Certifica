@@ -34,13 +34,34 @@
             </div>
         </div>
 
-        <div class="row d-flex aligm-items-start justify-content-center ">
-            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                <span class="tittle-input">CPF<span class="ast">*</span></span>
-                <input class="w-100 h-100 input-text @error('cpf') is-invalid @enderror" type="text" name="cpf"
-                    id="cpf" required>
+        <!--checkbox para escolher passaporte e cpf -->
+        <div class="row d-flex aligm-items-start justify-content-center">
+            <div class="col-10 d-flex  align-items-center justify-content-evenly ">
+                <div class="col-2 ">
+                    <input type="radio" name="cpf_pass" id="cpf_pass" value="cpf" checked> CPF
+                </div>
+                <div class="col-10">
+                    <input type="radio" name="cpf_pass" id="cpf_pass" value="passaporte"> Passaporte
+                </div>
+
             </div>
         </div>
+  
+        <div id="cpf_dinamico" class="row camporegister_dinamico_show">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">CPF<span class="ast">*</span></span>
+                <input class="w-100 h-100 input-text " type="text" name="cpf" id="cpf">
+            </div>
+        </div>
+      
+
+        <div id="passaporte_dinamico" class="row camporegister_dinamico_hide">
+            <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                <span class="tittle-input">Passaporte<span class="ast">*</span></span>
+                <input class="w-100 h-100 input-text " type="text" name="passaporte" id="passaporte">
+            </div>
+        </div>
+
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">E-mail<span class="ast">*</span></span>
