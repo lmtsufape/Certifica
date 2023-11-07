@@ -55,12 +55,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name'      => ['required', 'string', 'max:255'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'  => ['required', 'string', 'min:8', 'confirmed'],
-            'cpf'       => ['required', 'unique:users', new Cpf],
-            'perfil_id'       => ['required'],
-            'instituicao_id'       => ['required']
+            'name'       => ['required', 'string', 'max:255'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'   => ['required', 'string', 'min:8', 'confirmed'],
+            'cpf'        => ($data['passaporte'] == NULL ? ['unique:users','required',new Cpf] : 'nullable' ),
+            'passaporte' => ($data['cpf'] == NULL ? ['unique:users','required','max:10'] : 'nullable'),
+            'perfil_id'  => ['required'],
+            'instituicao_id' => ['required']
         ]);
     }
 
@@ -78,17 +79,17 @@ class RegisterController extends Controller
         }
 
         return User::create([
-            'name'      => $data['name'],
-            'email'     => $data['email'],
-            'password'  => Hash::make($data['password']),
-            'perfil_id' => $data['perfil_id'],
-            'cpf'       => $data['cpf'],
+            'name'       => $data['name'],
+            'email'      => $data['email'],
+            'password'   => Hash::make($data['password']),
+            'perfil_id'  => $data['perfil_id'],
+            'cpf'        => $data['cpf'],
+            'passaporte' => $data['passaporte'],
             'celular' => $data['celular'],
             'instituicao' => $data['instituicao'],
             'siape' => $data['siape'],
             'instituicao_id' => $data['instituicao_id'],
-            'json_cursos_ids' => json_encode($data['cursos_ids']),
-            
+            'json_cursos_ids' => json_encode($data['cursos_ids']),    
         ]);
     }
 

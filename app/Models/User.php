@@ -32,6 +32,7 @@ class User extends Authenticatable
         'password',
         'perfil_id',
         'cpf',
+        'passaporte',
         'celular',
         'instituicao',
         'instituicao_id',
@@ -43,7 +44,8 @@ class User extends Authenticatable
     public static $rules = [
         'name'              => 'required | string | max:255',
         'email'             => 'required | string | email | max:255 |unique:users',
-        'cpf'               => 'required_unless:perfil_id,3 |unique:users',
+        'cpf'               => 'unique:users',
+        'passaporte'        => 'unique:users',
         'password'          => 'required | string | min:8 | confirmed',
         'perfil_id'         => 'required',
     ];
@@ -52,7 +54,6 @@ class User extends Authenticatable
     public static $edit_rules = [
         'name'              => 'required | string | max:255',
         'email'             => 'required | string | email | max:255',
-        'cpf'               => 'required',
     ];
 
     public static $password_rules = [
@@ -64,7 +65,7 @@ class User extends Authenticatable
     ];
 
     public static $cpf_rules = [
-        'cpf'               => 'required |unique:users',
+        'cpf'               => 'unique:users',
     ];
 
     public static $messages = [
@@ -78,8 +79,8 @@ class User extends Authenticatable
         'email.unique'        => 'O email informado já está cadastrado no sistema',
         'password.min'        => 'A senha deve possuir 8 ou mais caracteres',
         'password.confirmed'  => 'As senhas devem ser iguais',
-        'cpf.required'        => 'O CPF deve ser informado',
-        'cpf.unique'          => 'O CPF informado já está cadastrado'
+        'cpf.unique'          => 'O CPF informado já está cadastrado',
+        'passaporte.unique'   => 'O passaporte informado já está cadastrado'
 
     ];
 
