@@ -233,6 +233,8 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
 });
 
 
+Route::post('/finalizar_cadastro', [UsuarioController::class, 'finalizar_cadastro'])->name('usuario.finalizar_cadastro');
+
 //Rota O Sistema
 //Route::get('/osistema', [HomeController::class, 'sistema'])->name('home.osistema');
 
