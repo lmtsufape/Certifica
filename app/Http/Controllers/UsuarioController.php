@@ -149,6 +149,7 @@ class UsuarioController extends Controller
             $usuario->cpf = $request->cpf;
             $usuario->email = $request->email;
             $usuario->perfil_id = $request->perfil_id;
+            
         } else if($usuario->perfil_id == 1) {
             $usuario->name = $request->name;
             $usuario->email = $request->email;
@@ -159,11 +160,55 @@ class UsuarioController extends Controller
             $usuario->perfil_id = $request->perfil_id;
             $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
         }
+
+        dd($usuario);
         
 
         $usuario->update();
 
         return redirect(Route('usuario.index'));
+    }
+
+    public function finalizar_cadastro(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        if($request->perfil_id == 'professor')
+        {
+            $perfil = 2;
+
+            $user->celular = $request->celular;
+            $user->perfil_id = $perfil;
+            $user->siape = $request->siape;
+            $user->json_cursos_ids = json_encode($request->cursos_ids);
+            $user->password = Hash::make($request->password);
+            $user->cadastro_finalizado = true;
+        } 
+        else if($request->perfil_id == 'tecnico')
+        {
+            $perfil = 2;
+
+            $user->celular = $request->celular;
+            $user->perfil_id = $perfil;
+            $user->siape = $request->siape;
+            $user->password = Hash::make($request->password);
+            $user->cadastro_finalizado = true;
+        }
+        else if($request->perfil_id == 'estudante')
+        {
+            $perfil = 4;
+
+            $user->celular = $request->celular;
+            $user->perfil_id = $perfil;
+            $user->json_cursos_ids = json_encode($request->cursos_ids);
+            $user->password = Hash::make($request->password);
+            $user->cadastro_finalizado = true;
+        }
+
+
+        $user->update();
+
+        return redirect(route('home'))->with(['mensagem' => 'Cadastro Finalizado com Sucesso!']);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Acao;
+use App\Models\Curso;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->cadastro_finalizado === false){
+            $cursos = Curso::all()->sortBy('id');
+
+            return view('usuario.finalizar_cadastro', compact('cursos'))->with(['mensagem' => 'Finalize seu cadastro para ter acesso ao sistema']);
+        }
+
         if(Auth::user()->perfil_id == 1){
 
             return view('administrador.index'); //admin

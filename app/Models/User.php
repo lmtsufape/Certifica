@@ -39,6 +39,7 @@ class User extends Authenticatable
         'siape',
         'instituicao_id',
         'json_cursos_ids',
+        'cadastro_finalizado',
     ];
 
     public static $rules = [
