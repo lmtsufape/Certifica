@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="col-9 text-end">
-                    @if ($acao->status == null)
+                    @if ($acao->status == null || 'Devolvida')
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
                             Integrante
@@ -90,7 +90,7 @@
                                 </a>
                             @endif
 
-                            @if ($acao->status == null || Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada')
+                            @if ($acao->status == null || Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada' || 'Devolvida')
                                 <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}" target="_blank">
                                     <img src="/images/acoes/listView/certificado.svg" alt="" title="Pré-visualizar Certificado">
                                 </a>

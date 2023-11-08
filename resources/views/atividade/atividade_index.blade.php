@@ -72,7 +72,7 @@
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
 
-                            @if ($acao->status == null)
+                            @if ($acao->status == null || 'Devolvida')
                                 <a href="/files/modelo.csv" title="Baixar Modelo">
                                     <img src="/images/acoes/listView/anexo.svg">
                                 </a>
