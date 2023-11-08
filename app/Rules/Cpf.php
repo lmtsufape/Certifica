@@ -25,8 +25,8 @@ class Cpf implements Rule
      */
     public function passes($attribute, $value)
     {
+   
         $c = preg_replace('/\D/', '', $value);
-        
         if (strlen($c) != 11 || preg_match("/^{$c[0]}{11}$/", $c)) {
             return false;
         }
@@ -52,7 +52,8 @@ class Cpf implements Rule
      * @return string
      */
     public function message()
-    {
+    {   
+        
         return 'CPF inválido';
     }
 }
