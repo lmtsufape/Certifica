@@ -6,6 +6,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
+
 @endsection
 
 @section('content')
@@ -14,7 +15,7 @@
 
             <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
 
-            <h2 class="text-center mb-4">Atividade: {{$atividade->descricao}} </h2>
+            <h2 class="text-center mb-4">Atividade: {{ $atividade->descricao }} </h2>
 
             <div class="text-center mb-3">
                 <h3>Integrantes</h3>
@@ -90,9 +91,11 @@
                                 </a>
                             @endif
 
-                            @if ($acao->status == null || Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada' || 'Devolvida')
-                                <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}" target="_blank">
-                                    <img src="/images/acoes/listView/certificado.svg" alt="" title="Pré-visualizar Certificado">
+                            @if ($acao->status == null || (Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada') || 'Devolvida')
+                                <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
+                                    target="_blank">
+                                    <img src="/images/acoes/listView/certificado.svg" alt=""
+                                        title="Pré-visualizar Certificado">
                                 </a>
 
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
@@ -138,16 +141,39 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informe o seu CPF</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Informe o seu CPF ou Passaporte</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form class="container form"
                     action="{{ Route('participante.create', ['atividade_id' => $atividade->id]) }}" method="GET">
-                    <div class="modal-body row justify-content-center">
-                        <label style="margin-left:20%;">CPF:</label>
-                        <input class="w-75 form-control" type="text" name="cpf" id="cpf"
+                    <div style="padding:10px 0 20px 90px;" class="modal-body row justify-content-center">
+
+                        <!--checkbox para escolher passaporte e cpf -->
+                        <div class="row d-flex aligm-items-start justify-content-center">
+                            <div class="col-10 d-flex  align-items-center justify-content-evenly ">
+                                <div style="margin:0 5px 0 -3px ;" class="col-2 ">
+                                    <input type="radio" name="cpf_pass" id="cpf_pass" value="cpf" checked> CPF
+                                </div>
+
+                                <div class="col-10">
+                                    <input type="radio" name="cpf_pass" id="cpf_pass" value="passaporte"> Passaporte
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="cpf_dinamico" class="col-10 camporegister_dinamico_show">
+                            <label>CPF:</label>
+                            <input class="w-75 form-control" type="text" name="cpf" id="cpf"
                             placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                             title="Digite um CPF válido (000.000.000-00)" required>
+                        </div>
+                        
+                        <div id="passaporte_dinamico" class="col-10 camporegister_dinamico_hide">
+                            <label>Passaporte:</label>
+                            <input class="w-75 form-control" type="text" name="passaporte" id="passaporte"
+                                placeholder=""title="Digite o passaporte">
+                        </div>
                     </div>
                     <div class="modal-footer row justify-content-center">
                         <div class="col-3">
@@ -169,4 +195,6 @@
     <!-- Script do Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
+
+    <script src="/js/auth/cpf_passaporte.js"></script>
 @endsection

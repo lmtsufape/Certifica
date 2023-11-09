@@ -43,7 +43,6 @@
                 <div class="col-10">
                     <input type="radio" name="cpf_pass" id="cpf_pass" value="passaporte"> Passaporte
                 </div>
-
             </div>
         </div>
   
@@ -169,6 +168,7 @@
         </div>
     </form>
 
-    <script src="js/auth/register.js"></script>
+    <script src="/js/auth/register.js"></script>
+    <script src="/js/auth/cpf_passaporte.js"></script>
 
 @endsection

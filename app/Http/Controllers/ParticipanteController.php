@@ -21,6 +21,9 @@ use App\Models\Utils\Mask;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UsuarioNaoCadastrado;
 use App\Rules\Cpf;
+use Illuminate\Support\Facades\Validator;
+
+
 
 
 class ParticipanteController extends Controller
@@ -42,25 +45,29 @@ class ParticipanteController extends Controller
     
     }
 
+    
+
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create($atividade_id, Request $request)
-    {
+    {   
         $cpf = $request->all()['cpf'];
+        $passaporte = $request->all()['passaporte'];
 
+        $user = $cpf ? User::where('cpf', $cpf)->first() : User::where('passaporte', $passaporte)->first();
+        
         $atividade = Atividade::findOrFail($atividade_id);
-        $user = User::where('cpf', $cpf)
-            ->first();
         $instituicaos = Instituicao::all();
 
-        if ($user)
+        if ($user) {
             return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos]);
-
-        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'instituicaos' => $instituicaos]);
-
+        }
+        
+        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'instituicaos' => $instituicaos]);
     }
 
     /**
