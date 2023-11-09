@@ -58,34 +58,6 @@ select_instituicao.addEventListener("change", (e) => {
 })
 
 
-//checkbox do passaporte e cpf
-
-var checkbox = document.getElementsByName('cpf_pass')
-
-//divs
-var passaporte_div = document.getElementById('passaporte_dinamico')
-var cpf_div = document.getElementById('cpf_dinamico')
-
-
-//cpf
-checkbox[0].addEventListener('click',(e)=>{
-    passaporte_div.classList.remove("camporegister_dinamico_show")
-    passaporte_div.classList.add("camporegister_dinamico_hide")
-
-    cpf_div.classList.remove("camporegister_dinamico_hide")
-    cpf_div.classList.add("camporegister_dinamico_show")
-})
-
-//passaporte
-checkbox[1].addEventListener('click',(e)=>{
-    cpf_div.classList.remove("camporegister_dinamico_show")
-    cpf_div.classList.add("camporegister_dinamico_hide")
-
-    passaporte_div.classList.remove("camporegister_dinamico_hide")
-    passaporte_div.classList.add("camporegister_dinamico_show")
-
-})
-
 
 
 
