@@ -30,14 +30,44 @@
                         required>
                 </div>
 
-                <div
-                    class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                    <span class="tittle-input">CPF</span>
-                    <input class="w-100 h-100 input-text " type="text" name="cpf" id="cpf"
-                        placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                        title="Digite um CPF válido (000.000.000-00)" required
-                        @if (isset($user)) value="{{ $user->cpf }}" readonly @else value="{{ $cpf }}" @endif>
-                </div>
+
+                @if ($option == 'cpf')
+                    <div
+                        class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">CPF</span>
+                        <input class="w-100 h-100 input-text " type="text" name="cpf" id="cpf"
+                            placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                            title="Digite um CPF válido (000.000.000-00)" required
+                            @if (isset($user)) value="{{ $user->cpf }}" readonly @else value="{{ $cpf }}" @endif>
+                    </div>
+
+                    <div style="visibility: hidden"
+                        class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Passaporte</span>
+                        <input class="w-100 h-100 input-text " type="text" name="passaporte" id="passaporte"
+                            placeholder="000.000.000-00" value="">
+                    </div>
+                @else
+                    <div
+                        class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Passaporte</span>
+                        <input class="w-100 h-100 input-text " type="text" name="passaporte" id="passaporte"
+                            placeholder="000.000.000-00" required
+                            @if (isset($user)) value="{{ $user->passaporte }}" readonly @else value="{{ $passaporte }}" @endif>
+                    </div>
+
+                    <div style="visibility: hidden"
+                        class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">CPF</span>
+                        <input class="w-100 h-100 input-text " type="text" name="cpf" id="cpf"
+                            placeholder="000.000.000-00" title="Digite um CPF válido (000.000.000-00)" value=""> 
+                    </div>
+                @endif
+
+
+
+
+
 
             </div>
 

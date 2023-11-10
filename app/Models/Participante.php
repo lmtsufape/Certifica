@@ -23,7 +23,6 @@ class Participante extends Model
         'email' => 'required|email',
         'instituicao_id' => 'required',
         'instituicao' => 'required_if:instituicao_id,2',
-        'cpf' => 'regex:/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/',
         'carga_horaria' => 'required|numeric',
         'atividade_id' => 'required',
     ];

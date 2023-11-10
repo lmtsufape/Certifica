@@ -6,7 +6,6 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
-
 @endsection
 
 @section('content')
@@ -46,7 +45,7 @@
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-1 text-center">N°</div>
                 <div class="col-3"><span>Nome</span></div>
-                <div class="col-2"><span>CPF</span></div>
+                <div class="col-2"><span>CPF/ Passaporte</span></div>
                 <div class="col-2"><span>CH</span></div>
                 <div class="col-2"><span>Atividade / Função</span></div>
                 <div class="col-2"><span>Funcionalidades</span></div>
@@ -66,8 +65,13 @@
                     </div>
 
                     <div class="col-2">
-                        {{ $participante->user->cpf }}
+                        @if ($participante->user->cpf != null)
+                            {{ $participante->user->cpf }}
+                        @else
+                            {{ $participante->user->passaporte }}
+                        @endif
                     </div>
+
                     <div class="col-2">
                         {{ $participante->carga_horaria }}
                     </div>
@@ -161,14 +165,14 @@
                             </div>
                         </div>
 
-                        
+
                         <div id="cpf_dinamico" class="col-10 camporegister_dinamico_show">
                             <label>CPF:</label>
                             <input class="w-75 form-control" type="text" name="cpf" id="cpf"
-                            placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                            title="Digite um CPF válido (000.000.000-00)" required>
+                                placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                                title="Digite um CPF válido (000.000.000-00)" required>
                         </div>
-                        
+
                         <div id="passaporte_dinamico" class="col-10 camporegister_dinamico_hide">
                             <label>Passaporte:</label>
                             <input class="w-75 form-control" type="text" name="passaporte" id="passaporte"

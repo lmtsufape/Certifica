@@ -54,9 +54,10 @@ class ParticipanteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create($atividade_id, Request $request)
-    {   
-        $cpf = $request->all()['cpf'];
-        $passaporte = $request->all()['passaporte'];
+    {       
+        $option = $request->cpf_pass;
+        $cpf = $request->cpf;
+        $passaporte = $request->passaporte;
 
         $user = $cpf ? User::where('cpf', $cpf)->first() : User::where('passaporte', $passaporte)->first();
         
@@ -64,10 +65,10 @@ class ParticipanteController extends Controller
         $instituicaos = Instituicao::all();
 
         if ($user) {
-            return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos]);
+            return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos, 'option' => $option ]);
         }
         
-        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'instituicaos' => $instituicaos]);
+        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'instituicaos' => $instituicaos,'option' => $option]);
     }
 
     /**
@@ -79,7 +80,6 @@ class ParticipanteController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->all();
-
         
         if(!$attributes['instituicao']){
             $instituicao = Instituicao::find($attributes['instituicao_id']);
@@ -90,16 +90,27 @@ class ParticipanteController extends Controller
         try {
             ParticipanteValidator::validate($attributes);
         } catch (ValidationException $exception) {
-            return redirect(route('participante.create', ['atividade_id' => $attributes['atividade_id'], 'cpf' => $attributes['cpf']]))
+            return redirect(route('participante.create', ['atividade_id' => $attributes['atividade_id'], 'cpf' => $attributes['cpf'], 'passaporte' => $attributes['passaporte']]))
                 ->withErrors($exception->validator)->withInput();
         }
 
         $atividade = Atividade::find($attributes['atividade_id']);
 
-        if($atividade->participantes->where('user.cpf', $attributes['cpf'])->first()){
-            return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
-                            ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+
+        if($attributes['cpf']){
+            if($atividade->participantes->where('user.cpf', $attributes['cpf'] )->first()){
+                return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
+                                ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+            }
         }
+           
+        if($attributes['passaporte']){
+            if($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()){
+                return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
+                                ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+            }
+        }
+
 
         try{
             $user = $this->createUser($attributes);
