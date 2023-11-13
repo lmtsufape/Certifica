@@ -40,7 +40,7 @@
 
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-4"><span class="spacing-col">Nome</span></div>
-                <div class="col-4"><span>CPF</span></div>
+                <div class="col-4"><span>CPF/ Passaporte</span></div>
                 <div class="col-2"><span>Tipo</span></div>
                 <div class="col-2"><span>Funcionalidades</span></div>
             </div>
@@ -56,7 +56,12 @@
                     </div>
 
                     <div class="col-4">
-                        {{ $user->cpf }}
+                        @if($user->cpf != NULL)
+                            {{ $user->cpf }}
+                        @else
+                            {{ $user->passaporte }}
+                        @endif
+
                     </div>
 
                     <div class="col-2 d-flex ">

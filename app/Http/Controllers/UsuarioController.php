@@ -161,9 +161,6 @@ class UsuarioController extends Controller
             $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
         }
 
-        dd($usuario);
-        
-
         $usuario->update();
 
         return redirect(Route('usuario.index'));
