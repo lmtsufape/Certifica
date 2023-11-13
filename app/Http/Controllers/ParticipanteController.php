@@ -128,8 +128,14 @@ class ParticipanteController extends Controller
 
     private function createUser($attributes)
     {
-        $user = User::where('cpf', $attributes['cpf'])
-            ->first();
+
+        if($attributes['cpf']){
+            $user = User::where('cpf', $attributes['cpf'])->first();
+        }
+
+        if($attributes['passaporte']){
+            $user = User::where('passaporte', $attributes['passaporte'])->first();
+        }
 
         if ($user)
             return $user;
@@ -139,6 +145,7 @@ class ParticipanteController extends Controller
             'name' => $attributes['nome'],
             'email' => $attributes['email'],
             'cpf' => $attributes['cpf'],
+            'passaporte' => $attributes['passaporte'],
             'instituicao_id' => $attributes['instituicao_id'] ?? 2,
             'instituicao' => $attributes['instituicao'] ?? "Outras",
             'password' => Hash::make($password),
@@ -149,7 +156,17 @@ class ParticipanteController extends Controller
         $userAttributes['password_confirmation'] = $userAttributes['password'];
 
         DefaultValidator::validate($userAttributes, User::$rules, User::$messages);
-        DefaultValidator::validate($userAttributes, ['cpf' => ['required', 'unique:users', new Cpf]], User::$messages);
+
+        if($attributes['cpf']){
+            DefaultValidator::validate($userAttributes, ['cpf' => ($userAttributes['passaporte'] == NULL ? ['required',new Cpf] : 'nullable')], User::$messages);
+        }
+
+        if($attributes['passaporte']){
+            DefaultValidator::validate($userAttributes, ['passaporte' => ($userAttributes['cpf'] == NULL ? ['required','max:10'] : 'nullable')], User::$messages);
+        }
+
+        
+
 
         //enviar o email informando a senha 
         Mail::to($userAttributes['email'], $userAttributes['name'])->send(new UsuarioNaoCadastrado([
