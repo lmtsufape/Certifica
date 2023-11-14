@@ -32,12 +32,21 @@
                         value="{{ $participante->user->name }}" disabled>
                 </div>
 
-                <div
-                    class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                    <span class="tittle-input">CPF</span>
-                    <input class="w-100 h-100 input-text " type="text" name="cpf" id=""
-                        placeholder="000.000.000-00" value="{{ $participante->user->cpf }}" disabled>
-                </div>
+                @if ($participante->user->cpf)
+                    <div
+                        class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">CPF</span>
+                        <input class="w-100 h-100 input-text " type="text" name="cpf" id=""
+                            placeholder="000.000.000-00" value="{{ $participante->user->cpf }}" disabled>
+                    </div>
+                @else
+                    <div
+                        class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                        <span class="tittle-input">Passaporte</span>
+                        <input class="w-100 h-100 input-text " type="text" name="passaporte" id="passaporte"
+                        value="{{ $participante->user->passaporte }}" disabled>
+                    </div>
+                @endif
 
             </div>
 

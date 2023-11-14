@@ -147,6 +147,7 @@ class UsuarioController extends Controller
         if($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
             $usuario->name = $request->name;
             $usuario->cpf = $request->cpf;
+            $usuario->passaporte = $request->passaporte;
             $usuario->email = $request->email;
             $usuario->perfil_id = $request->perfil_id;
             
