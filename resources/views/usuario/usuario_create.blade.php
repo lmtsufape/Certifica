@@ -43,6 +43,16 @@
                     </select>
                 </div>
 
+                <div id="select_pass_cpf" class="col-xl-6 ">
+                    <div class="d-flex align-items-center justify-content-evenly">
+                        <div style="margin:0 0 0 5px;" class="col-2">
+                            <input type="radio" name="cpf_pass" id="cpf_pass" value="cpf" checked> CPF
+                        </div>
+                        <div style="margin:0 0 0 -10px;" class="col-10">
+                            <input type="radio" name="cpf_pass" id="cpf_pass" value="passaporte"> Passaporte
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -58,7 +68,12 @@
                     <span class="tittle-input">CPF</span>
                     <input class="w-75 input-text " type="text" name="cpf" id="cpf"
                         placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                        title="Digite um CPF válido (000.000.000-00)" required>
+                        title="Digite um CPF válido (000.000.000-00)">
+                </div>
+
+                <div class="col-xl-3 campo-dinamico spacing-row1 input-create-box" id="passaporte_dinamico">
+                    <span class="tittle-input">Passaporte</span>
+                    <input class="w-75 input-text " type="text" name="passaporte" id="passaporte">
                 </div>
 
                 <div class="col-xl-3 campo-dinamico spacing-row1 input-create-box " id="divTelefone">
