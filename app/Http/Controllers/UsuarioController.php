@@ -66,7 +66,6 @@ class UsuarioController extends Controller
                 ->withErrors($exception->validator)->withInput();
         }
 
-
         $usuario = new User();
 
         $usuario->name = $request->name;
@@ -79,9 +78,16 @@ class UsuarioController extends Controller
             $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
             
         } else {
-            $usuario->cpf = $request->cpf;
-            $usuario->celular = $request->telefone;
 
+            if($request->cpf){
+                $usuario->cpf = $request->cpf;
+            }
+
+            if($request->passaporte){
+                $usuario->passaporte = $request->passaporte;
+            }
+            
+            $usuario->celular = $request->telefone;
         }
 
 
