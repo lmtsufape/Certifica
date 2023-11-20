@@ -20,7 +20,7 @@
             <div class="col-7 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input ">Nome completo</span>
                 <input class="w-75 input-text " type="text" name="name" id="nome" minlength="10"
-                    value={{ $usuario->name }}>
+                    value="{{ $usuario->name }}">
             </div>
 
             @if ($usuario->perfil_id == 2 || $usuario->perfil_id == 4)
