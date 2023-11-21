@@ -9,6 +9,7 @@ use App\Models\Natureza;
 use App\Models\SubmeterAcao;
 use App\Models\TipoNatureza;
 use App\Models\UnidadeAdministrativa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
 use Illuminate\Routing\Route;
@@ -104,6 +105,47 @@ class AcaoController extends Controller
         $acao->save();
 
         return redirect(Route('acao.index'))->with(['mensagem' => 'Ação cadastrada com sucesso']);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \App\Http\Requests\StoreAcaoRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function requisicao(Request $request)
+    {
+
+        try {
+            AcaoValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('acao.create'))
+                ->withErrors($exception->validator)->withInput();
+        }
+
+        $acao = new Acao();
+
+        $natureza = Natureza::find($request->natureza_id);
+        $tipo_natureza = TipoNatureza::where('descricao',$request->tipo_natureza )->first();
+
+
+
+        $acao->titulo = $request->titulo;
+        $acao->data_inicio = $request->data_inicio;
+        $acao->data_fim = $request->data_fim;
+        $acao->tipo_natureza_id = $tipo_natureza->id;
+        $acao->usuario_id = $request->usuario_id;
+        $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
+
+
+        $acao->anexo = null;
+
+        // Salvar a ação no banco de dados
+        $acao->save();
+
+        // Retornar o objeto da ação com o atributo de id
+        return response(['acao' => $acao]);
     }
 
     /**
