@@ -103,6 +103,62 @@ class CertificadoController extends Controller
         }
 
     }
+
+    public function gerar_certificados_requisicao($acao_id)
+    {
+        $acao = Acao::findOrFail($acao_id);
+        $atividades = $acao->atividades()->get();
+
+        $message = AcaoValidator::validate_acao($acao);
+
+        if($message){
+            return redirect()->back()->with(['alert_mensage' => $message]);
+
+        }
+
+        $certificados_emitidos = collect();
+
+        foreach($atividades as $atividade)
+        {
+            $participantes = Participante::all()->where("atividade_id", $atividade->id);
+
+            $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", 1)->where("tipo_certificado", $atividade->descricao)->first();
+
+            if($certificado_modelo == null)
+            {
+                $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", 1)->first();
+            }
+
+            if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
+
+            foreach($participantes as $participante)
+            {
+                $certificado = new Certificado();
+
+                $certificado->cpf_participante = $participante->user->cpf;
+                $certificado->codigo_validacao = Str::random(15);
+                $certificado->certificado_modelo_id = $certificado_modelo->id;
+                $certificado->atividade_id = $atividade->id;
+
+                $certificados_emitidos->push($certificado);
+            }
+        }
+
+        $certificados_emitidos->each(fn($certificado) => $certificado->save());
+
+            $acao->status = 'Aprovada';
+
+            $acao->update();
+
+            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+                'acao' => $acao->titulo,
+            ]));
+
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
+
+
+    }
+
     public function ver_certificado($participante_id, $marca = null)
     {
         Carbon::setLocale('pt_BR');

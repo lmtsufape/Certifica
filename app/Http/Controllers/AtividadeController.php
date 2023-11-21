@@ -21,9 +21,9 @@ class AtividadeController extends Controller
     public function index($acao_id)
     {
         $acao = Acao::find($acao_id);
-        
+
         $acao->get_participantes_name();
-        
+
         $atividades = $acao->atividades->sortBy('id');
 
         return view('atividade.atividade_index', ['atividades' => $atividades, 'acao' => $acao]);
@@ -76,6 +76,29 @@ class AtividadeController extends Controller
 
 
         return redirect(route('atividade.index', ['acao_id' => $request->acao_id]))->with(['mensagem' => "Atividade cadastrada com sucesso."]);
+    }
+
+    public function requisicao(Request $request)
+    {
+        try {
+            AtividadeValidator::validate($request->all());
+        } catch (ValidationException $exception) {
+            return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
+        }
+
+
+            $atividade = new Atividade();
+
+            $atividade->descricao = $request->descricao;
+            $atividade->data_inicio = $request->data_inicio;
+            $atividade->data_fim = $request->data_fim;
+            $atividade->acao_id = $request->acao_id;
+
+            $atividade->save();
+
+
+
+        return response(['atividade' => $atividade]);
     }
 
     /**
