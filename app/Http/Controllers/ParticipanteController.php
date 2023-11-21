@@ -355,6 +355,7 @@ class ParticipanteController extends Controller
                     $attributes = [
                         'nome' => $row[0],
                         'cpf'  => $cpf,
+                        'passaporte' => NULL,
                         'email' => $row[2],
                         'perfil_id' => 4,
                         'instituicao' => 'outra',
