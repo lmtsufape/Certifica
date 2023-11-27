@@ -178,7 +178,8 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
 
     //Rotas Participante Coordenador e Gestor
-    Route::get('/participante/index/{atividade_id}', [ParticipanteController::class, 'index'])->name('participante.index');
+    Route::get('/participante/index/{atividade_id}/{solicitacao?}', [ParticipanteController::class, 'index'])->name('participante.index');
+
 
     Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
     Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante.store');

@@ -33,15 +33,19 @@ class ParticipanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($atividade_id)
+    public function index($atividade_id, $solicitacao = null)
     {
+        if ($solicitacao !== null) {
+            // Convertendo o parâmetro para um valor booleano
+            $solicitacao = filter_var($solicitacao, FILTER_VALIDATE_BOOLEAN);
+            }
         $participantes = Participante::all()->where('atividade_id', $atividade_id)->sortBy('id');
         $atividade = Atividade::findOrFail($atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
         $cont = 0;
 
-        return view('participante.participante_index',compact('participantes','atividade','acao','cont'));
+        return view('participante.participante_index',compact('participantes','atividade','acao','cont','solicitacao'));
 
     }
 
