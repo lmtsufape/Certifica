@@ -14,10 +14,22 @@
                 @endif
             </h1>
 
+
+
             <div class="container">
 
                 <div class="text-center mb-3">
                     <h3>Atividades / {{ $acao->titulo }}</h3>
+                </div>
+                <div class="row d-flex align-items-center justify-content-start">
+                    <div class="col-1">
+                        <a type="button" class="button d-flex align-items-center justify-content-around between"
+                           href="{{ route('gestor.acoes_submetidas') }}">
+                            Voltar
+                            <img src="/images/acoes/listView/voltar.svg" alt="">
+                        </a>
+                    </div>
+
                 </div>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
@@ -44,7 +56,7 @@
                             <div class="col-1"></div>
                             <div class="col-9 d-flex align-items-center justify-content-evenly">
 
-                                <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}">
+                                <a href="{{ route('participante.index', ['atividade_id' => $atividade->id, 'solicitacao' => true]) }}">
                                     <img src="/images/atividades/participantes.svg" alt="" title="Integrantes">
                                 </a>
 

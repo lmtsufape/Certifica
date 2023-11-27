@@ -8,9 +8,13 @@
     <section class="view-list-acoes">
         <h1 class="text-center mb-4">Solicitações</h1>
 
+
+
+
+
         <div class="container">
 
-        
+
             <div class="row d-flex align-items-center justify-content-start">
                 <div class="col-1">
                     <a type="button" class="button d-flex align-items-center justify-content-around between"
@@ -19,9 +23,9 @@
                         <img src="/images/acoes/listView/voltar.svg" alt="">
                     </a>
                 </div>
-               
+
             </div>
-        
+
             <div class="row head-table d-flex align-items-center justify-content-start">
                 <div class="col-4 text-center"><span class="spacing-col">Título</span></div>
                 <div class="col-4 text-center"><span>Status</span></div>

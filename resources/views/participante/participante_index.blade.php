@@ -24,11 +24,21 @@
             <div class="row d-flex align-items-center justify-content-between">
 
                 <div class="col-1">
-                    <a type="button" class="button d-flex align-items-center justify-content-around between"
-                        href="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">
-                        Voltar
-                        <img src="/images/acoes/listView/voltar.svg" alt="">
-                    </a>
+
+
+                    @if($solicitacao)
+                        <a type="button" class="button d-flex align-items-center justify-content-around between"
+                           href="{{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}">
+                            Voltar
+                            <img src="/images/acoes/listView/voltar.svg" alt="">
+                        </a>
+                    @else
+                        <a type="button" class="button d-flex align-items-center justify-content-around between"
+                           href="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">
+                            Voltar
+                            <img src="/images/acoes/listView/voltar.svg" alt="">
+                        </a>
+                    @endif
                 </div>
 
                 <div class="col-9 text-end">
