@@ -6,8 +6,16 @@
         <div title="{{ $acao->tipo_natureza->descricao }}" class="col-2 text-center titulo-span">
             <span>{{ $acao->tipo_natureza->descricao }}</span>
         </div>
-        <div class="col-1 text-center tag tag-{{ $acao->status }}"><span>{{ $acao->status }}</span></div>
+
+        @if ($acao->observacao_gestor)
+            <div class="col-1 text-center link titulo-span tag tag-{{ $acao->status }}"><span><a data-toggle="modal" data-target="#modal-parecer{{ $acao->id }}">{{ $acao->status }}</a></span></div>
+
+        @else
+            <div class="col-1 text-center tag tag-{{ $acao->status }}"><span>{{ $acao->status }}</span></div>
+        @endif
+
         <div class="col-1 text-center">
+
             <span>
                 @if ($acao->anexo != null)
                     <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}" title="Baixar Anexo">
@@ -59,6 +67,25 @@
 
 
     <!-- Modal -->
+    <div class="modal fade" id="modal-parecer{{ $acao->id }}">
+
+        <div class="modal-dialog modal-dialog-centered" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #972E3F; color: white;">
+                    <h5 class="modal-title"><b>Parecer do Status da Ação</b></h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <h5>Observações do Gestor</h5>
+                    <span>{{ $acao->observacao_gestor }}</span>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modal-info{{ $acao->id }}">
 
         <div class="modal-dialog modal-dialog-centered" role="dialog">
