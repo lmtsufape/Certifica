@@ -95,7 +95,7 @@
                     </div>
 
                     <div class="row box">
-                        
+
                         <div class="col-xl-3 campo spacing-row2 input-create-box ">
                             <span class="tittle-input"> Data de Início<span class="ast">*</span> </span>
                             <input class="w-100 h-75" type="date" name="data_inicio" id=""
@@ -142,6 +142,6 @@
         </form>
     </section>
 
-    <script src="/js/acao/acao-edit-create.js"></script>
+    <script type="text/javascript" src="{{ asset('js/acao/acao-edit-create.js') }}"></script>
 
 @endsection
