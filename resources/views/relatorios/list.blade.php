@@ -23,10 +23,10 @@
             <span> <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
                         <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
                     </a>
-            </span>        
+            </span>
         </div>
-        <div title="{{$acao->user->name}}" class="col-2 text-center titulo-span"><span>{{$acao->user->name}}</span></div>
-    </div> 
+        <div title="{{ $acao->unidadeAdministrativa->descricao }}" class="col-2 text-center titulo-span"><span>{{ $acao->unidadeAdministrativa->descricao }}</span></div>
+    </div>
 @endforeach
 <script>
     $(".total").html("<strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>");
