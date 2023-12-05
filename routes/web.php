@@ -239,7 +239,7 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::post('/tipoatividade/store', [TipoAtividadeController::class, 'store'])->name('tipoatividade.store');
     Route::get('/tipoatividade/edit', [TipoAtividadeController::class, 'edit'])->name('tipoatividade.edit');
     Route::put('/tipoatividade/update', [TipoAtividadeController::class, 'update'])->name('tipoatividade.update');
-    Route::delete('/tipoatividade/delete', [TipoAtividadeController::class, 'delete'])->name('tipoatividade.delete');
+    Route::get('/tipoatividade/delete', [TipoAtividadeController::class, 'destroy'])->name('tipoatividade.delete');
 
 });
 
