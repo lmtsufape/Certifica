@@ -16,6 +16,7 @@ use App\Models\UnidadeAdministrativa;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\RelatorioController;
+use App\Http\Controllers\TipoAtividadeController;
 
 
 
@@ -231,6 +232,15 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::get('/acoes_submetidas_list', [AcaoController::class, 'list_acoes_submetidas'])->name('acoes_submetidas_list');
 
     Route::get('/participante/preview_certificado/{participante_id}', [CertificadoController::class, 'previsualizar_certificado'])->name('certificado.preview');
+
+    //tipo de atividade rotas
+    Route::get('/tipoatividade/index', [TipoAtividadeController::class, 'index'])->name('tipoatividade.index');
+    Route::get('/tipoatividade/create', [TipoAtividadeController::class, 'create'])->name('tipoatividade.create');
+    Route::post('/tipoatividade/store', [TipoAtividadeController::class, 'store'])->name('tipoatividade.store');
+    Route::get('/tipoatividade/edit', [TipoAtividadeController::class, 'edit'])->name('tipoatividade.edit');
+    Route::put('/tipoatividade/update', [TipoAtividadeController::class, 'update'])->name('tipoatividade.update');
+    Route::delete('/tipoatividade/delete', [TipoAtividadeController::class, 'delete'])->name('tipoatividade.delete');
+
 });
 
 
