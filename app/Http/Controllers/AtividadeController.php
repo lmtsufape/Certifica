@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acao;
+use App\Models\TipoAtividade;
 use App\Models\Atividade;
 use App\Models\Participante;
 use Illuminate\Http\Request;
@@ -38,10 +39,11 @@ class AtividadeController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outra'];
+                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
 
+        $tipoAtividade = TipoAtividade::all();
 
-        return view('atividade.atividade_create', ['acao' => $acao, 'descricoes' => $descricoes]);
+        return view('atividade.atividade_create',compact('acao','descricoes','tipoAtividade'));
     }
 
     /**
@@ -124,10 +126,12 @@ class AtividadeController extends Controller
 
         $acao = Acao::findOrFail($atividade->acao_id);
 
+        $tipoAtividade = TipoAtividade::all();
+
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte'];
 
-        return view('atividade.atividade_edit', ['atividade' => $atividade, 'acao' => $acao, 'descricoes' => $descricoes]);
+        return view('atividade.atividade_edit', compact('atividade', 'acao', 'descricoes', 'tipoAtividade'));
     }
 
     /**
