@@ -61,6 +61,13 @@
                         <span class="text-center">Relatórios</span>
                     </div>
                 </a>
+
+                <a class="link-opt" href="{{route('tipoatividade.index')}}">
+                    <div class="box-opt d-flex flex-column align-items-center justify-content-evenly">
+                        <img class="icon-opt" src="{{ '/images/home/tipo_atividade.svg' }}" alt="">
+                        <span class="text-center">Cadastrar tipo de atividade</span>
+                    </div>
+                </a>
             </div>
 
         </div>

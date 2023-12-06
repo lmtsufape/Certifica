@@ -35,6 +35,9 @@
                         @foreach ($descricoes as $descricao)
                             <option value="{{ $descricao }}">{{ $descricao }}</option>
                         @endforeach
+                        @foreach ($tipoAtividade as $tipo)
+                            <option value="{{$tipo->name}}">{{$tipo->name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
