@@ -6,6 +6,7 @@ use App\Models\CertificadoModelo;
 use App\Http\Requests\StoreCertificadoModeloRequest;
 use App\Http\Requests\UpdateCertificadoModeloRequest;
 use App\Models\UnidadeAdministrativa;
+use App\Models\TipoAtividade;
 use App\Validates\CertificadoModeloValidator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -196,7 +197,9 @@ class CertificadoModeloController extends Controller
     public function create_tipo_certificado()
     {
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
+        
+        $tipoAtividade = TipoAtividade::all();
 
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
 
@@ -212,7 +215,9 @@ class CertificadoModeloController extends Controller
         $img_verso = Storage::url($modelo->verso);
 
         return view('certificado_modelo.tipo_certificado_modelo_create', ['tipos_certificado' => $tipos_certificado,
-            'modelo' => $modelo, 'unidade_adm' => $unidade_adm, 'img_fundo' => $img_fundo, 'img_verso' => $img_verso]);
+            'modelo' => $modelo, 'unidade_adm' => $unidade_adm, 'img_fundo' => $img_fundo, 'img_verso' => $img_verso,
+            'tipos_Atividades_cadastradas' => $tipoAtividade
+        ]);
     }
 
     public function store_tipo_certificado(Request $request)
