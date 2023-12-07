@@ -221,10 +221,10 @@ class ParticipanteController extends Controller
 
 
         //enviar o email informando a senha
-        Mail::to($userAttributes['email'], $userAttributes['name'])->send(new UsuarioNaoCadastrado([
+        /* Mail::to($userAttributes['email'], $userAttributes['name'])->send(new UsuarioNaoCadastrado([
             'email'    => $userAttributes['email'],
             'password' => $password,
-        ]));
+        ])); */
 
 
         return User::create($userAttributes);
