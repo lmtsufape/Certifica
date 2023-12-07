@@ -73,6 +73,9 @@
                             @foreach ($tipos_certificado as $tipo)
                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
                             @endforeach
+                            @foreach ($tipos_Atividades_cadastradas as $tipo)
+                                <option value="{{ $tipo->name }}">{{ $tipo->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
