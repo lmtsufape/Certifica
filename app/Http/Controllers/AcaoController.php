@@ -205,7 +205,6 @@ class AcaoController extends Controller
         $acao->data_inicio = $request->data_inicio;
         $acao->data_fim = $request->data_fim;
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
-        $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
         if ($request->file('anexo')) {
@@ -215,7 +214,14 @@ class AcaoController extends Controller
 
         $acao->update();
 
-        return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
+        if(Auth::user()->id != $acao->usuario_id)
+        {
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação editada com sucesso']);
+        }
+        else
+        {
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
+        }
     }
 
     /**
@@ -240,6 +246,8 @@ class AcaoController extends Controller
 
     public function submeter_acao($acao_id)
     {
+        Carbon::setLocale('pt_BR');
+
         $acao = Acao::findOrFail($acao_id);
 
         $message = AcaoValidator::validate_acao($acao);
@@ -250,6 +258,7 @@ class AcaoController extends Controller
         }
 
         $acao->status = 'Em análise';
+        $acao->data_submissao = Carbon::now()->format('d/m/Y H:i');
         $acao->update();
 
         $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3)->first();
@@ -279,6 +288,14 @@ class AcaoController extends Controller
     {
         $acaos = Acao::whereNotNull('status')->where
         ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('created_at', 'desc')->get();
+
+        foreach($acaos as $acao)
+        {
+            if($acao->data_submissao)
+            {
+                $acao->data_submissao = Carbon::parse($acao->data_submissao)->format('d/m/Y H:i');
+            }
+        }
 
         return view('gestor_institucional.list_acoes_submetidas', ['acaos' => $acaos]);
     }
