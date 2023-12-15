@@ -1,6 +1,6 @@
 @foreach ($acaos as $acao)
     <div class="row linha-table d-flex align-items-center justify-content-start">
-        <div class="col-4 text-center titulo-span">
+        <div class="col-3 text-center titulo-span">
             <span class="spacing-col">
                 {{ $acao->titulo }}
             </span>
@@ -13,7 +13,13 @@
             </div>
         </div>
 
-        <div class="col-4 text-center">
+        <div class="col-2 text-center titulo-span">
+            <span class="text-center">
+                {{ \Carbon\Carbon::parse($acao->data_submissao)->format('d/m/Y H:i') }}
+            </span>
+        </div>
+
+        <div class="col-3 text-center">
             <span style="padding-right:10px;">
                 <a href="{{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}">
                     <img src="/images/acoes/listView/eye.svg" alt="Visualizar açao" title="Visualizar ação"></a>
@@ -22,8 +28,7 @@
             @if($acao->status == "Em análise")
                 <span style="padding-right:3px;">
                     <a href="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">
-                        <img src="/images/acoes/listView/editar.svg" alt="Editar ação" title="Editar ação">
-                    </a>
+                        <img src="/images/acoes/listView/editar.svg" alt="Editar ação" title="Editar ação"></a>
                 </span>
 
                 <span style="padding-left:10px;">

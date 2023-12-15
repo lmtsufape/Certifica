@@ -27,9 +27,10 @@
             </div>
 
             <div class="row head-table d-flex align-items-center justify-content-start">
-                <div class="col-4 text-center"><span class="spacing-col">Título</span></div>
+                <div class="col-3 text-center"><span class="spacing-col">Título</span></div>
                 <div class="col-4 text-center"><span>Status</span></div>
-                <div class="col-4 text-center"><span>Funcionalidades</span></div>
+                <div class="col-2 text-center"><span>Data de Submissão</span></div>
+                <div class="col-3 text-center"><span>Funcionalidades</span></div>
             </div>
         </div>
 
