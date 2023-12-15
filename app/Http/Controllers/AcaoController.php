@@ -246,6 +246,8 @@ class AcaoController extends Controller
 
     public function submeter_acao($acao_id)
     {
+        Carbon::setLocale('pt_BR');
+
         $acao = Acao::findOrFail($acao_id);
 
         $message = AcaoValidator::validate_acao($acao);
@@ -256,6 +258,7 @@ class AcaoController extends Controller
         }
 
         $acao->status = 'Em análise';
+        $acao->data_submissao = Carbon::now()->format('d/m/Y H:i');
         $acao->update();
 
         $user = $acao->unidadeAdministrativa->users->where('perfil_id', 3)->first();
