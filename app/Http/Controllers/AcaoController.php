@@ -205,7 +205,6 @@ class AcaoController extends Controller
         $acao->data_inicio = $request->data_inicio;
         $acao->data_fim = $request->data_fim;
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
-        $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
 
         if ($request->file('anexo')) {
@@ -215,7 +214,14 @@ class AcaoController extends Controller
 
         $acao->update();
 
-        return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
+        if(Auth::user()->id != $acao->usuario_id)
+        {
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação editada com sucesso']);
+        }
+        else
+        {
+            return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
+        }
     }
 
     /**
