@@ -289,6 +289,14 @@ class AcaoController extends Controller
         $acaos = Acao::whereNotNull('status')->where
         ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('created_at', 'desc')->get();
 
+        foreach($acaos as $acao)
+        {
+            if($acao->data_submissao)
+            {
+                $acao->data_submissao = Carbon::parse($acao->data_submissao)->format('d/m/Y H:i');
+            }
+        }
+
         return view('gestor_institucional.list_acoes_submetidas', ['acaos' => $acaos]);
     }
 
