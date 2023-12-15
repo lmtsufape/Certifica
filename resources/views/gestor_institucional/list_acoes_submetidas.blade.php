@@ -15,7 +15,7 @@
 
         <div class="col-2 text-center titulo-span">
             <span class="text-center">
-                {{ \Carbon\Carbon::parse($acao->data_submissao)->format('d/m/Y H:i') }}
+                {{ $acao->data_submissao }}
             </span>
         </div>
 
