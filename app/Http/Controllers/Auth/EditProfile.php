@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Validates\DefaultValidator;
 use Illuminate\Validation\ValidationException;
+use App\Models\Curso;
 
 class EditProfile extends Controller
 {
@@ -20,16 +21,20 @@ class EditProfile extends Controller
         $perfil = Perfil::all();
         $instituicoes = Instituicao::all();
         $instituicao = $user->instituicao;
+        $perfis = Perfil::all();
+        $cursos = Curso::all();
 
         if($instituicao == ""){
             $instituicao = $user->instituicao__()->first()->nome;
         }
 
-        return view('auth.edit', compact('user', 'instituicoes', 'instituicao'));
+        return view('auth.edit', compact('user', 'instituicoes', 'instituicao', 'perfis', 'cursos'));
     }
 
     public function update(Request $request){
         $user = Auth::user();
+
+        
 
         try {
             DefaultValidator::validate($request->all(), User::$edit_rules, User::$messages);
@@ -61,7 +66,29 @@ class EditProfile extends Controller
         $user->email   = $request->email;
         $user->celular = $request->celular;
 
-        $user->save();
+        $perfil_id = $request->perfil_id;
+
+
+        if ($perfil_id == '0') {
+            $perfil_id = '2';
+        }
+
+        $perfil = Perfil::find($request->perfil_id);
+        $user->perfil()->associate($perfil);
+
+        if ($perfil_id == '2') { 
+            $user->siape = $request->siape;
+            $user->json_cursos_ids = json_encode($request->cursos_ids);
+            $user->save();
+
+    
+        } elseif ($perfil_id == '4') { 
+            $user->siape = null;
+            $user->json_cursos_ids = json_encode($request->cursos_ids);
+            $user->save();
+    
+            
+        }
 
         return redirect(Route('home'))->with(['mensagem' => 'Dados atualizados com sucesso']);
     }

@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('acaos', function (Blueprint $table)
         {
-            $table->dropColumn('observacoes_gestor');
+            $table->dropColumn('observacao_gestor');
         });
     }
 };
