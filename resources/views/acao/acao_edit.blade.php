@@ -15,7 +15,7 @@
          <input type="hidden" name="id" value="{{ $acao->id }}">
          <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
          <input type="hidden" name="unidade_administrativa_id" value="{{ Auth::user()->unidade_administrativa_id }}">
- 
+
         <div class="form-row form-box">
 
             @if (Auth::user()->perfil_id == 2)
@@ -120,7 +120,7 @@
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="button d-flex justify-content-center align-items-center cancel"
-                        href="{{ route('acao.index') }}">Voltar</a>
+                        href="javascript:history.back()">Voltar</a>
                     <button class="button submit" type="submit">Salvar</button>
                 </div>
             </div>
