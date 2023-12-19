@@ -107,7 +107,7 @@ class CertificadoModeloController extends Controller
         $verso = Storage::url($modelo->verso);
 
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Outro'];
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Evento'];
 
         return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_certificado'));
     }
@@ -197,8 +197,8 @@ class CertificadoModeloController extends Controller
     public function create_tipo_certificado()
     {
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
-        
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Evento'];
+
         $tipoAtividade = TipoAtividade::all();
 
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
@@ -234,7 +234,7 @@ class CertificadoModeloController extends Controller
             $certificado_modelo->verso = $request->verso;
 
             $certificado_modelo->save();
-            
+
             return redirect(route('home'))->with(['mensagem' => 'Modelo de certificado cadastrado com sucesso']);
         } else
         {
@@ -248,9 +248,9 @@ class CertificadoModeloController extends Controller
             $certificado_modelo->verso = $request->verso;
 
             $certificado_modelo->save();
-            
+
             return redirect(route('home'))->with(['mensagem' => 'Modelo de certificado cadastrado com sucesso']);
         }
-        
+
     }
 }
