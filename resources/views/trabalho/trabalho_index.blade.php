@@ -18,7 +18,7 @@
             <h2 class="text-center mb-4">Atividade: {{ $atividade->descricao }} </h2>
 
             <div class="text-center mb-3">
-                <h3>Trabalhos do Evento</h3>
+                <h3>Trabalhos da Apresentação</h3>
             </div>
 
 
@@ -43,7 +43,7 @@
 
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-3"><span class="spacing-col">Titulo do Trabalho</span></div>
+                <div class="col-3"><span class="spacing-col">Título do Trabalho</span></div>
                 <div class="col-2"><span>Carga Horária</span></div>
                 <div class="col-5"><span>Autores/Coautores</span></div>
                 <div class="col-2"><span>Funcionalidades</span></div>
