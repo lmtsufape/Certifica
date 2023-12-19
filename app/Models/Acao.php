@@ -105,15 +105,40 @@ class Acao extends Model
 
     //cria um campo em cada atividade com o nome dos participantes
     public function get_participantes_name(){
-        $this->atividades->each(fn ($atividade) =>
+        $this->atividades->each(function ($atividade){
+            if($atividade->descricao ==='Evento'){
+                if($atividade->trabalhos){
+                    $atividade->trabalhos->each(function ($trabalhos) use ($atividade) {
+                        $trabalhos->autores->each(function ($participante) use ($atividade) {
+                            // Adiciona os autores à lista de participantes da atividade
+                            $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName()
+                                : $atividade->nome_participantes . ", " . $participante->user->firstName();
+                            $atividade->lista_nomes = $atividade->participantes->map(function ($participante) {
+                                return $participante->user->name;
+                            })->implode(", \n");
+                        });
+
+                        $trabalhos->coautores->each(function ($participante) use ($atividade) {
+                            // Adiciona os coautores à lista de participantes da atividade
+                            $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName()
+                                : $atividade->nome_participantes . ", " . $participante->user->firstName();
+                            $atividade->lista_nomes = $atividade->participantes->map(function ($participante) {
+                                return $participante->user->name;
+                            })->implode(", \n");
+                        });
+                    });
+
+                }
+            } else{
                 $atividade->participantes->each( function ($participante) use ($atividade){
                     $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName()
-                                                    : $atividade->nome_participantes.", ".$participante->user->firstName();
+                        : $atividade->nome_participantes.", ".$participante->user->firstName();
                     $atividade->lista_nomes = $atividade->participantes->map(function ($participante) {
                         return $participante->user->name; // Supondo que exista um método fullName() para obter o nome completo do usuário.
                     })->implode(", \n");
-                })
-        );
+                });
+            }
 
+        });
     }
 }

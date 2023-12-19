@@ -66,13 +66,24 @@
 
                     <div class="col-2 d-flex align-items-center justify-content-start">
 
+
+
                         <div class="col-8 d-flex align-items-center justify-content-around">
-                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
-                                title="Integrantes">
-                                <img src="/images/atividades/participantes.svg" alt="">
-                            </a>
+                            @if($atividade->descricao === 'Evento')
+                                <a href="{{ route('trabalho.index', ['atividade_id' => $atividade->id]) }}"
+                                   title="Trabalhos">
+                                    <img src="/images/acoes/listView/clipboard-check.svg" alt="">
+                                </a>
+                            @else
+                                <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
+                                   title="Integrantes">
+                                    <img src="/images/atividades/participantes.svg" alt="">
+                                </a>
+                            @endif
+
 
                             @if ($acao->status == null || 'Devolvida')
+                                    @if(!($atividade->descricao === 'Evento'))
                                 <a href="/files/modelo.csv" title="Baixar Modelo">
                                     <img src="/images/acoes/listView/anexo.svg">
                                 </a>
@@ -82,7 +93,7 @@
                                     <img src="/images/acoes/listView/csvIcon.svg" alt="">
                                 </a>
 
-
+                                @endif
                                 <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
                                     <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>

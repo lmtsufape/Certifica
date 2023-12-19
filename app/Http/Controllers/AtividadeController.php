@@ -39,9 +39,10 @@ class AtividadeController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte'];
+                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Evento'];
 
         $tipoAtividade = TipoAtividade::all();
+
 
         return view('atividade.atividade_create',compact('acao','descricoes','tipoAtividade'));
     }
@@ -129,7 +130,7 @@ class AtividadeController extends Controller
         $tipoAtividade = TipoAtividade::all();
 
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte'];
+            'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte', 'Evento '];
 
         return view('atividade.atividade_edit', compact('atividade', 'acao', 'descricoes', 'tipoAtividade'));
     }
@@ -176,6 +177,7 @@ class AtividadeController extends Controller
         $atividade = Atividade::findOrFail($atividade_id);
 
         $atividade->participantes()->delete();
+        $atividade->trabalhos()->delete();
 
         $atividade->delete();
 
