@@ -106,7 +106,7 @@ class Acao extends Model
     //cria um campo em cada atividade com o nome dos participantes
     public function get_participantes_name(){
         $this->atividades->each(function ($atividade){
-            if($atividade->descricao ==='Evento'){
+            if($atividade->descricao ==='Apresentação de Trabalho'){
                 if($atividade->trabalhos){
                     $atividade->trabalhos->each(function ($trabalhos) use ($atividade) {
                         $trabalhos->autores->each(function ($participante) use ($atividade) {

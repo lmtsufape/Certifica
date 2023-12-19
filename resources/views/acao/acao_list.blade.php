@@ -96,7 +96,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <span><strong>Titulo: </strong>{{ $acao->titulo }}</span>
+                        <span><strong>Título: </strong>{{ $acao->titulo }}</span>
                         <span><b>Natureza: </b>{{ $acao->tipo_natureza->natureza->descricao }}</span>
                         <span><b>Tipo da Natureza: </b>{{ $acao->tipo_natureza->descricao }}</span>
                         <span><b>Status: </b>

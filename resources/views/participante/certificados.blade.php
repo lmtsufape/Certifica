@@ -64,7 +64,7 @@
             <div class="modal-body">
                 <div class="row">
                     <h5>Ação</h5>
-                    <label><strong>Titulo: </strong><span id='titulo'></span></label>
+                    <label><strong>Título: </strong><span id='titulo'></span></label>
                     <label><strong>Tipo da Natureza: </strong><span id='tipo-natureza'></span></label>
                     <label><strong>Inicio: </strong><span id='inicio'></span></label>
                     <label><strong>Fim: </strong><span id='fim'></span></label>

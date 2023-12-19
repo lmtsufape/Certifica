@@ -69,7 +69,7 @@
 
 
                         <div class="col-8 d-flex align-items-center justify-content-around">
-                            @if($atividade->descricao === 'Evento')
+                            @if($atividade->descricao === 'Apresentação de Trabalho')
                                 <a href="{{ route('trabalho.index', ['atividade_id' => $atividade->id]) }}"
                                    title="Trabalhos">
                                     <img src="/images/acoes/listView/clipboard-check.svg" alt="">
@@ -83,7 +83,7 @@
 
 
                             @if ($acao->status == null || 'Devolvida')
-                                    @if(!($atividade->descricao === 'Evento'))
+                                    @if(!($atividade->descricao === 'Apresentação de Trabalho'))
                                 <a href="/files/modelo.csv" title="Baixar Modelo">
                                     <img src="/images/acoes/listView/anexo.svg">
                                 </a>

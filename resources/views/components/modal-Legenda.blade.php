@@ -22,7 +22,7 @@
                     <li><b>Narureza da ação</b> = %natureza%</li>
                     <li><b>Tipo da natureza da ação</b> = %tipo_natureza%</li>
                     <li><b>Negrito</b> = *frase/palavra/tag*</li>
-                    <li><b>Titulo do Trabalho</b> = %tituto_trabalho%</li>
+                    <li><b>Título do Trabalho</b> = %tituto_trabalho%</li>
                     <li><b>Autores do Trabalho</b> = %autores_trabalho%</li>
                     <li><b>Coautores do Trabalho</b> = %coautores_trabalho%</li>
                 </ul>
