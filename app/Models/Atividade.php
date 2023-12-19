@@ -49,4 +49,29 @@ class Atividade extends Model
         return $this->hasMany(Certificado::class);
     }
 
+    public function trabalhos(){
+        return $this->hasMany('App\Models\Trabalho');
+    }
+
+    public function get_participantes_name(){
+        $this->trabalhos->each(function ($trabalho) {
+            $trabalho->autores->each( function ($participante) use ($trabalho){
+                $trabalho->nome_participantes = !$trabalho->nome_participantes ? $participante->user->firstName()
+                    : $trabalho->nome_participantes.", ".$participante->user->firstName();
+                $trabalho->lista_nomes = $trabalho->autores->map(function ($participante) {
+                    return $participante->user->name;
+                })->implode(", \n");
+            } );
+            $trabalho->coautores->each( function ($participante) use ($trabalho){
+                $trabalho->nome_participantes = !$trabalho->nome_participantes ? $participante->user->firstName()
+                    : $trabalho->nome_participantes.", ".$participante->user->firstName();
+                $trabalho->lista_nomes = $trabalho->coautores->map(function ($participante) {
+                    return $participante->user->name;
+                })->implode(", \n");
+            } );
+        });
+
+
+    }
+
 }

@@ -13,6 +13,7 @@ use App\Models\CertificadoModelo;
 use App\Models\Natureza;
 use App\Models\Participante;
 use App\Models\TipoNatureza;
+use App\Models\Trabalho;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -164,6 +165,13 @@ class CertificadoController extends Controller
         Carbon::setLocale('pt_BR');
 
         $participante = Participante::findOrFail($participante_id);
+
+        $autorTrabalhoId = $participante->autor_trabalhos_id;
+        $coautorTrabalhoId = $participante->coautor_trabalhos_id;
+
+        $trabalho = Trabalho::whereIn('id', [$autorTrabalhoId, $coautorTrabalhoId])->first();
+
+
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
@@ -184,7 +192,7 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho);
 
         $imagem = Storage::url($modelo->fundo);
 
@@ -380,7 +388,7 @@ class CertificadoController extends Controller
         }
     }
 
-    public static function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza){
+    public static function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho){
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
 
@@ -389,9 +397,20 @@ class CertificadoController extends Controller
 
         $modelo->texto = preg_replace($pattern, $replace, $modelo->texto);
 
-        $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*');
-        $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                        $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '');
+        if($trabalho){
+            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*',
+                '%titulo_trabalho%', '%autores_trabalho%', '%coautores_trabalho%' );
+            $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
+                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $trabalho->titulo, $trabalho->nomesAutoresComoTexto(), $trabalho->nomesCoautoresComoTexto());
+
+        } else{
+            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*');
+            $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
+                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '');
+
+        }
+
+
 
 
         return str_replace($antes, $depois, $modelo->texto);
@@ -402,6 +421,11 @@ class CertificadoController extends Controller
         Carbon::setLocale('pt_BR');
 
         $participante = Participante::findOrFail($participante_id);
+
+        $autorTrabalhoId = $participante->autor_trabalhos_id;
+        $coautorTrabalhoId = $participante->coautor_trabalhos_id;
+
+        $trabalho = Trabalho::whereIn('id', [$autorTrabalhoId, $coautorTrabalhoId])->first();
 
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
@@ -427,7 +451,7 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho);
 
         $imagem = Storage::url($modelo->fundo);
 

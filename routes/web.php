@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\NaturezaController;
+use App\Http\Controllers\TrabalhoController;
 use App\Http\Controllers\UnidadeAdministrativaController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Auth;
@@ -207,6 +208,24 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/participante/invalidar_certificado/{participante_id}', [CertificadoController::class, 'invalidar_certificado'])->name('participante.invalidar_certificado');
 
     Route::get('/participante/reemitir_certificado/{participante_id}', [CertificadoController::class, 'reemitir_certificado'])->name('participante.reemitir_certificado');
+
+    //Rotas Trabalho Gestor e Coordenador
+    Route::get('atividade/{atividade_id}/trabalho/', [TrabalhoController::class, 'index'])->name('trabalho.index');
+
+    Route::post('trabalho/store', [TrabalhoController::class, 'store'])->name('trabalho.store');
+
+    Route::get('atividade/{atividade_id}/trabalho/create', [TrabalhoController::class, 'create'])->name('trabalho.create');
+
+    Route::get('/autor/index/{trabalho_id}/{solicitacao?}', [ParticipanteController::class, 'autor_index'])->name('autor.index');
+
+    Route::get('/autor/create/{trabalho_id}', [ParticipanteController::class, 'autor_create'])->name('autor.create');
+
+    Route::post('/autor/store/{tipo?}', [ParticipanteController::class, 'autor_store'])->name('autor.store');
+
+    Route::get('trabalho/{trabalho_id}/edit', [TrabalhoController::class, 'edit'])->name('trabalho.edit');
+    Route::post('trabalho/update', [TrabalhoController::class, 'update'])->name('trabalho.update');
+
+    Route::get('trabalho/{trabalho_id}/delete', [TrabalhoController::class, 'delete'])->name('trabalho.delete');
 
 });
 

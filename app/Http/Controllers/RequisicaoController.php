@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use App\Models\User;
 use http\Encoding\Stream\Enbrotli;
 use Illuminate\Http\Request;
@@ -50,6 +51,22 @@ class RequisicaoController extends Controller
 
                  foreach ($atividadeJSON['participantes'] as $participanteJSON){
                      $participanteController = new ParticipanteController();
+
+                     if (isset($participanteJSON['curso'])) {
+                         $cursos = Curso::where('nome', $participanteJSON['curso'])->first();
+
+                         if ($cursos) {
+                             $jsonCursosIds = json_encode([strval($cursos->id)]);
+                         } else {
+                             // Define um valor padrão (ID 8) se nenhum curso for encontrado
+                             $jsonCursosIds = json_encode(["8"]);
+                         }
+                     } else {
+                         // Se não houver valor para 'curso', define $jsonCursosIds como null
+                         $jsonCursosIds = null;
+                     }
+
+
                      $participante = $participanteController->requisicao( new Request([
                          'atividade_id' => $atividade->original['atividade']['id'],
                          'cpf' => $participanteJSON['cpf'],
@@ -58,7 +75,8 @@ class RequisicaoController extends Controller
                          'carga_horaria' => $participanteJSON['carga_horaria'],
                          'instituicao' => $participanteJSON['instituicao'],
                          'instituicao_id' => $participanteJSON['instituicao_id'],
-                         'passaporte' => $participanteJSON['passaporte']
+                         'passaporte' => $participanteJSON['passaporte'],
+                         'json_cursos_ids' => $jsonCursosIds
 
 
                      ]));

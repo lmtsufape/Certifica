@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Acao;
 use App\Models\Atividade;
+use App\Models\Curso;
 use App\Models\Instituicao;
 use App\Models\Participante;
+use App\Models\Trabalho;
 use App\Models\User;
 use App\Models\Natureza;
 use Illuminate\Http\Request;
@@ -36,7 +38,6 @@ class ParticipanteController extends Controller
     public function index($atividade_id, $solicitacao = null)
     {
         if ($solicitacao !== null) {
-            // Convertendo o parâmetro para um valor booleano
             $solicitacao = filter_var($solicitacao, FILTER_VALIDATE_BOOLEAN);
             }
         $participantes = Participante::all()->where('atividade_id', $atividade_id)->sortBy('id');
@@ -47,6 +48,109 @@ class ParticipanteController extends Controller
 
         return view('participante.participante_index',compact('participantes','atividade','acao','cont','solicitacao'));
 
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function autor_index($trabalho_id, $solicitacao = null)
+    {
+        if ($solicitacao !== null) {
+            $solicitacao = filter_var($solicitacao, FILTER_VALIDATE_BOOLEAN);
+        }
+        $autores = Participante::all()->where('autor_trabalhos_id', $trabalho_id)->sortBy('id');
+        $coautores = Participante::all()->where('coautor_trabalhos_id', $trabalho_id)->sortBy('id');
+        $trabalho = Trabalho::findOrFail($trabalho_id);
+        $atividade = Atividade::findOrFail($trabalho->atividade_id);
+        $acao = Acao::findOrFail($atividade->acao_id);
+
+        $cont = 0;
+
+        return view('trabalho.trabalho_autores_index',compact('autores','coautores','trabalho','atividade','acao','cont','solicitacao'));
+
+    }
+
+    public function autor_create($trabalho_id, Request $request)
+    {
+
+        $option = $request->cpf_pass;
+        $cpf = $request->cpf;
+        $passaporte = $request->passaporte;
+        $tipo = $request->tipo;
+
+
+        $user = $cpf ? User::where('cpf', $cpf)->first() : User::where('passaporte', $passaporte)->first();
+
+        $trabalho = Trabalho::findOrFail($trabalho_id);
+        $atividade = Atividade::findOrFail($trabalho->atividade_id);
+
+        $instituicaos = Instituicao::all();
+
+
+        if ($user) {
+            return view('trabalho.trabalho_autores_create', ['atividade' => $atividade, 'user' => $user, 'tipo' => $tipo, 'trabalho' => $trabalho, 'instituicaos' => $instituicaos, 'option' => $option ]);
+        }
+
+
+        return view('trabalho.trabalho_autores_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'tipo' => $tipo, 'trabalho' => $trabalho, 'instituicaos' => $instituicaos,'option' => $option]);
+    }
+
+    public function autor_store(Request $request, $tipo)
+    {
+        $attributes = $request->all();
+
+
+        if(!$attributes['instituicao']){
+            $instituicao = Instituicao::find($attributes['instituicao_id']);
+
+            $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras";
+        }
+
+        try {
+            ParticipanteValidator::validate($attributes);
+        } catch (ValidationException $exception) {
+            return redirect(route('autor.create', ['trabalho_id' => $attributes['trabalho_id'], 'cpf' => $attributes['cpf'], 'passaporte' => $attributes['passaporte'], ]))
+                ->withErrors($exception->validator)->withInput();
+        }
+
+        $atividade = Atividade::find($attributes['atividade_id']);
+
+
+        if($attributes['cpf']){
+            if($atividade->participantes->where('user.cpf', $attributes['cpf'] )->first()){
+                return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
+                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+            }
+        }
+
+        if($attributes['passaporte']){
+            if($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()){
+                return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
+                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+            }
+        }
+
+
+
+        try{
+            $user = $this->createUser($attributes);
+
+        } catch (ValidationException $exception) {
+            return redirect()->back()->withErrors($exception->validator)->withInput();
+        }
+
+        if ($attributes['tipo'] === 'Autor'){
+            $attributes['autor_trabalhos_id'] = $attributes['trabalho_id'];
+        }else{
+            $attributes['coautor_trabalhos_id'] = $attributes['trabalho_id'];
+        }
+        $attributes['user_id'] = $user->id;
+        Participante::create($attributes);
+
+        return redirect(Route('autor.index', ['trabalho_id' => $attributes['trabalho_id']]))
+            ->with(['mensagem' => $tipo . ' cadastrado com sucesso']);
     }
 
 
@@ -164,9 +268,10 @@ class ParticipanteController extends Controller
             }
         }
 
-
         try{
+
             $user = $this->createUser($attributes);
+
 
         } catch (ValidationException $exception) {
             return redirect()->back()->withErrors($exception->validator)->withInput();
@@ -193,6 +298,7 @@ class ParticipanteController extends Controller
             return $user;
 
         $password = Str::random(15);
+
         $userAttributes = [
             'name' => $attributes['nome'],
             'email' => $attributes['email'],
@@ -202,10 +308,16 @@ class ParticipanteController extends Controller
             'instituicao' => $attributes['instituicao'] ?? "Outras",
             'password' => Hash::make($password),
             'perfil_id' => 4,
-            'cadastro_finalizado' => false
+            'cadastro_finalizado' => false,
+            'json_cursos_ids' => $attributes['json_cursos_ids'] ?? null
+
         ];
 
+
+
+
         $userAttributes['password_confirmation'] = $userAttributes['password'];
+
 
         DefaultValidator::validate($userAttributes, User::$rules, User::$messages);
 
