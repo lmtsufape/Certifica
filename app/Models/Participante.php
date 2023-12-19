@@ -15,7 +15,9 @@ class Participante extends Model
         'titulo',
         'carga_horaria',
         'atividade_id',
-        'user_id'
+        'user_id',
+        'coautor_trabalhos_id',
+        'autor_trabalhos_id'
     ];
 
     public static $rules = [
@@ -49,6 +51,14 @@ class Participante extends Model
     public function atividade(){
         return $this->belongsTo(Atividade::class);
     }
+    public function autorDoTrabalho() {
+        return $this->belongsTo(Trabalho::class, 'autor_trabalhos_id');
+    }
+
+    // Relacionamento com coautor_trabalhos_id
+    public function coautorDoTrabalho() {
+        return $this->belongsTo(Trabalho::class, 'coautor_trabalhos_id');
+    }
 
 
 
@@ -62,7 +72,7 @@ class Participante extends Model
             }
 
         }
-        
+
         return $participacoes_aux;
     }
 
@@ -80,7 +90,7 @@ class Participante extends Model
             }
 
         }
-        
+
         return $participacoes_aux;
     }
 
@@ -92,9 +102,9 @@ class Participante extends Model
             if($part->atividade->acao->tipo_natureza->natureza->id == $natureza){
                 array_push($participacoes_aux, $part);
             }
-            
+
         }
-        
+
         return $participacoes_aux;
     }
 
