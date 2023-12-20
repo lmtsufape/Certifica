@@ -134,7 +134,7 @@ class User extends Authenticatable
         try {
             $split_name = preg_split("/[\s,]+/",$this->name,);
 
-            $name = $split_name[0]." ".$split_name[1]."...";
+            $name = $split_name[0];
 
         } catch (\Throwable $th) {
             $name = $this->name;

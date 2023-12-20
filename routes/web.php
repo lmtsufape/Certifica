@@ -227,6 +227,8 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
 
     Route::get('trabalho/{trabalho_id}/delete', [TrabalhoController::class, 'delete'])->name('trabalho.delete');
 
+    Route::post('/autores/index/{atividade_id}/import', [ParticipanteController::class, 'import_trabalhos'])->name('import_trabalhos');
+
 });
 
 
