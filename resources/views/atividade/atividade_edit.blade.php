@@ -31,7 +31,7 @@
                     class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                     <span class="tittle-input">Atividade/Função</span>
                     <select class="select-form w-100 h-100 " name="descricao" id="">
-                        <option value={{ $atividade->descricao }} selected hidden>{{ $atividade->descricao }}</option>
+                        <option value="{{ $atividade->descricao }}" selected hidden>{{ $atividade->descricao }}</option>
                         @foreach ($descricoes as $descricao)
                             <option value="{{ $descricao }}">{{ $descricao }}</option>
                         @endforeach

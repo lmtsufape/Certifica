@@ -117,11 +117,13 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::find($attributes['atividade_id']);
 
+        $trabalho = Trabalho::findOrFail($attributes['trabalho_id']);
+
 
         if($attributes['cpf']){
-            if($atividade->participantes->where('user.cpf', $attributes['cpf'] )->first()){
-                return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
-                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+            if($trabalho->autores->where('user.cpf', $attributes['cpf'] )->first() or $trabalho->coautores->where('user.cpf', $attributes['cpf'] )->first()){
+                return redirect(Route('trabalho.index', ['atividade_id' => $attributes['atividade_id']]))
+                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez no mesmo trabalho!']);
             }
         }
 
@@ -537,7 +539,7 @@ class ParticipanteController extends Controller
             $trabalho->save();
 
             $i = 2;
-            if(isset($row[$i]) && ($row[$i] === "Autor" || $row[$i] === "Coautor")){
+            if(isset($row[$i]) && (strtoupper($row[$i]) === "AUTOR"|| strtoupper($row[$i]) === "COAUTOR")){
             do{
 
                 $cpf = Mask::mask($row[$i+3], "###.###.###-##");
@@ -582,7 +584,7 @@ class ParticipanteController extends Controller
                     $participante->atividade_id = $atividade_id;
                     $participante->user_id = $user->id;
 
-                    if($row[$i] === "Autor"){
+                    if(strtoupper($row[$i]) === "AUTOR"){
                         $participante->autor_trabalhos_id = $trabalho->id;
                     }else{
                         $participante->coautor_trabalhos_id = $trabalho->id;
@@ -593,7 +595,7 @@ class ParticipanteController extends Controller
 
                 $i = $i + 4;
 
-            }while(isset($row[$i]) && ($row[$i] === "Autor" || $row[$i] === "Coautor"));
+            }while(isset($row[$i]) && (strtoupper($row[$i]) === "AUTOR" || strtoupper($row[$i]) === "COAUTOR"));
         }
         }
 
