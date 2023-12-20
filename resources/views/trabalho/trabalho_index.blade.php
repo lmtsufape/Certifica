@@ -79,9 +79,9 @@
 
 
                             @if ($acao->status == null || 'Devolvida')
-                                <a href="/files/modelo.csv" title="Baixar Modelo">
-                                    <img src="/images/acoes/listView/anexo.svg">
-                                </a>
+{{--                                <a href="/files/modelo.csv" title="Baixar Modelo">--}}
+{{--                                    <img src="/images/acoes/listView/anexo.svg">--}}
+{{--                                </a>--}}
 
 {{--                                <a href="" title="Importar Integrantes" data-bs-toggle="modal"--}}
 {{--                                   data-bs-target="#modalImportCsv{{ $atividade->id }}">--}}
