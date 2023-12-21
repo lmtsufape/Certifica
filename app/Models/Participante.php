@@ -21,7 +21,7 @@ class Participante extends Model
     ];
 
     public static $rules = [
-        'nome' => 'required|min:10',
+        'nome' => 'required|min:5',
         'email' => 'required|email',
         'instituicao_id' => 'required',
         'instituicao' => 'required_if:instituicao_id,2',
@@ -35,7 +35,7 @@ class Participante extends Model
     ];
 
     public static $messages = [
-        'nome.*' => 'O nome do participante é obrigatório e deve ter no mínimo 10 caractéres',
+        'nome.*' => 'O nome do participante é obrigatório e deve ter no mínimo 5 caractéres',
         'email.*' => 'O e-mail é obrigatório e deve ser um endereço de e-mail válido',
         'cpf.regex' => 'O CPF é obrigatório e deve ser um número de CPF válido',
         'carga_horaria.required' => 'A carga horária é obrigatória',
