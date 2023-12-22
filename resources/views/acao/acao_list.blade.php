@@ -29,7 +29,7 @@
                         src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar Ação"></a></span>
             <span><a href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"><img
                         src="/images/acoes/listView/atividade.svg" alt="Atividades" title="Atividades"></a></span>
-            @if ($acao->status == null || 'Devolvida')
+            @if ($acao->status == null || $acao->status == 'Devolvida')
                 <span><a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}"><img
                             src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar Ação"></a></span>
                 <span><a onclick="return confirm('Você tem certeza que deseja excluir esta ação?')"
