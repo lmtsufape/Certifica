@@ -105,7 +105,7 @@
                                 </a>
                             @endif
 
-                            @if ($acao->status == null || (Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada') || 'Devolvida')
+                            @if($acao->status == null || $acao->status == "Devolvida")
                                 <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
                                     target="_blank">
                                     <img src="/images/acoes/listView/certificado.svg" alt=""
@@ -115,11 +115,9 @@
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
-                            @endif
 
-                            @if ((Auth::user()->perfil_id == 2 || Auth::user()->perfil_id == 3) && $acao->status != 'Aprovada')
                                 <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
-                                    href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
+                                   href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
                                 </a>
                             @endif
