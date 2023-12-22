@@ -21,13 +21,22 @@
                 <div class="text-center mb-3">
                     <h3>Atividades / {{ $acao->titulo }}</h3>
                 </div>
-                <div class="row d-flex align-items-center justify-content-start">
+
+                <div class="row d-flex align-items-center justify-content-between">
                     <div class="col-1">
                         <a type="button" class="button d-flex align-items-center justify-content-around between"
                            href="{{ route('gestor.acoes_submetidas') }}">
                             Voltar
                             <img src="/images/acoes/listView/voltar.svg" alt="">
                         </a>
+                    </div>
+
+                    <div class="col-8 text-end">
+                        @if ($acao->status == 'Em análise')
+                            <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
+                                <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
+                            </a>
+                        @endif
                     </div>
 
                 </div>
