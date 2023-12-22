@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreAtividadeRequest;
 use App\Http\Requests\UpdateAtividadeRequest;
 use App\Validates\AtividadeValidator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class AtividadeController extends Controller
@@ -61,6 +62,8 @@ class AtividadeController extends Controller
             return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
         }
 
+        $acao = Acao::findOrFail($request->acao_id);
+
         if($request->descricao == 'Outra')
         {
             $atividade = new Atividade();
@@ -77,8 +80,15 @@ class AtividadeController extends Controller
             Atividade::create($request->all());
         }
 
+        if(Auth::user()->perfil_id == 3 && $acao->usuario_id != Auth::user()->id)
+        {
+            return redirect(route('gestor.analisar_acao', ['acao_id' => $request->acao_id]))->with(['mensagem' => "Atividade cadastrada com sucesso."]);
+        }
+        else
+        {
+            return redirect(route('atividade.index', ['acao_id' => $request->acao_id]))->with(['mensagem' => "Atividade cadastrada com sucesso."]);
+        }
 
-        return redirect(route('atividade.index', ['acao_id' => $request->acao_id]))->with(['mensagem' => "Atividade cadastrada com sucesso."]);
     }
 
     public function requisicao(Request $request)
