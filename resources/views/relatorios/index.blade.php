@@ -74,8 +74,8 @@
                 <div class="col-2 text-center"><span>Tipo da Natureza</span></div>
                 <div class="col-2 text-center"><span>Atividades</span></div>
                 <div class="col-1 text-center"><span>Total de Certificados</span></div>
-                <div class="col-1 text-center"><span>Certificados</span></div>
-                <div class="col-2 text-center"><span>Emissor</span></div>
+                <div class="col-1 text-center"><span>Emissor</span></div>
+                <div class="col-2 text-center"><span>Funcionalidades</span></div>
             </div>
         </div>
         <div class="list container"></div>
