@@ -36,7 +36,7 @@
                         </a>
                     @else
                         <a type="button" class="button d-flex align-items-center justify-content-around between"
-                           href="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">
+                           href="{{ route('trabalho.index', ['atividade_id' => $atividade->id]) }}">
                             Voltar
                             <img src="/images/acoes/listView/voltar.svg" alt="">
                         </a>

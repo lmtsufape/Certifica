@@ -19,12 +19,12 @@
                     <li><b>Data de início</b> = %data_inicio%</li>
                     <li><b>Data de fim</b> = %data_fim%</li>
                     <li><b>Carga horária</b> = %carga_horaria%</li>
-                    <li><b>Narureza da ação</b> = %natureza%</li>
+                    <li><b>Natureza da ação</b> = %natureza%</li>
                     <li><b>Tipo da natureza da ação</b> = %tipo_natureza%</li>
                     <li><b>Negrito</b> = *frase/palavra/tag*</li>
-                    <li><b>Título do Trabalho</b> = %tituto_trabalho%</li>
-                    <li><b>Autores do Trabalho</b> = %autores_trabalho%</li>
-                    <li><b>Coautores do Trabalho</b> = %coautores_trabalho%</li>
+                    <li><b>Título do trabalho</b> = %titulo_trabalho%</li>
+                    <li><b>Autores do trabalho</b> = %autores_trabalho%</li>
+                    <li><b>Coautores do trabalho</b> = %coautores_trabalho%</li>
                 </ul>
             </div>
         </div>

@@ -140,7 +140,7 @@ class AtividadeController extends Controller
         $tipoAtividade = TipoAtividade::all();
 
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Particiante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho '];
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', "Apresentação de Trabalho"];
 
         return view('atividade.atividade_edit', compact('atividade', 'acao', 'descricoes', 'tipoAtividade'));
     }

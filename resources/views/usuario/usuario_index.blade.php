@@ -35,12 +35,13 @@
             </div>
 
 
-    
+
 
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-4"><span class="spacing-col">Nome</span></div>
-                <div class="col-4"><span>CPF/ Passaporte</span></div>
+                <div class="col-3"><span class="spacing-col">Nome</span></div>
+                <div class="col-2"><span>CPF/ Passaporte</span></div>
+                <div class="col-3"><span>E-mail</span></div>
                 <div class="col-2"><span>Tipo</span></div>
                 <div class="col-2"><span>Funcionalidades</span></div>
             </div>
@@ -49,18 +50,25 @@
         <div class="list container">
             @foreach ($usuarios as $user)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-4">
+                    <div class="col-3">
                         <span class="spacing-col">
                             {{ $user->name }}
                         </span>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-2">
                         @if($user->cpf != NULL)
                             {{ $user->cpf }}
                         @else
                             {{ $user->passaporte }}
                         @endif
+
+                    </div>
+
+                    <div class="col-3 " >
+                        <span >
+                            {{ $user->email }}
+                        </span>
 
                     </div>
 
@@ -75,7 +83,7 @@
                             Integrante
                         @endif
                     </div>
-                    <div class="col-2 d-flex">
+                    <div class="col-2 d-flex align-items-center">
                         <div class="col-6 d-flex align-items-center justify-content-evenly">
                             <span><a href="{{ route('usuario.edit', ['usuario_id' => $user->id]) }}"><img
                                         src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar"></a></span>

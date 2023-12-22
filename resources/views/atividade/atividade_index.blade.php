@@ -81,19 +81,29 @@
                                 </a>
                             @endif
 
-
                             @if ($acao->status == null || $acao->status == 'Devolvida')
-                                    @if(!($atividade->descricao === 'Apresentação de Trabalho'))
-                                <a href="/files/modelo.csv" title="Baixar Modelo">
-                                    <img src="/images/acoes/listView/anexo.svg">
-                                </a>
+                                @if(!($atividade->descricao === 'Apresentação de Trabalho'))
+                                    <a href="/files/modelo.csv" title="Baixar Modelo">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
 
-                                <a href="" title="Importar Integrantes" data-bs-toggle="modal"
-                                    data-bs-target="#modalImportCsv{{ $atividade->id }}">
-                                    <img src="/images/acoes/listView/csvIcon.svg" alt="">
-                                </a>
+                                    <a href="" title="Importar Integrantes" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+
+                                @else
+                                    <a href="/files/modelo_trabalho.csv" title="Baixar Modelo Trabalho">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Autores/Coautores" data-bs-toggle="modal"
+                                       data-bs-target="#modalImportTrabalhoCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
 
                                 @endif
+                                
                                 <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
                                     <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>
@@ -123,7 +133,7 @@
 
 
                 <!-- Modal -->
-                <div class="modal fade" id="modalImportCsv{{ $atividade->id }}" tabindex="-1"
+                <!-- <div class="modal fade" id="modalImportCsv{{ $atividade->id }}" tabindex="-1"
                     aria-labelledby="modalImportCsvLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -164,6 +174,47 @@
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="modalImportTrabalhoCsv{{ $atividade->id }}" tabindex="-1"
+                     aria-labelledby="modalImportCsvLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Trabalhos e Autores
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+
+
+                            <div class="modal-body">
+                                <div class="container">
+                                    <form class="form"
+                                          action="{{ Route('import_trabalhos', ['atividade_id' => $atividade->id]) }}"
+                                          method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row align-items-start">
+                                            <div>
+                                                <input type="file" accept=".csv" name="trabalhos_csv"
+                                                       id="trabalhos_csv" class="form-control form-control-sm"
+                                                       style="margin-top:5%" required>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center mt-4">
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-sm btn-dark"
+                                                        data-bs-dismiss="modal">Fechar</button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="submit" class="btn btn-sm btn-success">Importar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
             @endforeach
         </div>
     </section>

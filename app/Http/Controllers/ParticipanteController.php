@@ -117,11 +117,13 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::find($attributes['atividade_id']);
 
+        $trabalho = Trabalho::findOrFail($attributes['trabalho_id']);
+
 
         if($attributes['cpf']){
-            if($atividade->participantes->where('user.cpf', $attributes['cpf'] )->first()){
-                return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
-                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+            if($trabalho->autores->where('user.cpf', $attributes['cpf'] )->first() or $trabalho->coautores->where('user.cpf', $attributes['cpf'] )->first()){
+                return redirect(Route('trabalho.index', ['atividade_id' => $attributes['atividade_id']]))
+                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez no mesmo trabalho!']);
             }
         }
 
@@ -514,6 +516,101 @@ class ParticipanteController extends Controller
         }
 
         return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
+    }
+
+    public function import_trabalhos($atividade_id, Request $request){
+        $atividade = Atividade::find($atividade_id);
+
+
+        $file = fopen($request->trabalhos_csv, "r");
+
+        fgetcsv($file); //ler o cabeçalho
+
+        $participantes = [];
+
+        while($row = fgetcsv($file)){
+
+            //$row[0] => Titulo Trabalho | $row[1] = Carga Horaria Trabalho | $row[2] = Autor | $row[3] = NOME | $row[4] = E-MAIL | $row[5] = cpf
+            $trabalho = new Trabalho();
+            $trabalho->titulo = $row[0];
+            $trabalho->carga_horaria = $row[1];
+            $trabalho->atividade_id = $atividade_id;
+
+            $trabalho->save();
+
+            $i = 2;
+            if(isset($row[$i]) && (strtoupper($row[$i]) === "AUTOR"|| strtoupper($row[$i]) === "COAUTOR")){
+            do{
+
+                $cpf = Mask::mask($row[$i+3], "###.###.###-##");
+                $user = User::where('cpf', '=', $cpf)->first();
+
+                $confirm = True;
+
+                if(!$user)
+                {
+                    try{
+
+                        $attributes = [
+                            'nome' => $row[$i+1],
+                            'cpf'  => $cpf,
+                            'passaporte' => NULL,
+                            'email' => $row[$i+2],
+                            'perfil_id' => 4,
+                            'instituicao' => 'Outra',
+                            'instituicao_id' => 2,
+                        ];
+
+                        $user = $this->createUser($attributes);
+
+                    } catch (\Throwable $th) {
+                        $confirm = False;
+
+                        $message = $row[$i+1]." (".$th->getMessage().")";
+
+                        array_push($participantes, $message);
+                    }
+                }
+
+
+                if ($confirm &&
+                    (
+                        !$user->participacoes()->where('autor_trabalhos_id', '=', $trabalho->id)->first() ||
+                        !$user->participacoes()->where('coautor_trabalhos_id', '=', $trabalho->id)->first()
+                    ))
+                {
+                    $participante = new Participante();
+                    $participante->carga_horaria = $row[1];
+                    $participante->atividade_id = $atividade_id;
+                    $participante->user_id = $user->id;
+
+                    if(strtoupper($row[$i]) === "AUTOR"){
+                        $participante->autor_trabalhos_id = $trabalho->id;
+                    }else{
+                        $participante->coautor_trabalhos_id = $trabalho->id;
+                    }
+
+                    $participante->save();
+                }
+
+                $i = $i + 4;
+
+            }while(isset($row[$i]) && (strtoupper($row[$i]) === "AUTOR" || strtoupper($row[$i]) === "COAUTOR"));
+        }
+        }
+
+        fclose($file);
+
+        $mensagem = "Trabalhos e autores adicionados!";
+
+        if($participantes){
+            $mensagem = "Os seguintes participantes não puderam ser adicionados:\n"
+                .implode("  /  ",$participantes).".\n".
+                "\n Verifique os dados dos participantes e tente novamente.";
+            return redirect(route('trabalho.index', ['atividade_id' => $atividade_id]))->with(['alert_mensage' => $mensagem]);
+        }
+
+        return redirect(route('trabalho.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
     }
 
 }
