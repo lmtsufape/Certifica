@@ -92,9 +92,11 @@ class CertificadoController extends Controller
         {
             $acao->status = 'Aprovada';
 
+            $participantes_user = $acao->participantes_user($acao);
+
             $acao->update();
 
-            Mail::bcc($acao->participantes())->send(new CertificadoDisponivel([
+            Mail::bcc($participantes_user)->send(new CertificadoDisponivel([
                 'acao' => $acao->titulo,
             ]));
 
@@ -155,7 +157,6 @@ class CertificadoController extends Controller
         $atividade->update();
 
         $participantes_user = $atividade->participantes_user($atividade);
-
 
         Mail::bcc($participantes_user)->send(new CertificadoDisponivel([
             'acao' => $atividade->acao->titulo,
