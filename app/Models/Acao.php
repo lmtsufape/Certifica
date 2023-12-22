@@ -63,7 +63,23 @@ class Acao extends Model
                 $participantes->push($participante->user);
             });
 
+        });
 
+        return $participantes;
+    }
+
+    public function participantes_user($acao){
+        $participantes = collect();
+
+        $this->atividades->each(function($atividade)  use ($participantes)
+        {
+            if($atividade->emissao_parcial != true)
+            {
+                $atividade->participantes->each(function($participante) use ($participantes)
+                {
+                    $participantes->push($participante->user);
+                });
+            }
         });
 
         return $participantes;
