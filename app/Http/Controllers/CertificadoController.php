@@ -26,6 +26,7 @@ use App\Validates\AcaoValidator;
 use App\Models\User;
 use Dompdf\FontMetrics;
 use Dompdf\Options;
+use function Symfony\Component\Translation\t;
 
 
 class CertificadoController extends Controller
@@ -47,7 +48,8 @@ class CertificadoController extends Controller
     public function gerar_certificados($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
-        $atividades = $acao->atividades()->get();
+        $atividades = Atividade::where('acao_id', $acao->id)->where(function ($query) {
+                                $query->where('emissao_parcial', '!=', true)->orWhere('emissao_parcial', null);})->get();
 
         $message = AcaoValidator::validate_acao($acao);
 
@@ -103,6 +105,60 @@ class CertificadoController extends Controller
             return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
         }
 
+    }
+
+    public function gerar_certificados_parcial($atividade_id)
+    {
+        $atividade = Atividade::findOrFail($atividade_id);
+
+        if($atividade->emisssao_parcial)
+        {
+            return redirect(back()->with(['error_mensage' => 'Certificados desta atividade já foram emitidos']));
+        }
+
+        $message = AcaoValidator::validate_acao($atividade->acao);
+
+        if($message)
+        {
+            return redirect()->back()->with(['alert_mensage' => $message]);
+        }
+
+        $certificados_emitidos = collect();
+
+        $participantes = Participante::all()->where("atividade_id", $atividade->id);
+
+        $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $atividade->descricao)->first();
+
+        if($certificado_modelo == null)
+        {
+            $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
+        }
+
+        if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
+
+        foreach($participantes as $participante)
+        {
+            $certificado = new Certificado();
+
+            $certificado->cpf_participante = $participante->user->cpf;
+            $certificado->codigo_validacao = Str::random(15);
+            $certificado->certificado_modelo_id = $certificado_modelo->id;
+            $certificado->atividade_id = $atividade->id;
+
+            $certificados_emitidos->push($certificado);
+        }
+
+        $certificados_emitidos->each(fn($certificado) => $certificado->save());
+
+        $atividade->emissao_parcial = true;
+
+        $atividade->update();
+
+        /* Mail::to($participantes->email)->send(new CertificadoDisponivel([
+            'acao' => $atividade->acao->titulo,
+        ])); */
+
+        return redirect(back()->with(['mensagem' => 'Certificados Emitidos!']));
     }
 
     public function gerar_certificados_requisicao($acao_id)
