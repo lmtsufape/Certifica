@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if ($acao->status == null || 'Devolvida')
+                    @if ($acao->status == null || $acao->status == 'Devolvida')
                         <a class="criar-acao-button" href="{{ route('trabalho.create', ['atividade_id' => $atividade->id]) }}">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar trabalho
                         </a>
@@ -78,7 +78,7 @@
 
 
 
-                            @if ($acao->status == null || 'Devolvida')
+                            @if ($acao->status == null || $acao->status == 'Devolvida')
                                 <a href="/files/modelo.csv" title="Baixar Modelo">
                                     <img src="/images/acoes/listView/anexo.svg">
                                 </a>

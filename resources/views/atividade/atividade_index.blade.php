@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if (!$acao->status || $acao->status == 'Devolvida')
+                    @if (!$acao->status == null || $acao->status == 'Devolvida')
                         <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                         </a>
@@ -82,7 +82,7 @@
                             @endif
 
 
-                            @if ($acao->status == null || 'Devolvida')
+                            @if ($acao->status == null || $acao->status == 'Devolvida')
                                     @if(!($atividade->descricao === 'Apresentação de Trabalho'))
                                 <a href="/files/modelo.csv" title="Baixar Modelo">
                                     <img src="/images/acoes/listView/anexo.svg">
