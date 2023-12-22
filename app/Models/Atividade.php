@@ -45,6 +45,19 @@ class Atividade extends Model
         return $this->hasMany(Participante::class);
     }
 
+    public function participantes_user($atividade){
+        $usuarios = collect();
+
+        $participantes = Participante::where('atividade_id', $atividade->id)->get();
+
+        $participantes->each(function($participante) use ($usuarios)
+        {
+            $usuarios->push($participante->user);
+        });
+
+        return $usuarios;
+    }
+
     public function certificados(){
         return $this->hasMany(Certificado::class);
     }

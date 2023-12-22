@@ -94,7 +94,7 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
+            Mail::bcc($acao->participantes())->send(new CertificadoDisponivel([
                 'acao' => $acao->titulo,
             ]));
 
@@ -154,11 +154,14 @@ class CertificadoController extends Controller
 
         $atividade->update();
 
-        /* Mail::to($participantes->email)->send(new CertificadoDisponivel([
-            'acao' => $atividade->acao->titulo,
-        ])); */
+        $participantes_user = $atividade->participantes_user($atividade);
 
-        return redirect(back()->with(['mensagem' => 'Certificados Emitidos!']));
+
+        Mail::bcc($participantes_user)->send(new CertificadoDisponivel([
+            'acao' => $atividade->acao->titulo,
+        ]));
+
+        return redirect(route('atividade.index', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
     }
 
     public function gerar_certificados_requisicao($acao_id)
