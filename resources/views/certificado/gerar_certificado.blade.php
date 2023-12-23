@@ -39,6 +39,7 @@
                 margin-left: 450px;
                 margin-right: 187px;
                 text-align: justify;
+                text-justify: inter-word;
             }
 
             .codigo_validacao {
