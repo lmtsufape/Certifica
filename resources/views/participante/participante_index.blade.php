@@ -96,7 +96,6 @@
 
                         </div>
                         <div class="col-4 d-flex align-items-center justify-content-between">
-
                             @if ($acao->status == 'Aprovada')
                                 <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
                                     target="_blank">
@@ -106,11 +105,13 @@
                             @endif
 
                             @if($acao->status == null || $acao->status == "Devolvida")
-                                <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
-                                    target="_blank">
-                                    <img src="/images/acoes/listView/certificado.svg" alt=""
-                                        title="Pré-visualizar Certificado">
-                                </a>
+                                @if(Auth::user()->perfil_id == 3)
+                                    <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
+                                       target="_blank">
+                                        <img src="/images/acoes/listView/certificado.svg" alt=""
+                                             title="Pré-visualizar Certificado">
+                                    </a>
+                                @endif
 
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
