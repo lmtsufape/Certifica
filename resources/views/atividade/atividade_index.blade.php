@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if (!$acao->status == null || $acao->status == 'Devolvida')
+                    @if($acao->status == null || $acao->status == 'Devolvida')
                         <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                         </a>
@@ -103,7 +103,7 @@
                                     </a>
 
                                 @endif
-                                
+
                                 <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
                                     <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>
@@ -133,7 +133,7 @@
 
 
                 <!-- Modal -->
-                <!-- <div class="modal fade" id="modalImportCsv{{ $atividade->id }}" tabindex="-1"
+                <div class="modal fade" id="modalImportCsv{{ $atividade->id }}" tabindex="-1"
                     aria-labelledby="modalImportCsvLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -214,7 +214,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             @endforeach
         </div>
     </section>

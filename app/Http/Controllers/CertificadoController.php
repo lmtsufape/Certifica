@@ -51,6 +51,7 @@ class CertificadoController extends Controller
         $atividades = Atividade::where('acao_id', $acao->id)->where(function ($query) {
                                 $query->where('emissao_parcial', '!=', true)->orWhere('emissao_parcial', null);})->get();
 
+
         $message = AcaoValidator::validate_acao($acao);
 
         if($message){
@@ -96,9 +97,12 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            Mail::bcc($participantes_user)->send(new CertificadoDisponivel([
-                'acao' => $acao->titulo,
-            ]));
+            if($participantes_user->isNotEmpty())
+            {
+                Mail::bcc($participantes_user)->send(new CertificadoDisponivel([
+                    'acao' => $acao->titulo,
+                ]));
+            }
 
             return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
         }
