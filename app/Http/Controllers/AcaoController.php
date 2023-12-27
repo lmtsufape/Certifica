@@ -428,8 +428,16 @@ class AcaoController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
 
-        Mail::bcc($acao->participantes())->send(new LembreteCertificadoDisponivel([
-            'acao' => $acao->titulo,]));
+        $chunkedParticipantes = $participantes_user->chunk(50);
+
+    foreach ($chunkedParticipantes as $chunk)
+    {
+        Mail::bcc($chunk)->send(new LembreteCertificadoDisponivel([
+            'acao' => $acao->titulo,
+        ]));
+
+        sleep(2); 
+    }
 
         return redirect()->back()->with(['mensagem' => 'Lembrete enviado aos integrantes!']);
     }

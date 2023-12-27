@@ -99,19 +99,26 @@ class CertificadoController extends Controller
 
             if($participantes_user->isNotEmpty())
             {
-                Mail::bcc($participantes_user)->send(new CertificadoDisponivel([
-                    'acao' => $acao->titulo,
-                ]));
+                $chunkedParticipantes = $participantes_user->chunk(50); // Divide em grupos de até 50 participantes
+        
+                foreach ($chunkedParticipantes as $chunk)
+                {
+                    Mail::bcc($chunk)->send(new CertificadoDisponivel([
+                        'acao' => $acao->titulo,
+                    ]));
+        
+                    sleep(2);
+                }
             }
-
-            return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
-        }
-        else
-        {
-            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
-        }
-
+        
+                return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
+            }
+            else
+            {
+                return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
+            }
     }
+    
 
     public function gerar_certificados_parcial($atividade_id)
     {
