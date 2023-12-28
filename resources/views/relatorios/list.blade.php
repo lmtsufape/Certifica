@@ -20,17 +20,14 @@
         <div class="col-2 text-center titulo-span" title="{{$acao->nome_atividades}}"><span>{{$acao->nome_atividades}}</span></div>
         <div class="col-1 text-center"><span>{{$acao->total}}</span></div>
         <div class="col-1 text-center">
-                <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
+            <span> <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
                         <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
                     </a>
             </span>
         </div>
         <div title="{{ $acao->unidadeAdministrativa->descricao }}" class="col-2 text-center titulo-span"><span>{{ $acao->unidadeAdministrativa->descricao }}</span></div>
     </div>
-    
 @endforeach
-
-
 <script>
     $(".total").html("<strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>");
 </script>

@@ -18,7 +18,7 @@
             <div>
                 <div class="col-1">
                     <a type="button" class="button d-flex align-items-center justify-content-around between"
-                        href="{{ route('home') }}">
+                       href="{{ route('home') }}">
                         Voltar
                         <img src="/images/acoes/listView/voltar.svg" alt="">
                     </a>
