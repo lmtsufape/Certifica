@@ -34,7 +34,7 @@
                     class="col-xl-7 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                     <span class="tittle-input ">Nome</span>
                     <input class="w-100 h-100 input-text " type="text" name="nome" id="nome"
-                           @if (isset($user)) value="{{ $user->name }}" readonly @endif minlength="10"
+                           @if (isset($user)) value="{{ $user->name }}" readonly @endif minlength="5"
                            required>
                 </div>
 
