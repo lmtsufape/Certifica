@@ -341,9 +341,16 @@ class AcaoController extends Controller
 
         if ($status == 'Aprovada') {
             //enviar email para os integrantes
-            Mail::bcc($acao->participantes())->send(new CertificadoDisponivel([
-                'acao' => $acao->titulo,
-            ]));
+            $participantes_user = $acao->participantes();
+
+            $chunkedParticipantes = $participantes_user->chunk(99);
+
+            foreach ($chunkedParticipantes as $chunk)
+            {
+                Mail::bcc($chunk)->send(new CertificadoDisponivel([
+                    'acao' => $acao->titulo,
+                ]));
+            }
 
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
         } else {
