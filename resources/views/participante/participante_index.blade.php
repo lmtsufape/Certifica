@@ -113,14 +113,6 @@
                             @endif
 
                             @if($acao->status == null || $acao->status == "Devolvida")
-                                @if(Auth::user()->perfil_id == 3)
-                                    <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
-                                       target="_blank">
-                                        <img src="/images/acoes/listView/certificado.svg" alt=""
-                                             title="Pré-visualizar Certificado">
-                                    </a>
-                                @endif
-
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
