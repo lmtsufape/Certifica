@@ -15,6 +15,7 @@
         <div class="total"></div>
 
         <form action="" id="form" class="container">
+            @csrf
             <div>
                 <div class="col-1">
                     <a type="button" class="button d-flex align-items-center justify-content-around between"
@@ -24,7 +25,7 @@
                     </a>
                 </div>
 
-                <div class="row head-table search-box d-flex align-items-center justify-content-center">
+                <!-- <div class="row head-table search-box d-flex align-items-center justify-content-center">
                     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                         <span>Nome da Ação</span>
                         <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
@@ -61,7 +62,7 @@
                     </div>
 
 
-                </div>
+                </div> -->
             </div>
         </form>
 
