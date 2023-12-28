@@ -21,12 +21,38 @@ class RelatorioController extends Controller
         $ano = 2019;
         $anos = [];
 
+        $perfil_id = Auth::user()->perfil_id;
+        $unidade = Auth::user()->unidade_administrativa_id;
+
+        if($perfil_id == 1){
+
+            $certificados = Certificado::all();
+            $acoes = Acao::where('status', 'Aprovada')->get();
+
+        } else if($perfil_id == 3 && $unidade){
+
+            $certificados = $this->get_certificados_by_unidade();
+            $acoes = Acao::where('unidade_administrativa_id', $unidade)
+                ->where('status', 'Aprovada')->get();
+        }
+
         do{
             $ano += 1;
             array_push($anos, $ano);
         } while($ano != Carbon::now()->year);
 
-        return view('relatorios.index', compact('naturezas', 'tipos_natureza', 'anos'));
+        $acoes->each(function($acao){
+            $acao->nome_atividades = "";
+            $acao->atividades->each(function($atividade) use ($acao){
+                $acao->total += $atividade->participantes()->count();
+                $acao->nome_atividades = $acao->nome_atividades ? $acao->nome_atividades.", ".$atividade->descricao : $atividade->descricao;
+            });
+        });
+
+
+        $total = count($certificados);
+
+        return view('relatorios.index', compact('naturezas', 'tipos_natureza', 'anos', 'acoes', 'total', 'certificados'));
     }
 
     public function filtro(){

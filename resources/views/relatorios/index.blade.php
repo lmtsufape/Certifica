@@ -12,9 +12,11 @@
     <section class="view-list-acoes">
         <h1 class="text-center mb-4">Relatório</h1>
 
-        <div class="total"></div>
+        <div class="total">
+            <strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>
+        </div>
 
-        <form action="" id="form" class="container">
+        <!-- <form action="" id="form" class="container">
             @csrf
             <div>
                 <div class="col-1">
@@ -62,9 +64,9 @@
                     </div>
 
 
-                </div> -->
+                </div>
             </div>
-        </form>
+        </form> -->
 
 
 
@@ -79,11 +81,31 @@
                 <div class="col-2 text-center"><span>Emissor</span></div>
             </div>
         </div>
-        <div class="list container"></div>
+
+        <div class="list container">
+            @foreach($acoes as $acao)
+                <div class="row linha-table d-flex align-items-center justify-content-start">
+                    <div class="col-2 text-center titulo-span" title="{{$acao->titulo}}"><span>{{$acao->titulo}}</span></div>
+                    <div class="col-2 titulo-span text-center"><span class="spacing-col">{{$acao->tipo_natureza->natureza->descricao}}</span></div>
+                    <div class="col-2 text-center titulo-span" title="{{$acao->tipo_natureza->descricao}}"><span>{{$acao->tipo_natureza->descricao}}</span></div>
+                    <div class="col-2 text-center titulo-span" title="{{$acao->nome_atividades}}"><span>{{$acao->nome_atividades}}</span></div>
+                    <div class="col-1 text-center"><span>{{$acao->total}}</span></div>
+                    <div class="col-1 text-center">
+            <span> <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
+                        <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
+                    </a>
+            </span>
+                    </div>
+                    <div title="{{ $acao->unidadeAdministrativa->descricao }}" class="col-2 text-center titulo-span"><span>{{ $acao->unidadeAdministrativa->descricao }}</span></div>
+                </div>
+            @endforeach
+        </div>
     </section>
 @endsection
 
+<!--
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -113,4 +135,4 @@
             $(".list").html(data);
         });
     }
-</script>
+</script> -->
