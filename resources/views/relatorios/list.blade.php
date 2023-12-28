@@ -23,8 +23,8 @@
         <div class="col-2 text-center">
             <span> 
                 <a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
-                        src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar Ação"></a></span>
-                    </a>
+                        src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar Ação"></a>
+                </span>
                 
                 <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
                         <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
@@ -45,25 +45,8 @@
                 <span><strong>Título: </strong>{{ $acao->titulo }}</span>
                 <span><b>Natureza: </b>{{ $acao->tipo_natureza->natureza->descricao }}</span>
                 <span><b>Tipo da Natureza: </b>{{ $acao->tipo_natureza->descricao }}</span>
-                <span><b>Status: </b>
-                    @if ($acao->status)
-                        {{ $acao->status }}
-                    @else
-                        Não submetida
-                    @endif
-                </span>
                 <span><b>Inicio: </b>{{ date('d/m/Y', strtotime($acao->data_inicio)) }}</span>
                 <span><b>Fim: </b>{{ date('d/m/Y', strtotime($acao->data_fim)) }}</span>
-                @if ($acao->anexo)
-                    <span><b>Anexo: </b>
-                        <a href="{{ route('anexo.download', ['acao_id' => $acao->id]) }}" title="Baixar Anexo">
-                            <img src="/images/acoes/listView/anexo.svg" alt="Visualizar">
-                        </a>
-                    </span>
-                @endif
-                @if ($acao->observacao_gestor)
-                    <span><b>Observações do Gestor: </b>{{ $acao->observacao_gestor }}</span>
-                @endif
                 <span><b>Quantidade de Certificados: </b>{{ $acao->total}}</span>
                 <span><b>Emissor: </b>{{ $acao->unidadeAdministrativa->descricao }}</span>
             </div>
@@ -103,7 +86,7 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
