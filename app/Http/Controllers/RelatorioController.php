@@ -32,19 +32,20 @@ class RelatorioController extends Controller
     public function filtro(){
         $perfil_id = Auth::user()->perfil_id;
         $unidade = Auth::user()->unidade_administrativa_id;
-        
+
         if($perfil_id == 1){
-    
+
             $certificados = Certificado::all();
-            $acoes = Acao::where('status', 'Aprovada');
-            
+            $acoes = Acao::where('status', 'Aprovada')->get();
+
         } else if($perfil_id == 3 && $unidade){
-            
-            $certificados = $this->get_certificados_by_unidade();   
+
+            $certificados = $this->get_certificados_by_unidade();
             $acoes = Acao::where('unidade_administrativa_id', $unidade)
-                         ->where('status', 'Aprovada');   
+                         ->where('status', 'Aprovada')->get();
         }
 
+        /*
         if(request('buscar_acao')){
             $certificados = Certificado::search_acao($certificados, request('buscar_acao'));
             $acoes = Acao::search_acao_by_name($acoes, request('buscar_acao'));
@@ -69,7 +70,7 @@ class RelatorioController extends Controller
         if(request('ano')){
             $certificados = Certificado::search_ano($certificados, request('ano'));
             $acoes = Acao::search_acao_by_ano($acoes, request('ano'));
-        }
+        } */
 
 
         $acoes->each(function($acao){
@@ -80,24 +81,24 @@ class RelatorioController extends Controller
             });
         });
 
-        
+
         $total = count($certificados);
 
-        return view('relatorios.list', compact('certificados', 'total', 'acoes')); 
+        return view('relatorios.list', compact('certificados', 'total', 'acoes'));
     }
 
     private function get_certificados_by_unidade(){
         $id_unidade = Auth::user()->unidade_administrativa_id;
 
         $unidade = UnidadeAdministrativa::find($id_unidade);
-        
+
         $certificados = collect();
-        
+
         $unidade->acaos->each(function($acao) use ($certificados){
             $certificados->push($acao->certificados);
         });
 
         return $certificados->collapse();
     }
-    
+
 }
