@@ -26,7 +26,7 @@
                     class="col-xl-7 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                     <span class="tittle-input ">Nome</span>
                     <input class="w-100 h-100 input-text " type="text" name="nome" id="nome"
-                        @if (isset($user)) value="{{ $user->name }}" readonly @endif minlength="10"
+                        @if (isset($user)) value="{{ $user->name }}" readonly @endif minlength="5"
                         required>
                 </div>
 
@@ -60,7 +60,7 @@
                         class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                         <span class="tittle-input">CPF</span>
                         <input class="w-100 h-100 input-text " type="text" name="cpf" id="cpf"
-                            placeholder="000.000.000-00" title="Digite um CPF válido (000.000.000-00)" value=""> 
+                            placeholder="000.000.000-00" title="Digite um CPF válido (000.000.000-00)" value="">
                     </div>
                 @endif
 
