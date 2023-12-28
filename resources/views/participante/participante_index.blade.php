@@ -104,15 +104,15 @@
                                 </a>
                             @endif
 
-                            @if($acao->status == null || $acao->status == "Devolvida")
-                                @if(Auth::user()->perfil_id == 3)
-                                    <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
-                                       target="_blank">
-                                        <img src="/images/acoes/listView/certificado.svg" alt=""
-                                             title="Pré-visualizar Certificado">
-                                    </a>
-                                @endif
+                            @if(Auth::user()->perfil_id == 3 && $acao->status == "Em análise" || Auth::user()->perfil_id == 3 && $acao->status == null)
+                                <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
+                                   target="_blank">
+                                    <img src="/images/acoes/listView/certificado.svg" alt=""
+                                         title="Pré-visualizar Certificado">
+                                </a>
+                            @endif
 
+                            @if($acao->status == null || $acao->status == "Devolvida")
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
