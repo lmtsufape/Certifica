@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\TipoAtividadeController;
+use App\Http\Controllers\ColaboradorAcaoController;
 
 
 
@@ -279,3 +280,4 @@ Route::get('/validacao', [CertificadoController::class, 'validar_certificado'])-
 Route::post('/validacao/checar', [CertificadoController::class, 'checar_certificado'])->name('validar_certificado.checar');
 
 Route::get('/validacao/{codigo_validacao}', [CertificadoController::class, 'checar_certificado_qr'])->name('validar_certificado.checar_qr');
+Route::get('/listar-colaboradores/{acaoId}', [ColaboradorAcaoController::class, 'listarColaboradores'])->name('listar.colaboradores');

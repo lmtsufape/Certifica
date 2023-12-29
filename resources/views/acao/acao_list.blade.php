@@ -23,8 +23,11 @@
                     </a>
                 @endif
             </span>
-        </div>
+        </div>  
         <div class="col-2 d-flex align-items-center justify-content-evenly">
+        <span><a href="{{ route('listar.colaboradores', ['acaoId' => $acao->id]) }}"><img 
+                                src="/images/acoes/listView/person-gear.svg" alt="Colaboradores"
+                                title="Colaboradores"></a></span>    
             <span><a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
                         src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar Ação"></a></span>
             <span><a href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"><img
