@@ -75,5 +75,6 @@ class Kernel extends HttpKernel
         'checkCoordenadorGestor' => CheckCoordenadorGestor::class,
         'checkParticipante' => CheckParticipante::class,
         'checkAdministradorGestor' => CheckAdministradorGestor::class,
+        'checkColaborador' => \App\Http\Middleware\CheckColaborador::class,
     ];
 }

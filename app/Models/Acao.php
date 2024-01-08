@@ -118,6 +118,10 @@ class Acao extends Model
     public static function search_acao_by_ano($acoes, $ano){
         return $acoes->where('updated_at.year', $ano);
     }
+    public function colaboradores()
+    {
+        return $this->hasMany(Colaborador::class);
+    }
 
     //cria um campo em cada atividade com o nome dos participantes
     public function get_participantes_name(){
