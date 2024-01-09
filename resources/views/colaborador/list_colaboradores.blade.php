@@ -127,13 +127,5 @@
         </div>
     </div>
 
-    
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
-
     <script src="/js/auth/cpf_passaporte.js"></script>
 @endsection
