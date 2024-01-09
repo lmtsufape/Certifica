@@ -11,10 +11,10 @@
 @section('content')
 
 @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="container">
     <h1 class="text-center mb-4">Colaboradores da Ação: {{ $acao->titulo }}</h1>
@@ -66,8 +66,8 @@
 
                 <div class="col-2 ">
                 <a href="{{ route('acao.remover_colaborador', ['acao' => $acao->id, 'colaborador' => $colaborador->id]) }}">
-                    <img src="/images/acoes/listView/lixoIcon.svg" alt="Remover" title="Remover Colaborador">
-                        
+                    <img src="/images/acoes/listView/lixoIcon.svg" alt="Remover" title="Remover Colaborador"></img>
+                    </a>
                 </div>
     @endforeach
 </div>
@@ -127,6 +127,12 @@
         </div>
     </div>
 
+    
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
 
     <script src="/js/auth/cpf_passaporte.js"></script>
