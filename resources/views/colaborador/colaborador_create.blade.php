@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Cadastrar Integrante
+    Cadastrar Colaborador
 @endsection
 
 @section('css')

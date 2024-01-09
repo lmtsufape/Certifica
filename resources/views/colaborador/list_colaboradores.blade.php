@@ -10,6 +10,12 @@
 
 @section('content')
 
+@if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
 <div class="container">
     <h1 class="text-center mb-4">Colaboradores da Ação: {{ $acao->titulo }}</h1>
     <div class="row d-flex align-items-center justify-content-between">
@@ -120,6 +126,8 @@
             </div>
         </div>
     </div>
+
+
 
     <script src="/js/auth/cpf_passaporte.js"></script>
 @endsection

@@ -16,7 +16,12 @@ class ColaboradorAcaoController extends Controller
     $cpf = $request->input('cpf');
     $passaporte = $request->input('passaporte');
     
+    
     $user = $cpf ? User::where('cpf', $cpf)->first() : User::where('passaporte', $passaporte)->first();
+    if (!$user) {
+        return redirect()->route('listar.colaboradores', ['acaoId' => $acao_id])
+            ->with('error', 'Usuário não encontrado. Por favor, verifique o CPF ou Passaporte.');
+    }
     return view('colaborador.colaborador_create', [
         'acao' => Acao::find($acao_id),
         'user' => $user,
