@@ -50,13 +50,12 @@
                             placeholder="000.000.000-00" title="Digite um CPF válido (000.000.000-00)" value="">
                     </div>
                 @endif
-        </div>
+            </div>
 
-        <div class="row d-flex justify-content-start align-items-center">
-                    <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                        <a class="button d-flex justify-content-center align-items-center cancel" href=""> Voltar</a>
-                        <button class="button submit" type="submit">Vincular</button>
-                    </div>
+            <div class="row d-flex justify-content-start align-items-center">
+                <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
+                    <a class="button d-flex justify-content-center align-items-center cancel" href=""> Voltar</a>
+                    <button class="button submit" type="submit">Vincular</button>
                 </div>
             </div>
         </form>
