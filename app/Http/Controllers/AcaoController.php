@@ -128,8 +128,12 @@ class AcaoController extends Controller
 
         $natureza = Natureza::find($request->natureza_id);
         $tipo_natureza = TipoNatureza::where('descricao',$request->tipo_natureza )->first();
-
-
+        if (!$tipo_natureza) {
+            $tipo_natureza = new TipoNatureza();
+            $tipo_natureza->descricao = $request->tipo_natureza;
+            $tipo_natureza->natureza_id = $request->natureza_id;
+            $tipo_natureza->save();
+        }
 
         $acao->titulo = $request->titulo;
         $acao->data_inicio = $request->data_inicio;
