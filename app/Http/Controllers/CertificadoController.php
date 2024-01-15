@@ -95,28 +95,32 @@ class CertificadoController extends Controller
         {
             $acao->status = 'Aprovada';
 
-            $participantes_user = $acao->participantes_user($acao);
+            $participantes_user = $acao->atividade_participantes_user($acao);
 
             $acao->update();
 
             if($participantes_user->isNotEmpty())
             {
-                $chunkedParticipantes = $participantes_user->chunk(99); // Divide em grupos de até 99 participantes
+                $participantes_user->each(function ($atividade_participantes) use ($acao){
 
-                foreach ($chunkedParticipantes as $chunk)
-                {
-                    Mail::bcc($chunk)->send(new CertificadoDisponivel([
-                        'acao' => $acao->titulo,
-                    ]));
-                }
+                    $chunkedParticipantes = $atividade_participantes['participantes']->chunk(99); // Divide em grupos de até 99 participantes
+
+                    foreach ($chunkedParticipantes as $chunk)
+                    {
+                        Mail::bcc($chunk)->send(new CertificadoDisponivel([
+                            'acao' => $acao->titulo, 'atividade' => $atividade_participantes['atividade']
+                        ]));
+                    }
+                });
+
             }
 
                 return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
-            }
-            else
-            {
-                return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
-            }
+        }
+        else
+        {
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
+        }
     }
 
 
@@ -168,12 +172,13 @@ class CertificadoController extends Controller
         $atividade->update();
 
         $participantes_user = $atividade->participantes_user($atividade);
+
         $chunkedParticipantes = $participantes_user->chunk(99);
 
         foreach ($chunkedParticipantes as $chunk)
         {
             Mail::bcc($chunk)->send(new CertificadoDisponivel([
-                'acao' => $atividade->acao->titulo,
+                'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao
             ]));
         }
 
@@ -226,10 +231,14 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
-                'acao' => $acao->titulo,
-            ]));
+            $atividades = $acao->atividades()->get();
+            foreach($atividades as $atividade)
+            {
 
+                Mail::to($atividade->participantes())->send(new CertificadoDisponivel([
+                    'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao,
+                ]));
+            }
             return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
 
 
