@@ -18,6 +18,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\TipoAtividadeController;
+use App\Http\Controllers\ColaboradorAcaoController;
 
 
 
@@ -264,6 +265,12 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::put('/tipoatividade/update/{tipoatividade_id}', [TipoAtividadeController::class, 'update'])->name('tipoatividade.update');
     Route::get('/tipoatividade/delete/{tipoatividade_id}', [TipoAtividadeController::class, 'destroy'])->name('tipoatividade.delete');
 
+    // Rotas Colaborador Gestor
+    Route::get('/listar-colaboradores/{acaoId}', [ColaboradorAcaoController::class, 'listarColaboradores'])->name('listar.colaboradores');
+    Route::get('/acao/{acao}/remover-colaborador/{colaborador}', 'ColaboradorAcaoController@removerColaborador')->name('acao.remover_colaborador');
+    Route::get('/colaborador/create/{acao_id}', [ColaboradorAcaoController::class, 'createColaborador'])
+    ->name('colaborador.create');
+
 });
 
 
@@ -279,3 +286,32 @@ Route::get('/validacao', [CertificadoController::class, 'validar_certificado'])-
 Route::post('/validacao/checar', [CertificadoController::class, 'checar_certificado'])->name('validar_certificado.checar');
 
 Route::get('/validacao/{codigo_validacao}', [CertificadoController::class, 'checar_certificado_qr'])->name('validar_certificado.checar_qr');
+Route::post('/colaborador/{acao_id}/{user_id}', [ColaboradorAcaoController::class, 'store'])
+    ->name('colaborador.store');
+
+
+Route::group(['middleware' => 'checkColaborador'], function () {
+        // Rotas Colaborador
+
+        Route::get('/listar-colaboracoes', [ColaboradorAcaoController::class, 'listarColaboracoesPorUsuario'])
+        ->name('listar.colaboracoes');        
+
+        //Rota Colaborador Atividade
+        Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade.index');
+        Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
+        Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
+        Route::get('atividade/{atividade_id}/edit', [AtividadeController::class, 'edit'])->name('atividade.edit');
+        Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade.update');
+        Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
+
+        //Rota Colaborador Participantes 
+        Route::get('/participante/index/{atividade_id}/{solicitacao?}', [ParticipanteController::class, 'index'])->name('participante.index');
+        Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
+        Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante.store');
+        Route::get('/participante/edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
+        Route::post('/participante/update', [ParticipanteController::class, 'update'])->name('participante.update');
+        Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
+
+        
+ });
+    
