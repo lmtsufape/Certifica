@@ -74,9 +74,16 @@ class RequisicaoController extends Controller
                          'nome' => $participanteJSON['nome'],
                          'carga_horaria' => $participanteJSON['carga_horaria'],
                          'instituicao' => $participanteJSON['instituicao'],
-                         'instituicao_id' => $participanteJSON['instituicao_id'],
                          'passaporte' => $participanteJSON['passaporte'],
-                         'json_cursos_ids' => $jsonCursosIds
+                         'json_cursos_ids' => $jsonCursosIds,
+                         'tipo' => $atividadeJSON['descricao'],
+                         'disciplina'=> $participanteJSON['disciplina'],
+						 'orientador'=> $participanteJSON['orientador'],
+						 'periodo_letivo'=> $participanteJSON['periodo_letivo'],
+						 'area'=> $participanteJSON['area'],
+						 'local_realizado'=> $participanteJSON['local_realizado'],
+						 'titulo_projeto'=> $participanteJSON['titulo_projeto']
+
 
 
                      ]));

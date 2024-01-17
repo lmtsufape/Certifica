@@ -49,12 +49,12 @@
 
                                 <br> <br>
 
-                                Seu certificado referente a ação institucional <b>{{$acao}}</b> já está disponível.
+                                Seu certificado referente a ação institucional <b>{{$acao}}</b>, atividade <b>{{$atividade}}</b>, já está disponível.
                                 Clique no botão abaixo para acessar os seus certificados:
 
                                 <br> <br>
 
-                                *Obs:* Caso ainda não possua cadastro na plataforma, lembramos que você recebeu anteriormente
+                                Obs: Caso ainda não possua cadastro na plataforma, lembramos que você recebeu anteriormente
                                 um e-mail com os dados de acesso provisório a plataforma por qual do qual finalizará o seu cadastro.
                             </p>
                         </td>

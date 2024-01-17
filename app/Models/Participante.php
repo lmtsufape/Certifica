@@ -17,7 +17,9 @@ class Participante extends Model
         'atividade_id',
         'user_id',
         'coautor_trabalhos_id',
-        'autor_trabalhos_id'
+        'autor_trabalhos_id',
+        'info_externa_participante_id'
+
     ];
 
     public static $rules = [
@@ -55,9 +57,13 @@ class Participante extends Model
         return $this->belongsTo(Trabalho::class, 'autor_trabalhos_id');
     }
 
-    // Relacionamento com coautor_trabalhos_id
     public function coautorDoTrabalho() {
         return $this->belongsTo(Trabalho::class, 'coautor_trabalhos_id');
+    }
+
+    public function infoExterna()
+    {
+        return $this->hasOne(InfoExternaParticipante::class);
     }
 
 

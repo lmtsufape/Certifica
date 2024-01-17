@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class CertificadoModeloController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource.bv
      *
      * @return \Illuminate\Http\Response
      */
@@ -107,7 +107,8 @@ class CertificadoModeloController extends Controller
         $verso = Storage::url($modelo->verso);
 
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'];
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho', 'Monitoria', 'Tutoria', 'Bolsas de Icentivo Acadêmico',
+            'Programa de Atividades de Vivência Interdisciplinar'];
 
         return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_certificado'));
     }
@@ -197,7 +198,8 @@ class CertificadoModeloController extends Controller
     public function create_tipo_certificado()
     {
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'];
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho', 'Monitoria', 'Tutoria', 'Bolsas de Icentivo Acadêmico',
+            'Programa de Atividades de Vivência Interdisciplinar'];
 
         $tipoAtividade = TipoAtividade::all();
 

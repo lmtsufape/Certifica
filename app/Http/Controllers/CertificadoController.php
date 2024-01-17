@@ -10,6 +10,8 @@ use App\Models\Certificado;
 use App\Http\Requests\StoreCertificadoRequest;
 use App\Http\Requests\UpdateCertificadoRequest;
 use App\Models\CertificadoModelo;
+use App\Models\Curso;
+use App\Models\InfoExternaParticipante;
 use App\Models\Natureza;
 use App\Models\Participante;
 use App\Models\TipoNatureza;
@@ -93,28 +95,32 @@ class CertificadoController extends Controller
         {
             $acao->status = 'Aprovada';
 
-            $participantes_user = $acao->participantes_user($acao);
+            $participantes_user = $acao->atividade_participantes_user($acao);
 
             $acao->update();
 
             if($participantes_user->isNotEmpty())
             {
-                $chunkedParticipantes = $participantes_user->chunk(99); // Divide em grupos de até 99 participantes
+                $participantes_user->each(function ($atividade_participantes) use ($acao){
 
-                foreach ($chunkedParticipantes as $chunk)
-                {
-                    Mail::bcc($chunk)->send(new CertificadoDisponivel([
-                        'acao' => $acao->titulo,
-                    ]));
-                }
+                    $chunkedParticipantes = $atividade_participantes['participantes']->chunk(99); // Divide em grupos de até 99 participantes
+
+                    foreach ($chunkedParticipantes as $chunk)
+                    {
+                        Mail::bcc($chunk)->send(new CertificadoDisponivel([
+                            'acao' => $acao->titulo, 'atividade' => $atividade_participantes['atividade']
+                        ]));
+                    }
+                });
+
             }
 
                 return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
-            }
-            else
-            {
-                return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
-            }
+        }
+        else
+        {
+            return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação aprovada!']);
+        }
     }
 
 
@@ -166,12 +172,13 @@ class CertificadoController extends Controller
         $atividade->update();
 
         $participantes_user = $atividade->participantes_user($atividade);
+
         $chunkedParticipantes = $participantes_user->chunk(99);
 
         foreach ($chunkedParticipantes as $chunk)
         {
             Mail::bcc($chunk)->send(new CertificadoDisponivel([
-                'acao' => $atividade->acao->titulo,
+                'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao
             ]));
         }
 
@@ -224,10 +231,14 @@ class CertificadoController extends Controller
 
             $acao->update();
 
-            Mail::to($acao->participantes())->send(new CertificadoDisponivel([
-                'acao' => $acao->titulo,
-            ]));
+            $atividades = $acao->atividades()->get();
+            foreach($atividades as $atividade)
+            {
 
+                Mail::to($atividade->participantes())->send(new CertificadoDisponivel([
+                    'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao,
+                ]));
+            }
             return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
 
 
@@ -243,6 +254,11 @@ class CertificadoController extends Controller
         $coautorTrabalhoId = $participante->coautor_trabalhos_id;
 
         $trabalho = Trabalho::whereIn('id', [$autorTrabalhoId, $coautorTrabalhoId])->first();
+
+        $info_extra_participante = $participante->info_externa_participante_id;
+        if($info_extra_participante){
+            $info_extra_participante = InfoExternaParticipante::findOrFail($info_extra_participante);
+        }
 
 
         $atividade = Atividade::findOrFail($participante->atividade_id);
@@ -265,7 +281,7 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho,$info_extra_participante);
 
         $imagem = Storage::url($modelo->fundo);
 
@@ -461,7 +477,7 @@ class CertificadoController extends Controller
         }
     }
 
-    public static function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho){
+    public static function convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho, $info_extra_participante){
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
 
@@ -469,17 +485,32 @@ class CertificadoController extends Controller
         $replace = '<b>$0</b>';
 
         $modelo->texto = preg_replace($pattern, $replace, $modelo->texto);
+        $user = $participante->user;
+        $curso = json_decode($user->json_cursos_ids) ;
+        if($curso){
+            $curso =  (int) reset($curso);
+            $curso = Curso::find($curso);
+            $curso = $curso->nome;
+        }
+
 
         if($trabalho){
             $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*',
-                '%titulo_trabalho%', '%autores_trabalho%', '%coautores_trabalho%' );
-            $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $trabalho->titulo, $trabalho->nomesAutoresComoTexto(), $trabalho->nomesCoautoresComoTexto());
+                '%titulo_trabalho%', '%autores_trabalho%', '%coautores_trabalho%', '%curso%' );
+            $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim, $participante->carga_horaria,
+                $natureza->descricao, $tipo_natureza->descricao, '', $trabalho->titulo, $trabalho->nomesAutoresComoTexto(), $trabalho->nomesCoautoresComoTexto(), $curso);
 
-        } else{
-            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*');
+        } elseif ($info_extra_participante){
+            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%',
+                '%orientador%', '%periodo_letivo%', '%disciplina%', '%area%', '%titulo_projeto%', '%local_realizado%');
             $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '');
+                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso, $info_extra_participante->orientador, $info_extra_participante->periodo_letivo,
+                $info_extra_participante->disciplina, $info_extra_participante->area, $info_extra_participante->titulo_projeto, $info_extra_participante->local_realizado);
+        }
+        else{
+            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%');
+            $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
+                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso);
 
         }
 
@@ -500,6 +531,10 @@ class CertificadoController extends Controller
 
         $trabalho = Trabalho::whereIn('id', [$autorTrabalhoId, $coautorTrabalhoId])->first();
 
+        $info_extra_participante = $participante->info_externa_participante_id;
+        if($info_extra_participante){
+            $info_extra_participante = InfoExternaParticipante::findOrFail($info_extra_participante);
+        }
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
@@ -524,7 +559,7 @@ class CertificadoController extends Controller
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho, $info_extra_participante);
 
         $imagem = Storage::url($modelo->fundo);
 

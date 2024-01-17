@@ -25,6 +25,14 @@
                     <li><b>Título do trabalho</b> = %titulo_trabalho%</li>
                     <li><b>Autores do trabalho</b> = %autores_trabalho%</li>
                     <li><b>Coautores do trabalho</b> = %coautores_trabalho%</li>
+                    <li><b>Curso cadastrado do participante</b> = %curso%</li>
+
+                    <li><b>Orientador da atividade</b> = %orientador%</li>
+                    <li><b>Disciplina associada a atividade</b> = %disciplina%</li>
+                    <li><b>Periodo letivo realizado</b> = %periodo_letivo%</li>
+                    <li><b>Area de atuação</b> = %area%</li>
+                    <li><b>Local realizado a atividade</b> = %local_realizado%</li>
+                    <li><b>Titulo do projeto ligado a atividade</b> = %titulo_projeto%</li>
                 </ul>
             </div>
         </div>

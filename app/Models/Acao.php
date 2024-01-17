@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -68,6 +69,7 @@ class Acao extends Model
         return $participantes;
     }
 
+
     public function participantes_user($acao){
         $participantes = collect();
 
@@ -84,6 +86,26 @@ class Acao extends Model
 
         return $participantes;
     }
+    public function atividade_participantes_user($acao)
+    {
+        $atividade_partipantes = collect();
+
+        $this->atividades->each(function ($atividade) use ($atividade_partipantes) {
+            if ($atividade->emissao_parcial !== true) {
+                $participantes = $atividade->participantes->pluck('user');
+
+                $atividade_partipantes->add([
+                    'participantes' => $participantes,
+                    'atividade' => $atividade->descricao,
+                ]);
+            }
+        });
+
+        return $atividade_partipantes;
+    }
+
+
+
 
     public function certificados(){
         return $this->throughAtividades()->hasCertificados();

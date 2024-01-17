@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Curso;
+use App\Models\InfoExternaParticipante;
 use App\Models\Instituicao;
 use App\Models\Participante;
 use App\Models\Trabalho;
@@ -244,7 +245,7 @@ class ParticipanteController extends Controller
             $instituicao = Instituicao::where('nome', $attributes['instituicao'])->first();
 
             $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras";
-
+            $attributes['instituicao_id'] = $instituicao? $instituicao->id : 2;
 
         try {
             ParticipanteValidator::validate($attributes);
@@ -270,6 +271,20 @@ class ParticipanteController extends Controller
             }
         }
 
+        $info_extra = [
+            'tipo' => $attributes['tipo'],
+            'disciplina'=> $attributes['disciplina'],
+            'orientador'=> $attributes['orientador'],
+            'periodo_letivo'=> $attributes['periodo_letivo'],
+            'area'=> $attributes['area'],
+            'local_realizado'=> $attributes['local_realizado'],
+            'titulo_projeto'=> $attributes['titulo_projeto']
+        ];
+        $info_extra = InfoExternaParticipante::create($info_extra);
+        $info_extra->save();
+
+
+
         try{
 
             $user = $this->createUser($attributes);
@@ -280,6 +295,8 @@ class ParticipanteController extends Controller
         }
 
         $attributes['user_id'] = $user->id;
+        $attributes['info_externa_participante_id'] = $info_extra->id;
+
         $participante = Participante::create($attributes);
 
         return response(['participante' => $participante]);;

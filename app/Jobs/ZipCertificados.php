@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Models\InfoExternaParticipante;
+use App\Models\Trabalho;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -89,6 +91,16 @@ class ZipCertificados implements ShouldQueue
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
 
+        $autorTrabalhoId = $participante->autor_trabalhos_id;
+        $coautorTrabalhoId = $participante->coautor_trabalhos_id;
+
+        $trabalho = Trabalho::whereIn('id', [$autorTrabalhoId, $coautorTrabalhoId])->first();
+
+        $info_extra_participante = $participante->info_externa_participante_id;
+        if($info_extra_participante){
+            $info_extra_participante = InfoExternaParticipante::findOrFail($info_extra_participante);
+        }
+
         $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
 
         $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
@@ -97,7 +109,7 @@ class ZipCertificados implements ShouldQueue
 
         $atividade->descricao = Str::lower($atividade->descricao);
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $this->acao, $atividade, $natureza, $tipo_natureza);
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $this->acao, $atividade, $natureza, $tipo_natureza,$trabalho,$info_extra_participante );
 
         $imagem = Storage::url($modelo->fundo);
 
