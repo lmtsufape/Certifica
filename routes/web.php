@@ -178,6 +178,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade.update');
 
     Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
+    
 
 
     //Rotas Participante Coordenador e Gestor
@@ -295,8 +296,12 @@ Route::group(['middleware' => 'checkColaborador'], function () {
 
         Route::get('/listar-colaboracoes', [ColaboradorAcaoController::class, 'listarColaboracoesPorUsuario'])
         ->name('listar.colaboracoes');        
+        
+ });
 
-        //Rota Colaborador Atividade
+ Route::group(['middleware' => 'checkGestorColaborador'], function () {
+
+    //Rota Colaborador Atividade
         Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade.index');
         Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
         Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
@@ -311,7 +316,4 @@ Route::group(['middleware' => 'checkColaborador'], function () {
         Route::get('/participante/edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
         Route::post('/participante/update', [ParticipanteController::class, 'update'])->name('participante.update');
         Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
-
-        
  });
-    

@@ -2,11 +2,12 @@
 
 namespace App\Http\Middleware;
 
+
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Colaborador; 
+use App\Models\Colaborador;
 
-class CheckColaborador
+class CheckGestorColaborador
 {
     /**
      * Handle an incoming request.
@@ -17,16 +18,14 @@ class CheckColaborador
      */
     public function handle(Request $request, Closure $next)
     {
-        // Verifique se o usuário está associado a algum registro na tabela colaboradores
+
         $colaborador = Colaborador::where('user_id', $request->user()->id)->first();
 
-        if ($colaborador) {
-            
+        if ($colaborador || $request->user()->perfil_id == 3) {
             return $next($request);
         }
 
-        return redirect('/home')->with('error', 'Acesso não autorizado para colaboradores.');
+        return redirect('/home')->with('error', 'Acesso não autorizado para gestores e colaboradores.');
     }
-
-    
 }
+
