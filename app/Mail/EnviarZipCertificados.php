@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Attachment;
 
 
-class EnviarZipCertificados extends Mailable
+class EnviarZipCertificados extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

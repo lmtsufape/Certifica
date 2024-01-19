@@ -274,7 +274,7 @@ class AcaoController extends Controller
                 'acao_id' => $acao->id,
             ]));
 
-            Mail::to(Auth::user()->email)->send(new AcaoSubmetidaCoordenador([
+            Mail::to(Auth::user()->email)->queue(new AcaoSubmetidaCoordenador([
                 'acao' => $acao->titulo,
                 'acao_id' => $acao->id,
             ]));
@@ -337,7 +337,7 @@ class AcaoController extends Controller
 
 
         //enviar email para o coordenador
-        Mail::to($acao->user->email, $acao->user->name)->send(new AnalisarAcao([
+        Mail::to($acao->user->email, $acao->user->name)->queue(new AnalisarAcao([
             'acao' => $acao->titulo,
             'status' => $acao->status,
             'id' => $acao->id,
@@ -351,7 +351,7 @@ class AcaoController extends Controller
 
             foreach ($chunkedParticipantes as $chunk)
             {
-                Mail::bcc($chunk)->send(new CertificadoDisponivel([
+                Mail::bcc($chunk)->queue(new CertificadoDisponivel([
                     'acao' => $acao->titulo,
                 ]));
             }
@@ -445,7 +445,7 @@ class AcaoController extends Controller
 
         foreach ($chunkedParticipantes as $chunk)
         {
-            Mail::bcc($chunk)->send(new LembreteCertificadoDisponivel([
+            Mail::bcc($chunk)->queue(new LembreteCertificadoDisponivel([
                 'acao' => $acao->titulo,
             ]));
         }
