@@ -107,7 +107,7 @@ class CertificadoController extends Controller
 
                     foreach ($chunkedParticipantes as $chunk)
                     {
-                        Mail::bcc($chunk)->send(new CertificadoDisponivel([
+                        Mail::bcc($chunk)->queue(new CertificadoDisponivel([
                             'acao' => $acao->titulo, 'atividade' => $atividade_participantes['atividade']
                         ]));
                     }
@@ -177,7 +177,7 @@ class CertificadoController extends Controller
 
         foreach ($chunkedParticipantes as $chunk)
         {
-            Mail::bcc($chunk)->send(new CertificadoDisponivel([
+            Mail::bcc($chunk)->queue(new CertificadoDisponivel([
                 'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao
             ]));
         }
@@ -235,7 +235,7 @@ class CertificadoController extends Controller
             foreach($atividades as $atividade)
             {
 
-                Mail::to($atividade->participantes())->send(new CertificadoDisponivel([
+                Mail::to($atividade->participantes())->queue(new CertificadoDisponivel([
                     'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao,
                 ]));
             }

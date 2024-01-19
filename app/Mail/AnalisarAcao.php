@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AnalisarAcao extends Mailable
+class AnalisarAcao extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
