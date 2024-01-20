@@ -16,7 +16,7 @@
             <strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>
         </div>
 
-        <!-- <form action="" id="form" class="container">
+     <form action="" id="form" class="container">
             @csrf
             <div>
                 <div class="col-1">
@@ -27,7 +27,7 @@
                     </a>
                 </div>
 
-                <!-- <div class="row head-table search-box d-flex align-items-center justify-content-center">
+               <div class="row head-table search-box d-flex align-items-center justify-content-center">
                     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                         <span>Nome da Ação</span>
                         <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
@@ -66,7 +66,7 @@
 
                 </div>
             </div>
-        </form> -->
+        </form>
 
 
 
@@ -103,7 +103,7 @@
     </section>
 @endsection
 
-<!--
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
 
@@ -126,13 +126,14 @@
 
     function filtro() {
         var dados = $('#form').serialize();
-
+        console.log(dados);
         $.ajax({
             url: "{{ route('relatorios.filtro') }}",
             method: "GET",
             data: dados
         }).done(function(data) {
+            console.log(data);
             $(".list").html(data);
         });
     }
-</script> -->
+</script>

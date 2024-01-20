@@ -115,7 +115,7 @@ class Acao extends Model
 
     //######################### FILTROS ############################//
     public static function search_acao_by_name($acoes, $nome_acao){
-        return $acoes->where('titulo', 'ilike', '%'.$nome_acao.'%');
+        return Acao::where('titulo', 'ilike', '%'.$nome_acao.'%')->get();
     }
 
     public static function search_acao_by_status($acoes, $status){

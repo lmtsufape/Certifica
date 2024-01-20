@@ -69,15 +69,14 @@ class RelatorioController extends Controller
             $certificados = $this->get_certificados_by_unidade();
             $acoes = Acao::where('unidade_administrativa_id', $unidade)
                          ->where('status', 'Aprovada')->get();
+
         }
 
-        /*
         if(request('buscar_acao')){
             $certificados = Certificado::search_acao($certificados, request('buscar_acao'));
             $acoes = Acao::search_acao_by_name($acoes, request('buscar_acao'));
-        }
 
-        $acoes = $acoes->get();
+        }
 
         if(request('natureza')){
             $certificados = Certificado::search_natureza($certificados, request('natureza'));
@@ -89,14 +88,14 @@ class RelatorioController extends Controller
             $acoes = Acao::search_acao_by_tipo_natureza($acoes, request('tipo_natureza'));
         }
 
-        if(request('atividade')){
-            $certificados = Certificado::search_atividade($certificados, request('atividade'));
-        }
+//        if(request('atividade')){
+//            $certificados = Certificado::search_atividade($certificados, request('atividade'));
+//        }
 
         if(request('ano')){
             $certificados = Certificado::search_ano($certificados, request('ano'));
             $acoes = Acao::search_acao_by_ano($acoes, request('ano'));
-        } */
+        }
 
 
         $acoes->each(function($acao){
