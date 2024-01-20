@@ -10,7 +10,7 @@
 
         <div class="container">
             <div class="row d-flex align-items-center justify-content-between">
-            
+
                 <div class="col-1">
                     <a type="button" class="button d-flex align-items-center justify-content-around between"
                         href="{{ route('home') }}">
@@ -107,6 +107,7 @@
             method: "GET",
             data: dados
         }).done(function(data) {
+
             $(".list").html(data);
         });
     }
