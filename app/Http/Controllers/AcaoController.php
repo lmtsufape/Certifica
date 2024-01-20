@@ -409,7 +409,7 @@ class AcaoController extends Controller
 
     public function filtro()
     {
-        $acoes = Auth::user()->acoes();
+        $acoes = Auth::user()->acoes()->get();
 
 
         if (request('buscar_acao')) {
@@ -421,11 +421,11 @@ class AcaoController extends Controller
         }
 
 
-        if (request('data')) {
-            $acoes = Acao::search_acao_by_data($acoes, request('data'));
-        }
+//        if (request('data')) {
+//            $acoes = Acao::search_acao_by_data($acoes, request('data'));
+//        }
 
-        $acoes = $acoes->get();
+
 
         if (request('natureza')) {
             $acoes = Acao::search_acao_by_natureza($acoes, request('natureza'));

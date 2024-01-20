@@ -16,6 +16,8 @@
             <strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>
         </div>
 
+
+
      <form action="" id="form" class="container">
             @csrf
             <div>
@@ -126,13 +128,13 @@
 
     function filtro() {
         var dados = $('#form').serialize();
-        console.log(dados);
+
         $.ajax({
             url: "{{ route('relatorios.filtro') }}",
             method: "GET",
             data: dados
         }).done(function(data) {
-            console.log(data);
+
             $(".list").html(data);
         });
     }
