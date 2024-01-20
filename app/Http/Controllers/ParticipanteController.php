@@ -25,8 +25,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\UsuarioNaoCadastrado;
 use App\Rules\Cpf;
 use Illuminate\Support\Facades\Validator;
-
-
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
 
 
 class ParticipanteController extends Controller
@@ -470,15 +469,19 @@ class ParticipanteController extends Controller
     public function import_participantes($atividade_id, Request $request){
         $atividade = Atividade::find($atividade_id);
 
-        $file = fopen($request->participantes_csv, "r");
+        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($request->participantes_xlsx);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load($request->participantes_xlsx);
+        $worksheet = $spreadsheet->getActiveSheet();
 
-        fgetcsv($file); //ler o cabeçalho
+        $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 
         $participantes = [];
 
-        while($row = fgetcsv($file)){
+        for ($row = 2; $row <= $highestRow; ++$row) {
             //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
-            $cpf = Mask::mask($row[1], "###.###.###-##");
+            $cpf = Mask::mask($worksheet->getCell([2, $row])->getValue(), "###.###.###-##");
             $user = User::where('cpf', '=', $cpf)->first();
 
             $confirm = True;
@@ -488,10 +491,10 @@ class ParticipanteController extends Controller
                 try{
 
                     $attributes = [
-                        'nome' => $row[0],
+                        'nome' => $worksheet->getCell([1, $row])->getValue(),
                         'cpf'  => $cpf,
                         'passaporte' => NULL,
-                        'email' => $row[2],
+                        'email' => $worksheet->getCell([3, $row])->getValue(),
                         'perfil_id' => 4,
                         'instituicao' => 'outra',
                         'instituicao_id' => 2,
@@ -502,7 +505,7 @@ class ParticipanteController extends Controller
                 } catch (\Throwable $th) {
                     $confirm = False;
 
-                    $message = $row[0]." (".$th->getMessage().")";
+                    $message = $worksheet->getCell([1, $row])->getValue()." (".$th->getMessage().")";
 
                     array_push($participantes, $message);
                 }
@@ -512,7 +515,7 @@ class ParticipanteController extends Controller
             if($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
             {
                 $participante = new Participante();
-                $participante->carga_horaria = $row[3];
+                $participante->carga_horaria = $worksheet->getCell([4, $row])->getValue();
                 $participante->atividade_id = $atividade_id;
                 $participante->user_id = $user->id;
 
@@ -521,7 +524,7 @@ class ParticipanteController extends Controller
 
         }
 
-        fclose($file);
+
 
         $mensagem = "Participantes adicionados!";
 
@@ -535,31 +538,43 @@ class ParticipanteController extends Controller
         return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
     }
 
+    /**
+     * @throws Exception
+     */
     public function import_trabalhos($atividade_id, Request $request){
         $atividade = Atividade::find($atividade_id);
 
+        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($request->trabalhos_xlsx);
 
-        $file = fopen($request->trabalhos_csv, "r");
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $reader->setReadDataOnly(true);
 
-        fgetcsv($file); //ler o cabeçalho
+        $spreadsheet = $reader->load($request->trabalhos_xlsx);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+
+
+        $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 
         $participantes = [];
 
-        while($row = fgetcsv($file)){
+        for ($row = 2; $row <= $highestRow; ++$row) {
 
             //$row[0] => Titulo Trabalho | $row[1] = Carga Horaria Trabalho | $row[2] = Autor | $row[3] = NOME | $row[4] = E-MAIL | $row[5] = cpf
             $trabalho = new Trabalho();
-            $trabalho->titulo = $row[0];
-            $trabalho->carga_horaria = $row[1];
+            $trabalho->titulo = $worksheet->getCell([1, $row])->getValue();
+            $trabalho->carga_horaria = $worksheet->getCell([2, $row])->getValue();
             $trabalho->atividade_id = $atividade_id;
 
             $trabalho->save();
 
-            $i = 2;
-            if(isset($row[$i]) && (strtoupper($row[$i]) === "AUTOR"|| strtoupper($row[$i]) === "COAUTOR")){
+            $cell = 3;
+            if($worksheet->getCell([$cell, $row])->getValue() !== null && (strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR"||
+                    strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "COAUTOR")){
             do{
 
-                $cpf = Mask::mask($row[$i+3], "###.###.###-##");
+                $cpf = Mask::mask($worksheet->getCell([$cell + 3, $row])->getValue(), "###.###.###-##");
                 $user = User::where('cpf', '=', $cpf)->first();
 
                 $confirm = True;
@@ -569,10 +584,10 @@ class ParticipanteController extends Controller
                     try{
 
                         $attributes = [
-                            'nome' => $row[$i+1],
+                            'nome' => $worksheet->getCell([$cell+1, $row])->getValue(),
                             'cpf'  => $cpf,
                             'passaporte' => NULL,
-                            'email' => $row[$i+2],
+                            'email' => $worksheet->getCell([$cell+2, $row])->getValue(),
                             'perfil_id' => 4,
                             'instituicao' => 'Outra',
                             'instituicao_id' => 2,
@@ -583,7 +598,7 @@ class ParticipanteController extends Controller
                     } catch (\Throwable $th) {
                         $confirm = False;
 
-                        $message = $row[$i+1]." (".$th->getMessage().")";
+                        $message = $worksheet->getCell([$cell+1, $row])->getValue()." (".$th->getMessage().")";
 
                         array_push($participantes, $message);
                     }
@@ -594,14 +609,14 @@ class ParticipanteController extends Controller
                     (
                         !$user->participacoes()->where('autor_trabalhos_id', '=', $trabalho->id)->first() ||
                         !$user->participacoes()->where('coautor_trabalhos_id', '=', $trabalho->id)->first()
-                    ))
+                    ) && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
                 {
                     $participante = new Participante();
-                    $participante->carga_horaria = $row[1];
+                    $participante->carga_horaria = $worksheet->getCell([2, $row])->getValue();
                     $participante->atividade_id = $atividade_id;
                     $participante->user_id = $user->id;
 
-                    if(strtoupper($row[$i]) === "AUTOR"){
+                    if(strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR"){
                         $participante->autor_trabalhos_id = $trabalho->id;
                     }else{
                         $participante->coautor_trabalhos_id = $trabalho->id;
@@ -610,13 +625,14 @@ class ParticipanteController extends Controller
                     $participante->save();
                 }
 
-                $i = $i + 4;
+                $cell = $cell + 4;
 
-            }while(isset($row[$i]) && (strtoupper($row[$i]) === "AUTOR" || strtoupper($row[$i]) === "COAUTOR"));
+            }while($worksheet->getCell([$cell, $row])->getValue() !== null && (strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR" ||
+                strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "COAUTOR"));
         }
         }
 
-        fclose($file);
+
 
         $mensagem = "Trabalhos e autores adicionados!";
 
