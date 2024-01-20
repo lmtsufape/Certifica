@@ -83,7 +83,7 @@
 
                             @if ($acao->status == null || $acao->status == 'Devolvida')
                                 @if(!($atividade->descricao === 'Apresentação de Trabalho'))
-                                    <a href="/files/modelo.csv" title="Baixar Modelo">
+                                    <a href="/files/modelo.xlsx" title="Baixar Modelo">
                                         <img src="/images/acoes/listView/anexo.svg">
                                     </a>
 
@@ -93,7 +93,7 @@
                                     </a>
 
                                 @else
-                                    <a href="/files/modelo_trabalho.csv" title="Baixar Modelo Trabalho">
+                                    <a href="/files/modelo_trabalho.xlsx" title="Baixar Modelo Trabalho">
                                         <img src="/images/acoes/listView/anexo.svg">
                                     </a>
 
@@ -138,7 +138,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Integrantes
+                                <h5 class="modal-title" id="modalImportCsvLabel">Importar XLSX com os Dados dos Integrantes
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -153,8 +153,8 @@
                                         @csrf
                                         <div class="row align-items-start">
                                             <div>
-                                                <input type="file" accept=".csv" name="participantes_csv"
-                                                    id="participantes_csv" class="form-control form-control-sm"
+                                                <input type="file" accept=".xlsx" name="participantes_xlsx"
+                                                    id="participantes_xlsx" class="form-control form-control-sm"
                                                     style="margin-top:5%" required>
                                             </div>
                                         </div>
@@ -179,7 +179,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalImportCsvLabel">Importar CSV com os Dados dos Trabalhos e Autores
+                                <h5 class="modal-title" id="modalImportCsvLabel">Importar XLSX com os Dados dos Trabalhos e Autores
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -194,8 +194,8 @@
                                         @csrf
                                         <div class="row align-items-start">
                                             <div>
-                                                <input type="file" accept=".csv" name="trabalhos_csv"
-                                                       id="trabalhos_csv" class="form-control form-control-sm"
+                                                <input type="file" accept=".xlsx" name="trabalhos_xlsx"
+                                                       id="trabalhos_xlsx" class="form-control form-control-sm"
                                                        style="margin-top:5%" required>
                                             </div>
                                         </div>

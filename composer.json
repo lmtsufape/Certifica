@@ -18,6 +18,7 @@
         "livewire/livewire": "^2.5",
         "mpdf/mpdf": "^6.1",
         "nesbot/carbon": "^2.66",
+        "phpoffice/phpspreadsheet": "^1.29",
         "simplesoftwareio/simple-qrcode": "^4.2"
     },
     "require-dev": {
