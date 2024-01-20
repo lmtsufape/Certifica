@@ -469,15 +469,19 @@ class ParticipanteController extends Controller
     public function import_participantes($atividade_id, Request $request){
         $atividade = Atividade::find($atividade_id);
 
-        $file = fopen($request->participantes_xlsx, "r");
+        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($request->participantes_xlsx);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load($request->participantes_xlsx);
+        $worksheet = $spreadsheet->getActiveSheet();
 
-        fgetcsv($file); //ler o cabeçalho
+        $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 
         $participantes = [];
 
-        while($row = fgetcsv($file)){
+        for ($row = 2; $row <= $highestRow; ++$row) {
             //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
-            $cpf = Mask::mask($row[1], "###.###.###-##");
+            $cpf = Mask::mask($worksheet->getCell([2, $row])->getValue(), "###.###.###-##");
             $user = User::where('cpf', '=', $cpf)->first();
 
             $confirm = True;
@@ -487,10 +491,10 @@ class ParticipanteController extends Controller
                 try{
 
                     $attributes = [
-                        'nome' => $row[0],
+                        'nome' => $worksheet->getCell([1, $row])->getValue(),
                         'cpf'  => $cpf,
                         'passaporte' => NULL,
-                        'email' => $row[2],
+                        'email' => $worksheet->getCell([3, $row])->getValue(),
                         'perfil_id' => 4,
                         'instituicao' => 'outra',
                         'instituicao_id' => 2,
@@ -501,7 +505,7 @@ class ParticipanteController extends Controller
                 } catch (\Throwable $th) {
                     $confirm = False;
 
-                    $message = $row[0]." (".$th->getMessage().")";
+                    $message = $worksheet->getCell([1, $row])->getValue()." (".$th->getMessage().")";
 
                     array_push($participantes, $message);
                 }
@@ -511,7 +515,7 @@ class ParticipanteController extends Controller
             if($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
             {
                 $participante = new Participante();
-                $participante->carga_horaria = $row[3];
+                $participante->carga_horaria = $worksheet->getCell([4, $row])->getValue();
                 $participante->atividade_id = $atividade_id;
                 $participante->user_id = $user->id;
 
@@ -520,7 +524,7 @@ class ParticipanteController extends Controller
 
         }
 
-        fclose($file);
+
 
         $mensagem = "Participantes adicionados!";
 
@@ -540,12 +544,11 @@ class ParticipanteController extends Controller
     public function import_trabalhos($atividade_id, Request $request){
         $atividade = Atividade::find($atividade_id);
 
-        /**  Identify the type of $inputFileName  **/
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($request->trabalhos_xlsx);
-        /**  Create a new Reader of the type that has been identified  **/
+
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
         $reader->setReadDataOnly(true);
-        /**  Load $inputFileName to a Spreadsheet Object  **/
+
         $spreadsheet = $reader->load($request->trabalhos_xlsx);
 
         $worksheet = $spreadsheet->getActiveSheet();
@@ -553,18 +556,6 @@ class ParticipanteController extends Controller
 
 
         $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
-        $highestColumn = $worksheet->getHighestDataColumn(); // e.g 'F'
-        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
-
-
-
-
-//            for ($col = 1; $col <= $highestColumnIndex; ++$col) {
-//                $value = $worksheet->getCell([$col, $row])->getValue();
-//
-//            }
-
-
 
         $participantes = [];
 
@@ -618,7 +609,7 @@ class ParticipanteController extends Controller
                     (
                         !$user->participacoes()->where('autor_trabalhos_id', '=', $trabalho->id)->first() ||
                         !$user->participacoes()->where('coautor_trabalhos_id', '=', $trabalho->id)->first()
-                    ))
+                    ) && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
                 {
                     $participante = new Participante();
                     $participante->carga_horaria = $worksheet->getCell([2, $row])->getValue();
