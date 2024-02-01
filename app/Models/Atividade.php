@@ -87,4 +87,23 @@ class Atividade extends Model
 
     }
 
+    //######################### FILTROS ############################//
+    public static function search_atividade_by_descricao($atividades, $descricao){
+
+        info($atividades);
+
+        return $atividades::where('descricao',$descricao)->get();
+    }
+
+    public static function search_atividade_by_data($atividades, $data){
+        return $atividades->where('data_inicio', '<=', $data)
+            ->where('data_fim', '>=', $data)->get();
+    }
+
+    public static function search_atividade_by_participante($atividades, $participante){
+        return $atividades::whereHas('participantes.user', function ($query) use ($participante) {
+            $query->where('name', $participante);
+        })->get();
+    }
+
 }
