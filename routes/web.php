@@ -119,6 +119,8 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
 
     Route::name('relatorios.')->group(function () {
         Route::get('/relatorios', [RelatorioController::class, 'index'])->name('index');
+        Route::get('/relatorios/atividade/{acao_id}', [RelatorioController::class, 'atividades'])->name('atividades');
+        Route::get('/relatorios/atividade/{acao_id}/filtro', [RelatorioController::class, 'atividades_filtro'])->name('atividades_filtro');
 
         Route::get('/relatorios/filtro', [RelatorioController::class, 'filtro'])->name('filtro');
     });
@@ -178,7 +180,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade.update');
 
     Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
-    
+
 
 
     //Rotas Participante Coordenador e Gestor
@@ -295,8 +297,8 @@ Route::group(['middleware' => 'checkColaborador'], function () {
         // Rotas Colaborador
 
         Route::get('/listar-colaboracoes', [ColaboradorAcaoController::class, 'listarColaboracoesPorUsuario'])
-        ->name('listar.colaboracoes');        
-        
+        ->name('listar.colaboracoes');
+
  });
 
  Route::group(['middleware' => 'checkGestorColaborador'], function () {
@@ -309,7 +311,7 @@ Route::group(['middleware' => 'checkColaborador'], function () {
         Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade.update');
         Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
 
-        //Rota Colaborador Participantes 
+        //Rota Colaborador Participantes
         Route::get('/participante/index/{atividade_id}/{solicitacao?}', [ParticipanteController::class, 'index'])->name('participante.index');
         Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
         Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante.store');

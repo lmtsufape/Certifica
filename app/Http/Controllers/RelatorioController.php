@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Atividade;
+use App\Models\TipoAtividade;
 use Illuminate\Http\Request;
 use App\Models\Certificado;
 use App\Models\Natureza;
@@ -124,6 +126,74 @@ class RelatorioController extends Controller
         });
 
         return $certificados->collapse();
+    }
+
+    public function atividades($acao_id){
+        $acao = Acao::find($acao_id);
+        $atividades = $acao->atividades()->get();
+
+
+
+        $atividades->each(function($atividade) {
+            $atividade->total = count($atividade->certificados);
+            $atividade->participantes->each( function ($participante) use ($atividade){
+                $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName()
+                    : $atividade->nome_participantes.", ".$participante->user->firstName();
+                $atividade->lista_nomes = $atividade->participantes->map(function ($participante) {
+                    return $participante->user->name; // Supondo que exista um método fullName() para obter o nome completo do usuário.
+                })->implode(", \n");
+            });
+
+        });
+
+
+        $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
+            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'];
+
+        $tipoAtividade = TipoAtividade::all();
+
+
+        return view('relatorios.atividades', compact('acao', 'atividades', 'descricoes', 'tipoAtividade'));
+    }
+
+    public function atividades_filtro($acao_id){
+        $acao = Acao::find($acao_id);
+
+        $atividades = $acao->atividades()->get();
+
+
+        if(request('descricao')){
+
+            $atividades = Atividade::search_atividade_by_descricao($atividades, request('descricao'));
+
+        }
+
+//        if(request('data')){
+//            $atividades = Atividade::search_atividade_by_data($atividades, request('data'));
+//        }
+//
+//        if(request('buscar_participante')){
+//            $atividades = Atividade::search_atividade_by_participante($atividades, request('buscar_participante'));
+//        }
+
+
+
+        $atividades->each(function($atividade) {
+            $atividade->total = count($atividade->certificados);
+            $atividade->participantes->each( function ($participante) use ($atividade){
+                $atividade->nome_participantes = !$atividade->nome_participantes ? $participante->user->firstName()
+                    : $atividade->nome_participantes.", ".$participante->user->firstName();
+                $atividade->lista_nomes = $atividade->participantes->map(function ($participante) {
+                    return $participante->user->name; // Supondo que exista um método fullName() para obter o nome completo do usuário.
+                })->implode(", \n");
+            });
+
+        });
+
+
+
+
+        return view('relatorios.atividades_list', compact('atividades', 'acao'));
     }
 
 }
