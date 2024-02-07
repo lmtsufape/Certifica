@@ -26,6 +26,7 @@ use App\Mail\UsuarioNaoCadastrado;
 use App\Rules\Cpf;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 class ParticipanteController extends Controller
@@ -469,8 +470,8 @@ class ParticipanteController extends Controller
     public function import_participantes($atividade_id, Request $request){
         $atividade = Atividade::find($atividade_id);
 
-        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($request->participantes_xlsx);
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $inputFileType = IOFactory::identify($request->participantes_xlsx);
+        $reader = IOFactory::createReader($inputFileType);
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load($request->participantes_xlsx);
         $worksheet = $spreadsheet->getActiveSheet();
@@ -544,9 +545,9 @@ class ParticipanteController extends Controller
     public function import_trabalhos($atividade_id, Request $request){
         $atividade = Atividade::find($atividade_id);
 
-        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($request->trabalhos_xlsx);
+        $inputFileType = IOFactory::identify($request->trabalhos_xlsx);
 
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $reader = IOFactory::createReader($inputFileType);
         $reader->setReadDataOnly(true);
 
         $spreadsheet = $reader->load($request->trabalhos_xlsx);
@@ -561,7 +562,7 @@ class ParticipanteController extends Controller
 
         for ($row = 2; $row <= $highestRow; ++$row) {
 
-            //$row[0] => Titulo Trabalho | $row[1] = Carga Horaria Trabalho | $row[2] = Autor | $row[3] = NOME | $row[4] = E-MAIL | $row[5] = cpf
+            //$row[1] => Titulo Trabalho | $row[2] = Carga Horaria Trabalho | $row[3] = Autor | $row[4] = NOME | $row[5] = E-MAIL | $row[6] = cpf
             $trabalho = new Trabalho();
             $trabalho->titulo = $worksheet->getCell([1, $row])->getValue();
             $trabalho->carga_horaria = $worksheet->getCell([2, $row])->getValue();
@@ -570,8 +571,9 @@ class ParticipanteController extends Controller
             $trabalho->save();
 
             $cell = 3;
-            if($worksheet->getCell([$cell, $row])->getValue() !== null && (strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR"||
-                    strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "COAUTOR")){
+            $tipo_autor = $worksheet->getCell([$cell, $row])->getValue();
+            if($tipo_autor !== null && (strtoupper($tipo_autor) === "AUTOR"||
+                    strtoupper($tipo_autor) === "COAUTOR")){
             do{
 
                 $cpf = Mask::mask($worksheet->getCell([$cell + 3, $row])->getValue(), "###.###.###-##");
@@ -593,6 +595,8 @@ class ParticipanteController extends Controller
                             'instituicao_id' => 2,
                         ];
 
+
+
                         $user = $this->createUser($attributes);
 
                     } catch (\Throwable $th) {
@@ -609,7 +613,7 @@ class ParticipanteController extends Controller
                     (
                         !$user->participacoes()->where('autor_trabalhos_id', '=', $trabalho->id)->first() ||
                         !$user->participacoes()->where('coautor_trabalhos_id', '=', $trabalho->id)->first()
-                    ) && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
+                    ) )
                 {
                     $participante = new Participante();
                     $participante->carga_horaria = $worksheet->getCell([2, $row])->getValue();
