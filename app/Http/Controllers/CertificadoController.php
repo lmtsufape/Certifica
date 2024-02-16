@@ -487,10 +487,14 @@ class CertificadoController extends Controller
         $modelo->texto = preg_replace($pattern, $replace, $modelo->texto);
         $user = $participante->user;
         $curso = json_decode($user->json_cursos_ids) ;
+
         if($curso){
             $curso =  (int) reset($curso);
             $curso = Curso::find($curso);
-            $curso = $curso->nome;
+
+            if($curso){
+                $curso = $curso->nome;
+            }
         }
 
 
