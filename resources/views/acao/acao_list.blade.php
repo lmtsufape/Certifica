@@ -25,9 +25,11 @@
             </span>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-evenly">
-        <span><a href="{{ route('listar.colaboradores', ['acaoId' => $acao->id]) }}"><img
-                                src="/images/acoes/listView/person-gear.svg" alt="Colaboradores"
-                                title="Colaboradores"></a></span>
+            @if(Auth::user()->perfil_id == 3)
+                <span><a href="{{ route('listar.colaboradores', ['acaoId' => $acao->id]) }}"><img
+                            src="/images/acoes/listView/person-gear.svg" alt="Colaboradores"
+                            title="Colaboradores"></a></span>
+            @endif
             <span><a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
                         src="/images/acoes/listView/eye.svg" alt="Visualizar dados" title="Visualizar Ação"></a></span>
             <span><a href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"><img
@@ -156,5 +158,17 @@
     </div>
 @endforeach
 
+<script>
+    $(document).ready(function(){
+        // Exibe o modal ao clicar no link com o atributo data-toggle e data-target correspondentes
+        $('[data-toggle="modal"]').click(function(){
+            var target_modal = $(this).data('target');
+            $(target_modal).modal('show');
+        });
+    });
+</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
