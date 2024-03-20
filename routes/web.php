@@ -301,21 +301,21 @@ Route::group(['middleware' => 'checkColaborador'], function () {
 
  });
 
- Route::group(['middleware' => 'checkGestorColaborador'], function () {
+ /* Route::group(['middleware' => 'checkGestorColaborador'], function () {
 
     //Rota Colaborador Atividade
-        Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade.index');
-        Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade.create');
-        Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade.store');
-        Route::get('atividade/{atividade_id}/edit', [AtividadeController::class, 'edit'])->name('atividade.edit');
-        Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade.update');
-        Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade.delete');
+        Route::get('acao/{acao_id}/atividade/', [AtividadeController::class, 'index'])->name('atividade_colaborador.index');
+        Route::get('acao/{acao_id}/atividade/create/', [AtividadeController::class, 'create'])->name('atividade_colaborador.create');
+        Route::post('atividade/store', [AtividadeController::class, 'store'])->name('atividade_colaborador.store');
+        Route::get('atividade/{atividade_id}/edit', [AtividadeController::class, 'edit'])->name('atividade_colaborador.edit');
+        Route::post('atividade/update', [AtividadeController::class, 'update'])->name('atividade_colaborador.update');
+        Route::get('atividade/{atividade_id}/delete', [AtividadeController::class, 'delete'])->name('atividade_colaborador.delete');
 
         //Rota Colaborador Participantes
-        Route::get('/participante/index/{atividade_id}/{solicitacao?}', [ParticipanteController::class, 'index'])->name('participante.index');
-        Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante.create');
-        Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante.store');
-        Route::get('/participante/edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante.edit');
-        Route::post('/participante/update', [ParticipanteController::class, 'update'])->name('participante.update');
-        Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante.delete');
- });
+        Route::get('/participante/index/{atividade_id}/{solicitacao?}', [ParticipanteController::class, 'index'])->name('participante_colaborador.index');
+        Route::get('/participante/create/{atividade_id}', [ParticipanteController::class, 'create'])->name('participante_colaborador.create');
+        Route::post('/participante/store', [ParticipanteController::class, 'store'])->name('participante_colaborador.store');
+        Route::get('/participante/edit/{participante_id}', [ParticipanteController::class, 'edit'])->name('participante_colaborador.edit');
+        Route::post('/participante/update', [ParticipanteController::class, 'update'])->name('participante_colaborador.update');
+        Route::get('/participante/{participante_id}/delete', [ParticipanteController::class, 'delete'])->name('participante_colaborador.delete');
+ }); */
