@@ -497,10 +497,12 @@ class CertificadoController extends Controller
             }
         }
 
-        if($trabalho->nomesCoautoresComoTexto() == null)
+        if($atividade->descricao == "apresentação de trabalho")
         {
-            $modelo->texto = str_replace('tendo como coautores %coautores_trabalho%,', '', $modelo->texto);
+            if ($trabalho->nomesCoautoresComoTexto() == null) {
+                $modelo->texto = str_replace('tendo como coautores %coautores_trabalho%,', '', $modelo->texto);
 
+            }
         }
 
         if($trabalho){
@@ -522,7 +524,7 @@ class CertificadoController extends Controller
                 $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso);
 
         }
-        
+
 
 
         return str_replace($antes, $depois, $modelo->texto);
