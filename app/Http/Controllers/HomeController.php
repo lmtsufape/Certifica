@@ -26,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->cadastro_finalizado === false){
+        if(Auth::user()->cadastro_finalizado === false || Auth::user()->cadastro_finalizado === null && Auth::user()->perfil_id === 2 || Auth::user()->perfil_id === 4)
+        {
             $cursos = Curso::all()->sortBy('id');
 
             return view('usuario.finalizar_cadastro', compact('cursos'))->with(['mensagem' => 'Finalize seu cadastro para ter acesso ao sistema']);
