@@ -32,7 +32,7 @@
             }
 
             .texto_certificado {
-                font-size: 38px;
+                font-size: {{ $tamanho_fonte }}px;
                 color: #000000;
                 text-shadow: 4px 4px #000;
                 margin-top: 412px;
