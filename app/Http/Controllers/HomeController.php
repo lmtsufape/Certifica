@@ -26,19 +26,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->cadastro_finalizado === false || Auth::user()->cadastro_finalizado === null && Auth::user()->perfil_id === 2 || Auth::user()->perfil_id === 4)
+        if(Auth::user()->cadastro_finalizado === false || Auth::user()->cadastro_finalizado === null)
         {
-            $cursos = Curso::all()->sortBy('id');
+            if(Auth::user()->perfil_id === 2 || Auth::user()->perfil_id === 4)
+            {
+                $cursos = Curso::all()->sortBy('id');
 
-            return view('usuario.finalizar_cadastro', compact('cursos'))->with(['mensagem' => 'Finalize seu cadastro para ter acesso ao sistema']);
+                return view('usuario.finalizar_cadastro', compact('cursos'))->with(['mensagem' => 'Finalize seu cadastro para ter acesso ao sistema']);
+            }    
         }
 
-        if(Auth::user()->perfil_id == 1){
 
+        if(Auth::user()->perfil_id == 1)
+        {
             return view('administrador.index'); //admin
 
-        } else if(Auth::user()->perfil_id == 2){
-
+        } 
+        else if(Auth::user()->perfil_id == 2)
+        {
             $acaos = Acao::where('usuario_id', Auth::user()->id)->get();
 
             $aprovadas = 0;
@@ -57,13 +62,15 @@ class HomeController extends Controller
                 }
             }
 
-            return view('coordenador.index',compact('aprovadas','analise','devolvidas')); //cordenador
-
-        } else if (Auth::user()->perfil_id == 3){
-
+            return view('coordenador.index',compact('aprovadas','analise','devolvidas')); //coordenador
+        } 
+        else if (Auth::user()->perfil_id == 3)
+        {
             return view('gestor_institucional.index'); //gestor
-        } else if (Auth::user()->perfil_id == 4) {
-            return view('participante.index');
+        } 
+        else if (Auth::user()->perfil_id == 4) 
+        {
+            return view('participante.index'); //participante
         }
 
         return view('auth.login');
