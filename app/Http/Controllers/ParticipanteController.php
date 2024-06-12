@@ -426,7 +426,7 @@ class ParticipanteController extends Controller
             }
             else
             {
-                $usuario->passaporte = $request->cpf;
+                $usuario->passaporte = $request->passaporte;
             }
 
             $usuario->update();
