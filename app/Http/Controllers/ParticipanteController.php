@@ -385,7 +385,14 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::findOrFail($participante->atividade_id);
 
-        return view('participante.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
+        if(Auth::user()->perfil_id == 3)
+        {
+            return view('gestor_institucional.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
+        }
+        else
+        {
+            return view('participante.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
+        }
     }
 
     /**
@@ -406,7 +413,26 @@ class ParticipanteController extends Controller
 
         $participante = Participante::findOrFail($request->id);
 
-        $participante->titulo = $request->titulo;
+        if(Auth::user()->perfil_id == 3)
+        {
+            $usuario = User::findOrFail($participante->user_id);
+
+            $usuario->name = $request->nome;
+            $usuario->email = $request->email;
+
+            if($usuario->cpf)
+            {
+                $usuario->cpf = $request->cpf;
+            }
+            else
+            {
+                $usuario->passaporte = $request->cpf;
+            }
+
+            $usuario->update();
+        }
+
+        //$participante->titulo = $request->titulo;
         $participante->carga_horaria = $request->carga_horaria;
         $participante->atividade_id = $request->atividade_id;
 
