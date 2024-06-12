@@ -110,6 +110,10 @@
                                     <img src="/images/acoes/listView/certificado.svg" alt=""
                                          title="Pré-visualizar Certificado">
                                 </a>
+
+                                <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
+                                    <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                </a>
                             @endif
 
                             @if($acao->status == null || $acao->status == "Devolvida")
