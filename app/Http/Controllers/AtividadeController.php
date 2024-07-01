@@ -39,13 +39,10 @@ class AtividadeController extends Controller
     public function create($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
-        $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-                        'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'];
-
-        $tipoAtividade = TipoAtividade::all();
+        $tipoAtividade = TipoAtividade::orderBy('name')->get();
 
 
-        return view('atividade.atividade_create',compact('acao','descricoes','tipoAtividade'));
+        return view('atividade.atividade_create',compact('acao','tipoAtividade'));
     }
 
     /**
@@ -137,12 +134,9 @@ class AtividadeController extends Controller
 
         $acao = Acao::findOrFail($atividade->acao_id);
 
-        $tipoAtividade = TipoAtividade::all();
+        $tipoAtividade = TipoAtividade::orderBy('name')->get();
 
-        $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
-            'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', "Apresentação de Trabalho"];
-
-        return view('atividade.atividade_edit', compact('atividade', 'acao', 'descricoes', 'tipoAtividade'));
+        return view('atividade.atividade_edit', compact('atividade', 'acao', 'tipoAtividade'));
     }
 
     /**
