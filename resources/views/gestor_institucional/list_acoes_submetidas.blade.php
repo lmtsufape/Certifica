@@ -25,11 +25,11 @@
                     <img src="/images/acoes/listView/eye.svg" alt="Visualizar açao" title="Visualizar ação"></a>
             </span>
 
+            <span style="padding-right:3px;">
+                <a href="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">
+                    <img src="/images/acoes/listView/editar.svg" alt="Editar ação" title="Editar ação"></a>
+            </span>
             @if($acao->status == "Em análise")
-                <span style="padding-right:3px;">
-                    <a href="{{ route('acao.edit', ['acao_id' => $acao->id]) }}">
-                        <img src="/images/acoes/listView/editar.svg" alt="Editar ação" title="Editar ação"></a>
-                </span>
 
                 <span style="padding-left:10px;">
                     <a href="" data-bs-toggle="modal" data-bs-target="#modal-info{{$acao->id}}">

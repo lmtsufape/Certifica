@@ -128,6 +128,10 @@
                             @endif
 
                             @if (Auth::user()->perfil_id == 3 && $acao->status == 'Aprovada')
+                                <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
+                                    <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                </a>
+
                                 <a
                                     href="{{ route('participante.invalidar_certificado', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/revogar.svg" alt=""
