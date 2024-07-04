@@ -54,9 +54,10 @@
 
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-1 text-center">N°</div>
-                <div class="col-3"><span>Nome</span></div>
+                <div class="col-2"><span>Nome</span></div>
+                <div class="col-2"><span>E-mail</span></div>
                 <div class="col-2"><span>CPF/ Passaporte</span></div>
-                <div class="col-2"><span>CH</span></div>
+                <div class="col-1"><span>CH</span></div>
                 <div class="col-2"><span>Atividade / Função</span></div>
                 <div class="col-2"><span>Funcionalidades</span></div>
             </div>
@@ -68,9 +69,15 @@
                     <div class="col-1 text-center">
                         {{ ++$cont }}
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <span>
                             {{ $participante->user->name }}
+                        </span>
+                    </div>
+
+                    <div class="col-2">
+                        <span>
+                            {{ $participante->user->email }}
                         </span>
                     </div>
 
@@ -82,7 +89,7 @@
                         @endif
                     </div>
 
-                    <div class="col-2">
+                    <div class="col-1">
                         {{ $participante->carga_horaria }}
                     </div>
 
