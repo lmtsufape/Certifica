@@ -10,8 +10,8 @@
 
         <div class="col-sm-5 d-flex align-items-center justify-content-end">
             @if (Auth::check())
-                <!-- <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
-                    alt=""> -->
+                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
+                    alt="">
 
                 <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
                     <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
@@ -60,7 +60,7 @@
 
 
     <!--Menu oculto responsivo -->
-    <!-- @if (Auth::check())
+    @if (Auth::check())
         <div id="menu_responsivo_div" class="menu_responsivo_div ">
 
             <ul id="menu_responsivo" class="box-menu-responsivo some">
@@ -112,12 +112,12 @@
                 <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
             </ul>
         </div>
-    @endif -->
+    @endif
 
 
 
 
-    <!--<script>
+    <script>
         //DOM
         var hamburguer = document.getElementById("hamburguer_button");
         var click = 0;
@@ -137,5 +137,5 @@
             };
             click++;
         });
-    </script> -->
+    </script>
 </header>
