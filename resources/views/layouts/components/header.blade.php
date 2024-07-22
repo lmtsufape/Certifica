@@ -9,9 +9,24 @@
         </div>
 
         <div class="col-sm-5 d-flex align-items-center justify-content-end">
-            @if (Auth::check())
+            @guest
                 <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
-                    alt="">
+                     alt="">
+                <ul id="menu_normal" class="navbar-nav h-100">
+                    <li><a class="dropdown-item" href="/">Início</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
+                            Verificação de Autenticidade
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
+
+                </ul>
+            @else
+                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
+                     alt="">
 
                 <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
                     <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
@@ -36,25 +51,7 @@
                         </div>
                     </li>
                 </ul>
-
-
-            @else
-                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
-                    alt="">
-                <ul id="menu_normal" class="navbar-nav h-100">
-                    <li><a class="dropdown-item" href="/">Início</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
-                            Verificação de Autenticidade
-                        </a>
-                    </li>
-                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-
-                </ul>
-            @endif
-
+            @endguest
         </div>
     </div>
 
