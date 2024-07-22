@@ -19,7 +19,7 @@
                     <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
                     <li class="dropdown">
                         <button onclick="toggleDropdown()" class="dropbtn">
-                            <span class="font-weight-bolder">Olá, </span>{{ explode(' ', Auth::user()->name)[0] }}
+                            <span class="font-weight-bolder">Olá,&nbsp;<span> </span> </span>{{ explode(' ', Auth::user()->name)[0]}}
                         </button>
                         <div id="myDropdown" class="dropdown-content">
                             <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
@@ -53,7 +53,7 @@
                 <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
                 <li class="dropdown">
                     <button onclick="toggleDropdown()" class="dropbtn">
-                        <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
+                        <span class="font-weight-bolder">Olá, </span>{{ explode(' ', Auth::user()->name)[0] }}
                     </button>
                     <div id="myDropdown" class="dropdown-content">
                         <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
@@ -87,7 +87,7 @@
             background-color: transparent;
             border: none;
             color: black; /* Ajustar a cor conforme necessário */
-            padding: 14px 16px;
+            padding: 14px 20px; /* Aumenta o padding para dar mais espaço */
             font-size: 16px;
             cursor: pointer;
             text-align: center;
@@ -100,7 +100,7 @@
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 160px;
+            min-width: 200px; /* Aumenta a largura mínima */
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             right: 0;
