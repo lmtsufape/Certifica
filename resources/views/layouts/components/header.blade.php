@@ -14,14 +14,13 @@
                     alt=""> -->
 
                 <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
-                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.tutorial') }}">Tutorial de uso</a></li>
                     <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                           style="color: white">
+                           data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
                             <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -37,6 +36,7 @@
                         </div>
                     </li>
                 </ul>
+
 
             @else
                 <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
