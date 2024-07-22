@@ -23,7 +23,7 @@
                            data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
                             <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('perfil.edit') }}">
                                 {{ __('Editar Perfil') }}
                             </a>
