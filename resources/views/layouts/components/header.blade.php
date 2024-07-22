@@ -9,7 +9,44 @@
         </div>
 
         <div class="col-sm-5 d-flex align-items-center justify-content-end">
-            @guest
+            @if (Auth::check())
+                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
+                     alt="">
+
+                <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
+
+                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
+                            Verificação de Autenticidade
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
+                    <li class="nav-item dropdown">
+
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
+                           style="color: white">
+                            <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('perfil.edit') }}">
+                                {{ __('Editar Perfil') }}
+                            </a>
+
+                            <a class="dropdown-item" href="{{ route('logout') }}">
+                                {{ __('Sair') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            @else
                 <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
                      alt="">
                 <ul id="menu_normal" class="navbar-nav h-100">
@@ -24,34 +61,8 @@
                     <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
 
                 </ul>
-            @else
-                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
-                     alt="">
+            @endif
 
-                <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
-                    <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
-                    <li><a class="dropdown-item" href="{{ route('home.tutorial') }}">Tutorial de uso</a></li>
-                    <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
-                    <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
-                           data-bs-toggle="dropdown" style="color: white;" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('perfil.edit') }}">
-                                {{ __('Editar Perfil') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('logout') }}">
-                                {{ __('Sair') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                </ul>
-            @endguest
         </div>
     </div>
 
@@ -73,8 +84,8 @@
                 <li class="nav-item dropdown">
 
                     <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
-                        style="color: white">
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
+                       style="color: white">
                         <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
                     </a>
 
