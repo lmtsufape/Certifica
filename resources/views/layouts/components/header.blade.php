@@ -3,43 +3,27 @@
     <div class="container w-100 d-flex align-items-center justify-content-around">
 
         <div class="col-sm-5 d-flex align-items-center justify-content-start">
-            <a href="{{ Route('home') }}">
+            <a href="{{ route('home') }}">
                 <img class="logo-certifica" src="/images/layouts/header/logo-certifica.svg" alt="logo">
             </a>
         </div>
 
         <div class="col-sm-5 d-flex align-items-center justify-content-end">
             @if (Auth::check())
-                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
-                     alt="">
+                <img id="hamburguer_button" class="hamburguer-button" src="/images/layouts/header/iconHamburguer.svg" alt="">
 
                 <ul id="menu-normal-logado" class="navbar-nav h-100 menu-normal-logado">
-
-                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
-                            Verificação de Autenticidade
-                        </a>
-                    </li>
-                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-                    <li class="nav-item dropdown">
-
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
-                           style="color: white">
-                            <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('perfil.edit') }}">
-                                {{ __('Editar Perfil') }}
-                            </a>
-
-                            <a class="dropdown-item" href="{{ route('logout') }}">
-                                {{ __('Sair') }}
-                            </a>
-
+                    <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.tutorial') }}">Tutorial de uso</a></li>
+                    <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
+                    <li class="dropdown">
+                        <button onclick="toggleDropdown()" class="dropbtn">
+                            <span class="font-weight-bolder">Olá, </span>{{ explode(' ', Auth::user()->name)[0] }}
+                        </button>
+                        <div id="myDropdown" class="dropdown-content">
+                            <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -47,57 +31,33 @@
                     </li>
                 </ul>
             @else
-                <img id="hamburguer_button" class="hamburguer-button " src="/images/layouts/header/iconHamburguer.svg"
-                     alt="">
+                <img id="hamburguer_button" class="hamburguer-button" src="/images/layouts/header/iconHamburguer.svg" alt="">
                 <ul id="menu_normal" class="navbar-nav h-100">
                     <li><a class="dropdown-item" href="/">Início</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-                    <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
-                            Verificação de Autenticidade
-                        </a>
-                    </li>
-                    <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-
+                    <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.tutorial') }}">Tutorial de uso</a></li>
+                    <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
+                    <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
                 </ul>
             @endif
-
         </div>
     </div>
 
-
-    <!--Menu oculto responsivo -->
+    <!-- Menu oculto responsivo -->
     @if (Auth::check())
-        <div id="menu_responsivo_div" class="menu_responsivo_div ">
-
+        <div id="menu_responsivo_div" class="menu_responsivo_div">
             <ul id="menu_responsivo" class="box-menu-responsivo some">
-
-                <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-                <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
-                        Verificação de Autenticidade
-                    </a>
-                </li>
-                <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-                <li class="nav-item dropdown">
-
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-
-                       style="color: white">
+                <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
+                <li><a class="dropdown-item" href="{{ route('home.tutorial') }}">Tutorial de uso</a></li>
+                <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
+                <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
+                <li class="dropdown">
+                    <button onclick="toggleDropdown()" class="dropbtn">
                         <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('perfil.edit') }}">
-                            {{ __('Editar Perfil') }}
-                        </a>
-
-                        <a class="dropdown-item" href="{{ route('logout') }}">
-                            {{ __('Sair') }}
-                        </a>
-
+                    </button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
@@ -106,44 +66,79 @@
             </ul>
         </div>
     @else
-        <div id="menu_responsivo_div" class="menu_responsivo_div ">
-
+        <div id="menu_responsivo_div" class="menu_responsivo_div">
             <ul id="menu_responsivo" class="box-menu-responsivo some">
-                <li><a class="dropdown-item" href="/">Inicio</a></li>
-                <li><a class="dropdown-item" href="{{ Route('home.sistema') }}">O Sistema</a></li>
-                <li>
-                    <a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">
-                        Verificação de Autenticidade
-                    </a>
-                </li>
-                <li><a class="dropdown-item" href="{{ Route('home.contato') }}">Contato</a></li>
-                <li><a class="dropdown-item" href="{{ Route('home.tutorial') }}">Tutorial de uso</a></li>
+                <li><a class="dropdown-item" href="/">Início</a></li>
+                <li><a class="dropdown-item" href="{{ route('home.sistema') }}">O Sistema</a></li>
+                <li><a class="dropdown-item" href="{{ route('home.tutorial') }}">Tutorial de uso</a></li>
+                <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
+                <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
             </ul>
         </div>
     @endif
 
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            color: black; /* Ajustar a cor conforme necessário */
+            padding: 14px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
 
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            right: 0;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
 
     <script>
-        //DOM
-        var hamburguer = document.getElementById("hamburguer_button");
-        var click = 0;
-        var menu_responsivo = document.getElementById("menu_responsivo");
+        function toggleDropdown() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-
-
-        //logica do menu responsivo sumindo e voltando ao clicar
-        hamburguer.addEventListener("click", (e) => {
-            if (click % 2 == 0) {
-                menu_responsivo.classList.remove("some")
-                menu_responsivo.classList.add("aparece")
-            } else {
-
-                menu_responsivo.classList.remove("aparece")
-                menu_responsivo.classList.add("some")
-            };
-            click++;
-        });
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
     </script>
+
 </header>
