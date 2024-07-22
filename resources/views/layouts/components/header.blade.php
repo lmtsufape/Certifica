@@ -20,10 +20,10 @@
                     <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle text-black" href="#" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                           data-bs-toggle="dropdown" style="color: white;" aria-haspopup="true" aria-expanded="false" v-pre>
                             <span class="font-weight-bolder">Olá, </span>{{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('perfil.edit') }}">
                                 {{ __('Editar Perfil') }}
                             </a>
