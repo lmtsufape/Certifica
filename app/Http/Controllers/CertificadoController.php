@@ -279,7 +279,7 @@ class CertificadoController extends Controller
         $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
 
 
-        $atividade->descricao = Str::lower($atividade->descricao);
+        //$atividade->descricao = Str::lower($atividade->descricao);
 
         if(mb_strlen($modelo->texto <= 380))
         {
@@ -585,7 +585,7 @@ class CertificadoController extends Controller
         $certificado->certificado_modelo_id = $modelo->id;
         $certificado->atividade_id = $participante->atividade->id;
 
-        $atividade->descricao = Str::lower($atividade->descricao);
+        //$atividade->descricao = Str::lower($atividade->descricao);
 
         if(mb_strlen($modelo->texto <= 380))
         {
