@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    <section class="view-create-acao"> 
+    <section class="view-create-acao">
 
 
         <h1 class="text-center mb-4">Ação institucional: {{ $acao->titulo }}</h1>
@@ -32,9 +32,6 @@
                     <span class="tittle-input">Atividade / Função</span>
                     <select class="select-form w-100 h-100 " name="descricao" id="select_atividade">
                         <option value="" selected hidden>Escolher...</option>
-                        @foreach ($descricoes as $descricao)
-                            <option value="{{ $descricao }}">{{ $descricao }}</option>
-                        @endforeach
                         @foreach ($tipoAtividade as $tipo)
                             <option value="{{$tipo->name}}">{{$tipo->name}}</option>
                         @endforeach
@@ -56,7 +53,7 @@
                     <span class="tittle-input w-50">Data de Término</span>
                     <input class="w-100 h-50" type="date" name="data_fim" id="">
                 </div>
-                
+
             </div>
 
             </br> </br>
