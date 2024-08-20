@@ -32,12 +32,10 @@
                     <span class="tittle-input">Atividade / Função</span>
                     <select class="select-form w-100 h-100 " name="descricao" id="select_atividade">
                         <option value="" selected hidden>Escolher...</option>
-                        @foreach ($descricoes as $descricao)
-                            <option value="{{ $descricao }}">{{ $descricao }}</option>
+                        @foreach ($tipos_ordenados as $tipo)
+                            <option value="{{ $tipo }}">{{ $tipo }}</option>
                         @endforeach
-                        @foreach ($tipoAtividade as $tipo)
-                            <option value="{{$tipo->name}}">{{$tipo->name}}</option>
-                        @endforeach
+                    
                     </select>
                 </div>
 

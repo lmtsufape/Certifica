@@ -204,6 +204,10 @@ class CertificadoModeloController extends Controller
 
         $tipoAtividade = TipoAtividade::all();
 
+        $tipoAtividadeNames = $tipoAtividade->pluck('name')->toArray();
+        $tipos_ordenados = array_merge($tipos_certificado, $tipoAtividadeNames);
+        sort($tipos_ordenados);
+
         $modelo = CertificadoModelo::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
 
         if($modelo == null)
@@ -217,9 +221,8 @@ class CertificadoModeloController extends Controller
         $img_fundo = Storage::url($modelo->fundo);
         $img_verso = Storage::url($modelo->verso);
 
-        return view('certificado_modelo.tipo_certificado_modelo_create', ['tipos_certificado' => $tipos_certificado,
+        return view('certificado_modelo.tipo_certificado_modelo_create', ['tipos_ordenados' => $tipos_ordenados,
             'modelo' => $modelo, 'unidade_adm' => $unidade_adm, 'img_fundo' => $img_fundo, 'img_verso' => $img_verso,
-            'tipos_Atividades_cadastradas' => $tipoAtividade
         ]);
     }
 

@@ -70,11 +70,8 @@
                         <span class="tittle-input">Tipo Certificado</span>
 
                         <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado" required>
-                            @foreach ($tipos_certificado as $tipo)
+                            @foreach ($tipos_ordenados as $tipo)
                                 <option value="{{ $tipo }}">{{ $tipo }}</option>
-                            @endforeach
-                            @foreach ($tipos_Atividades_cadastradas as $tipo)
-                                <option value="{{ $tipo->name }}">{{ $tipo->name }}</option>
                             @endforeach
                         </select>
                     </div>
