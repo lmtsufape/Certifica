@@ -44,8 +44,12 @@ class AtividadeController extends Controller
 
         $tipoAtividade = TipoAtividade::all();
 
+        $tipoAtividadeName = $tipoAtividade->pluck('name')->toArray();
+        $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
+        sort($tipos_ordenados);
 
-        return view('atividade.atividade_create',compact('acao','descricoes','tipoAtividade'));
+
+        return view('atividade.atividade_create',compact('acao','tipos_ordenados'));
     }
 
     /**
@@ -142,7 +146,11 @@ class AtividadeController extends Controller
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', "Apresentação de Trabalho"];
 
-        return view('atividade.atividade_edit', compact('atividade', 'acao', 'descricoes', 'tipoAtividade'));
+        $tipoAtividadeName = $tipoAtividade->pluck('name')->toArray();
+        $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
+        sort($tipos_ordenados);
+
+        return view('atividade.atividade_edit', compact('atividade', 'acao', 'tipos_ordenados'));
     }
 
     /**
