@@ -233,6 +233,7 @@ class CertificadoModeloController extends Controller
             $certificado_modelo->descricao = $request->descricao;
             $certificado_modelo->tipo_certificado = $request->outro;
             $certificado_modelo->texto = $request->texto;
+            $certificado_modelo->texto_um_dia = $request->texto_um_dia;
             $certificado_modelo->fundo = $request->fundo;
             $certificado_modelo->verso = $request->verso;
 
@@ -247,6 +248,7 @@ class CertificadoModeloController extends Controller
             $certificado_modelo->descricao = $request->descricao;
             $certificado_modelo->tipo_certificado = $request->tipo_certificado;
             $certificado_modelo->texto = $request->texto;
+            $certificado_modelo->texto_um_dia = $request->texto_um_dia;
             $certificado_modelo->fundo = $request->fundo;
             $certificado_modelo->verso = $request->verso;
 
