@@ -155,6 +155,7 @@ class CertificadoModeloController extends Controller
 
         $modelo->descricao = $request->descricao;
         $modelo->texto = $request->texto;
+        $modelo->texto_um_dia = $request->texto_um_dia;
 
         $modelo->update();
 
