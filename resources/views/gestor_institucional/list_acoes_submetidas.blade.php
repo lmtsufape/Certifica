@@ -44,7 +44,6 @@
                     <a href="{{ route('certificados.download', ['acao_id' => $acao->id]) }}"><img
                         src="/images/acoes/listView/zipcertificados.svg" alt="" title="Baixar Certificados"></a>
                 </span>
-
             @endif
 
             @if($acao->status == "Em análise")
@@ -54,6 +53,15 @@
                         <img src="/images/acoes/listView/clipboard-check.svg" alt="Finalizar solicitação" title="Finalizar solicitação">
                     </a>
                 </span>
+            @endif
+            @if($acao->status != "Devolvida") 
+                <span>
+                    <a href="{{ Route('gestor.gerar_certificados', ['acao_id' => $acao->id]) }}"
+                        onclick="return confirm('Você tem certeza que deseja emitir os certificados?')">
+                        <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
+                            title="Emitir Certificados">
+                    </a>
+                </span>            
             @endif
 
         </div>
