@@ -58,11 +58,13 @@ class AcaoController extends Controller
     {
         if (Auth::user()->perfil_id == 3) {
             $natureza = Natureza::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->first();
-            $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
+            $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)
+                ->orderBy('descricao')
+                ->get();
 
             return view('acao.acao_create', compact('natureza', 'tipo_naturezas'));
         } else {
-            $naturezas = Natureza::all()->sortBy('id');
+            $naturezas = Natureza::all()->sortBy('descricao');
 
             return view('acao.acao_create', compact('naturezas'));
         }
@@ -127,7 +129,7 @@ class AcaoController extends Controller
         $acao = new Acao();
 
         $natureza = Natureza::find($request->natureza_id);
-        $tipo_natureza = TipoNatureza::where('descricao',$request->tipo_natureza )->first();
+        $tipo_natureza = TipoNatureza::where('descricao', $request->tipo_natureza)->first();
         if (!$tipo_natureza) {
             $tipo_natureza = new TipoNatureza();
             $tipo_natureza->descricao = $request->tipo_natureza;
@@ -175,14 +177,17 @@ class AcaoController extends Controller
         $natureza = Natureza::findOrFail($acao->tipo_natureza->natureza_id);
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
 
-        $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)->get();
-        $naturezas = Natureza::all()->sortBy('id');
+        // Ordenando tipo_naturezas pela descrição
+        $tipo_naturezas = TipoNatureza::where('natureza_id', $natureza->id)
+            ->orderBy('descricao')
+            ->get();
+
+        // Ordenando naturezas pela descrição
+        $naturezas = Natureza::all()->sortBy('descricao');
 
         $nomeAnexo = $acao->anexo ? explode("/", $acao->anexo)[2] : "";
 
-
-        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas',
-            'tipo_naturezas', 'nomeAnexo'));
+        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas', 'tipo_naturezas', 'nomeAnexo'));
     }
 
     /**
@@ -218,12 +223,9 @@ class AcaoController extends Controller
 
         $acao->update();
 
-        if(Auth::user()->id != $acao->usuario_id)
-        {
+        if (Auth::user()->id != $acao->usuario_id) {
             return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Ação editada com sucesso']);
-        }
-        else
-        {
+        } else {
             return redirect(Route('acao.index'))->with(['mensagem' => 'Ação editada com sucesso']);
         }
     }
@@ -239,8 +241,10 @@ class AcaoController extends Controller
         $acao = Acao::findOrFail($acao_id);
 
         if ($acao->atividades()->first()) {
-            return redirect(route('acao.index'))->with(['error_mensage' => 'A ação não pode ser excluída.
-                                                                Existe uma ou mais atividades vinculadas a ela.']);
+            return redirect(route('acao.index'))->with([
+                'error_mensage' => 'A ação não pode ser excluída.
+                                                                Existe uma ou mais atividades vinculadas a ela.'
+            ]);
         }
 
         $acao->delete();
@@ -293,10 +297,8 @@ class AcaoController extends Controller
         $acaos = Acao::whereNotNull('status')->where
         ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('created_at', 'desc')->get();
 
-        foreach($acaos as $acao)
-        {
-            if($acao->data_submissao)
-            {
+        foreach ($acaos as $acao) {
+            if ($acao->data_submissao) {
                 $acao->data_submissao = Carbon::parse($acao->data_submissao)->format('d/m/Y H:i');
             }
         }
@@ -349,8 +351,7 @@ class AcaoController extends Controller
 
             $chunkedParticipantes = $participantes_user->chunk(99);
 
-            foreach ($chunkedParticipantes as $chunk)
-            {
+            foreach ($chunkedParticipantes as $chunk) {
                 Mail::bcc($chunk)->queue(new CertificadoDisponivel([
                     'acao' => $acao->titulo,
                 ]));
@@ -421,7 +422,7 @@ class AcaoController extends Controller
         }
 
 
-//        if (request('data')) {
+        //        if (request('data')) {
 //            $acoes = Acao::search_acao_by_data($acoes, request('data'));
 //        }
 
@@ -443,8 +444,7 @@ class AcaoController extends Controller
 
         $chunkedParticipantes = $participantes_user->chunk(99);
 
-        foreach ($chunkedParticipantes as $chunk)
-        {
+        foreach ($chunkedParticipantes as $chunk) {
             Mail::bcc($chunk)->queue(new LembreteCertificadoDisponivel([
                 'acao' => $acao->titulo,
             ]));

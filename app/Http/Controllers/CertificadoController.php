@@ -315,6 +315,11 @@ class CertificadoController extends Controller
 
         //$atividade->descricao = Str::lower($atividade->descricao);
 
+        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null)
+        {
+            $modelo->texto = $modelo->texto_um_dia;
+        }
+
         if(mb_strlen($modelo->texto <= 380))
         {
             $tamanho_fonte = 38;
@@ -620,6 +625,11 @@ class CertificadoController extends Controller
         $certificado->atividade_id = $participante->atividade->id;
 
         //$atividade->descricao = Str::lower($atividade->descricao);
+
+        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null)
+        {
+            $modelo->texto = $modelo->texto_um_dia;
+        }
 
         if(mb_strlen($modelo->texto <= 380))
         {
