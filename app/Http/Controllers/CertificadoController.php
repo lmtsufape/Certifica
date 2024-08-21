@@ -155,6 +155,12 @@ class CertificadoController extends Controller
             return redirect()->back()->with(['alert_mensage' => $message]);
         }
 
+        $certificados_existentes = Certificado::where('atividade_id', $atividade->id)
+                                    ->get()
+                                    ->keyBy(function ($certificado) {
+                                        return $certificado->cpf_participante . '_' . $certificado->atividade_id; 
+                                    });
+
         $certificados_emitidos = collect();
 
         $participantes = Participante::all()->where("atividade_id", $atividade->id);
@@ -170,10 +176,9 @@ class CertificadoController extends Controller
 
         foreach($participantes as $participante)
         {
-            $certificadoJaExiste = Certificado::where('cpf_participante', $participante->user->cpf)
-                                    ->where('atividade_id', $participante->atividade->id)->first();
+            $key = $participante->user->cpf . '_' . $atividade->id;
 
-            if ($certificadoJaExiste != null)
+            if (isset($certificados_existentes[$key]))
                 continue;
 
 
@@ -225,6 +230,12 @@ class CertificadoController extends Controller
 
         }
 
+        $certificados_existentes = Certificado::whereIn('atividade_id', $atividades->pluck('id'))
+                                    ->get()
+                                    ->keyBy(function ($certificado) {
+                                        return $certificado->cpf_participante . '_' . $certificado->atividade_id; 
+                                    });
+
         $certificados_emitidos = collect();
 
         foreach($atividades as $atividade)
@@ -242,10 +253,9 @@ class CertificadoController extends Controller
 
             foreach($participantes as $participante)
             {
-                $certificadoJaExiste = Certificado::where('cpf_participante', $participante->user->cpf)
-                ->where('atividade_id', $participante->atividade->id)->first();
+                $key = $participante->user->cpf . '_' . $atividade->id;
 
-                if ($certificadoJaExiste != null)
+                if (isset($certificados_existentes[$key]))
                     continue;
 
                 $certificado = new Certificado();
