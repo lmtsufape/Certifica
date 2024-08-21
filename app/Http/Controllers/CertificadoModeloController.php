@@ -109,6 +109,7 @@ class CertificadoModeloController extends Controller
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho', 'Monitoria', 'Tutoria', 'Bolsas de Icentivo Acadêmico',
             'Programa de Atividades de Vivência Interdisciplinar'];
+        sort($tipos_certificado);
 
         return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_certificado'));
     }
@@ -174,7 +175,7 @@ class CertificadoModeloController extends Controller
         try {
             $certificado_modelo->delete();
         } catch (\Throwable $th) {
-            return redirect()->back()->withErrors("Este modelo não pode ser excluído! O modeloe está associado a um ou mais certificados.");
+            return redirect()->back()->withErrors("Este modelo não pode ser excluído! O modelo está associado a um ou mais certificados.");
         }
 
         return redirect(Route('certificado_modelo.index'))->with(['mensagem' => 'Modelo excluido com sucesso']);
