@@ -58,15 +58,20 @@ class CertificadoController extends Controller
 
         if($message){
             return redirect()->back()->with(['alert_mensage' => $message]);
-
         }
 
         $certificados_emitidos = collect();
 
+        $certificados_existentes = Certificado::whereIn('atividade_id', $atividades->pluck('id'))
+                                    ->get()
+                                    ->keyBy(function ($certificado) {
+                                        return $certificado->cpf_participante . '_' . $certificado->atividade_id; 
+                                    });
+
         foreach($atividades as $atividade)
         {
             $participantes = Participante::all()->where("atividade_id", $atividade->id);
-
+            
             $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $atividade->descricao)->first();
 
             if($certificado_modelo == null)
@@ -78,7 +83,12 @@ class CertificadoController extends Controller
 
             foreach($participantes as $participante)
             {
-                $certificado = new Certificado();
+                $key = $participante->user->cpf . '_' . $atividade->id;
+
+                if (isset($certificados_existentes[$key]))
+                    continue;
+
+                $certificado = new Certificado();   
 
                 $certificado->cpf_participante = $participante->user->cpf;
                 $certificado->codigo_validacao = Str::random(15);
@@ -91,7 +101,7 @@ class CertificadoController extends Controller
 
         $certificados_emitidos->each(fn($certificado) => $certificado->save());
 
-        if (Auth::user()->perfil_id == 3 && $acao->usuario_id == Auth::user()->id)
+        if (Auth::user()->perfil_id == 3 /*&& $acao->usuario_id == Auth::user()->id*/) // Gestor só pode gerar certificado de uma ação que ele é dono?
         {
             $acao->status = 'Aprovada';
 
@@ -115,6 +125,11 @@ class CertificadoController extends Controller
 
             }
 
+            $urlAnterior = url()->previous();
+
+            if(str_contains($urlAnterior, '/gestor/acoes'))
+                return redirect(Route('gestor.acoes_submetidas'))->with(['mensagem' => 'Certificados Emitidos!']);
+            else 
                 return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
         }
         else
@@ -155,6 +170,13 @@ class CertificadoController extends Controller
 
         foreach($participantes as $participante)
         {
+            $certificadoJaExiste = Certificado::where('cpf_participante', $participante->user->cpf)
+                                    ->where('atividade_id', $participante->atividade->id)->first();
+
+            if ($certificadoJaExiste != null)
+                continue;
+
+
             $certificado = new Certificado();
 
             $certificado->cpf_participante = $participante->user->cpf;
@@ -182,7 +204,13 @@ class CertificadoController extends Controller
             ]));
         }
 
-        return redirect(route('atividade.index', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
+        $urlAnterior = url()->previous();
+
+        if(str_contains($urlAnterior, '/gestor/analisar_acao'))
+            return redirect(route('gestor.analisar_acao', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
+        else
+            return redirect(route('atividade.index', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
+
     }
 
     public function gerar_certificados_requisicao($acao_id)
@@ -214,6 +242,12 @@ class CertificadoController extends Controller
 
             foreach($participantes as $participante)
             {
+                $certificadoJaExiste = Certificado::where('cpf_participante', $participante->user->cpf)
+                ->where('atividade_id', $participante->atividade->id)->first();
+
+                if ($certificadoJaExiste != null)
+                    continue;
+
                 $certificado = new Certificado();
 
                 $certificado->cpf_participante = $participante->user->cpf;
