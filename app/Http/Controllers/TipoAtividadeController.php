@@ -24,7 +24,9 @@ class TipoAtividadeController extends Controller
 
         try {
             $tipoAtividade = new TipoAtividade;
-            $tipoAtividade->create($request->all());
+            $tipoAtividade->unidade_administrativa_id = auth()->user()->unidade_administrativa_id;
+            $tipoAtividade->name = $request->name;
+            $tipoAtividade = $tipoAtividade->save();
 
             return redirect(Route('tipoatividade.index'))->with(['mensagem' => 'Tipo de Atividade cadastrada com sucesso!']);
         } catch (\Throwable $e) {
