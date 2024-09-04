@@ -92,7 +92,7 @@
                     <div class="col-2 text-center titulo-span" title="{{$acao->tipo_natureza->descricao}}"><span>{{$acao->tipo_natureza->descricao}}</span></div>
                     <div class="col-2 text-center titulo-span" title="{{$acao->nome_atividades}}">
                         <a href="{{route('relatorios.atividades', ['acao_id'=>$acao->id])}}" target="blank" ><img src="/images/atividades/participantes.svg" alt=""></a></div>
-                    <div class="col-1 text-center"><span>{{$acao->total}}</span></div>
+                    <div class="col-1 text-center"><span>{{ $acao->total }}</span></div>
                     <div class="col-1 text-center">
             <span> <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
                         <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
