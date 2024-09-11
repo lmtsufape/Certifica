@@ -63,7 +63,7 @@
                                 <select class="select-form w-100 " name="tipo_certificado" id="select_tipo_certificado"
                                     required>
                                     <option value="{{ $modelo->tipo_certificado }}"> {{ $modelo->tipo_certificado }}</option>
-                                    @foreach ($tipos_certificado as $tipo)
+                                    @foreach ($tipos_ordenados as $tipo)
                                         <option value="{{ $tipo }}">{{ $tipo }}</option>
                                     @endforeach
                                 </select>
