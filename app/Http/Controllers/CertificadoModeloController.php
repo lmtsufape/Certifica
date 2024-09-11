@@ -110,7 +110,13 @@ class CertificadoModeloController extends Controller
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho', 'Monitoria', 'Tutoria', 'Bolsas de Icentivo Acadêmico',
             'Programa de Atividades de Vivência Interdisciplinar'];
 
-        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_certificado'));
+        $tipoAtividade = TipoAtividade::all();
+
+        $tipoAtividadeNames = $tipoAtividade->pluck('name')->toArray();
+        $tipos_ordenados = array_merge($tipos_certificado, $tipoAtividadeNames);
+        sort($tipos_ordenados);
+
+        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_ordenados'));
     }
 
     /**
