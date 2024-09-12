@@ -95,6 +95,22 @@
                     </textarea>
                 </div>
 
+                <div class="row box col-xl-7">
+                    <div class="d-flex align-items-center">
+                        <label class="form-check-label me-2 mb-0" for="toggleTextArea" style="display: flex; align-items: center; margin-bottom: 0; margin-left: 0;">
+                            Deseja configurar um texto para atividades de um dia?
+                        </label>
+                        <input class="form-check-input" type="checkbox" id="toggleTextArea" style="margin-top: 0; margin-left: 5px;">
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row box flex-column col-xl-12 d-none" id="textAreaContainer">
+                    <span class="tittle-input w-100">Texto (atividade um dia):</span>
+                    <textarea name="texto_um_dia" class="w-100 campo input-create-box text-area-campo" id="texto_um_dia"></textarea>
+                </div>
+
                 <div class="row box">
 
                     <div class="col-md-6 d-flex align-items-center justify-content-center flex-column">
@@ -143,4 +159,15 @@
 
     <script src="/js/modelo_certificado/modelo_certificado-edit.js"></script>
     <script src="/js/modelo_certificado/modelo_certificado-geral.js"></script>
+
+    <script>
+        document.getElementById('toggleTextArea').addEventListener('change', function() {
+            var textAreaContainer = document.getElementById('textAreaContainer');
+            if (this.checked) {
+                textAreaContainer.classList.remove('d-none');
+            } else {
+                textAreaContainer.classList.add('d-none');
+            }
+        });
+    </script>
 @endsection

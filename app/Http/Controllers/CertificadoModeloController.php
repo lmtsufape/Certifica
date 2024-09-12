@@ -111,7 +111,13 @@ class CertificadoModeloController extends Controller
             'Programa de Atividades de Vivência Interdisciplinar'];
         sort($tipos_certificado);
 
-        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_certificado'));
+        $tipoAtividade = TipoAtividade::all();
+
+        $tipoAtividadeNames = $tipoAtividade->pluck('name')->toArray();
+        $tipos_ordenados = array_merge($tipos_certificado, $tipoAtividadeNames);
+        sort($tipos_ordenados);
+
+        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_ordenados'));
     }
 
     /**
@@ -156,6 +162,7 @@ class CertificadoModeloController extends Controller
 
         $modelo->descricao = $request->descricao;
         $modelo->texto = $request->texto;
+        $modelo->texto_um_dia = $request->texto_um_dia;
 
         $modelo->update();
 
@@ -236,6 +243,7 @@ class CertificadoModeloController extends Controller
             $certificado_modelo->descricao = $request->descricao;
             $certificado_modelo->tipo_certificado = $request->outro;
             $certificado_modelo->texto = $request->texto;
+            $certificado_modelo->texto_um_dia = $request->texto_um_dia;
             $certificado_modelo->fundo = $request->fundo;
             $certificado_modelo->verso = $request->verso;
 
@@ -250,6 +258,7 @@ class CertificadoModeloController extends Controller
             $certificado_modelo->descricao = $request->descricao;
             $certificado_modelo->tipo_certificado = $request->tipo_certificado;
             $certificado_modelo->texto = $request->texto;
+            $certificado_modelo->texto_um_dia = $request->texto_um_dia;
             $certificado_modelo->fundo = $request->fundo;
             $certificado_modelo->verso = $request->verso;
 

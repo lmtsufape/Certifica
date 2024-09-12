@@ -29,13 +29,13 @@ class RelatorioController extends Controller
         if($perfil_id == 1){
 
             $certificados = Certificado::all();
-            $acoes = Acao::where('status', 'Aprovada')->get();
+            $acoes = Acao::where('status', 'Aprovada')->orderBy('titulo')->get();
 
         } else if($perfil_id == 3 && $unidade){
 
             $certificados = $this->get_certificados_by_unidade();
             $acoes = Acao::where('unidade_administrativa_id', $unidade)
-                ->where('status', 'Aprovada')->get();
+                ->where('status', 'Aprovada')->orderBy('titulo')->get();
         }
 
         do{
@@ -46,11 +46,10 @@ class RelatorioController extends Controller
         $acoes->each(function($acao){
             $acao->nome_atividades = "";
             $acao->atividades->each(function($atividade) use ($acao){
-                $acao->total += $atividade->participantes()->count();
+                $acao->total += count(Certificado::where('atividade_id', $atividade->id)->get());
                 $acao->nome_atividades = $acao->nome_atividades ? $acao->nome_atividades.", ".$atividade->descricao : $atividade->descricao;
             });
         });
-
 
         $total = count($certificados);
 
@@ -64,13 +63,13 @@ class RelatorioController extends Controller
         if($perfil_id == 1){
 
             $certificados = Certificado::all();
-            $acoes = Acao::where('status', 'Aprovada')->get();
+            $acoes = Acao::where('status', 'Aprovada')->orderBy('titulo')->get();
 
         } else if($perfil_id == 3 && $unidade){
 
             $certificados = $this->get_certificados_by_unidade();
             $acoes = Acao::where('unidade_administrativa_id', $unidade)
-                         ->where('status', 'Aprovada')->get();
+                         ->where('status', 'Aprovada')->orderBy('titulo')->get();
 
         }
 
@@ -103,7 +102,7 @@ class RelatorioController extends Controller
         $acoes->each(function($acao){
             $acao->nome_atividades = "";
             $acao->atividades->each(function($atividade) use ($acao){
-                $acao->total += $atividade->participantes()->count();
+                $acao->total += count(Certificado::where('atividade_id', $atividade->id)->get());
                 $acao->nome_atividades = $acao->nome_atividades ? $acao->nome_atividades.", ".$atividade->descricao : $atividade->descricao;
             });
         });
@@ -115,13 +114,11 @@ class RelatorioController extends Controller
     }
 
     private function get_certificados_by_unidade(){
-        $id_unidade = Auth::user()->unidade_administrativa_id;
-
-        $unidade = UnidadeAdministrativa::find($id_unidade);
+        $acoes = Acao::where('status', 'Aprovada')->where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
 
         $certificados = collect();
 
-        $unidade->acaos->each(function($acao) use ($certificados){
+        $acoes->each(function($acao) use ($certificados){
             $certificados->push($acao->certificados);
         });
 
@@ -131,8 +128,6 @@ class RelatorioController extends Controller
     public function atividades($acao_id){
         $acao = Acao::find($acao_id);
         $atividades = $acao->atividades()->get();
-
-
 
         $atividades->each(function($atividade) {
             $atividade->total = count($atividade->certificados);
