@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreTipoAtividade;
 use App\Http\Requests\UpdateTipoAtividade;
 use App\Models\TipoAtividade;
+use Illuminate\Support\Facades\Auth;
 
 class TipoAtividadeController extends Controller
 {
     public function index(){
 
-        $tiposAtividades = TipoAtividade::all();
+        $tiposAtividades = TipoAtividade::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
 
         return view('tipo_atividade.index',compact('tiposAtividades'));
     }
@@ -24,9 +25,9 @@ class TipoAtividadeController extends Controller
 
         try {
             $tipoAtividade = new TipoAtividade;
-            $tipoAtividade->unidade_administrativa_id = auth()->user()->unidade_administrativa_id;
+            $tipoAtividade->unidade_administrativa_id = Auth::user()->unidade_administrativa_id;
             $tipoAtividade->name = $request->name;
-            $tipoAtividade = $tipoAtividade->save();
+            $tipoAtividade->save();
 
             return redirect(Route('tipoatividade.index'))->with(['mensagem' => 'Tipo de Atividade cadastrada com sucesso!']);
         } catch (\Throwable $e) {
