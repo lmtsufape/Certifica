@@ -10,12 +10,21 @@ use Illuminate\Support\Facades\Auth;
 
 class TipoAtividadeController extends Controller
 {
-    public function index(){
-
-        $tiposAtividades = TipoAtividade::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
+    public function index()
+    {
+        if(Auth::user()->perfil_id == 3)
+        {
+            $tiposAtividades = TipoAtividade::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('name')->get();
+        }
+        else
+        {
+            $tiposAtividades = TipoAtividade::orderBy('name')->get();
+        }
+            
 
         return view('tipo_atividade.index',compact('tiposAtividades'));
     }
+
     public function create(){
         return view('tipo_atividade.create');
     }
