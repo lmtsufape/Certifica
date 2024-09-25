@@ -11,6 +11,11 @@ class TipoAtividade extends Model
 
     protected $fillable = [
         'name',
+        'unidade_administrativa_id'
     ];
+
+    public function unidadeAdministrativa() {
+        return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_administrativa_id');
+    }
 
 }
