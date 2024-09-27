@@ -72,7 +72,13 @@
                                 <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
-
+                                @if($acao->status != 'Devolvida')
+                                    <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
+                                    onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
+                                        <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
+                                            title="Emitir Certificados">
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
