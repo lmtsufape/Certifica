@@ -42,7 +42,7 @@ class AtividadeController extends Controller
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
                         'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'];
 
-        $tipoAtividade = TipoAtividade::all();
+        $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', $acao->unidade_administrativa_id)->get();
 
         $tipoAtividadeName = $tipoAtividade->pluck('name')->toArray();
         $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
