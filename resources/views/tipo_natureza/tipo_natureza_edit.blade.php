@@ -54,7 +54,7 @@
                 <div class="row col-md-6 d-flex align-items-center justify-content-evenly">
                     <div class="col-3 text-center d-flex align-items-center justify-content-center">
                         <a class="button" href="{{route('tipo_natureza.index')}}">
-                            voltar
+                            Voltar
                         </a>
                     </div>
                     <div class="col-3 d-flex align-items-center justify-content-center">

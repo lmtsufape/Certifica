@@ -119,7 +119,6 @@
                         <div class="col text-center">
                             <input hidden type="file" name="verso" id="plano_verso" accept="image/*"
                                 value={{ $modelo->verso }}>
-
                             <label class="label" for="plano_verso">
                                 <span>Verso</span>
                                 <div id="card_verso" class="card-preview-create">

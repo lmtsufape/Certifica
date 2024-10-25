@@ -21,22 +21,36 @@ class AtividadeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($acao_id)
-    {
-        $acao = Acao::find($acao_id);
+{
+    $acao = Acao::find($acao_id);
+    $acao->get_participantes_name();
 
-        $acao->get_participantes_name();
+    $atividades = $acao->atividades->sortBy('id');
 
-        $atividades = $acao->atividades->sortBy('id');
+    $descricoes = [
+        'Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)',
+        'Formador(a)', 'Ministrante', 'Orientador(a)', 'Palestrante', 'Voluntário(a)', 'Participante', 
+        'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'
+    ];
 
-        return view('atividade.atividade_index', ['atividades' => $atividades, 'acao' => $acao]);
-    }
+    $tipoAtividade = TipoAtividade::all();
+    $tipoAtividadeName = $tipoAtividade->pluck('name')->toArray();
+    $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
+    sort($tipos_ordenados);
+
+    return view('atividade.atividade_index', [
+        'atividades' => $atividades,
+        'acao' => $acao,
+        'tipos_ordenados' => $tipos_ordenados
+    ]);
+}
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($acao_id)
+    /*public function create($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
@@ -50,7 +64,7 @@ class AtividadeController extends Controller
 
 
         return view('atividade.atividade_create',compact('acao','tipos_ordenados'));
-    }
+    }*/
 
     /**
      * Store a newly created resource in storage.

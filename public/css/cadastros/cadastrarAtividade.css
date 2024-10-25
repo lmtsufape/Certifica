@@ -1,0 +1,103 @@
+/* Estilização do conteúdo do modal */
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff; /* Cor de fundo clara */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+/* Estilização do cabeçalho do modal */
+.modal-header {
+    background-color: #f8f9fa; /* Fundo mais claro */
+    border-bottom: 1px solid #dee2e6; /* Borda inferior */
+    padding: 15px;
+    border-radius: 10px 10px 0 0; /* Canto superior arredondado */
+}
+
+.modal-title {
+    color: #343a40; /* Cor do texto */
+    font-weight: bold;
+}
+
+/* Estilização dos botões */
+.modal-footer .button.cancel {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-footer .button.cancel:hover {
+    background-color: #c9302c; /* Efeito hover */
+}
+
+.modal-footer .button.submit {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-footer .button.submit:hover {
+    background-color: #4cae4c; /* Efeito hover */
+}
+
+/* Estilização do corpo do modal */
+.modal-body {
+    padding: 30px;
+    background-color: #fff;
+}
+
+/* Estilização dos inputs */
+input.form-control, select.form-select {
+    border: 1px solid #ced4da; /* Borda dos campos */
+    border-radius: 5px;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+}
+
+input.form-control:focus, select.form-select:focus {
+    border-color: #80bdff; /* Cor da borda ao focar */
+    outline: none;
+}
+
+/* Estilização dos labels */
+.form-label {
+    font-weight: bold;
+    color: #343a40; /* Cor do label */
+}
+
+/* Estilização das bordas do modal */
+.modal-dialog {
+    max-width: 800px; /* Largura máxima */
+    margin: 30px auto;
+}
+
+/* Estilização geral dos elementos dentro do modal */
+.row.mb-3 .col {
+    margin-bottom: 15px;
+}
+
+.row.mb-3 .form-control {
+    height: 40px;
+}
+
+button.btn-primary {
+    background-color: #0275d8;
+    border-color: #0275d8;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background-color: #025aa5;
+}
+
+/* Botão de fechar */
+button.btn-close {
+    background: none;
+    border: none;
+}
