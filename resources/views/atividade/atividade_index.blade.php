@@ -112,6 +112,10 @@
                                     href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}" title="Excluir">
                                     <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                                 </a>
+                            @elseif(Auth::user()->perfil_id == 3)
+                                <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
+                                    <img src="/images/acoes/listView/editar.svg" alt="">
+                                </a>
                             @endif
 
                             @if(Auth::user()->perfil_id == 3 && !$atividade->emissao_parcial && $acao->status != "Aprovada")

@@ -111,7 +111,7 @@ class CertificadoModeloController extends Controller
             'Programa de Atividades de Vivência Interdisciplinar'];
         sort($tipos_certificado);
 
-        $tipoAtividade = TipoAtividade::all();
+        $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
 
         $tipoAtividadeNames = $tipoAtividade->pluck('name')->toArray();
         $tipos_ordenados = array_merge($tipos_certificado, $tipoAtividadeNames);
@@ -209,7 +209,7 @@ class CertificadoModeloController extends Controller
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho', 'Monitoria', 'Tutoria', 'Bolsas de Icentivo Acadêmico',
             'Programa de Atividades de Vivência Interdisciplinar'];
 
-        $tipoAtividade = TipoAtividade::all();
+        $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
 
         $tipoAtividadeNames = $tipoAtividade->pluck('name')->toArray();
         $tipos_ordenados = array_merge($tipos_certificado, $tipoAtividadeNames);

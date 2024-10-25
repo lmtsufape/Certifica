@@ -137,6 +137,14 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
 
     Route::get('/tipo_naturezas/delete/{id}', [TipoNaturezaController::class, 'destroy'])->name('tipo_natureza.delete');
 
+    //tipo de atividade rotas
+    Route::get('/tipoatividade/index', [TipoAtividadeController::class, 'index'])->name('tipoatividade.index');
+    Route::get('/tipoatividade/create', [TipoAtividadeController::class, 'create'])->name('tipoatividade.create');
+    Route::post('/tipoatividade/store', [TipoAtividadeController::class, 'store'])->name('tipoatividade.store');
+    Route::get('/tipoatividade/edit/{tipoatividade_id}', [TipoAtividadeController::class, 'edit'])->name('tipoatividade.edit');
+    Route::put('/tipoatividade/update/{tipoatividade_id}', [TipoAtividadeController::class, 'update'])->name('tipoatividade.update');
+    Route::get('/tipoatividade/delete/{tipoatividade_id}', [TipoAtividadeController::class, 'destroy'])->name('tipoatividade.delete');
+
 });
 
 
@@ -259,14 +267,6 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
     Route::get('/acoes_submetidas_list', [AcaoController::class, 'list_acoes_submetidas'])->name('acoes_submetidas_list');
 
     Route::get('/participante/preview_certificado/{participante_id}', [CertificadoController::class, 'previsualizar_certificado'])->name('certificado.preview');
-
-    //tipo de atividade rotas
-    Route::get('/tipoatividade/index', [TipoAtividadeController::class, 'index'])->name('tipoatividade.index');
-    Route::get('/tipoatividade/create', [TipoAtividadeController::class, 'create'])->name('tipoatividade.create');
-    Route::post('/tipoatividade/store', [TipoAtividadeController::class, 'store'])->name('tipoatividade.store');
-    Route::get('/tipoatividade/edit/{tipoatividade_id}', [TipoAtividadeController::class, 'edit'])->name('tipoatividade.edit');
-    Route::put('/tipoatividade/update/{tipoatividade_id}', [TipoAtividadeController::class, 'update'])->name('tipoatividade.update');
-    Route::get('/tipoatividade/delete/{tipoatividade_id}', [TipoAtividadeController::class, 'destroy'])->name('tipoatividade.delete');
 
     // Rotas Colaborador Gestor
     Route::get('/listar-colaboradores/{acaoId}', [ColaboradorAcaoController::class, 'listarColaboradores'])->name('listar.colaboradores');
