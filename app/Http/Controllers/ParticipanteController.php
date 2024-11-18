@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImportParticipantesRequest;
 use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Curso;
@@ -493,76 +494,80 @@ class ParticipanteController extends Controller
     }
 
 
-    public function import_participantes($atividade_id, Request $request){
-        $atividade = Atividade::find($atividade_id);
-
-        $inputFileType = IOFactory::identify($request->participantes_xlsx);
-        $reader = IOFactory::createReader($inputFileType);
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($request->participantes_xlsx);
-        $worksheet = $spreadsheet->getActiveSheet();
-
-        $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
-
-        $participantes = [];
-
-        for ($row = 2; $row <= $highestRow; ++$row) {
-            //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
-            $cpf = Mask::mask($worksheet->getCell([2, $row])->getValue(), "###.###.###-##");
-            $user = User::where('cpf', '=', $cpf)->first();
-
-            $confirm = True;
-
-            if(!$user)
-            {
-                try{
-
-                    $attributes = [
-                        'nome' => $worksheet->getCell([1, $row])->getValue(),
-                        'cpf'  => $cpf,
-                        'passaporte' => NULL,
-                        'email' => $worksheet->getCell([3, $row])->getValue(),
-                        'perfil_id' => 4,
-                        'instituicao' => 'outra',
-                        'instituicao_id' => 2,
-                    ];
-
-                    $user = $this->createUser($attributes);
-
-                } catch (\Throwable $th) {
-                    $confirm = False;
-
-                    $message = $worksheet->getCell([1, $row])->getValue()." (".$th->getMessage().")";
-
-                    array_push($participantes, $message);
+    public function import_participantes(ImportParticipantesRequest $request, $atividade_id){
+        try {
+            $atividade = Atividade::find($atividade_id);
+    
+            $inputFileType = IOFactory::identify($request->participantes_xlsx);
+            $reader = IOFactory::createReader($inputFileType);
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($request->participantes_xlsx);
+            $worksheet = $spreadsheet->getActiveSheet();
+    
+            $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
+    
+            $participantes = [];
+    
+            for ($row = 2; $row <= $highestRow; ++$row) {
+                //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
+                $cpf = Mask::mask($worksheet->getCell([2, $row])->getValue(), "###.###.###-##");
+                $user = User::where('cpf', '=', $cpf)->first();
+    
+                $confirm = True;
+    
+                if(!$user)
+                {
+                    try{
+    
+                        $attributes = [
+                            'nome' => $worksheet->getCell([1, $row])->getValue(),
+                            'cpf'  => $cpf,
+                            'passaporte' => NULL,
+                            'email' => $worksheet->getCell([3, $row])->getValue(),
+                            'perfil_id' => 4,
+                            'instituicao' => 'outra',
+                            'instituicao_id' => 2,
+                        ];
+    
+                        $user = $this->createUser($attributes);
+    
+                    } catch (\Throwable $th) {
+                        $confirm = False;
+    
+                        $message = $worksheet->getCell([1, $row])->getValue()." (".$th->getMessage().")";
+    
+                        array_push($participantes, $message);
+                    }
                 }
+    
+    
+                if($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
+                {
+                    $participante = new Participante();
+                    $participante->carga_horaria = $worksheet->getCell([4, $row])->getValue();
+                    $participante->atividade_id = $atividade_id;
+                    $participante->user_id = $user->id;
+    
+                    $participante->save();
+                }
+    
             }
-
-
-            if($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
-            {
-                $participante = new Participante();
-                $participante->carga_horaria = $worksheet->getCell([4, $row])->getValue();
-                $participante->atividade_id = $atividade_id;
-                $participante->user_id = $user->id;
-
-                $participante->save();
+    
+    
+    
+            $mensagem = "Participantes adicionados!";
+    
+            if($participantes){
+                $mensagem = "Os seguintes participantes não puderam ser adicionados:\n"
+                            .implode("  /  ",$participantes).".\n".
+                            "\n Verifique os dados dos participantes e tente novamente.";
+                return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['alert_mensage' => $mensagem]);
             }
-
+    
+            return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors('Ocorreu um erro no processamento do arquivo');
         }
-
-
-
-        $mensagem = "Participantes adicionados!";
-
-        if($participantes){
-            $mensagem = "Os seguintes participantes não puderam ser adicionados:\n"
-                        .implode("  /  ",$participantes).".\n".
-                        "\n Verifique os dados dos participantes e tente novamente.";
-            return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['alert_mensage' => $mensagem]);
-        }
-
-        return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
     }
 
     /**
