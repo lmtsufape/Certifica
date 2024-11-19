@@ -32,7 +32,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 <ul class="mb-0">
                     @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
+                        <li>{!! $error !!}</li>
                     @endforeach
                 </ul>
             </div>

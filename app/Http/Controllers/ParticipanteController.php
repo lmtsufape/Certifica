@@ -565,8 +565,17 @@ class ParticipanteController extends Controller
             }
     
             return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors('Ocorreu um erro no processamento do arquivo');
+        } catch (Exception $exception) {
+            $trackingId = (string) Str::uuid();
+
+            // Registra a exceção com o identificador nos logs
+            \Illuminate\Support\Facades\Log::error("Error [$trackingId]: " . $exception->getMessage(), [
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
+                'trace' => $exception->getTraceAsString(),
+            ]);
+
+            return redirect()->back()->withErrors("Ocorreu um erro no processamento do arquivo.<br>Identificador do Erro: $trackingId");
         }
     }
 
