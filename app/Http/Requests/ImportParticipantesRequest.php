@@ -30,20 +30,22 @@ class ImportParticipantesRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if ($this->hasFile('participantes_xlsx')) {
-                $file = $this->file('participantes_xlsx');
-                $data = Excel::toArray([], $file);
+            if ($validator->errors()->isNotEmpty()) {
+                return;
+            }
 
-                if (empty($data[0])) {
-                    $validator->errors()->add('participantes_xlsx', 'O arquivo está vazio ou inválido.');
-                }
+            $file = $this->file('participantes_xlsx');
+            $data = Excel::toArray([], $file);
 
-                // Validar os cabeçalhos
-                $expectedHeaders = ['NOME', 'CPF', 'E-MAIL', 'CH'];
-                $fileHeaders = $data[0][0] ?? [];
-                if ($fileHeaders !== $expectedHeaders) {
-                    $validator->errors()->add('participantes_xlsx', 'Os cabeçalhos do arquivo não são válidos.');
-                }
+            if (empty($data[0])) {
+                $validator->errors()->add('participantes_xlsx', 'O arquivo está vazio ou inválido.');
+            }
+
+            // Validar os cabeçalhos
+            $expectedHeaders = ['NOME', 'CPF', 'E-MAIL', 'CH'];
+            $fileHeaders = $data[0][0] ?? [];
+            if ($fileHeaders !== $expectedHeaders) {
+                $validator->errors()->add('participantes_xlsx', 'Os cabeçalhos do arquivo não são válidos.');
             }
         });
     }
