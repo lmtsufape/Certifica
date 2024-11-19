@@ -199,6 +199,17 @@ Atividades
                                                 style="margin-top:5%" required>
                                         </div>
                                     </div>
+                                    <div class="card  mt-3">
+                                        <div class="card-header bg-primary text-white">
+                                            <strong>Instruções para Importação</strong>
+                                        </div>
+                                        <div class="card-body">
+                                            <ul class="list-unstyled">
+                                                <li><i class="bi bi-check-circle text-success"></i> O arquivo deve estar no formato <strong>XLSX</strong>, utilizado pelo Microsoft Excel.</li>
+                                                <li><i class="bi bi-check-circle text-success"></i> O cabeçalho deve conter apenas: <strong>NOME, CPF, E-MAIL, CH</strong>. Consulte o <a href="/files/modelo.xlsx">modelo de exemplo</a> para referência.</li>
+                                            </ul>
+                                        </div>
+                                    </div>                                    
                                     <div class="row justify-content-center mt-4">
                                         <div class="col-2">
                                             <button type="button" class="btn btn-sm btn-dark"
