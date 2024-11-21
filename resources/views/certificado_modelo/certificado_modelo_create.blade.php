@@ -60,7 +60,7 @@
                     <span class="tittle-input w-100">Texto padrão:</span>
 
                     <textarea name="texto" class="w-100 campo input-create-box" id="texto">
-                       
+
                     </textarea>
                 </div>
 
@@ -122,13 +122,13 @@
                         <button class="button submit mt-4" type="submit">Cadastrar</button>
                     </div>
                 </div>
-                
+
             </div>
 
         </form>
 
         <!--modal legendas -->
-        @include('components.modal-Legenda')
+        @include('layouts.components.modal-Legenda')
 
     </section>
 

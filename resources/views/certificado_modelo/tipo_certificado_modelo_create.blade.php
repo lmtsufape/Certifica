@@ -152,7 +152,7 @@
 
 
         <!--modal legendas -->
-        @include('components.modal-Legenda')
+        @include('layouts.components.modal-Legenda')
 
     </section>
 
