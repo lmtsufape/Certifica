@@ -104,7 +104,7 @@
                         </div>
                     @else
                         <br>
-                        
+
                         <div class="row box d-flex flex-column col-xl-7 mt-3" id="textAreaContainer">
                             <span class="tittle-input w-100">Texto (atividade um dia):</span>
                             <textarea name="texto_um_dia" class="w-100 campo input-create-box text-area-campo" id="texto_um_dia">
@@ -164,7 +164,7 @@
         </div>
 
         <!--modal legendas -->
-        @include('components.modal-Legenda')
+        @include('layouts.components.modal-Legenda')
     </div>
 
     <script src="/js/modelo_certificado/modelo_certificado-edit.js"></script>
