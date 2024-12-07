@@ -121,6 +121,12 @@
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
+
+                                <a
+                                    href="{{ route('participante.reemitir_certificado', ['participante_id' => $participante->id]) }}">
+                                    <img src="/images/acoes/listView/reemitir.svg" alt=""
+                                        title="Emitir Certificado">
+                                </a>
                             @endif
 
                             @if($acao->status == null || $acao->status == "Devolvida")
