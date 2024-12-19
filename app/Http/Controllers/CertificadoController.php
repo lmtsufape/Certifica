@@ -80,7 +80,15 @@ class CertificadoController extends Controller
             {
                 $certificado = new Certificado();
 
-                $certificado->cpf_participante = $participante->user->cpf;
+                if($participante->user->cpf)
+                {
+                    $certificado->cpf_participante = $participante->user->cpf;
+                }
+                else
+                {
+                    $certificado->cpf_participante = $participante->user->passaporte;
+                }
+                
                 $certificado->codigo_validacao = Str::random(15);
                 $certificado->certificado_modelo_id = $certificado_modelo->id;
                 $certificado->atividade_id = $atividade->id;
@@ -108,7 +116,7 @@ class CertificadoController extends Controller
                     foreach ($chunkedParticipantes as $chunk)
                     {
                         Mail::bcc($chunk)->queue(new CertificadoDisponivel([
-                            'acao' => $acao->titulo, 'atividade' => $atividade_participantes['atividade']
+                            'acao' => $acao->titulo
                         ]));
                     }
                 });
@@ -269,7 +277,15 @@ class CertificadoController extends Controller
 
         $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
 
-        $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
+        if($participante->user->cpf)
+        {
+            $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
+        }
+        else
+        {
+            $certificado = Certificado::where('cpf_participante', $participante->user->passaporte)->where('atividade_id', $atividade->id)->first();
+        }
+        
 
         if(!$certificado)
         {
@@ -362,8 +378,15 @@ class CertificadoController extends Controller
     public function invalidar_certificado($participante_id)
     {
         $participante = Participante::findOrFail($participante_id);
-
-        $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $participante->atividade->id)->first();
+        
+        if($participante->user->cpf) 
+        {
+            $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $participante->atividade->id)->first();
+        } 
+        else
+        {
+            $certificado = Certificado::where('cpf_participante', $participante->user->passaporte)->where('atividade_id', $participante->atividade->id)->first();
+        }
 
         if(!$certificado)
         {
@@ -400,7 +423,15 @@ class CertificadoController extends Controller
 
             $certificado = new Certificado();
 
-            $certificado->cpf_participante = $participante->user->cpf;
+            if($participante->user->cpf) 
+            {
+                $certificado->cpf_participante = $participante->user->cpf;
+            } 
+            else
+            {
+                $certificado->cpf_participante = $participante->user->passaporte;
+            }
+           
             $certificado->codigo_validacao = Str::random(15);
             $certificado->certificado_modelo_id = $certificado_modelo->id;
             $certificado->atividade_id = $participante->atividade->id;
