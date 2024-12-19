@@ -49,7 +49,7 @@
 
                                 <br> <br>
 
-                                Seu certificado referente a ação institucional <b>{{$acao}}</b>, atividade <b>{{$atividade}}</b>, já está disponível.
+                                Seu certificado referente a ação institucional <b>{{$acao}}</b>,{{-- atividade <b>{{$atividade}}</b>,--}} já está disponível.
                                 Clique no botão abaixo para acessar os seus certificados:
 
                                 <br> <br>

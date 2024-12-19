@@ -46,7 +46,7 @@ class CertificadoDisponivel extends Mailable implements ShouldQueue
             view: 'email.certificado_disponivel',
             with: [
                 'acao' => $this->data['acao'],
-                'atividade' => $this->data['atividade'],
+                //'atividade' => $this->data['atividade'],
                 'link'   => "/meus-certificados",
                 'imagem' => public_path().'/images/layouts/header/logo-certifica.png',
             ],
