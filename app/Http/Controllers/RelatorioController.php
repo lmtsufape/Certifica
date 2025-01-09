@@ -93,11 +93,22 @@ class RelatorioController extends Controller
 //            $certificados = Certificado::search_atividade($certificados, request('atividade'));
 //        }
 
-        if(request('ano')){
-            $certificados = Certificado::search_ano($certificados, request('ano'));
+        if(request('ano'))
+        {
             $acoes = Acao::search_acao_by_ano($acoes, request('ano'));
-        }
+            $certificados = [];
 
+            foreach ($acoes as $acao)
+            {
+                foreach ($acao->atividades as $atividade)
+                {
+                    foreach (Certificado::where('atividade_id', $atividade->id)->get() as $certificado)
+                    {
+                        $certificados[] = $certificado;
+                    }
+                }
+            }
+        }
 
         $acoes->each(function($acao){
             $acao->nome_atividades = "";
@@ -107,10 +118,9 @@ class RelatorioController extends Controller
             });
         });
 
-
         $total = count($certificados);
 
-        return view('relatorios.list', compact('certificados', 'total', 'acoes'));
+        return view('relatorios.list', compact('acoes', 'total'));
     }
 
     private function get_certificados_by_unidade(){

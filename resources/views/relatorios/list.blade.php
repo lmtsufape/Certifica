@@ -1,4 +1,4 @@
-<!-- @foreach($certificados as $certificado)
+{{-- @foreach($certificados as $certificado)
     <div class="row linha-table d-flex align-items-center justify-content-start">
         <div class="col-3 titulo-span text-center"><span class="spacing-col">{{$certificado->atividade->acao->tipo_natureza->natureza->descricao}}</span></div>
         <div class="col-2 text-center"><span>{{$certificado->atividade->acao->tipo_natureza->descricao}}</span></div>
@@ -11,7 +11,7 @@
             </span>
         </div>
     </div>
-@endforeach -->
+@endforeach --}}
 @foreach($acoes as $acao)
     <div class="row linha-table d-flex align-items-center justify-content-start">
         <div class="col-2 text-center titulo-span" title="{{$acao->titulo}}"><span>{{$acao->titulo}}</span></div>

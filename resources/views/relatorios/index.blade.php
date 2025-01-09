@@ -111,9 +111,9 @@
 
 
 <script>
-    $(document).ready(function() {
+    /* $(document).ready(function() {
         filtro();
-    });
+    }); */
 
     $(document).bind('keyup', '.form', function(e) {
         e.preventDefault();
@@ -135,7 +135,6 @@
             method: "GET",
             data: dados
         }).done(function(data) {
-
             $(".list").html(data);
         });
     }
