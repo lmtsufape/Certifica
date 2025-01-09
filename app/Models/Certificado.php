@@ -23,7 +23,7 @@ class Certificado extends Model
     public function participante($atividade_id, $cpf){
         $participantes = Atividade::find($atividade_id)->participantes;
         $participante = $participantes->where('user.cpf', $cpf)->first();
-        
+
         return $participante;
     }
 
@@ -48,7 +48,6 @@ class Certificado extends Model
     }
 
     public static function search_ano($certificados, $ano){
-        return $certificados->where('updated_at.year', $ano);
-
+        return $certificados->where('created_at.year', $ano);
     }
 }
