@@ -73,6 +73,9 @@
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
 
+                                <a onclick="return confirm('Você tem certeza que deseja excluir esta atividade?')" href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
+                                    <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Deletar">
+                                </a>
                             </div>
                         </div>
                     </div>
