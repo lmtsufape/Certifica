@@ -29,7 +29,7 @@ class AtividadeController extends Controller
 
     $descricoes = [
         'Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)',
-        'Formador(a)', 'Ministrante', 'Orientador(a)', 'Palestrante', 'Voluntário(a)', 'Participante', 
+        'Formador(a)', 'Ministrante', 'Orientador(a)', 'Palestrante', 'Voluntário(a)', 'Participante',
         'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'
     ];
 
@@ -210,6 +210,7 @@ class AtividadeController extends Controller
 
         $atividade->participantes()->delete();
         $atividade->trabalhos()->delete();
+        $atividade->certificados()->delete();
 
         $atividade->delete();
 
