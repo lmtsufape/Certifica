@@ -80,7 +80,7 @@
                 <div class="col-2 text-center"><span>Atividades</span></div>
                 <div class="col-1 text-center"><span>Total de Certificados</span></div>
                 <div class="col-1 text-center"><span>Certificados</span></div>
-                <div class="col-2 text-center"><span>Emissor</span></div>
+                <div class="col-2 text-center"><span>Estatísticas de Certificados</span></div>
             </div>
         </div>
 
@@ -94,12 +94,40 @@
                         <a href="{{route('relatorios.atividades', ['acao_id'=>$acao->id])}}" target="blank" ><img src="/images/atividades/participantes.svg" alt=""></a></div>
                     <div class="col-1 text-center"><span>{{ $acao->total }}</span></div>
                     <div class="col-1 text-center">
-            <span> <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
-                        <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
-                    </a>
-            </span>
+                        <span> <a href="{{route('certificados.download', ['acao_id'=>$acao->id])}}" target="blank">
+                                    <img src="/images/acoes/listView/zipcertificados.svg" alt="Visualizar" title="Baixar Certificados">
+                                </a>
+                        </span>
                     </div>
-                    <div title="{{ $acao->unidadeAdministrativa->descricao }}" class="col-2 text-center titulo-span"><span>{{ $acao->unidadeAdministrativa->descricao }}</span></div>
+                    <div class="col-2 text-center">
+                        <span>
+                            <a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
+                                    src="/images/acoes/listView/eye.svg" alt="" title="Estatísticas de Certificados"></a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modal-info{{ $acao->id }}">
+                    <div class="modal-dialog modal-dialog-centered" role="dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background: #972E3F; color: white;">
+                                <h5 class="modal-title"><b>Estatísticas de Certificados</b></h5>
+                            </div>
+                            <div class="modal-body">
+                                @if (count($acao->atividades))
+                                    <div class="row justify-content-center">
+                                        @foreach ($acao->atividades as $atividade)
+                                            <?php
+                                                $atividade->certificados = $atividade->certificados()->count();
+                                            ?>
+
+                                            <span><b>{{ $atividade->descricao }}:</b> {{ $atividade->certificados }} certificado(s)</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -138,4 +166,17 @@
             $(".list").html(data);
         });
     }
+
+    $(document).ready(function(){
+        // Exibe o modal ao clicar no link com o atributo data-toggle e data-target correspondentes
+        $('[data-toggle="modal"]').click(function(){
+            var target_modal = $(this).data('target');
+            $(target_modal).modal('show');
+        });
+    });
+
+    $(document).on('hidden.bs.modal', function () {
+        $('body').removeClass('modal-open');
+        $('body').css('padding-right', '');
+    });
 </script>
