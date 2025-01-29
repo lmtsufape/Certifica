@@ -12,7 +12,7 @@ class Acao extends Model
 
     protected $table = 'acaos';
 
-    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'natureza_id', 'usuario_id', 'anexo', 'unidade_administrativa_id'];
+    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'natureza_id', 'usuario_id', 'anexo', 'unidade_administrativa_id', 'data_personalizada'];
 
     public static $rules = [
         'titulo'                    => 'required|string|min:10',

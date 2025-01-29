@@ -117,6 +117,46 @@
                 </div>
             @endif
 
+            @if($acao->data_personalizada)
+                <div class="row box col-xl-7">
+                    <div class="d-flex align-items-center">
+                        <label class="form-check-label me-2 mb-0" for="toggleDataPersonalizada" style="display: flex; align-items: center; margin-bottom: 0; margin-left: 0;">
+                            Ativar data personalizada?
+                        </label>
+                        <input class="form-check-input" type="checkbox" id="toggleDataPersonalizada" style="margin-top: 0; margin-left: 5px;" checked>
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row box flex-column col-xl-12" id="dataPersonalizadaContainer">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box ">
+                        <span class="tittle-input">Data Personalizada</span>
+                        <input class="w-100 h-75" type="date" name="data_personalizada" id="inputDataPersonalizada"
+                               value="{{ $acao->data_personalizada }}">
+                    </div>
+                </div>
+            @else
+                <div class="row box col-xl-7">
+                    <div class="d-flex align-items-center">
+                        <label class="form-check-label me-2 mb-0" for="toggleDataPersonalizada" style="display: flex; align-items: center; margin-bottom: 0; margin-left: 0;">
+                            Ativar data personalizada?
+                        </label>
+                        <input class="form-check-input" type="checkbox" id="toggleDataPersonalizada" style="margin-top: 0; margin-left: 5px;">
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row box flex-column col-xl-12 d-none" id="dataPersonalizadaContainer">
+                    <div class="col-xl-3 campo spacing-row2 input-create-box ">
+                        <span class="tittle-input">Data Personalizada</span>
+                        <input class="w-100 h-75" type="date" name="data_personalizada" id="inputDataPersonalizada"
+                               value="{{ old('data_personalizada') }}">
+                    </div>
+                </div>
+            @endif
+
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
                     <a class="button d-flex justify-content-center align-items-center cancel"
@@ -128,4 +168,21 @@
     </form>
 
     <script src="/js/acao/acao-edit-create.js"></script>
+
+    <script>
+        document.getElementById('toggleDataPersonalizada').addEventListener('change', function() {
+            var dataPersonalizadaContainer = document.getElementById('dataPersonalizadaContainer');
+            var inputDataPersonalizada = document.getElementById('inputDataPersonalizada');
+
+            if (this.checked) {
+                dataPersonalizadaContainer.classList.remove('d-none');
+            } else {
+                dataPersonalizadaContainer.classList.add('d-none');
+
+                if (inputDataPersonalizada) {
+                    inputDataPersonalizada.value = null;
+                }
+            }
+        });
+    </script>
 @endsection

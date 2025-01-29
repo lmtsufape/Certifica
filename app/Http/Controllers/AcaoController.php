@@ -95,6 +95,7 @@ class AcaoController extends Controller
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
+        $acao->data_personalizada = $request->data_personalizada;
 
         if (Auth::user()->perfil_id == 3) {
             $acao->anexo = null;
@@ -215,6 +216,7 @@ class AcaoController extends Controller
         $acao->data_fim = $request->data_fim;
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
+        $acao->data_personalizada = $request->data_personalizada;
 
         if ($request->file('anexo')) {
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
