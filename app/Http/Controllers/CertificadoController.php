@@ -88,7 +88,7 @@ class CertificadoController extends Controller
                 {
                     $certificado->cpf_participante = $participante->user->passaporte;
                 }
-                
+
                 $certificado->codigo_validacao = Str::random(15);
                 $certificado->certificado_modelo_id = $certificado_modelo->id;
                 $certificado->atividade_id = $atividade->id;
@@ -275,20 +275,22 @@ class CertificadoController extends Controller
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
         $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
 
-        $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
+        if($acao->data_personalizada) {
+            $data_atual = Carbon::parse($acao->data_personalizada)->isoFormat('LL');
+        }
+        else {
+            $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
+        }
 
-        if($participante->user->cpf)
-        {
+        if($participante->user->cpf) {
             $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
         }
-        else
-        {
+        else {
             $certificado = Certificado::where('cpf_participante', $participante->user->passaporte)->where('atividade_id', $atividade->id)->first();
         }
-        
 
-        if(!$certificado)
-        {
+
+        if(!$certificado) {
             return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi invalidado, um novo precisa ser emitido!']);
         }
 
@@ -297,22 +299,18 @@ class CertificadoController extends Controller
 
         //$atividade->descricao = Str::lower($atividade->descricao);
 
-        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null)
-        {
+        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null) {
             $modelo->texto = $modelo->texto_um_dia;
         }
 
-        if(mb_strlen($modelo->texto <= 380))
-        {
+        if(mb_strlen($modelo->texto <= 380)) {
             $tamanho_fonte = 38;
         }
-        else
-        {
+        else {
             $tamanho_fonte = 38;
             $excesso_caracteres = mb_strlen($modelo->texto) - 380;
 
-            if ($excesso_caracteres > 0) 
-            {
+            if ($excesso_caracteres > 0) {
                 $reducoes_tamanho = ceil($excesso_caracteres / 65);
                 $tamanho_fonte -= $reducoes_tamanho * 2;
             }
@@ -378,11 +376,11 @@ class CertificadoController extends Controller
     public function invalidar_certificado($participante_id)
     {
         $participante = Participante::findOrFail($participante_id);
-        
-        if($participante->user->cpf) 
+
+        if($participante->user->cpf)
         {
             $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $participante->atividade->id)->first();
-        } 
+        }
         else
         {
             $certificado = Certificado::where('cpf_participante', $participante->user->passaporte)->where('atividade_id', $participante->atividade->id)->first();
@@ -423,15 +421,15 @@ class CertificadoController extends Controller
 
             $certificado = new Certificado();
 
-            if($participante->user->cpf) 
+            if($participante->user->cpf)
             {
                 $certificado->cpf_participante = $participante->user->cpf;
-            } 
+            }
             else
             {
                 $certificado->cpf_participante = $participante->user->passaporte;
             }
-           
+
             $certificado->codigo_validacao = Str::random(15);
             $certificado->certificado_modelo_id = $certificado_modelo->id;
             $certificado->atividade_id = $participante->atividade->id;
@@ -605,12 +603,16 @@ class CertificadoController extends Controller
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
         $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
 
-        $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
+        if($acao->data_personalizada) {
+            $data_atual = Carbon::parse($acao->data_personalizada)->isoFormat('LL');
+        }
+        else {
+            $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
+        }
 
         $modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $participante->atividade->descricao)->first();
 
-        if(!$modelo)
-        {
+        if(!$modelo) {
             $modelo =  CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id)->first();
         }
 
@@ -623,22 +625,18 @@ class CertificadoController extends Controller
 
         //$atividade->descricao = Str::lower($atividade->descricao);
 
-        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null)
-        {
+        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null) {
             $modelo->texto = $modelo->texto_um_dia;
         }
 
-        if(mb_strlen($modelo->texto <= 380))
-        {
+        if(mb_strlen($modelo->texto <= 380)) {
             $tamanho_fonte = 38;
         }
-        else
-        {
+        else {
             $tamanho_fonte = 38;
             $excesso_caracteres = mb_strlen($modelo->texto) - 380;
 
-            if ($excesso_caracteres > 0) 
-            {
+            if ($excesso_caracteres > 0) {
                 $reducoes_tamanho = ceil($excesso_caracteres / 65);
                 $tamanho_fonte -= $reducoes_tamanho * 2;
             }
@@ -646,7 +644,7 @@ class CertificadoController extends Controller
             $tamanho_fonte = intval($tamanho_fonte);
         }
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho, $info_extra_participante);            
+        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho, $info_extra_participante);
 
         $imagem = Storage::url($modelo->fundo);
 
