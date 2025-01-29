@@ -32,7 +32,7 @@ Atividades
             </div>
 
             <div class="col-8 text-end">
-                @if($acao->status == null || $acao->status == 'Devolvida')
+                @if($acao->status == null || $acao->status == 'Devolvida' || Auth::user()->perfil_id == 3)
                     <a class="criar-acao-button" data-bs-toggle="modal" data-bs-target="#modalComponent">
                         <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                     </a>
@@ -164,6 +164,14 @@ Atividades
                             </a>
                         @endif
 
+                        @if(\App\Models\Certificado::where('atividade_id', $atividade->id)->first() == null)
+                            <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
+                               onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
+                                <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
+                                     title="Emitir Certificados">
+                            </a>
+                        @endif
+
                     </div>
 
                     <div class="col-4"></div>
@@ -209,7 +217,7 @@ Atividades
                                                 <li><i class="bi bi-check-circle text-success"></i> O cabeçalho deve conter apenas: <strong>NOME, CPF, E-MAIL, CH</strong>. Consulte o <a href="/files/modelo.xlsx">modelo de exemplo</a> para referência.</li>
                                             </ul>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="row justify-content-center mt-4">
                                         <div class="col-2">
                                             <button type="button" class="btn btn-sm btn-dark"
