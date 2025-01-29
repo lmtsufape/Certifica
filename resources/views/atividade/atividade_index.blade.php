@@ -162,9 +162,7 @@ Atividades
                                 <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
                                     title="Emitir Certificados">
                             </a>
-                        @endif
-
-                        @if(\App\Models\Certificado::where('atividade_id', $atividade->id)->first() == null)
+                        @elseif(\App\Models\Certificado::where('atividade_id', $atividade->id)->first() == null)
                             <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
                                onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
                                 <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
