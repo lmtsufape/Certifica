@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTipoAtividade extends FormRequest
 {
@@ -24,7 +25,12 @@ class UpdateTipoAtividade extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:tipo_atividades|min:5',
+            'name' => [
+                'required',
+                'string',
+                'min:5',
+                Rule::unique('tipo_atividades')->ignore($this->route('tipoatividade_id')),
+            ],
         ];
     }
 

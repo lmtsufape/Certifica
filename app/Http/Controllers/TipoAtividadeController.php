@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UnidadeAdministrativa;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTipoAtividade;
 use App\Http\Requests\UpdateTipoAtividade;
@@ -20,7 +21,7 @@ class TipoAtividadeController extends Controller
         {
             $tiposAtividades = TipoAtividade::orderBy('name')->get();
         }
-            
+
 
         return view('tipo_atividade.index',compact('tiposAtividades'));
     }
@@ -40,30 +41,31 @@ class TipoAtividadeController extends Controller
 
             return redirect(Route('tipoatividade.index'))->with(['mensagem' => 'Tipo de Atividade cadastrada com sucesso!']);
         } catch (\Throwable $e) {
-            
+
         }
-       
+
     }
     public function edit($tipoAtividade_id){
         $tipoAtividade = TipoAtividade::findOrFail($tipoAtividade_id);
+        $unidades_administrativas = UnidadeAdministrativa::all()->sortBy('descricao');
 
-        return view('tipo_atividade.edit',compact('tipoAtividade'));
-      
+        return view('tipo_atividade.edit',compact('tipoAtividade', 'unidades_administrativas'));
+
     }
     public function update(UpdateTipoAtividade $request){
 
         $validation = $request->validated();
 
-        try {   
+        try {
             $tipoAtividade = TipoAtividade::findOrFail($request->tipoAtividade_id);
             $tipoAtividade->update($request->all());
 
             return redirect(Route('tipoatividade.index'))->with(['mensagem' => 'Tipo de Atividade atualizada com sucesso!']);
         } catch (\Throwable $e){
-            
+
         }
-        
-        
+
+
     }
     public function destroy($tipoatividade_id){
 
