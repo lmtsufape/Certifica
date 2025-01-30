@@ -15,7 +15,7 @@ class TipoAtividade extends Model
     ];
 
     public function unidadeAdministrativa() {
-        return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_administrativa_id');
+        return $this->belongsTo(UnidadeAdministrativa::class);
     }
 
 }

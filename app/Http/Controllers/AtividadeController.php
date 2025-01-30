@@ -33,7 +33,7 @@ class AtividadeController extends Controller
         'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'
     ];
 
-    $tipoAtividade = TipoAtividade::all();
+    $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', $acao->unidade_administrativa_id)->get();
     $tipoAtividadeName = $tipoAtividade->pluck('name')->toArray();
     $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
     sort($tipos_ordenados);
