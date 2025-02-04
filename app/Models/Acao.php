@@ -138,7 +138,10 @@ class Acao extends Model
     }
 
     public static function search_acao_by_ano($acoes, $ano){
-        return $acoes->where('created_at.year', $ano);
+        return $acoes->where(function($query) use ($ano) {
+            $query->whereYear('data_personalizada', $ano)
+                ->orWhereNull('data_personalizada');
+            })->whereYear('created_at', $ano);
     }
     public function colaboradores()
     {
