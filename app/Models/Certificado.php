@@ -48,6 +48,10 @@ class Certificado extends Model
     }
 
     public static function search_ano($certificados, $ano){
-        return $certificados->where('created_at.year', $ano);
+        return $certificados->where(function($query) use ($ano) {
+                $query->whereYear('data_personalizada', $ano)
+                    ->orWhereNull('data_personalizada')
+                    ->whereYear('created_at', $ano);
+                });
     }
 }
