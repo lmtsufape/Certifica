@@ -25,18 +25,11 @@
                     </a>
             </span>
         </div>
-        <div class="modal-body">
-            @if (count($acao->atividades))
-                <div class="row justify-content-center">
-                    @foreach ($acao->atividades as $atividade)
-                        <?php
-                            $atividade->certificados = $atividade->certificados()->count();
-                        ?>
-
-                        <span><b>{{ $atividade->descricao }}:</b> {{ $atividade->certificados }} certificado(s)</span>
-                    @endforeach
-                </div>
-            @endif
+        <div class="col-2 text-center">
+            <span>
+                <a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
+                        src="/images/acoes/listView/eye.svg" alt="" title="Estatísticas de Certificados"></a>
+            </span>
         </div>
     </div>
 @endforeach
