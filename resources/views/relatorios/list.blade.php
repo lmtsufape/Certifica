@@ -25,7 +25,19 @@
                     </a>
             </span>
         </div>
-        <div title="{{ $acao->unidadeAdministrativa->descricao }}" class="col-2 text-center titulo-span"><span>{{ $acao->unidadeAdministrativa->descricao }}</span></div>
+        <div class="modal-body">
+            @if (count($acao->atividades))
+                <div class="row justify-content-center">
+                    @foreach ($acao->atividades as $atividade)
+                        <?php
+                            $atividade->certificados = $atividade->certificados()->count();
+                        ?>
+
+                        <span><b>{{ $atividade->descricao }}:</b> {{ $atividade->certificados }} certificado(s)</span>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     </div>
 @endforeach
 <script>
