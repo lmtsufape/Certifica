@@ -5,6 +5,7 @@ namespace App\Models;
 use http\Env\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Acao extends Model
 {
@@ -138,10 +139,12 @@ class Acao extends Model
     }
 
     public static function search_acao_by_ano($acoes, $ano){
-        return $acoes->where(function($query) use ($ano) {
-            $query->whereYear('data_personalizada', $ano)
-                ->orWhereNull('data_personalizada');
-            })->whereYear('created_at', $ano);
+        return Acao::where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->where('status', 'Aprovada')
+            ->where(function($query) {
+                $query->whereYear('data_personalizada', request('ano'))->orWhere(function($query) {
+                    $query->whereNull('data_personalizada')->whereYear('created_at', request('ano'));
+                });
+            })->get();
     }
     public function colaboradores()
     {
