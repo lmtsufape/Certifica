@@ -494,7 +494,7 @@ class ParticipanteController extends Controller
     }
 
 
-    public function import_participantes(ImportParticipantesRequest $request, $atividade_id){
+    public function import_participantes(Request $request, $atividade_id){
         $atividade = Atividade::find($atividade_id);
 
         $inputFileType = IOFactory::identify($request->participantes_xlsx);
