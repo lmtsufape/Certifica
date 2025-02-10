@@ -28,8 +28,8 @@
             <div class="row box">
 
                 <div
-                    class="col-xl-4 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
-                    <span class="tittle-input">Atividade/Função</span>
+                    class="col-xl-3 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
+                    <span class="tittle-input">Atividade/Função<span class="ast" style="color: red;">*</span></span>
                     <select class="select-form w-100 h-100 " name="descricao" id="">
                         <option value="{{ $atividade->descricao }}" selected hidden>{{ $atividade->descricao }}</option>
                         @foreach ($tipos_ordenados as $tipo)
@@ -38,13 +38,19 @@
                     </select>
                 </div>
 
-                <div class="col-xl-3 campo spacing-row1 input-create-box">
-                    <span class="tittle-input w-50">Data de Início</span>
+                <div class="col-xl-3 campo input-create-box d-flex aligm-items-start justify-content-start flex-column spacing-row1">
+                    <span class="tittle-input">Título da Atividade</span>
+                    <input class="w-100 h-100 input-text " type="text" name="titulo" id=""
+                        value="{{ $atividade->titulo }}">
+                </div>
+
+                <div class="col-xl-2 campo spacing-row1 input-create-box">
+                    <span class="tittle-input w-50">Data de Início<span class="ast" style="color: red;">*</span></span>
                     <input class="w-100 h-75" type="date" name="data_inicio" id=""
                         value="{{ $atividade->data_inicio }}">
                 </div>
-                <div class="col-xl-3 campo input-create-box">
-                    <span class="tittle-input w-50">Data de Término</span>
+                <div class="col-xl-2 campo input-create-box">
+                    <span class="tittle-input w-50">Data de Término<span class="ast" style="color: red;">*</span></span>
                     <input class="w-100 h-75" type="date" name="data_fim" id=""
                         value="{{ $atividade->data_fim }}">
                 </div>

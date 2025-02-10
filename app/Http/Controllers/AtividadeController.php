@@ -90,6 +90,7 @@ class AtividadeController extends Controller
             $atividade->data_inicio = $request->data_inicio;
             $atividade->data_fim = $request->data_fim;
             $atividade->acao_id = $request->acao_id;
+            $atividade->titulo = $request->titulo;
 
             $atividade->save();
 
@@ -191,6 +192,7 @@ class AtividadeController extends Controller
         $atividade->data_inicio = $request->data_inicio;
         $atividade->data_fim = $request->data_fim;
         $atividade->acao_id = $request->acao_id;
+        $atividade->titulo = $request->titulo;
 
         $atividade->update();
 

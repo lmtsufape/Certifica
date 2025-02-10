@@ -15,6 +15,7 @@
                     <li><b>Nome do participante</b> = %participante%</li>
                     <li><b>Nome da ação institucional</b> = %acao%</li>
                     <li><b>Tipo da atividade</b> = %atividade%</li>
+                    <li><b>Título da atividade</b> = %titulo_atividade%</li>
                     <li><b>Nome da atividade</b> = %nome_atividade%</li>
                     <li><b>Data de início</b> = %data_inicio%</li>
                     <li><b>Data de fim</b> = %data_fim%</li>

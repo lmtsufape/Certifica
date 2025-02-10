@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Atividade extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'atividades';
 
@@ -16,7 +17,8 @@ class Atividade extends Model
         'descricao',
         'data_inicio',
         'data_fim',
-        'acao_id'
+        'acao_id',
+        'titulo'
     ];
 
     public static $rules = [
