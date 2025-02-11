@@ -187,11 +187,14 @@ Atividades
 
                                 @endif
                             @endif
-                            <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
-                                onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
-                                <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
-                                    title="Emitir Certificados">
-                            </a>
+
+                            @if(!$atividade->emissao_parcial)
+                                <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
+                                    onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
+                                    <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
+                                        title="Emitir Certificados">
+                                </a>
+                            @endif
                         @endif
 
                     </div>
