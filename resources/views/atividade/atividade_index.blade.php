@@ -164,16 +164,33 @@ Atividades
                         @endif
 
                         @if(Auth::user()->perfil_id == 3)
+                            @if($acao->status == 'Aprovada')
+                                @if(!($atividade->descricao === 'Apresentação de Trabalho'))
+                                    <a href="/files/modelo.xlsx" title="Baixar Modelo">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Integrantes" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+
+                                @else
+                                    <a href="/files/modelo_trabalho.xlsx" title="Baixar Modelo Trabalho">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Autores/Coautores" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportTrabalhoCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+
+                                @endif
+                            @endif
                             <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
                                 onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
                                 <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
                                     title="Emitir Certificados">
-                            </a>
-                        @elseif(\App\Models\Certificado::where('atividade_id', $atividade->id)->first() == null)
-                            <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
-                               onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
-                                <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
-                                     title="Emitir Certificados">
                             </a>
                         @endif
 
