@@ -108,4 +108,23 @@ class Atividade extends Model
         })->get();
     }
 
+    public function emissao_parcial($atividade_id)
+    {
+        $atividade = Atividade::findOrFail($atividade_id);
+
+        $participantes = Participante::where('atividade_id', $atividade->id)->get();
+
+        $emissao = false;
+
+        foreach($participantes as $participante)
+        {
+            if(Certificado::where('atividade_id', $atividade->id)->where('cpf_participante', $participante->user->cpf)->get()->isEmpty())
+            {
+                $emissao = true;
+            }
+        }
+
+        return $emissao;
+    }
+
 }

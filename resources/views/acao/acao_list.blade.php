@@ -24,7 +24,7 @@
                 @endif
             </span>
         </div>
-        <div class="col-2 d-flex align-items-center justify-content-evenly">
+        <div class="col-2 d-flex align-items-center justify-content-center gap-2">
             @if(Auth::user()->perfil_id == 3)
                 <span><a href="{{ route('listar.colaboradores', ['acaoId' => $acao->id]) }}"><img
                             src="/images/acoes/listView/person-gear.svg" alt="Colaboradores"

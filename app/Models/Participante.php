@@ -114,4 +114,19 @@ class Participante extends Model
         return $participacoes_aux;
     }
 
+    public function invalidar_reemitir_certificado($participante_id)
+    {
+        $participante = Participante::findOrFail($participante_id);
+
+        $emitir = null;
+        
+        if(Certificado::where('atividade_id', $participante->atividade_id)->where('cpf_participante', $participante->user->cpf)->get()->isEmpty()) {
+            $emitir = true;
+        } else {
+            $emitir = false;
+        }
+
+        return $emitir;
+    }
+
 }
