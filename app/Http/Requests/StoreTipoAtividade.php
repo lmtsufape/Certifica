@@ -24,14 +24,13 @@ class StoreTipoAtividade extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:tipo_atividades|min:5',
+            'name' => 'required|string|min:5',
         ];
     }
 
     public function messages(){
         return [
             'name.required' => 'Nome é um campo obrigatório',
-            'name.unique' => 'Nome da atividade indisponivel',
             'name.min' => 'Nome deve ter no mínimo 5 caracteres'
         ];
     }

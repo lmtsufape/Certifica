@@ -28,6 +28,7 @@ use App\Validates\AcaoValidator;
 use App\Models\User;
 use Dompdf\FontMetrics;
 use Dompdf\Options;
+use Illuminate\Support\Facades\DB;
 use function Symfony\Component\Translation\t;
 
 
@@ -136,11 +137,6 @@ class CertificadoController extends Controller
     {
         $atividade = Atividade::findOrFail($atividade_id);
 
-        if($atividade->emisssao_parcial)
-        {
-            return redirect(back()->with(['error_mensage' => 'Certificados desta atividade já foram emitidos']));
-        }
-
         $message = AcaoValidator::validate_acao($atividade->acao);
 
         if($message)
@@ -150,7 +146,21 @@ class CertificadoController extends Controller
 
         $certificados_emitidos = collect();
 
-        $participantes = Participante::all()->where("atividade_id", $atividade->id);
+        $participantes = Participante::where('participantes.atividade_id', $atividade_id)->join('users', 'users.id', '=', 'participantes.user_id')
+                                        ->whereNotExists(function ($query) use ($atividade_id) {
+                                            $query->select(DB::raw(1))
+                                                ->from('certificados')
+                                                ->whereRaw('certificados.cpf_participante = users.cpf')
+                                                ->where('certificados.atividade_id', $atividade_id)
+                                                ->whereNull('certificados.deleted_at');
+                                        })->get();
+
+        
+        if($participantes->isEmpty())
+        {
+            return redirect()->back()->with(['error_mensage' => 'Todos os certificados desta atividade já foram emitidos']);
+        }
+
 
         $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $atividade->descricao)->first();
 
@@ -559,21 +569,21 @@ class CertificadoController extends Controller
 
         if($trabalho){
             $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*',
-                '%titulo_trabalho%', '%autores_trabalho%', '%coautores_trabalho%', '%curso%' );
+                '%titulo_trabalho%', '%autores_trabalho%', '%coautores_trabalho%', '%curso%', '%titulo_atividade%');
             $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim, $participante->carga_horaria,
-                $natureza->descricao, $tipo_natureza->descricao, '', $trabalho->titulo, $trabalho->nomesAutoresComoTexto(), $trabalho->nomesCoautoresComoTexto(), $curso);
+                $natureza->descricao, $tipo_natureza->descricao, '', $trabalho->titulo, $trabalho->nomesAutoresComoTexto(), $trabalho->nomesCoautoresComoTexto(), $curso, $atividade->titulo);
 
         } elseif ($info_extra_participante){
             $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%',
-                '%orientador%', '%periodo_letivo%', '%disciplina%', '%area%', '%titulo_projeto%', '%local_realizado%');
+                '%orientador%', '%periodo_letivo%', '%disciplina%', '%area%', '%titulo_projeto%', '%local_realizado%', '%titulo_atividade%');
             $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
                 $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso, $info_extra_participante->orientador, $info_extra_participante->periodo_letivo,
-                $info_extra_participante->disciplina, $info_extra_participante->area, $info_extra_participante->titulo_projeto, $info_extra_participante->local_realizado);
+                $info_extra_participante->disciplina, $info_extra_participante->area, $info_extra_participante->titulo_projeto, $info_extra_participante->local_realizado, $atividade->titulo);
         }
         else{
-            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%');
+            $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%', '%titulo_atividade%');
             $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
-                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso);
+                $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso, $atividade->titulo);
 
         }
 

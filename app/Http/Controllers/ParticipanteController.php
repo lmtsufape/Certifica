@@ -12,6 +12,7 @@ use App\Models\Participante;
 use App\Models\Trabalho;
 use App\Models\User;
 use App\Models\Natureza;
+use App\Models\Certificado;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreParticipanteRequest;
 use App\Http\Requests\UpdateParticipanteRequest;
@@ -474,6 +475,12 @@ class ParticipanteController extends Controller
 
     public function filtro(){
         $participacoes = Auth::user()->participacoes;
+
+        $participacoes = $participacoes->filter(function ($participacao) {
+            return Certificado::where('cpf_participante', Auth::user()->cpf)
+                ->where('atividade_id', $participacao->atividade->id)
+                ->exists();
+        });
 
 
         if(request('buscar_acao')){

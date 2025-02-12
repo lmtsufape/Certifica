@@ -51,23 +51,30 @@ Atividades
                 <input type="hidden" name="acao_id" value="{{ $acao->id }}">
                 <input type="text" class="form-control" name="titulo" value="{{ $acao->titulo }}" hidden>
 
-                <div class="mb-3">
-                    <label for="descricao" class="form-label">Atividade / Função</label>
-                    <select class="form-select" name="descricao" id="select_atividade">
-                        <option value="" selected hidden>Escolher...</option>
-                        @foreach ($tipos_ordenados as $tipo)
-                            <option value="{{ $tipo }}">{{ $tipo }}</option>
-                        @endforeach
-                    </select>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="descricao" class="form-label">Atividade / Função<span class="ast" style="color: red;">*</span></label>
+                        <select class="form-control" name="descricao" id="select_atividade">
+                            <option value="" selected hidden>Escolher...</option>
+                            @foreach ($tipos_ordenados as $tipo)
+                                <option value="{{ $tipo }}">{{ $tipo }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label for="titulo" class="form-label">Título da Atividade</label>
+                        <input type="text" class="form-control" name="titulo">
+                    </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="data_inicio" class="form-label">Data de Início</label>
+                        <label for="data_inicio" class="form-label">Data de Início<span class="ast" style="color: red;">*</span></label>
                         <input type="date" class="form-control" name="data_inicio">
                     </div>
                     <div class="col">
-                        <label for="data_fim" class="form-label">Data de Término</label>
+                        <label for="data_fim" class="form-label">Data de Término<span class="ast" style="color: red;">*</span></label>
                         <input type="date" class="form-control" name="data_fim">
                     </div>
                 </div>
@@ -156,18 +163,38 @@ Atividades
                                 </a>
                         @endif
 
-                        @if(Auth::user()->perfil_id == 3 && !$atividade->emissao_parcial && $acao->status != "Aprovada")
-                            <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
-                                onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
-                                <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
-                                    title="Emitir Certificados">
-                            </a>
-                        @elseif(\App\Models\Certificado::where('atividade_id', $atividade->id)->first() == null)
-                            <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
-                               onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
-                                <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
-                                     title="Emitir Certificados">
-                            </a>
+                        @if(Auth::user()->perfil_id == 3)
+                            @if($acao->status == 'Aprovada')
+                                @if(!($atividade->descricao === 'Apresentação de Trabalho'))
+                                    <a href="/files/modelo.xlsx" title="Baixar Modelo">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Integrantes" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+
+                                @else
+                                    <a href="/files/modelo_trabalho.xlsx" title="Baixar Modelo Trabalho">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Autores/Coautores" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportTrabalhoCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+
+                                @endif
+                            @endif
+
+                            @if(!$atividade->emissao_parcial && $acao->status != 'Aprovada')
+                                <a href="{{ Route('gestor.gerar_certificados_parcial', ['atividade_id' => $atividade->id]) }}"
+                                    onclick="return confirm('Você tem certeza que deseja emitir os certificados desta atividade?')">
+                                    <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
+                                        title="Emitir Certificados">
+                                </a>
+                            @endif
                         @endif
 
                     </div>
