@@ -516,7 +516,7 @@ class ParticipanteController extends Controller
 
         for ($row = 2; $row <= $highestRow; ++$row) {
             //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
-            $cpf = Mask::mask($worksheet->getCell([2, $row])->getValue(), "###.###.###-##");
+            $cpf = Mask::mask(preg_replace('/\D/', '', $worksheet->getCell([2, $row])->getValue()) , "###.###.###-##");
             $user = User::where('cpf', '=', $cpf)->first();
 
             $confirm = True;
