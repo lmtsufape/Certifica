@@ -66,7 +66,9 @@ class CertificadoController extends Controller
 
         foreach($atividades as $atividade)
         {
-            $participantes = Participante::all()->where("atividade_id", $atividade->id);
+            $participantes = Participante::where('atividade_id', $atividade->id)->get()->filter(function($participante) use ($atividade) {
+                return Certificado::where('atividade_id', $atividade->id)->where('cpf_participante', $participante->user->cpf)->get()->isEmpty();
+            });
 
             $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $atividade->descricao)->first();
 
