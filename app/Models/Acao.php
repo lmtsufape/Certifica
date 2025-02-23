@@ -112,7 +112,16 @@ class Acao extends Model
         return $this->throughAtividades()->hasCertificados();
     }
 
-
+    static public function getAcoesAprovadasAndamento($unidade, $order ){
+        return Acao::where('unidade_administrativa_id', $unidade)
+        ->where(function ($query){
+            $query->where('status', 'Aprovada')
+                ->orWhere(function ($subQuery) {
+                    $subQuery->whereNull('status')
+                    ->whereHas('atividades.certificados');
+                });
+        })->orderBy($order, 'asc')->get();
+    }
 
     //######################### FILTROS ############################//
     public static function search_acao_by_name($acoes, $nome_acao){

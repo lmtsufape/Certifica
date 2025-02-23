@@ -34,8 +34,7 @@ class RelatorioController extends Controller
         } else if($perfil_id == 3 && $unidade){
 
             $certificados = $this->get_certificados_by_unidade();
-            $acoes = Acao::where('unidade_administrativa_id', $unidade)
-                ->where('status', 'Aprovada')->orderBy('titulo')->get();
+            $acoes = Acao::getAcoesAprovadasAndamento($unidade, 'titulo');
         }
 
         do{
@@ -68,8 +67,7 @@ class RelatorioController extends Controller
         } else if($perfil_id == 3 && $unidade){
 
             $certificados = $this->get_certificados_by_unidade();
-            $acoes = Acao::where('unidade_administrativa_id', $unidade)
-                         ->where('status', 'Aprovada')->orderBy('titulo')->get();
+            $acoes = Acao::getAcoesAprovadasAndamento($unidade, 'titulo');
 
         }
 
@@ -124,8 +122,7 @@ class RelatorioController extends Controller
     }
 
     private function get_certificados_by_unidade(){
-        $acoes = Acao::where('status', 'Aprovada')->where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->get();
-
+        $acoes = Acao::getAcoesAprovadasAndamento(Auth::user()->unidade_administrativa_id, 'titulo');
         $certificados = collect();
 
         $acoes->each(function($acao) use ($certificados){
