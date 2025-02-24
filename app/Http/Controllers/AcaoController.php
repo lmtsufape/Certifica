@@ -32,7 +32,7 @@ use App\Mail\CertificadoDisponivel;
 use App\Mail\AcaoSubmetida;
 use App\Mail\AcaoSubmetidaCoordenador;
 use App\Jobs\ZipCertificados;
-
+use App\Models\TipoAtividade;
 
 class AcaoController extends Controller
 {
@@ -312,8 +312,18 @@ class AcaoController extends Controller
     {
         $acao = Acao::findOrFail($acao_id);
         $atividades = Atividade::all()->where('acao_id', $acao_id)->sortBy('id');
+        $descricoes = [
+            'Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)',
+            'Formador(a)', 'Ministrante', 'Orientador(a)', 'Palestrante', 'Voluntário(a)', 'Participante',
+            'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'
+        ];
 
-        return view('gestor_institucional.analisar_acao', ['acao' => $acao, 'atividades' => $atividades]);
+        $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', $acao->unidade_administrativa_id)->get();
+        $tipoAtividadeName = $tipoAtividade->pluck('name')->toArray();
+        $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
+        sort($tipos_ordenados);
+
+        return view('gestor_institucional.analisar_acao', ['acao' => $acao, 'atividades' => $atividades, 'tipos_ordenados'=> $tipos_ordenados]);
     }
 
     public function acao_update(Request $request)
