@@ -33,13 +33,60 @@
 
                     <div class="col-8 text-end">
                         @if ($acao->status == 'Em análise')
-                            <a class="criar-acao-button" href="{{ route('atividade.create', ['acao_id' => $acao->id]) }}">
+                            <a class="criar-acao-button" data-bs-toggle="modal" data-bs-target="#modalComponent">
                                 <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                             </a>
                         @endif
                     </div>
 
                 </div>
+
+                @php
+                    $tituloModal = 'Cadastrar Atividade';
+                @endphp
+
+                <x-modal-component :title="$tituloModal">
+                    <form id="atividadeForm" action="{{ route('atividade.store') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="acao_id" value="{{ $acao->id }}">
+                        <input type="text" class="form-control" name="titulo" value="{{ $acao->titulo }}" hidden>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="descricao" class="form-label">Atividade / Função<span class="ast" style="color: red;">*</span></label>
+                                <select class="form-control" name="descricao" id="select_atividade">
+                                    <option value="" selected hidden>Escolher...</option>
+                                    @foreach ($tipos_ordenados as $tipo)
+                                        <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label for="titulo" class="form-label">Título da Atividade</label>
+                                <input type="text" class="form-control" name="titulo">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="data_inicio" class="form-label">Data de Início<span class="ast" style="color: red;">*</span></label>
+                                <input type="date" class="form-control" name="data_inicio">
+                            </div>
+                            <div class="col">
+                                <label for="data_fim" class="form-label">Data de Término<span class="ast" style="color: red;">*</span></label>
+                                <input type="date" class="form-control" name="data_fim">
+                            </div>
+                        </div>
+                    </form>
+                </x-modal-component>
+
+                <script>
+                    document.getElementById('submitFormButton').addEventListener('click', function () {
+                        document.getElementById('atividadeForm').submit();  // Envia o formulário quando "Cadastrar" for clicado
+                    });
+                </script>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
                     <div class="col-4"><span class="spacing-col">Descrição</span></div>
