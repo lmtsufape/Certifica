@@ -101,8 +101,8 @@
                     </div>
                     <div class="col-2 text-center">
                         <span>
-                            <a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
-                                    src="/images/acoes/listView/eye.svg" alt="" title="Estatísticas de Certificados"></a>
+                            <a class="btn" data-bs-toggle="modal" data-bs-target="#modal-info{{ $acao->id }}">
+                                <img src="/images/acoes/listView/eye.svg" alt="" title="Estatísticas de Certificados"></a>
                         </span>
                     </div>
                 </div>
@@ -167,16 +167,4 @@
         });
     }
 
-    $(document).ready(function(){
-        // Exibe o modal ao clicar no link com o atributo data-toggle e data-target correspondentes
-        $('[data-toggle="modal"]').click(function(){
-            var target_modal = $(this).data('target');
-            $(target_modal).modal('show');
-        });
-    });
-
-    $(document).on('hidden.bs.modal', function () {
-        $('body').removeClass('modal-open');
-        $('body').css('padding-right', '');
-    });
 </script>
