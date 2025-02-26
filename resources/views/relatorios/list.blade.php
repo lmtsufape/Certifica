@@ -27,9 +27,32 @@
         </div>
         <div class="col-2 text-center">
             <span>
-                <a data-toggle="modal" data-target="#modal-info{{ $acao->id }}"><img
+                <a class="btn" data-bs-toggle="modal" data-bs-target="#modal-info{{ $acao->id }}"><img
                         src="/images/acoes/listView/eye.svg" alt="" title="Estatísticas de Certificados"></a>
             </span>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-info{{ $acao->id }}">
+        <div class="modal-dialog modal-dialog-centered" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #972E3F; color: white;">
+                    <h5 class="modal-title"><b>Estatísticas de Certificados</b></h5>
+                </div>
+                <div class="modal-body">
+                    @if (count($acao->atividades))
+                        <div class="row justify-content-center">
+                            @foreach ($acao->atividades as $atividade)
+                                <?php
+                                    $atividade->certificados = $atividade->certificados()->count();
+                                ?>
+
+                                <span><b>{{ $atividade->descricao }}:</b> {{ $atividade->certificados }} certificado(s)</span>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 @endforeach
