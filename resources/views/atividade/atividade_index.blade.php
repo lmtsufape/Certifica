@@ -224,7 +224,7 @@ Atividades
                                         </div>
                                     </div>
                                     <div class="card  mt-3">
-                                        <div class="card-header bg-primary text-white">
+                                        <div class="card-header text-white" style="background-color: #972E3F">
                                             <strong>Instruções para Importação</strong>
                                         </div>
                                         <div class="card-body">
@@ -234,17 +234,12 @@ Atividades
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-center mt-4">
-                                        <div class="col-2">
+                                    <div class="justify-content-end mt-4">
                                             <button type="button" class="btn btn-sm btn-dark"
                                                 data-bs-dismiss="modal">Fechar</button>
-                                        </div>
-                                        <div class="col-2">
-                                            <button type="submit" class="btn btn-sm btn-success">Importar</button>
-                                        </div>
+                                            <button type="submit" class="btn btn-sm" style="background-color: #972E3F; color:white">Importar</button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
