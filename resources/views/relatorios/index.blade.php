@@ -6,6 +6,14 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
+
+    <style>
+        .loading-message {
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -13,23 +21,24 @@
         <h1 class="text-center mb-4">Relatório</h1>
 
         <div class="total">
-            <strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>
+            <strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de
+                certificados: {{ $total }}</strong>
         </div>
 
 
 
-     <form action="" id="form" class="container">
+        <form id="form" class="container">
             @csrf
             <div>
                 <div class="col-1">
                     <a type="button" class="button d-flex align-items-center justify-content-around between"
-                       href="{{ route('home') }}">
+                        href="{{ route('home') }}">
                         Voltar
                         <img src="/images/acoes/listView/voltar.svg" alt="">
                     </a>
                 </div>
 
-               <div class="row head-table search-box d-flex align-items-center justify-content-center">
+                <div class="row head-table search-box d-flex align-items-center justify-content-center">
                     <div class="col-3 d-flex flex-column align-items-start justify-content-center">
                         <span>Nome da Ação</span>
                         <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
@@ -99,28 +108,32 @@
         filtro();
     }); */
 
-    $(document).bind('keyup', '.form', function(e) {
-        e.preventDefault();
-        filtro();
+    // $(document).bind('keyup', '.form', function(e) {
+    //     e.preventDefault();
+    //     filtro();
 
-    });
+    // });
 
-    $(document).bind('change', '.form', function(e) {
-        e.preventDefault();
-        filtro();
-
-    });
+    $(document).on('change', '#form :input', filtro);
 
     function filtro() {
         var dados = $('#form').serialize();
 
-        $.ajax({
-            url: "{{ route('relatorios.filtro') }}",
-            method: "GET",
-            data: dados
-        }).done(function(data) {
-            $(".list").html(data);
-        });
-    }
+        $(".list").html('<p class="loading-message">Carregando...</p>'); // Exibe um indicador de carregamento
 
+        $.get("{{ route('relatorios.filtro') }}", dados)
+            .done(function(data) {
+                // Insere a resposta no HTML para executar scripts
+                $(".list").html(data);
+
+                // Verifica se o total de certificados é zero
+                var totalText = $(".total").text().trim();
+                if (totalText.includes("Total de certificados: 0")) {
+                    $(".list").html('<p class="loading-message">Nenhum resultado encontrado.</p>');
+                }
+            })
+            .fail(function() {
+                $(".list").html('<p class="loading-message">Erro ao carregar os dados.</p>');
+            });
+    }
 </script>
