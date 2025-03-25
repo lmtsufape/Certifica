@@ -23,10 +23,12 @@ class UsuarioController extends Controller
     public function index()
     {
         if(Auth::user()->perfil_id == 3) {
-            $usuarios = User::where('perfil_id', '!=', 1)->where('perfil_id', '!=', 3)->get()->sortBy('id');
+            $usuarios = User::sortable()->whereNotIn('perfil_id', [1, 3]);
         } else {
-            $usuarios = User::all()->sortBy('id');
+            $usuarios = User::sortable();
         }
+
+        $usuarios = $usuarios->paginate(25)->appends(request()->query());
 
         return view('usuario.usuario_index', compact('usuarios'));
     }

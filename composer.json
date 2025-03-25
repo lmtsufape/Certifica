@@ -10,6 +10,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
+        "kyslik/column-sortable": "^7.0",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",

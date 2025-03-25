@@ -6,6 +6,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
+
+    <style>
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -39,10 +46,10 @@
 
 
             <div class="row head-table d-flex align-items-center justify-content-center">
-                <div class="col-3"><span class="spacing-col">Nome</span></div>
-                <div class="col-2"><span>CPF/ Passaporte</span></div>
-                <div class="col-3"><span>E-mail</span></div>
-                <div class="col-2"><span>Tipo</span></div>
+                <div class="col-3"><span class="spacing-col">@sortablelink('name', 'Nome')</span></div>
+                <div class="col-2"><span>@sortablelink('cpf', 'CPF/ Passaporte')</span></div>
+                <div class="col-3"><span>@sortablelink('email', 'E-mail')</span></div>
+                <div class="col-2"><span>@sortablelink('perfil_id', 'Tipo')</span></div>
                 <div class="col-2"><span>Funcionalidades</span></div>
             </div>
         </div>
@@ -93,6 +100,10 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+
+        <div class="mt-4">
+            {{ $usuarios->links('pagination::bootstrap-4') }}
         </div>
     </section>
 @endsection
