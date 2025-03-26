@@ -40,7 +40,7 @@ class UsuarioController extends Controller
             $query->whereNotIn('perfil_id', [1, 3]);
         }
 
-        $usuarios = $query->paginate(25)->appends(request()->query());
+        $usuarios = $query->paginate(15)->appends(request()->query());
 
         return view('usuario.usuario_index', compact('usuarios'));
     }
