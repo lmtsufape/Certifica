@@ -6,6 +6,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
+    <link rel="stylesheet" href="/css/pagination/custom-pagination.css">
 
     <style>
         a {
@@ -119,7 +120,7 @@
             @endforeach
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4 custom-pagination">
             {{ $usuarios->links('pagination::bootstrap-4') }}
         </div>
     </section>
