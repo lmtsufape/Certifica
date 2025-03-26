@@ -45,9 +45,10 @@
                 </div>
             </div>
 
-            <form action="#" method="GET">
+            <form action="{{ route('usuario.index')}}" method="GET">
                 <div class="mt-2 mb-4 d-flex">
-                    <input type="text" class="form-control w-100" placeholder="Buscar usuários...">
+                    <input type="text" class="form-control w-100" placeholder="Buscar usuário..." name="filter[global]" value="{{ request()->query('filter')['global'] ?? '' }}">
+
                     <button class="btn btn-danger flex-shrink-1 ms-2" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-search" viewBox="0 0 16 16">

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Validates\DefaultValidator;
 use Illuminate\Validation\ValidationException;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class UsuarioController extends Controller
 {
@@ -22,13 +24,23 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->perfil_id == 3) {
-            $usuarios = User::sortable()->whereNotIn('perfil_id', [1, 3]);
-        } else {
-            $usuarios = User::sortable();
+        $query = QueryBuilder::for(User::class)
+            ->allowedFilters([
+                AllowedFilter::callback('global', function ($query, $value) {
+                    $query->where(function ($query) use ($value) {
+                        $query->orWhere('name', 'ILIKE', "%{$value}%")
+                            ->orWhere('cpf', 'ILIKE', "%{$value}%")
+                            ->orWhere('email', 'ILIKE', "%{$value}%");
+                    });
+                })
+            ])
+            ->sortable();
+
+        if (Auth::user()->perfil_id == 3) {
+            $query->whereNotIn('perfil_id', [1, 3]);
         }
 
-        $usuarios = $usuarios->paginate(25)->appends(request()->query());
+        $usuarios = $query->paginate(25)->appends(request()->query());
 
         return view('usuario.usuario_index', compact('usuarios'));
     }
@@ -40,10 +52,9 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        if(Auth::check() && Auth::user()->perfil_id == 1)
-        {
+        if (Auth::check() && Auth::user()->perfil_id == 1) {
             $perfils = Perfil::all()->where('id', '!=', 1)->sortBy('id');
-        } else{
+        } else {
             $perfils = Perfil::all()->where('id', '!=', 1)->where('id', '!=', 3)->sortBy('id');
         }
 
@@ -76,19 +87,18 @@ class UsuarioController extends Controller
         $usuario->perfil_id = $request->perfil_id;
         $usuario->instituicao_id = 2;
 
-        if($request->perfil_id == 3){
+        if ($request->perfil_id == 3) {
             $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
-            
         } else {
 
-            if($request->cpf){
+            if ($request->cpf) {
                 $usuario->cpf = $request->cpf;
             }
 
-            if($request->passaporte){
+            if ($request->passaporte) {
                 $usuario->passaporte = $request->passaporte;
             }
-            
+
             $usuario->celular = $request->telefone;
         }
 
@@ -122,19 +132,19 @@ class UsuarioController extends Controller
         $perfil = Perfil::findOrFail($usuario->perfil_id);
 
 
-        if($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
+        if ($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
             $perfils = Perfil::where('nome', '!=', 'Gestor Institucional')->where('nome', '!=', 'Administrador')->get();
 
             return view('usuario.usuario_edit', compact('usuario', 'perfil', 'perfils'));
-        } else if($usuario->perfil_id == 1) {
+        } else if ($usuario->perfil_id == 1) {
             $perfils = Perfil::where('nome', '!=', 'Gestor Institucional')->where('nome', '!=', 'Administrador')->get();
 
             return view('usuario.usuario_edit', compact('usuario', 'perfil', 'perfils'));
-        } else if($usuario->perfil_id == 3) {
+        } else if ($usuario->perfil_id == 3) {
             $perfils = Perfil::where('nome', 'Administrador')->get();
 
             $unidade_administrativa = UnidadeAdministrativa::findOrFail($usuario->unidade_administrativa_id);
-            
+
             $unidade_administrativas = UnidadeAdministrativa::all()->sortBy('id');
 
             return view('usuario.usuario_edit', compact('usuario', 'perfil', 'perfils', 'unidade_administrativa', 'unidade_administrativas'));
@@ -152,14 +162,13 @@ class UsuarioController extends Controller
     {
         $usuario = User::findOrFail($request->id);
 
-        if($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
+        if ($usuario->perfil_id == 2 || $usuario->perfil_id == 4) {
             $usuario->name = $request->name;
             $usuario->cpf = $request->cpf;
             $usuario->passaporte = $request->passaporte;
             $usuario->email = $request->email;
             $usuario->perfil_id = $request->perfil_id;
-            
-        } else if($usuario->perfil_id == 1) {
+        } else if ($usuario->perfil_id == 1) {
             $usuario->name = $request->name;
             $usuario->email = $request->email;
             $usuario->perfil_id = $request->perfil_id;
@@ -179,8 +188,7 @@ class UsuarioController extends Controller
     {
         $user = User::findOrFail(Auth::user()->id);
 
-        if($request->perfil_id == 'professor')
-        {
+        if ($request->perfil_id == 'professor') {
             $perfil = 2;
 
             $user->celular = $request->celular;
@@ -189,9 +197,7 @@ class UsuarioController extends Controller
             $user->json_cursos_ids = json_encode($request->cursos_ids);
             $user->password = Hash::make($request->password);
             $user->cadastro_finalizado = true;
-        } 
-        else if($request->perfil_id == 'tecnico')
-        {
+        } else if ($request->perfil_id == 'tecnico') {
             $perfil = 2;
 
             $user->celular = $request->celular;
@@ -199,9 +205,7 @@ class UsuarioController extends Controller
             $user->siape = $request->siape;
             $user->password = Hash::make($request->password);
             $user->cadastro_finalizado = true;
-        }
-        else if($request->perfil_id == 'estudante')
-        {
+        } else if ($request->perfil_id == 'estudante') {
             $perfil = 4;
 
             $user->celular = $request->celular;

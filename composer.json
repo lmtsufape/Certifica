@@ -21,7 +21,8 @@
         "mpdf/mpdf": "^6.1",
         "nesbot/carbon": "^2.66",
         "phpoffice/phpspreadsheet": "^1.29",
-        "simplesoftwareio/simple-qrcode": "^4.2"
+        "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/laravel-query-builder": "^5.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
