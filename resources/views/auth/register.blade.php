@@ -64,7 +64,7 @@
         <div class="row d-flex aligm-items-start justify-content-center ">
             <div class="col-10 spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                 <span class="tittle-input">E-mail<span class="ast">*</span></span>
-                <input class="input-text w-100 h-100" type="email" name="email" id="" required>
+                <input class="input-text w-100 h-100" type="email" name="email" id="email" required>
             </div>
         </div>
         <div class="row d-flex aligm-items-start justify-content-center ">
@@ -167,8 +167,10 @@
 
         </div>
     </form>
+@endsection
 
+@push('scripts')
+    <script src="/js/email-to-lower.js"></script>
     <script src="/js/auth/register.js"></script>
     <script src="/js/auth/cpf_passaporte.js"></script>
-
-@endsection
+@endpush

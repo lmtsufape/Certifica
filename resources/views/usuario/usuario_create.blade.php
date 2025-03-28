@@ -89,7 +89,7 @@
                 <div
                     class="col-xl-5 campo spacing-row1 input-create-box d-flex align-items-start justify-content-start flex-column">
                     <span class="tittle-input ">E-mail</span>
-                    <input class="w-75 input-text" type="email" name="email" id=""
+                    <input class="w-75 input-text" type="email" name="email" id="email"
                         placeholder="example@gmail.com">
                 </div>
 
@@ -111,7 +111,8 @@
 
             <div class="row d-flex justify-content-start align-items-center">
                 <div class="col d-flex justify-content-evenly align-items-center input-create-box border-0">
-                    <a class="button d-flex justify-content-center align-items-center cancel" href="{{ route('usuario.index') }}">
+                    <a class="button d-flex justify-content-center align-items-center cancel"
+                        href="{{ route('usuario.index') }}">
                         Voltar</a>
                     <button class="button submit" type="submit">Cadastrar</button>
                 </div>
@@ -121,3 +122,7 @@
         <script src="/js/usuario/usuario-create.js"></script>
     </section>
 @endsection
+
+@push('scripts')
+    <script src="/js/email-to-lower.js"></script>
+@endpush
