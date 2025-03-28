@@ -1,0 +1,26 @@
+/* Estiliza o item ativo (página selecionada) */
+.custom-pagination .page-item.active .page-link {
+    background-color: #B02A3D !important; /* Cor de fundo do item selecionado */
+    border-color: #B02A3D !important;
+    color: white !important; /* Cor do texto do item selecionado */
+}
+
+/* Estiliza os links normais (não selecionados) */
+.custom-pagination .page-item .page-link {
+    color: #333 !important; /* Cor do texto */
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Altera a cor ao passar o mouse */
+.custom-pagination .page-item:not(.active) .page-link:hover {
+    background-color: #ddd !important; /* Cor de fundo ao passar o mouse */
+    color: black !important;
+}
+
+/* Remove a borda do botão "Anterior" e "Próximo" */
+.custom-pagination .page-item.disabled .page-link {
+    background-color: #f8f9fa !important;
+    color: #aaa !important;
+    border-color: #ddd !important;
+}
