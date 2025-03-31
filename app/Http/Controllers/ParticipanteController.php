@@ -49,7 +49,9 @@ class ParticipanteController extends Controller
 
         $cont = 0;
 
-        return view('participante.participante_index',compact('participantes','atividade','acao','cont','solicitacao'));
+        $dadosUsers = User::orderBy('name')->get(['name', 'cpf']);
+
+        return view('participante.participante_index',compact('participantes','atividade','acao','cont','solicitacao', 'dadosUsers'));
 
     }
 

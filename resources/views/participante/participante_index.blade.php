@@ -6,6 +6,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
+
+    <style>
+        .bootstrap-select .dropdown-menu {
+            max-height: 400px !important;
+            max-width: 300px !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -26,15 +33,15 @@
                 <div class="col-1">
 
 
-                    @if($solicitacao)
+                    @if ($solicitacao)
                         <a type="button" class="button d-flex align-items-center justify-content-around between"
-                           href="{{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}">
+                            href="{{ route('gestor.analisar_acao', ['acao_id' => $acao->id]) }}">
                             Voltar
                             <img src="/images/acoes/listView/voltar.svg" alt="">
                         </a>
                     @else
                         <a type="button" class="button d-flex align-items-center justify-content-around between"
-                           href="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">
+                            href="{{ route('atividade.index', ['acao_id' => $acao->id]) }}">
                             Voltar
                             <img src="/images/acoes/listView/voltar.svg" alt="">
                         </a>
@@ -97,26 +104,27 @@
                         {{ $atividade->descricao }}
                     </div>
 
-                    
+
                     <div class="col-2 d-flex align-items-center justify-content-center gap-2">
                         @if ($acao->status == 'Aprovada')
                             <a href="{{ route('participante.ver_certificado', ['participante_id' => $participante->id]) }}"
                                 target="_blank">
-                                <img src="/images/acoes/listView/certificado.svg" alt=""
-                                    title="Ver Certificado">
+                                <img src="/images/acoes/listView/certificado.svg" alt="" title="Ver Certificado">
                             </a>
                         @endif
 
-                        @if(Auth::user()->perfil_id == 3 && $acao->status == "Em análise" || Auth::user()->perfil_id == 3 && $acao->status == null)
+                        @if (
+                            (Auth::user()->perfil_id == 3 && $acao->status == 'Em análise') ||
+                                (Auth::user()->perfil_id == 3 && $acao->status == null))
                             <a href="{{ route('certificado.preview', ['participante_id' => $participante->id]) }}"
                                 target="_blank">
                                 <img src="/images/acoes/listView/certificado.svg" alt=""
-                                        title="Pré-visualizar Certificado">
+                                    title="Pré-visualizar Certificado">
                             </a>
                         @endif
 
-                        @if($acao->status == null || $acao->status == "Devolvida")
-                            @if(Auth::user()->perfil_id != 3)
+                        @if ($acao->status == null || $acao->status == 'Devolvida')
+                            @if (Auth::user()->perfil_id != 3)
                                 <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                                 </a>
@@ -132,8 +140,8 @@
                             <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
                                 <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
                             </a>
-                            
-                            @if($participante->invalidar_reemitir_certificado($participante->id))
+
+                            @if ($participante->invalidar_reemitir_certificado($participante->id))
                                 <a onclick="return confirm('Você tem certeza que deseja emitir/reemitir o certificado deste participante?')"
                                     href="{{ route('participante.reemitir_certificado', ['participante_id' => $participante->id]) }}">
                                     <img src="/images/acoes/listView/reemitir.svg" alt=""
@@ -193,6 +201,16 @@
                             <input class="w-75 form-control" type="text" name="passaporte" id="passaporte"
                                 placeholder=""title="Digite o passaporte">
                         </div>
+
+                        <div class="col-10 mt-3">
+                            <label for="user-select">Procurar pelo nome:</label>
+                            <select id="user-select" class="selectpicker w-75" data-live-search="true">
+                                <option value="" selected>Procurar um usuário</option>
+                                @foreach ($dadosUsers as $user)
+                                    <option value="{{ $user->cpf }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="modal-footer row justify-content-center">
                         <div class="col-3">
@@ -217,3 +235,17 @@
 
     <script src="/js/auth/cpf_passaporte.js"></script>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#user-select').selectpicker();
+        });
+
+        $('#user-select').on('change', function() {
+            $('#cpf').val($(this).val());
+        });
+    </script>
+@endpush
