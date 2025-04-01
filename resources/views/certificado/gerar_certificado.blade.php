@@ -31,10 +31,6 @@
                 padding-top: 75px;
             }
 
-            .logo_certificado {
-                
-            }
-
             .texto_certificado {
                 font-size: {{ $tamanho_fonte }}px;
                 color: #000000;
@@ -77,8 +73,8 @@
             }
 
             .logo {
-                margin-right: 150;
-                margin-top: 150;
+                height: 100px;
+                width: 150px;
             }
 
         </style>
@@ -98,6 +94,8 @@
                 <p class='texto_verso_superior'>Para verificar a autenticidade deste certificado, acesse o Código QR abaixo: </p>
 
                 <img class="qrcode" src="data:image/png;base64, {{ $qrcode }}">
+
+                <img class="logo" src="{{ public_path($logo) }}" alt="Logo">
 
                 <p class='texto_verso_inferior'>Ou digite este código de verificação de autenticidade no endereço <a href="http://certifica.ufape.edu.br/validacao">http://certifica.ufape.edu.br/validacao</a> </p>
                 
