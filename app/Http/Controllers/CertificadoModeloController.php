@@ -106,6 +106,7 @@ class CertificadoModeloController extends Controller
         $modelo = CertificadoModelo::find($id);
         $fundo = Storage::url($modelo->fundo);
         $verso = Storage::url($modelo->verso);
+        $logo = Storage::url($modelo->logo);
 
         $tipos_certificado = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho', 'Monitoria', 'Tutoria', 'Bolsas de Icentivo Acadêmico',
@@ -118,7 +119,7 @@ class CertificadoModeloController extends Controller
         $tipos_ordenados = array_merge($tipos_certificado, $tipoAtividadeNames);
         sort($tipos_ordenados);
 
-        return view('certificado_modelo.certificado_modelo_edit',compact('unidades','modelo','fundo','verso', 'tipos_ordenados'));
+        return view('certificado_modelo.certificado_modelo_edit',compact('unidades', 'modelo', 'fundo', 'verso', 'logo', 'tipos_ordenados'));
     }
 
     /**
@@ -146,6 +147,7 @@ class CertificadoModeloController extends Controller
         {
             $modelo->fundo = $request->fundo->store('public/modelos');
             $modelo->verso = $request->verso->store('public/modelos');
+            $modelo->logo = $request->logo->store('public/modelos');
         } elseif(isset($request->fundo)) //caso a imagem da frente tenha sido mudada
         {
             $modelo->fundo = $request->fundo->store('public/modelos');
@@ -153,6 +155,9 @@ class CertificadoModeloController extends Controller
          elseif(isset($request->verso)) //caso a imagem do verso tenha sido mudada
         {
             $modelo->verso = $request->verso->store('public/modelos');
+        } elseif(isset($request->logo)) //caso a imagem da logo tenha sido mudada
+        {
+            $modelo->logo = $request->logo->store('public/modelos');
         }
 
         if($request->tipo_certificado == 'Outro') {
