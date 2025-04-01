@@ -96,7 +96,7 @@
                     </div>
 
                     <div class="col-md-4 text-center ">
-                        <input hidden type="file" name="plano_logo" id="plano_logo" accept="image/*">
+                        <input hidden type="file" name="logo" id="plano_logo" accept="image/*">
 
                         <label class="label" for="plano_logo">
                             <span>Logo</span>
