@@ -31,6 +31,10 @@
                 padding-top: 75px;
             }
 
+            .logo_certificado {
+                
+            }
+
             .texto_certificado {
                 font-size: {{ $tamanho_fonte }}px;
                 color: #000000;

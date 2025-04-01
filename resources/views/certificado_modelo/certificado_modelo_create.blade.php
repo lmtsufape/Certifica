@@ -66,7 +66,7 @@
 
                 <div class="row box">
 
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-4 text-center">
                         <input hidden type="file" name="verso" id="plano_verso" accept="image/*">
 
                         <label class="label" for="plano_verso">
@@ -80,7 +80,7 @@
 
                     </div>
 
-                    <div class="col-md-6 text-center ">
+                    <div class="col-md-4 text-center ">
                         <input hidden type="file" name="fundo" id="plano_fundo" accept="image/*">
 
                         <label class="label" for="plano_fundo">
@@ -90,6 +90,21 @@
 
                                 <img id="img_fundo" src="" alt="" width="100%" height="100%">
                                 <span id="text_fundo">Clique aqui para selecionar o fundo do certificado</span>
+                            </div>
+
+                        </label>
+                    </div>
+
+                    <div class="col-md-4 text-center ">
+                        <input hidden type="file" name="plano_logo" id="plano_logo" accept="image/*">
+
+                        <label class="label" for="plano_logo">
+                            <span>Logo</span>
+
+                            <div id="card_logo" class="card-preview-create">
+
+                                <img id="img_logo" src="" alt="" width="100%" height="100%">
+                                <span id="text_logo">Clique aqui para selecionar a logo do certificado</span>
                             </div>
 
                         </label>
