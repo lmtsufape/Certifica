@@ -115,11 +115,13 @@ class ZipCertificados implements ShouldQueue
 
         $verso = Storage::url($modelo->verso);
 
+        $logo = Storage::url($modelo->logo);
+
         $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));
 
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
-                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso'));
+                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'logo'));
 
 
         $pdf->set_option("dpi", 150)->setPaper('a4', 'landscape');

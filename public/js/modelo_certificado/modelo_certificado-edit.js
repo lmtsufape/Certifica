@@ -30,7 +30,20 @@ planoVerso.addEventListener('change', (e) => {
     imgVersoNew.src = URL.createObjectURL(e.target.files[0])
 })
 
+//Preview logo
 
+var imgLogo = document.getElementById('img_logo');
+var imgLogoNew = document.getElementById('img_logo_new');
+var planoLogo = document.getElementById('plano_logo');
+
+imgLogoNew.style.display = "none"
+
+planoLogo.addEventListener('change', (e) => {
+    imgLogo.style.display = "none"
+    imgLogoNew.style.display = ""
+
+    imgLogoNew.src = URL.createObjectURL(e.target.files[0])
+})
 
 const select_tipo_certificado = document.getElementById("select_tipo_certificado");
 const outro_tipo_certificado = document.getElementById("outro_tipo_certificado");

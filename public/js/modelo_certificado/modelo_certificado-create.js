@@ -26,3 +26,18 @@ planoVerso.addEventListener('change', (e) => {
 
     imgVerso.src = URL.createObjectURL(e.target.files[0])
 })
+
+//Preview logo
+
+var imglogo = document.getElementById('img_logo');
+var planologo = document.getElementById('plano_logo');
+var textlogo = document.getElementById('text_logo');
+
+imglogo.style.display = "none"
+
+planologo.addEventListener('change', (e) => {
+    textlogo.style.display = "none"
+    imglogo.style.display = ""
+
+    imglogo.src = URL.createObjectURL(e.target.files[0])
+})

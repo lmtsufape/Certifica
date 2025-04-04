@@ -336,10 +336,12 @@ class CertificadoController extends Controller
 
         $verso = Storage::url($modelo->verso);
 
+        $logo = Storage::url($modelo->logo);
+
         $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));;
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
-                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'tamanho_fonte'));
+                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'logo', 'tamanho_fonte'));
 
         $nomePDF = 'certificado.pdf';
 
@@ -662,10 +664,12 @@ class CertificadoController extends Controller
 
         $verso = Storage::url($modelo->verso);
 
+        $logo = Storage::url($modelo->logo);
+
         $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.'XXYYXXYY'));
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
-                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'tamanho_fonte'));
+                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'logo', 'tamanho_fonte'));
 
         $nomePDF = 'certificado.pdf';
 

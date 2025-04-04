@@ -146,6 +146,21 @@
                             </label>
                         </div>
 
+                        <div class="col text-center">
+                            <input hidden type="file" name="logo" id="plano_logo" accept="image/*"
+                                value={{ $modelo->logo }}>
+
+                            <label class="label" for="plano_logo">
+                                <span>Logo</span>
+
+                                <div id="card_logo" class="card-preview-create">
+                                    <img id="img_logo" src="{{ $logo }}" alt="" width="100%"
+                                        height="100%">
+                                    <img id="img_logo_new" src="" alt="" width="100%" height="100%">
+                                </div>
+
+                            </label>
+                        </div>
                     </div>
 
 

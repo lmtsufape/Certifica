@@ -59,7 +59,7 @@
 
                 <div class="row box">
 
-                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-md d-flex flex-column align-items-center justify-content-center">
                         <span>Fundo </span>
 
                         <div class="card-preview-create">
@@ -68,13 +68,19 @@
 
                     </div>
 
-                    <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                    <div class="col-md d-flex flex-column align-items-center justify-content-center">
                         <span>Verso </span>
                         <div class="card-preview-create">
                             <img src="{{ $verso }}" alt="" width="100%" height="100%">
                         </div>
                     </div>
 
+                    <div class="col-md d-flex flex-column align-items-center justify-content-center">
+                        <span>Logo </span>
+                        <div class="card-preview-create">
+                            <img src="{{ $logo }}" alt="" width="100%" height="100%">
+                        </div>
+                    </div>
                 </div>
 
 
