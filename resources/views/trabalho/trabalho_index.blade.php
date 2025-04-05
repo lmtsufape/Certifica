@@ -53,7 +53,7 @@
         <div class="list container">
             @foreach ($trabalhos as $trabalho)
                 <div class="row linha-table d-flex align-items-center justify-content-center">
-                    <div class="col-3"><span class="spacing-col">{{ $trabalho->titulo }}</span></div>
+                    <div class="col-3 text-truncate"><span class="spacing-col" title="{{ $trabalho->titulo }}">{{ $trabalho->titulo }}</span></div>
                     <div class="col-2">
                         <span>{{  $trabalho->carga_horaria }}</span>
                     </div>
@@ -76,7 +76,7 @@
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
 
-                            @if ($acao->status == null || $acao->status == 'Devolvida')
+                            @if ($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3)
 {{--                                <a href="/files/modelo.csv" title="Baixar Modelo">--}}
 {{--                                    <img src="/images/acoes/listView/anexo.svg">--}}
 {{--                                </a>--}}
