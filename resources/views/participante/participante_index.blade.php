@@ -123,43 +123,35 @@
                             </a>
                         @endif
 
-                        @if ($acao->status == null || $acao->status == 'Devolvida')
-                            @if (Auth::user()->perfil_id != 3)
-                                <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
-                                    <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                                </a>
-                            @endif
+                        @if ($acao->status == null || $acao->status == 'Devolvida' || Auth::user()->perfil_id == 3)
+                            <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
+                                <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                            </a>
 
                             <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
                                 href="{{ route('participante.delete', ['participante_id' => $participante->id]) }}">
                                 <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
                             </a>
-                        @endif
 
-                        @if (Auth::user()->perfil_id == 3)
-                            <a href="{{ route('participante.edit', ['participante_id' => $participante->id]) }}">
-                                <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                            </a>
-
-                            @if ($participante->invalidar_reemitir_certificado($participante->id))
-                                <a onclick="return confirm('Você tem certeza que deseja emitir/reemitir o certificado deste participante?')"
-                                    href="{{ route('participante.reemitir_certificado', ['participante_id' => $participante->id]) }}">
-                                    <img src="/images/acoes/listView/reemitir.svg" alt=""
-                                        title="Emitir/Reemitir Certificado">
-                                </a>
-                            @else
-                                <a onclick="return confirm('Você tem certeza que deseja invalidar o certificado deste participante?')"
-                                    href="{{ route('participante.invalidar_certificado', ['participante_id' => $participante->id]) }}">
-                                    <img src="/images/acoes/listView/revogar.svg" alt=""
-                                        title="Invalidar Certificado">
-                                </a>
+                            @if (Auth::user()->perfil_id == 3)
+                                @if ($participante->invalidar_reemitir_certificado($participante->id))
+                                    <a onclick="return confirm('Você tem certeza que deseja emitir/reemitir o certificado deste participante?')"
+                                        href="{{ route('participante.reemitir_certificado', ['participante_id' => $participante->id]) }}">
+                                        <img src="/images/acoes/listView/reemitir.svg" alt=""
+                                            title="Emitir/Reemitir Certificado">
+                                    </a>
+                                @else
+                                    <a onclick="return confirm('Você tem certeza que deseja invalidar o certificado deste participante?')"
+                                        href="{{ route('participante.invalidar_certificado', ['participante_id' => $participante->id]) }}">
+                                        <img src="/images/acoes/listView/revogar.svg" alt=""
+                                            title="Invalidar Certificado">
+                                    </a>
+                                @endif
                             @endif
                         @endif
                     </div>
-
                 </div>
             @endforeach
-
         </div>
     </section>
 
