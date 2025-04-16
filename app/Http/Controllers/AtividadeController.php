@@ -156,7 +156,7 @@ class AtividadeController extends Controller
 
         $acao = Acao::findOrFail($atividade->acao_id);
 
-        $tipoAtividade = TipoAtividade::all();
+        $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', $acao->unidadeAdministrativa->id)->get();
 
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
             'Palestrante', 'Voluntário(a)', 'Participante', 'Vice-coordenador(a)', 'Ouvinte', "Apresentação de Trabalho"];
