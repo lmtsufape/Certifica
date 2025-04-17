@@ -77,7 +77,8 @@
                                     value="" placeholder="Insira aqui o seu arquivo" required>
 
                                 <label for="anexo" id="" class="h-100">
-                                    <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg" alt="">
+                                    <img class="upload-icon tittle-input" src="/images/acoes/create/upload.svg"
+                                        alt="">
                                     <label for="anexo" id=""> </label>
                                 </label>
 
@@ -124,12 +125,21 @@
                     </div>
                 @endif
 
-                <div class="row box col-xl-7">
-                    <div class="d-flex align-items-center">
-                        <label class="form-check-label me-2 mb-0" for="toggleDataPersonalizada" style="display: flex; align-items: center; margin-bottom: 0; margin-left: 0;">
+                <div class="row box">
+                    <div class="d-flex col align-items-center">
+                        <label class="form-check-label me-2 mb-0" for="toggleDataPersonalizada"
+                            style="display: flex; align-items: center; margin-bottom: 0; margin-left: 0;">
                             Ativar data personalizada?
                         </label>
-                        <input class="form-check-input" type="checkbox" id="toggleDataPersonalizada" style="margin-top: 0; margin-left: 5px;">
+                        <input class="form-check-input" type="checkbox" id="toggleDataPersonalizada"
+                            style="margin-top: 0; margin-left: 5px;">
+                    </div>
+
+                    <div class="d-flex col justify-content-end">
+                        <button type="button" class="btn" style="color: white; background-color: #B02A3D;"
+                            data-bs-toggle="modal" data-bs-target="#ImportarAcaoModal">
+                            Importar Ação
+                        </button>
                     </div>
                 </div>
 
@@ -139,9 +149,10 @@
                     <div class="col-xl-3 campo spacing-row2 input-create-box ">
                         <span class="tittle-input">Data Personalizada</span>
                         <input class="w-100 h-75" type="date" name="data_personalizada" id="inputDataPersonalizada"
-                               value="{{ old('data_personalizada') }}">
+                            value="{{ old('data_personalizada') }}">
                     </div>
                 </div>
+
 
                 <div class="row d-flex justify-content-start align-items-center">
 
@@ -159,6 +170,34 @@
 
             </div>
         </form>
+
+        {{-- modal de importação --}}
+        <div class="modal fade" id="ImportarAcaoModal" tabindex="-1" aria-labelledby="ImportarAcaoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="ImportarAcaoModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" style="min-width: unset" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#">
+                            <div class="p-3"> 
+                                <Label for="acao">Insira aqui o arquivo .json exportado pelo Submeta</Label>
+                                <input type="file" name="acao" id="acao" class="form-control" accept=".json" style="all: inherit;"
+                                    required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn"
+                            style="color: white; background-color: #B02A3D;">Importar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script type="text/javascript" src="{{ asset('js/acao/acao-edit-create.js') }}"></script>
