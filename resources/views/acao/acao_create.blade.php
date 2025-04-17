@@ -182,18 +182,20 @@
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="#">
-                            <div class="p-3"> 
+                        <form action="{{ route('acao.import') }}" method="POST" enctype="multipart/form-data" id="ImportarAcaoForm">
+                            @csrf
+
+                            <div class="p-3">
                                 <Label for="acao">Insira aqui o arquivo .json exportado pelo Submeta</Label>
-                                <input type="file" name="acao" id="acao" class="form-control" accept=".json" style="all: inherit;"
-                                    required>
+                                <input type="file" name="acao" id="acao" class="form-control" accept=".json"
+                                    style="all: inherit;" required>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn"
-                            style="color: white; background-color: #B02A3D;">Importar</button>
+                        <button type="submit" class="btn"
+                            style="color: white; background-color: #B02A3D;" form="ImportarAcaoForm">Importar</button>
                     </div>
                 </div>
             </div>

@@ -165,6 +165,7 @@ Route::group(['middleware' => 'checkCoordenadorGestor'], function ()
     Route::get('/acao', [AcaoController::class, 'index'])->name('acao.index');
 
     Route::post('/acao/store', [AcaoController::class, 'store'])->name('acao.store');
+    Route::post('/acao/importar', [AcaoController::class, 'importarAcao'])->name('acao.import');
 
     Route::get('/acao/edit/{acao_id}', [AcaoController::class, 'edit'])->name('acao.edit');
     Route::post('/acao/update', [AcaoController::class, 'update'])->name('acao.update');

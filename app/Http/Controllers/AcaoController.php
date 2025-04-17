@@ -161,10 +161,7 @@ class AcaoController extends Controller
      * @param \App\Models\Acao $acao
      * @return \Illuminate\Http\Response
      */
-    public function show($acao_id)
-    {
-
-    }
+    public function show($acao_id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -264,7 +261,6 @@ class AcaoController extends Controller
 
         if ($message) {
             return redirect()->back()->with(['alert_mensage' => $message]);
-
         }
 
         $acao->status = 'Em análise';
@@ -296,8 +292,7 @@ class AcaoController extends Controller
 
     public function list_acoes_submetidas()
     {
-        $acaos = Acao::whereNotNull('status')->where
-        ('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('created_at', 'desc')->get();
+        $acaos = Acao::whereNotNull('status')->where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)->orderBy('created_at', 'desc')->get();
 
         foreach ($acaos as $acao) {
             if ($acao->data_submissao) {
@@ -313,9 +308,21 @@ class AcaoController extends Controller
         $acao = Acao::findOrFail($acao_id);
         $atividades = Atividade::all()->where('acao_id', $acao_id)->sortBy('id');
         $descricoes = [
-            'Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)',
-            'Formador(a)', 'Ministrante', 'Orientador(a)', 'Palestrante', 'Voluntário(a)', 'Participante',
-            'Vice-coordenador(a)', 'Ouvinte', 'Apresentação de Trabalho'
+            'Avaliador(a)',
+            'Bolsista',
+            'Colaborador(a)',
+            'Comissão Organizadora',
+            'Conferencista',
+            'Coordenador(a)',
+            'Formador(a)',
+            'Ministrante',
+            'Orientador(a)',
+            'Palestrante',
+            'Voluntário(a)',
+            'Participante',
+            'Vice-coordenador(a)',
+            'Ouvinte',
+            'Apresentação de Trabalho'
         ];
 
         $tipoAtividade = TipoAtividade::where('unidade_administrativa_id', $acao->unidade_administrativa_id)->get();
@@ -323,7 +330,7 @@ class AcaoController extends Controller
         $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
         sort($tipos_ordenados);
 
-        return view('gestor_institucional.analisar_acao', ['acao' => $acao, 'atividades' => $atividades, 'tipos_ordenados'=> $tipos_ordenados]);
+        return view('gestor_institucional.analisar_acao', ['acao' => $acao, 'atividades' => $atividades, 'tipos_ordenados' => $tipos_ordenados]);
     }
 
     public function acao_update(Request $request)
@@ -373,7 +380,6 @@ class AcaoController extends Controller
         } else {
             return redirect(Route('gestor.acoes_submetidas'));
         }
-
     }
 
     public function download_anexo($id)
@@ -397,7 +403,6 @@ class AcaoController extends Controller
         }
 
         return redirect()->back()->with(['mensagem' => 'Quando todos os certificados estiverem disponíveis para download, você será notificado por e-mail!']);
-
     }
 
     public function deletar_certificados($acao_id)
@@ -409,7 +414,6 @@ class AcaoController extends Controller
         Storage::deleteDirectory($caminho);
 
         return redirect()->back()->with(['mensagem' => 'Quando todos os certificados estiverem disponívcis para download, você será notificado por e-mail!']);
-
     }
 
     public function get_tipo_natureza($natureza_id)
@@ -435,8 +439,8 @@ class AcaoController extends Controller
 
 
         //        if (request('data')) {
-//            $acoes = Acao::search_acao_by_data($acoes, request('data'));
-//        }
+        //            $acoes = Acao::search_acao_by_data($acoes, request('data'));
+        //        }
 
 
 
@@ -463,5 +467,28 @@ class AcaoController extends Controller
         }
 
         return redirect()->back()->with(['mensagem' => 'Lembrete enviado aos integrantes!']);
+    }
+
+    public function importarAcao(Request $request)
+    {
+        $request->validate([
+            'acao' => 'required|file|mimes:json|max:2048',
+        ]);
+
+        // Obtém o conteúdo do arquivo
+        $file = $request->file('acao');
+        $jsonContent = file_get_contents($file->getRealPath());
+
+        // Decodifica o JSON
+        $data = json_decode($jsonContent, true);
+
+        // Verifica se o JSON é válido
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return back()->with('error', 'Arquivo JSON inválido.');
+        }
+
+        dd($data);
+
+        return back()->with('success', 'Arquivo lido com sucesso!');
     }
 }
