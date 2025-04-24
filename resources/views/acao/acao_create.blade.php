@@ -177,12 +177,13 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="ImportarAcaoModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="ImportarAcaoModalLabel">Importar Ação</h1>
                         <button type="button" class="btn-close" style="min-width: unset" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('acao.import') }}" method="POST" enctype="multipart/form-data" id="ImportarAcaoForm">
+                        <form action="{{ route('acao.import') }}" method="POST" enctype="multipart/form-data"
+                            id="ImportarAcaoForm">
                             @csrf
 
                             <div class="p-3">
@@ -194,8 +195,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn"
-                            style="color: white; background-color: #B02A3D;" form="ImportarAcaoForm">Importar</button>
+                        <button type="submit" class="btn" style="color: white; background-color: #B02A3D;"
+                            form="ImportarAcaoForm">Importar</button>
                     </div>
                 </div>
             </div>

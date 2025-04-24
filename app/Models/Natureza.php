@@ -29,4 +29,8 @@ class Natureza extends Model
     public function tipoNatureza(){
         return $this->hasMany('App\Models\TipoNatureza');
     }
+
+    public function unidadeAdministrativa(){
+        return $this->belongsTo('App\Models\UnidadeAdministrativa', 'unidade_administrativa_id');
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\SubmeterAcao;
 use App\Models\TipoNatureza;
 use App\Models\UnidadeAdministrativa;
 use App\Models\User;
+use App\Models\Participante;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateAcaoRequest;
 use Illuminate\Routing\Route;
@@ -33,6 +34,7 @@ use App\Mail\AcaoSubmetida;
 use App\Mail\AcaoSubmetidaCoordenador;
 use App\Jobs\ZipCertificados;
 use App\Models\TipoAtividade;
+use Illuminate\Support\Facades\DB;
 
 class AcaoController extends Controller
 {
@@ -484,11 +486,61 @@ class AcaoController extends Controller
 
         // Verifica se o JSON é válido
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return back()->with('error', 'Arquivo JSON inválido.');
+            return back()->withErrors('Arquivo JSON inválido.');
         }
 
-        dd($data);
+        try {
+            $acao = new Acao();
+            $ano = \Carbon\Carbon::parse($data['acao']['data_inicio'])->year;
+            $natureza = Natureza::where('descricao', 'Extensão')->first();
 
-        return back()->with('success', 'Arquivo lido com sucesso!');
+            DB::transaction(function () use ($data, $natureza, $ano, &$acao) {
+                $tipoNatureza = TipoNatureza::firstOrCreate(
+                    ['descricao' => 'projeto do Programa PIBEX ' . $ano],
+                    ['natureza_id' => $natureza->id]
+                );
+
+                $acao = Acao::firstOrCreate([
+                    'titulo' => $data['acao']['titulo'],
+                    'data_inicio' => $data['acao']['data_inicio'],
+                    'data_fim' => $data['acao']['data_termino'],
+                    'tipo_natureza_id' => $tipoNatureza->id,
+                    'usuario_id' => auth()->user()->id,
+                    'unidade_administrativa_id' => $tipoNatureza->natureza->unidade_administrativa_id,
+                ]);
+
+                foreach ($data['integrantes'] as $integrante) {
+                    $atividade = Atividade::firstOrCreate(
+                        [
+                            'descricao' => $integrante['tipo_vinculo'],
+                            'data_inicio' => $integrante['data_ingresso'],
+                            'data_fim' => $integrante['data_conclusao'],
+                            'acao_id' => $acao->id
+                        ]
+                    );
+
+                    $user = User::where('cpf', $integrante['cpf'])->first();
+
+                    Participante::firstOrCreate([
+                        'atividade_id' => $atividade->id,
+                        'user_id' => $user->id,
+                        'carga_horaria' => $integrante['carga_horaria']
+                    ]);
+                }
+
+                foreach ($data['coordenadores'] as $coordenador) {
+                    $atividade = Atividade::firstOrCreate([
+                        'descricao' => $coordenador['tipo'] == 'Coordenador/a' ? 'Coordenador(a)' : 'Vice-coordenador(a)',
+                        'data_inicio' => $data['acao']['data_inicio'],
+                        'data_fim' => $data['acao']['data_termino'],
+                        'acao_id' => $acao->id,
+                    ]);
+                }
+            });
+
+            return redirect()->route('atividade.index', ['acao_id' => $acao->id])->with('mensagem', 'Arquivo importado com sucesso!');
+        } catch (\Exception $e) {
+            return back()->withErrors('Ocorreu um erro ao importar o arquivo.');
+        }
     }
 }
