@@ -535,6 +535,14 @@ class AcaoController extends Controller
                         'data_fim' => $data['acao']['data_termino'],
                         'acao_id' => $acao->id,
                     ]);
+
+                    $user = User::where('cpf', $coordenador['cpf'])->first();
+
+                    Participante::firstOrCreate([
+                        'atividade_id' => $atividade->id,
+                        'user_id' => $user->id,
+                        'carga_horaria' => $integrante['carga_horaria']
+                    ]);
                 }
             });
 
