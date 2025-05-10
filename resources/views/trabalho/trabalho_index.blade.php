@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if ($acao->status == null || $acao->status == 'Devolvida')
+                    @if ($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3)
                         <a class="criar-acao-button" href="{{ route('trabalho.create', ['atividade_id' => $atividade->id]) }}">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar trabalho
                         </a>

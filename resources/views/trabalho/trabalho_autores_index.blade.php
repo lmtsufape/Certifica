@@ -112,7 +112,7 @@
                             @endif
 
                             @if ($acao->status == null || $acao->status == "Devolvida" || auth()->user()->perfil_id == 3)
-                                @if(Auth::user()->perfil_id == 3)
+                                @if(Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada')
                                     <a href="{{ route('certificado.preview', ['participante_id' => $autor->id]) }}"
                                        target="_blank">
                                         <img src="/images/acoes/listView/certificado.svg" alt=""
@@ -196,7 +196,7 @@
                                 @endif
 
                                 @if($acao->status == null || $acao->status == "Devolvida" || auth()->user()->perfil_id == 3)
-                                    @if(Auth::user()->perfil_id == 3)
+                                    @if(Auth::user()->perfil_id == 3 && $acao->status != 'Aprovada')
                                         <a href="{{ route('certificado.preview', ['participante_id' => $coautor->id]) }}"
                                            target="_blank">
                                             <img src="/images/acoes/listView/certificado.svg" alt=""

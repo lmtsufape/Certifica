@@ -162,7 +162,7 @@
 
                         @if (Auth::user()->perfil_id == 3)
                             @if ($acao->status == 'Aprovada')
-                                @if (!($atividade->descricao === 'Apresentação de Trabalho'))
+                                @if ($atividade->descricao !== 'Apresentação de Trabalho')
                                     <a href="/files/modelo.xlsx" title="Baixar Modelo">
                                         <img src="/images/acoes/listView/anexo.svg">
                                     </a>
