@@ -339,7 +339,11 @@ class AcaoController extends Controller
         if ($request->action == 'reprovar') {
             $status = 'Reprovada';
         } elseif ($request->action == 'devolver') {
-            $status = 'Devolvida';
+            if ($acao->status == 'Aprovada') {
+                $status = 'Devolvida após aprovação';
+            } else {
+                $status = 'Devolvida';
+            }
         } else {
             $status = 'Aprovada';
         }

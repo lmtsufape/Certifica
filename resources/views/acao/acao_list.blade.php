@@ -65,6 +65,21 @@
                 </a>
 
                 <!-- <a href="{{ route('certificados.deletar', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/zipcertificados.svg" alt="" title="Deletar Certificados"></a> -->
+            @elseif($acao->status == 'Devolvida após aprovação')
+                @if (Auth::user()->perfil_id == 3)
+                    <span>
+                        <a href="{{ Route('gestor.gerar_certificados', ['acao_id' => $acao->id]) }}"
+                            onclick="return confirm('Você tem certeza que deseja emitir os certificados?')">
+                            <img src="/images/acoes/listView/submeter.svg" alt="emitir certificados"
+                                title="Emitir Certificados">
+                        </a>
+                    </span>
+                @else
+                    <span><a onclick="return confirm('Você tem certeza que deseja submeter esta ação?')"
+                            href="{{ Route('acao.submeter', ['acao_id' => $acao->id]) }}"><img
+                                src="/images/acoes/listView/submeter.svg" alt="submeter"
+                                title="Submeter Ação"></a></span>
+                @endif
             @endif
 
         </div>
