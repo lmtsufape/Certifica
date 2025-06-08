@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="col-2 d-flex align-items-center justify-content-center gap-2">
-                        @if (!$atividade->certificados()->exists())
+                        @unless ($atividade->certificados()->exists() && $atividade->acao->status == 'Devolvida')
                             @if ($atividade->descricao === 'Apresentação de Trabalho')
                                 <a href="{{ route('trabalho.index', ['atividade_id' => $atividade->id]) }}" title="Trabalhos">
                                     <img src="/images/acoes/listView/clipboard-check.svg" alt="">
@@ -160,7 +160,7 @@
                                     <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>
                             @endif
-                        @endif
+                        @endunless
 
                         @if (Auth::user()->perfil_id == 3)
                             @if ($acao->status == 'Aprovada')
