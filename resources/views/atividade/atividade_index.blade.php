@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if ($acao->status == null || $acao->status == 'Devolvida' || $acao->status == 'Devolvida após aprovação' ||Auth::user()->perfil_id == 3)
+                    @if ($acao->status == null || $acao->status == 'Devolvida' ||Auth::user()->perfil_id == 3)
                         <a class="criar-acao-button" data-bs-toggle="modal" data-bs-target="#modalComponent">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                         </a>
