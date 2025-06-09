@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="col-9 text-end">
-                    @if ($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3)
+                    @if (($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3) && !$atividade->certificados()->exists())
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
                             Autor
@@ -127,14 +127,16 @@
                                     </a>
                                 @endif
 
-                                <a href="{{ route('participante.edit', ['participante_id' => $autor->id]) }}">
-                                    <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                                </a>
+                                @unless ($atividade->certificados()->exists())
+                                    <a href="{{ route('participante.edit', ['participante_id' => $autor->id]) }}">
+                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                    </a>
 
-                                <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
-                                   href="{{ route('participante.delete', ['participante_id' => $autor->id]) }}">
-                                    <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
-                                </a>
+                                    <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
+                                    href="{{ route('participante.delete', ['participante_id' => $autor->id]) }}">
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
+                                    </a>
+                                @endunless
                             @endif
 
                             @if (Auth::user()->perfil_id == 3 && $acao->status == 'Aprovada')
@@ -211,14 +213,16 @@
                                         </a>
                                     @endif
 
-                                    <a href="{{ route('participante.edit', ['participante_id' => $coautor->id]) }}">
-                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                                    </a>
+                                    @unless ($atividade->certificados()->exists())
+                                        <a href="{{ route('participante.edit', ['participante_id' => $coautor->id]) }}">
+                                            <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                        </a>
 
-                                    <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
-                                       href="{{ route('participante.delete', ['participante_id' => $coautor->id]) }}">
-                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
-                                    </a>
+                                        <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
+                                        href="{{ route('participante.delete', ['participante_id' => $coautor->id]) }}">
+                                            <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
+                                        </a>
+                                    @endunless
                                 @endif
 
 

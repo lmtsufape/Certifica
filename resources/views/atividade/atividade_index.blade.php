@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if ($acao->status == null || $acao->status == 'Devolvida' ||Auth::user()->perfil_id == 3)
+                    @if ($acao->status == null || $acao->status == 'Devolvida' || Auth::user()->perfil_id == 3)
                         <a class="criar-acao-button" data-bs-toggle="modal" data-bs-target="#modalComponent">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar atividade
                         </a>
@@ -113,18 +113,18 @@
                     </div>
 
                     <div class="col-2 d-flex align-items-center justify-content-center gap-2">
-                        @unless ($atividade->certificados()->exists() && $atividade->acao->status == 'Devolvida')
-                            @if ($atividade->descricao === 'Apresentação de Trabalho')
-                                <a href="{{ route('trabalho.index', ['atividade_id' => $atividade->id]) }}" title="Trabalhos">
-                                    <img src="/images/acoes/listView/clipboard-check.svg" alt="">
-                                </a>
-                            @else
-                                <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
-                                    title="Integrantes">
-                                    <img src="/images/atividades/participantes.svg" alt="">
-                                </a>
-                            @endif
+                        @if ($atividade->descricao === 'Apresentação de Trabalho')
+                            <a href="{{ route('trabalho.index', ['atividade_id' => $atividade->id]) }}" title="Trabalhos">
+                                <img src="/images/acoes/listView/clipboard-check.svg" alt="">
+                            </a>
+                        @else
+                            <a href="{{ route('participante.index', ['atividade_id' => $atividade->id]) }}"
+                                title="Integrantes">
+                                <img src="/images/atividades/participantes.svg" alt="">
+                            </a>
+                        @endif
 
+                        @unless ($atividade->certificados()->exists() && $atividade->acao->status == 'Devolvida')
                             @if ($acao->status == null || $acao->status == 'Devolvida')
                                 @if (!($atividade->descricao === 'Apresentação de Trabalho'))
                                     <a href="/files/modelo.xlsx" title="Baixar Modelo">

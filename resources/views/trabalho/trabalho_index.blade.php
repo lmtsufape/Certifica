@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="col-8 text-end">
-                    @if ($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3)
+                    @if (($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3) && !$atividade->certificados()->exists())
                         <a class="criar-acao-button" href="{{ route('trabalho.create', ['atividade_id' => $atividade->id]) }}">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Criar trabalho
                         </a>
@@ -76,7 +76,7 @@
                                 <img src="/images/atividades/participantes.svg" alt="">
                             </a>
 
-                            @if ($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3)
+                            @if (($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3) && !$atividade->certificados()->exists())
 {{--                                <a href="/files/modelo.csv" title="Baixar Modelo">--}}
 {{--                                    <img src="/images/acoes/listView/anexo.svg">--}}
 {{--                                </a>--}}
