@@ -219,16 +219,10 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Script do Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
-
-    <script src="/js/auth/cpf_passaporte.js"></script>
 @endsection
 
 @push('scripts')
+    <script src="/js/auth/cpf_passaporte.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 
     <script>
