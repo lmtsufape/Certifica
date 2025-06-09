@@ -6,6 +6,13 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/acoes/list.css">
+
+    <style>
+        .bootstrap-select .dropdown-menu {
+            max-height: 400px !important;
+            max-width: 300px !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -44,7 +51,7 @@
                 </div>
 
                 <div class="col-9 text-end">
-                    @if ($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3)
+                    @if (($acao->status == null || $acao->status == 'Devolvida' || auth()->user()->perfil_id == 3) && !$atividade->certificados()->exists())
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
                             Autor
@@ -120,14 +127,16 @@
                                     </a>
                                 @endif
 
-                                <a href="{{ route('participante.edit', ['participante_id' => $autor->id]) }}">
-                                    <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                                </a>
+                                @unless ($atividade->certificados()->exists())
+                                    <a href="{{ route('participante.edit', ['participante_id' => $autor->id]) }}">
+                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                    </a>
 
-                                <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
-                                   href="{{ route('participante.delete', ['participante_id' => $autor->id]) }}">
-                                    <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
-                                </a>
+                                    <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
+                                    href="{{ route('participante.delete', ['participante_id' => $autor->id]) }}">
+                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
+                                    </a>
+                                @endunless
                             @endif
 
                             @if (Auth::user()->perfil_id == 3 && $acao->status == 'Aprovada')
@@ -204,14 +213,16 @@
                                         </a>
                                     @endif
 
-                                    <a href="{{ route('participante.edit', ['participante_id' => $coautor->id]) }}">
-                                        <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
-                                    </a>
+                                    @unless ($atividade->certificados()->exists())
+                                        <a href="{{ route('participante.edit', ['participante_id' => $coautor->id]) }}">
+                                            <img src="/images/acoes/listView/editar.svg" alt="" title="Editar">
+                                        </a>
 
-                                    <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
-                                       href="{{ route('participante.delete', ['participante_id' => $coautor->id]) }}">
-                                        <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
-                                    </a>
+                                        <a onclick="return confirm('Você tem certeza que deseja remover o participante?')"
+                                        href="{{ route('participante.delete', ['participante_id' => $coautor->id]) }}">
+                                            <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Excluir">
+                                        </a>
+                                    @endunless
                                 @endif
 
 
@@ -271,7 +282,7 @@
 
                         <div id="cpf_dinamico" class="col-10 camporegister_dinamico_show">
                             <label>CPF:</label>
-                            <input class="w-75 form-control" type="text" name="cpf" id="cpf"
+                            <input class="w-75 form-control" type="text" name="cpf" id="cpf1"
                                    placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                                    title="Digite um CPF válido (000.000.000-00)" required>
                         </div>
@@ -280,6 +291,16 @@
                             <label>Passaporte:</label>
                             <input class="w-75 form-control" type="text" name="passaporte" id="passaporte"
                                    placeholder=""title="Digite o passaporte">
+                        </div>
+
+                        <div class="col-10 mt-3">
+                            <label for="user-select">Procurar pelo nome:</label>
+                            <select id="user-select" class="selectpicker w-75" data-live-search="true"  data-index="1">
+                                <option value="" selected>Procurar um usuário</option>
+                                @foreach ($dadosUsers as $user)
+                                    <option value="{{ $user->cpf }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer row justify-content-center">
@@ -327,7 +348,7 @@
 
                         <div id="cpf_dinamico" class="col-10 camporegister_dinamico_show">
                             <label>CPF:</label>
-                            <input class="w-75 form-control" type="text" name="cpf" id="cpf"
+                            <input class="w-75 form-control" type="text" name="cpf" id="cpf2"
                                    placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                                    title="Digite um CPF válido (000.000.000-00)" required>
                         </div>
@@ -336,6 +357,16 @@
                             <label>Passaporte:</label>
                             <input class="w-75 form-control" type="text" name="passaporte" id="passaporte"
                                    placeholder=""title="Digite o passaporte">
+                        </div>
+
+                        <div class="col-10 mt-3">
+                            <label for="user-select2">Procurar pelo nome:</label>
+                            <select id="user-select2" class="selectpicker w-75" data-live-search="true"  data-index="2">
+                                <option value="" selected>Procurar um usuário</option>
+                                @foreach ($dadosUsers as $user)
+                                    <option value="{{ $user->cpf }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer row justify-content-center">
@@ -361,3 +392,18 @@
 
     <script src="/js/auth/cpf_passaporte.js"></script>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#user-select').selectpicker();
+        });
+
+        $('.selectpicker').on('change', function() {
+            const index = $(this).data('index');
+            $('#cpf' + index).val($(this).val());
+        });
+    </script>
+@endpush

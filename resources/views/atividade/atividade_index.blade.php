@@ -124,41 +124,43 @@
                             </a>
                         @endif
 
-                        @if ($acao->status == null || $acao->status == 'Devolvida')
-                            @if (!($atividade->descricao === 'Apresentação de Trabalho'))
-                                <a href="/files/modelo.xlsx" title="Baixar Modelo">
-                                    <img src="/images/acoes/listView/anexo.svg">
+                        @unless ($atividade->certificados()->exists() && $atividade->acao->status == 'Devolvida')
+                            @if ($acao->status == null || $acao->status == 'Devolvida')
+                                @if (!($atividade->descricao === 'Apresentação de Trabalho'))
+                                    <a href="/files/modelo.xlsx" title="Baixar Modelo">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Integrantes" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+                                @else
+                                    <a href="/files/modelo_trabalho.xlsx" title="Baixar Modelo Trabalho">
+                                        <img src="/images/acoes/listView/anexo.svg">
+                                    </a>
+
+                                    <a href="" title="Importar Autores/Coautores" data-bs-toggle="modal"
+                                        data-bs-target="#modalImportTrabalhoCsv{{ $atividade->id }}">
+                                        <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                    </a>
+                                @endif
+
+                                <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
+                                    <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>
 
-                                <a href="" title="Importar Integrantes" data-bs-toggle="modal"
-                                    data-bs-target="#modalImportCsv{{ $atividade->id }}">
-                                    <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                                <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')"
+                                    href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}"
+                                    title="Excluir">
+                                    <img src="/images/acoes/listView/lixoIcon.svg" alt="">
                                 </a>
-                            @else
-                                <a href="/files/modelo_trabalho.xlsx" title="Baixar Modelo Trabalho">
-                                    <img src="/images/acoes/listView/anexo.svg">
-                                </a>
-
-                                <a href="" title="Importar Autores/Coautores" data-bs-toggle="modal"
-                                    data-bs-target="#modalImportTrabalhoCsv{{ $atividade->id }}">
-                                    <img src="/images/acoes/listView/csvIcon.svg" alt="">
+                            @elseif(Auth::user()->perfil_id == 3)
+                                <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
+                                    <img src="/images/acoes/listView/editar.svg" alt="">
                                 </a>
                             @endif
-
-                            <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
-                                <img src="/images/acoes/listView/editar.svg" alt="">
-                            </a>
-
-                            <a onclick="return confirm('Você tem certeza que deseja remover a atividade?')"
-                                href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}"
-                                title="Excluir">
-                                <img src="/images/acoes/listView/lixoIcon.svg" alt="">
-                            </a>
-                        @elseif(Auth::user()->perfil_id == 3)
-                            <a href="{{ route('atividade.edit', ['atividade_id' => $atividade->id]) }}" title="Editar">
-                                <img src="/images/acoes/listView/editar.svg" alt="">
-                            </a>
-                        @endif
+                        @endunless
 
                         @if (Auth::user()->perfil_id == 3)
                             @if ($acao->status == 'Aprovada')

@@ -43,6 +43,12 @@
                             src="/images/acoes/listView/zipcertificados.svg" alt="" title="Baixar Certificados"></a>
                 </span>
 
+                <span style="padding-right:10px;">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#modal-info{{$acao->id}}">
+                        <img src="/images/acoes/listView/clipboard-check.svg" alt="Finalizar solicitação"
+                            title="Finalizar solicitação">
+                    </a>
+                </span>
             @endif
 
             @if($acao->status == "Em análise")
@@ -74,11 +80,11 @@
 
                         <div class="container">
                             <div class="row">
-                                @if($acao->status == "Em análise")
+                                @if($acao->status == "Em análise" || $acao->status == "Aprovada")
                                     <div class="form-group">
                                         <label for="observacoes">Observações:</label>
                                         <textarea class="form-control" id="observacao_gestor" name="observacao_gestor"
-                                            rows="3"></textarea>
+                                            rows="3">{{ $acao->observacao_gestor }}</textarea>
                                     </div>
                                 @else
                                     <div class="form-group">
@@ -88,17 +94,27 @@
                                     </div>
                                 @endif
 
-
-                                <div class="col d-flex align-items-center justify-content-evenly mt-4">
-                                    <div>
-                                        <button name="action" type="submit" class="button btn-danger buttonAnalisar"
-                                            value="reprovar">Reprovar</button>
-                                        <button name="action" type="submit" class="button btn-secondary buttonAnalisar"
-                                            value="devolver">Devolver</button>
-                                        <button name="action" type="submit" class="button buttonAnalisar"
-                                            value="aprovar">Aprovar</button>
+                                @if ($acao->status != 'Aprovada')
+                                    <div class="col d-flex align-items-center justify-content-evenly mt-4">
+                                        <div>
+                                            @unless ($acao->atividades()->has('certificados')->exists())
+                                                <button name="action" type="submit" class="button btn-danger buttonAnalisar"
+                                                    value="reprovar">Reprovar</button>
+                                            @endunless
+                                            <button name="action" type="submit" class="button btn-secondary buttonAnalisar"
+                                                value="devolver">Devolver</button>
+                                            <button name="action" type="submit" class="button buttonAnalisar"
+                                                value="aprovar">Aprovar</button>
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="col d-flex align-items-center justify-content-evenly mt-4">
+                                        <div>
+                                            <button name="action" type="submit" class="button btn-secondary buttonAnalisar"
+                                                value="devolver">Devolver</button>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
 
                         </div>

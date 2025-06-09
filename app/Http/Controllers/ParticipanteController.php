@@ -70,10 +70,11 @@ class ParticipanteController extends Controller
         $trabalho = Trabalho::findOrFail($trabalho_id);
         $atividade = Atividade::findOrFail($trabalho->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
+        $dadosUsers = User::orderBy('name')->get(['name', 'cpf']);
 
         $cont = 0;
 
-        return view('trabalho.trabalho_autores_index',compact('autores','coautores','trabalho','atividade','acao','cont','solicitacao'));
+        return view('trabalho.trabalho_autores_index',compact('autores','coautores','trabalho','atividade','acao','cont','solicitacao', 'dadosUsers'));
 
     }
 

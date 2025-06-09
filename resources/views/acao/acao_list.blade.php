@@ -35,11 +35,13 @@
             <span><a href="{{ Route('atividade.index', ['acao_id' => $acao->id]) }}"><img
                         src="/images/acoes/listView/atividade.svg" alt="Atividades" title="Atividades"></a></span>
             @if ($acao->status == null || $acao->status == 'Devolvida')
-                <span><a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}"><img
-                            src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar Ação"></a></span>
-                <span><a onclick="return confirm('Você tem certeza que deseja excluir esta ação?')"
-                        href="{{ Route('acao.delete', ['acao_id' => $acao->id]) }}" title="Excluir Ação"><img
-                            src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                @unless ($acao->atividades()->has('certificados')->exists())
+                    <span><a href="{{ Route('acao.edit', ['acao_id' => $acao->id]) }}"><img
+                                src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar Ação"></a></span>
+                    <span><a onclick="return confirm('Você tem certeza que deseja excluir esta ação?')"
+                            href="{{ Route('acao.delete', ['acao_id' => $acao->id]) }}" title="Excluir Ação"><img
+                                src="/images/acoes/listView/lixoIcon.svg" alt="Excluir"></a></span>
+                @endunless
                 @if (Auth::user()->perfil_id == 3)
                     <span>
                         <a href="{{ Route('gestor.gerar_certificados', ['acao_id' => $acao->id]) }}"
@@ -66,7 +68,6 @@
 
                 <!-- <a href="{{ route('certificados.deletar', ['acao_id' => $acao->id]) }}"><img src="/images/acoes/listView/zipcertificados.svg" alt="" title="Deletar Certificados"></a> -->
             @endif
-
         </div>
     </div>
 
