@@ -315,7 +315,7 @@ class CertificadoController extends Controller
             $modelo->texto = $modelo->texto_um_dia;
         }
 
-        if(mb_strlen($modelo->texto <= 380)) {
+        if(mb_strlen($modelo->texto) <= 380) {
             $tamanho_fonte = 38;
         }
         else {
@@ -336,7 +336,7 @@ class CertificadoController extends Controller
 
         $verso = Storage::url($modelo->verso);
 
-        $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));;
+        $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));
 
         $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
                             'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'tamanho_fonte'));
