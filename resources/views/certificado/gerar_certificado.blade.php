@@ -1,103 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <title> Certificado </title>
+<head>
+    <title>Certificado</title>
+    <style>
+        @font-face {
+            font-family: gyre;
+            src: url('{{ public_path('fonts/tex-gyre-termes/texgyretermes-regular.otf') }}');
+        }
 
-        <style>
-            @font-face {
-                font-family: gyre;
-                src: url('public/fonts/tex-gyre-termes/texgyretermes-regular.otf');
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: gyre;
+        }
 
-            *{
-                margin: 0px;
-                padding: 0px;
-                font-family: gyre;
-            }
+        body {
+            background-image: url('{{ $imagem }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            text-align: center;
+            position: relative;
+        }
 
-            .fundo_certificado {
-                background-image: url( {{ public_path($imagem) }});
-                background-size: cover;
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding-top: 75px;
-            }
+        .texto_certificado {
+            font-size: {{ $tamanho_fonte }}px;
+            color: #000000;
+            margin-top: 420px;
+            margin-left: 100px;
+            margin-right: 100px;
+            text-align: justify;
+        }
 
-            .verso_certificado {
-                background-image: url( {{ public_path($verso) }});
-                background-size: cover;
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding-top: 75px;
-            }
+        .data_local {
+            margin-top: 30px;
+            font-size: 32px;
+            text-align: center;
+        }
 
-            .texto_certificado {
-                font-size: {{ $tamanho_fonte }}px;
-                color: #000000;
-                text-shadow: 4px 4px #000;
-                margin-top: 412px;
-                margin-left: 450px;
-                margin-right: 187px;
-                text-align: justify;
-                text-justify: inter-word;
-            }
+        .verso_page {
+            page-break-before: always;
+            background-image: url('{{ $verso }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
 
-            .codigo_validacao {
-                font-size: 24px;
-                width:28%;
-                margin-left:1180px;
-                margin-top: 30px;
-            }
+        .texto_verso_superior {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 240px;
+            margin-left: 60px;
+            margin-right: 60px;
+            text-align: center;
+        }
 
-            .qrcode {
-                height: 25%;
-                margin-top: 30px;
-                margin-left: 1100px;
-            }
+        .texto_verso_inferior {
+            font-size: 24px;
+            margin-top: 30px;
+            margin-left: 60px;
+            margin-right: 60px;
+            text-align: center;
+        }
 
+        .codigo_validacao {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
 
-            .texto_verso_superior{
-                font-size:24px;
-                width:28%;
-                font-weight:bold;
-                margin-left:1180px;
-                margin-top: 240px;
+        .qrcode {
+            margin-top: 40px;
+            text-align: center;
+        }
 
-            }
+        .qrcode img {
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="texto_certificado">
+        {!! $modelo->texto !!}
+    </div>
 
-            .texto_verso_inferior{
-                font-size:24px;
-                width:28%;
-                margin-left:1180px;
-                margin-top: 30px;
-            }
+    <div class="data_local">
+        Garanhuns, {{ $data_atual }}
+    </div>
 
-            .logo {
-                margin-right: 150;
-                margin-top: 150;
-            }
+    <div class="verso_page">
+        <div class="texto_verso_superior">
+            Para verificar a autenticidade deste certificado, acesse o Código QR abaixo:
+        </div>
 
-        </style>
-    </head>
+        <div class="qrcode">
+            <img src="data:image/svg+xml;base64,{{ $qrcode }}" alt="QR Code">
+        </div>
 
-    <body class="fundo_certificado">
-        <p class="texto_certificado">
-            {!! $modelo->texto !!}
+        <div class="texto_verso_inferior">
+            Ou digite este código de verificação de autenticidade no endereço:<br>
+            <a href="http://certifica.ufape.edu.br/validacao">http://certifica.ufape.edu.br/validacao</a>
+        </div>
 
-            <br> <br> <br>
-
-            <div style="text-align: center; font-size: 38px; margin-left: 300px; "> Garanhuns, {{ $data_atual }} </div>
-        </p>
-    </body>
-
-    <body class="verso_certificado">
-                <p class='texto_verso_superior'>Para verificar a autenticidade deste certificado, acesse o Código QR abaixo: </p>
-
-                <img class="qrcode" src="data:image/png;base64, {{ $qrcode }}">
-
-                <p class='texto_verso_inferior'>Ou digite este código de verificação de autenticidade no endereço <a href="http://certifica.ufape.edu.br/validacao">http://certifica.ufape.edu.br/validacao</a> </p>
-                
-                <p class='codigo_validacao'><b>Código de verificação de autenticidade:</b><br>{{ $certificado->codigo_validacao }}</p>
-
-    </body>
+        <div class="codigo_validacao">
+            <strong>Código de verificação de autenticidade:</strong><br>
+            {{ $certificado->codigo_validacao }}
+        </div>
+    </div>
+</body>
 </html>

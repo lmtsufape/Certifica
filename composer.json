@@ -7,7 +7,6 @@
     "require": {
         "php": "^8.0.2",
         "ext-zip": "*",
-        "barryvdh/laravel-dompdf": "^2.0",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
         "kyslik/column-sortable": "^7.0",
@@ -18,7 +17,7 @@
         "laravel/ui": "^4.1",
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
-        "mpdf/mpdf": "^6.1",
+        "mpdf/mpdf": "^8.2",
         "nesbot/carbon": "^2.66",
         "phpoffice/phpspreadsheet": "^1.29",
         "simplesoftwareio/simple-qrcode": "^4.2",

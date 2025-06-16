@@ -20,9 +20,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Validates\AcaoValidator;
 use App\Models\User;
@@ -30,6 +28,12 @@ use Dompdf\FontMetrics;
 use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
 use function Symfony\Component\Translation\t;
+use Mpdf\Mpdf;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 class CertificadoController extends Controller
@@ -280,27 +284,21 @@ class CertificadoController extends Controller
             $info_extra_participante = InfoExternaParticipante::findOrFail($info_extra_participante);
         }
 
-
         $atividade = Atividade::findOrFail($participante->atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
         $tipo_natureza = TipoNatureza::findOrFail($acao->tipo_natureza_id);
         $natureza = Natureza::findOrFail($tipo_natureza->natureza_id);
 
-        if($acao->data_personalizada) {
-            $data_atual = Carbon::parse($acao->data_personalizada)->isoFormat('LL');
-        }
-        else {
-            $data_atual = Carbon::parse(Carbon::now())->isoFormat('LL');
-        }
+        $data_atual = $acao->data_personalizada
+            ? Carbon::parse($acao->data_personalizada)->isoFormat('LL')
+            : Carbon::now()->isoFormat('LL');
 
-        if($participante->user->cpf) {
-            $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $atividade->id)->first();
-        }
-        else {
-            $certificado = Certificado::where('cpf_participante', $participante->user->passaporte)->where('atividade_id', $atividade->id)->first();
-        }
+        $cpfOuPassaporte = $participante->user->cpf ?: $participante->user->passaporte;
 
+        $certificado = Certificado::where('cpf_participante', $cpfOuPassaporte)
+            ->where('atividade_id', $atividade->id)
+            ->first();
 
         if(!$certificado) {
             return redirect()->back()->with(['error_mensage' => 'O certificado deste participante foi invalidado, um novo precisa ser emitido!']);
@@ -308,70 +306,58 @@ class CertificadoController extends Controller
 
         $modelo = CertificadoModelo::findOrFail($certificado->certificado_modelo_id);
 
-
-        //$atividade->descricao = Str::lower($atividade->descricao);
-
-        if($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null) {
+        if ($atividade->data_inicio == $atividade->data_fim && $modelo->texto_um_dia != null) {
             $modelo->texto = $modelo->texto_um_dia;
         }
 
         if(mb_strlen($modelo->texto) <= 380) {
             $tamanho_fonte = 38;
-        }
-        else {
+        } else {
             $tamanho_fonte = 38;
             $excesso_caracteres = mb_strlen($modelo->texto) - 380;
-
             if ($excesso_caracteres > 0) {
                 $reducoes_tamanho = ceil($excesso_caracteres / 65);
                 $tamanho_fonte -= $reducoes_tamanho * 2;
             }
-
             $tamanho_fonte = intval($tamanho_fonte);
         }
 
-        $modelo->texto = CertificadoController::convert_text($modelo, $participante, $acao, $atividade, $natureza, $tipo_natureza, $trabalho,$info_extra_participante);
+        $modelo->texto = CertificadoController::convert_text(
+            $modelo, $participante, $acao, $atividade,
+            $natureza, $tipo_natureza, $trabalho, $info_extra_participante
+        );
 
-        $imagem = Storage::url($modelo->fundo);
+        $imagem = public_path(Storage::url($modelo->fundo));
+        $verso = public_path(Storage::url($modelo->verso));
+        $qrcode = base64_encode(QrCode::format('svg')->size(100)->generate(
+            'http://certifica.ufape.edu.br/validacao/' . $certificado->codigo_validacao
+        ));
 
-        $verso = Storage::url($modelo->verso);
+        // Renderiza a view em HTML puro
+        $html = View::make('certificado.gerar_certificado', compact(
+            'modelo', 'participante', 'imagem', 'data_atual', 'certificado',
+            'qrcode', 'verso', 'tamanho_fonte'
+        ))->render();
 
-        $qrcode = base64_encode(QrCode::generate('http://certifica.ufape.edu.br/validacao/'.$certificado->codigo_validacao));
+        // Cria instância do mPDF
+        $mpdf = new Mpdf([
+            'format' => 'A4-L', // A4 landscape
+            'default_font_size' => 12,
+            'default_font' => 'dejavusans',
+        ]);
 
-        $pdf = Pdf::loadView('certificado.gerar_certificado', compact('modelo', 'participante',
-                            'imagem', 'data_atual', 'certificado', 'qrcode', 'verso', 'tamanho_fonte'));
+        if ($marca) {
+            // Marca d'água (opcional)
+            $mpdf->SetWatermarkText($marca, 0.2);
+            $mpdf->showWatermarkText = true;
+            $mpdf->watermarkTextAlpha = 0.2;
+        }
 
-        $nomePDF = 'certificado.pdf';
+        $mpdf->WriteHTML($html);
 
-        $pdf->set_option("dpi", 150);
-        $pdf->setPaper('a4', 'landscape');
-
-        if($marca){
-            $options = new Options();
-
-            $pdf->render();
-
-            $canvas = $pdf->getCanvas();
-
-            $fontMetrics = new FontMetrics($canvas, $options);
-
-            $w = $canvas->get_width();
-            $h = $canvas->get_height();
-
-            $font = $fontMetrics->getFont('times');
-
-            $txtHeight = $fontMetrics->getFontHeight($font, 75);
-            $textWidth = $fontMetrics->getTextWidth($marca, $font, 75);
-
-            $canvas->set_opacity(.2, "Multiply");
-
-            $x = (($w-$textWidth)/2);
-            $y = (($h-$txtHeight)/2);
-
-            $canvas->page_text($x, $y, $marca, $font, 75);
-         }
-
-        return $pdf->stream($nomePDF);
+        return response($mpdf->Output('', 'S'), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="certificado.pdf"');
     }
 
     public function ver_certificado_participante($participante_id)
