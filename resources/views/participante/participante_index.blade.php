@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col-9 text-end">
-                    @if (($acao->status == null || $acao->status == 'Devolvida') && !$atividade->certificados()->exists())
+                    @if ((($acao->status == null || $acao->status == 'Devolvida') && !$atividade->certificados()->exists()) || auth()->user()->perfil_id == 3)
                         <button class="btn criar-acao-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <img class="iconAdd" src="/images/acoes/listView/criar.svg" alt=""> Adicionar
                             Integrante
