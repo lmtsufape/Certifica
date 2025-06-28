@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
+
 
 class Participante extends Model
 {
@@ -119,7 +121,7 @@ class Participante extends Model
         $participante = Participante::findOrFail($participante_id);
 
         $emitir = null;
-        
+
         if(Certificado::where('atividade_id', $participante->atividade_id)->where('cpf_participante', $participante->user->cpf)->get()->isEmpty()) {
             $emitir = true;
         } else {

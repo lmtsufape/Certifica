@@ -29,6 +29,9 @@ use App\Rules\Cpf;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\AllowedSort;
 
 
 class ParticipanteController extends Controller
@@ -42,8 +45,8 @@ class ParticipanteController extends Controller
     {
         if ($solicitacao !== null) {
             $solicitacao = filter_var($solicitacao, FILTER_VALIDATE_BOOLEAN);
-            }
-        $participantes = Participante::all()->where('atividade_id', $atividade_id)->sortBy('id');
+        }
+
         $atividade = Atividade::findOrFail($atividade_id);
         $acao = Acao::findOrFail($atividade->acao_id);
 
@@ -51,8 +54,40 @@ class ParticipanteController extends Controller
 
         $dadosUsers = User::orderBy('name')->get(['name', 'cpf']);
 
-        return view('participante.participante_index',compact('participantes','atividade','acao','cont','solicitacao', 'dadosUsers'));
+        $participantes = QueryBuilder::for(Participante::class)
+            ->leftJoin('users', 'participantes.user_id', '=', 'users.id')
+            ->select('participantes.*')
+            ->allowedFilters([
+                AllowedFilter::callback('global', function ($query, $value) {
+                    $query->whereHas('user', function ($query) use ($value) {
+                        $query->where(function ($query) use ($value) {
+                            $query->where('name', 'ILIKE', "%{$value}%")
+                                ->orWhere('cpf', 'ILIKE', "%{$value}%")
+                                ->orWhere('email', 'ILIKE', "%{$value}%");
+                        });
+                    });
+                }),
+            ])
+            ->allowedSorts([
+                AllowedSort::callback('name', function ($query, bool $descending, string $property) {
+                    $direction = $descending ? 'desc' : 'asc';
+                    $query->orderBy('users.name', $direction);
+                }),
+                AllowedSort::callback('cpf', function ($query, bool $descending, string $property) {
+                    $direction = $descending ? 'desc' : 'asc';
+                    $query->orderBy('users.cpf', $direction);
+                }),
+                AllowedSort::callback('email', function ($query, bool $descending, string $property) {
+                    $direction = $descending ? 'desc' : 'asc';
+                    $query->orderBy('users.email', $direction);
+                }),
+                AllowedSort::field('carga_horaria'),
+            ])
+            ->where('atividade_id', $atividade_id)
+            ->with('user')
+            ->paginate(20);
 
+        return view('participante.participante_index', compact('participantes', 'atividade', 'acao', 'cont', 'solicitacao', 'dadosUsers'));
     }
 
     /**
@@ -74,8 +109,7 @@ class ParticipanteController extends Controller
 
         $cont = 0;
 
-        return view('trabalho.trabalho_autores_index',compact('autores','coautores','trabalho','atividade','acao','cont','solicitacao', 'dadosUsers'));
-
+        return view('trabalho.trabalho_autores_index', compact('autores', 'coautores', 'trabalho', 'atividade', 'acao', 'cont', 'solicitacao', 'dadosUsers'));
     }
 
     public function autor_create($trabalho_id, Request $request)
@@ -96,11 +130,11 @@ class ParticipanteController extends Controller
 
 
         if ($user) {
-            return view('trabalho.trabalho_autores_create', ['atividade' => $atividade, 'user' => $user, 'tipo' => $tipo, 'trabalho' => $trabalho, 'instituicaos' => $instituicaos, 'option' => $option ]);
+            return view('trabalho.trabalho_autores_create', ['atividade' => $atividade, 'user' => $user, 'tipo' => $tipo, 'trabalho' => $trabalho, 'instituicaos' => $instituicaos, 'option' => $option]);
         }
 
 
-        return view('trabalho.trabalho_autores_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'tipo' => $tipo, 'trabalho' => $trabalho, 'instituicaos' => $instituicaos,'option' => $option]);
+        return view('trabalho.trabalho_autores_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'tipo' => $tipo, 'trabalho' => $trabalho, 'instituicaos' => $instituicaos, 'option' => $option]);
     }
 
     public function autor_store(Request $request, $tipo)
@@ -108,7 +142,7 @@ class ParticipanteController extends Controller
         $attributes = $request->all();
 
 
-        if(!$attributes['instituicao']){
+        if (!$attributes['instituicao']) {
             $instituicao = Instituicao::find($attributes['instituicao_id']);
 
             $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras";
@@ -117,7 +151,7 @@ class ParticipanteController extends Controller
         try {
             ParticipanteValidator::validate($attributes);
         } catch (ValidationException $exception) {
-            return redirect(route('autor.create', ['trabalho_id' => $attributes['trabalho_id'], 'cpf' => $attributes['cpf'], 'passaporte' => $attributes['passaporte'], ]))
+            return redirect(route('autor.create', ['trabalho_id' => $attributes['trabalho_id'], 'cpf' => $attributes['cpf'], 'passaporte' => $attributes['passaporte'],]))
                 ->withErrors($exception->validator)->withInput();
         }
 
@@ -126,15 +160,15 @@ class ParticipanteController extends Controller
         $trabalho = Trabalho::findOrFail($attributes['trabalho_id']);
 
 
-        if($attributes['cpf']){
-            if($trabalho->autores->where('user.cpf', $attributes['cpf'] )->first() or $trabalho->coautores->where('user.cpf', $attributes['cpf'] )->first()){
+        if ($attributes['cpf']) {
+            if ($trabalho->autores->where('user.cpf', $attributes['cpf'])->first() or $trabalho->coautores->where('user.cpf', $attributes['cpf'])->first()) {
                 return redirect(Route('trabalho.index', ['atividade_id' => $attributes['atividade_id']]))
                     ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez no mesmo trabalho!']);
             }
         }
 
-        if($attributes['passaporte']){
-            if($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()){
+        if ($attributes['passaporte']) {
+            if ($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()) {
                 return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
                     ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
             }
@@ -142,16 +176,15 @@ class ParticipanteController extends Controller
 
 
 
-        try{
+        try {
             $user = $this->createUser($attributes);
-
         } catch (ValidationException $exception) {
             return redirect()->back()->withErrors($exception->validator)->withInput();
         }
 
-        if ($attributes['tipo'] === 'Autor'){
+        if ($attributes['tipo'] === 'Autor') {
             $attributes['autor_trabalhos_id'] = $attributes['trabalho_id'];
-        }else{
+        } else {
             $attributes['coautor_trabalhos_id'] = $attributes['trabalho_id'];
         }
         $attributes['user_id'] = $user->id;
@@ -181,10 +214,10 @@ class ParticipanteController extends Controller
         $instituicaos = Instituicao::all();
 
         if ($user) {
-            return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos, 'option' => $option ]);
+            return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos, 'option' => $option]);
         }
 
-        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'instituicaos' => $instituicaos,'option' => $option]);
+        return view('participante.participante_create', ['atividade' => $atividade, 'cpf' => $cpf, 'passaporte' => $passaporte, 'instituicaos' => $instituicaos, 'option' => $option]);
     }
 
     /**
@@ -197,7 +230,7 @@ class ParticipanteController extends Controller
     {
         $attributes = $request->all();
 
-        if(!$attributes['instituicao']){
+        if (!$attributes['instituicao']) {
             $instituicao = Instituicao::find($attributes['instituicao_id']);
 
             $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras";
@@ -213,24 +246,23 @@ class ParticipanteController extends Controller
         $atividade = Atividade::find($attributes['atividade_id']);
 
 
-        if($attributes['cpf']){
-            if($atividade->participantes->where('user.cpf', $attributes['cpf'] )->first()){
+        if ($attributes['cpf']) {
+            if ($atividade->participantes->where('user.cpf', $attributes['cpf'])->first()) {
                 return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
-                                ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
             }
         }
 
-        if($attributes['passaporte']){
-            if($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()){
+        if ($attributes['passaporte']) {
+            if ($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()) {
                 return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
-                                ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
+                    ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
             }
         }
 
 
-        try{
+        try {
             $user = $this->createUser($attributes);
-
         } catch (ValidationException $exception) {
             return redirect()->back()->withErrors($exception->validator)->withInput();
         }
@@ -247,10 +279,10 @@ class ParticipanteController extends Controller
         $attributes = $request->all();
 
 
-            $instituicao = Instituicao::where('nome', $attributes['instituicao'])->first();
+        $instituicao = Instituicao::where('nome', $attributes['instituicao'])->first();
 
-            $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras";
-            $attributes['instituicao_id'] = $instituicao? $instituicao->id : 2;
+        $attributes['instituicao'] = $instituicao ? $instituicao->nome : "Outras";
+        $attributes['instituicao_id'] = $instituicao ? $instituicao->id : 2;
 
         try {
             ParticipanteValidator::validate($attributes);
@@ -262,15 +294,15 @@ class ParticipanteController extends Controller
         $atividade = Atividade::find($attributes['atividade_id']);
 
 
-        if($attributes['cpf']){
-            if($atividade->participantes->where('user.cpf', $attributes['cpf'] )->first()){
+        if ($attributes['cpf']) {
+            if ($atividade->participantes->where('user.cpf', $attributes['cpf'])->first()) {
                 return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
                     ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
             }
         }
 
-        if($attributes['passaporte']){
-            if($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()){
+        if ($attributes['passaporte']) {
+            if ($atividade->participantes->where('user.passaporte', $attributes['passaporte'])->first()) {
                 return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
                     ->with(['error_mensage' => 'Não é possível adicionar o mesmo participante mais de uma vez na mesma atividade!']);
             }
@@ -278,23 +310,21 @@ class ParticipanteController extends Controller
 
         $info_extra = [
             'tipo' => $attributes['tipo'],
-            'disciplina'=> $attributes['disciplina'],
-            'orientador'=> $attributes['orientador'],
-            'periodo_letivo'=> $attributes['periodo_letivo'],
-            'area'=> $attributes['area'],
-            'local_realizado'=> $attributes['local_realizado'],
-            'titulo_projeto'=> $attributes['titulo_projeto']
+            'disciplina' => $attributes['disciplina'],
+            'orientador' => $attributes['orientador'],
+            'periodo_letivo' => $attributes['periodo_letivo'],
+            'area' => $attributes['area'],
+            'local_realizado' => $attributes['local_realizado'],
+            'titulo_projeto' => $attributes['titulo_projeto']
         ];
         $info_extra = InfoExternaParticipante::create($info_extra);
         $info_extra->save();
 
 
 
-        try{
+        try {
 
             $user = $this->createUser($attributes);
-
-
         } catch (ValidationException $exception) {
             return redirect()->back()->withErrors($exception->validator)->withInput();
         }
@@ -310,11 +340,11 @@ class ParticipanteController extends Controller
     private function createUser($attributes)
     {
 
-        if($attributes['cpf']){
+        if ($attributes['cpf']) {
             $user = User::where('cpf', $attributes['cpf'])->first();
         }
 
-        if($attributes['passaporte']){
+        if ($attributes['passaporte']) {
             $user = User::where('passaporte', $attributes['passaporte'])->first();
         }
 
@@ -345,12 +375,12 @@ class ParticipanteController extends Controller
 
         DefaultValidator::validate($userAttributes, User::$rules, User::$messages);
 
-        if($attributes['cpf']){
-            DefaultValidator::validate($userAttributes, ['cpf' => ($userAttributes['passaporte'] == NULL ? ['required',new Cpf] : 'nullable')], User::$messages);
+        if ($attributes['cpf']) {
+            DefaultValidator::validate($userAttributes, ['cpf' => ($userAttributes['passaporte'] == NULL ? ['required', new Cpf] : 'nullable')], User::$messages);
         }
 
-        if($attributes['passaporte']){
-            DefaultValidator::validate($userAttributes, ['passaporte' => ($userAttributes['cpf'] == NULL ? ['required','max:10'] : 'nullable')], User::$messages);
+        if ($attributes['passaporte']) {
+            DefaultValidator::validate($userAttributes, ['passaporte' => ($userAttributes['cpf'] == NULL ? ['required', 'max:10'] : 'nullable')], User::$messages);
         }
 
 
@@ -364,7 +394,6 @@ class ParticipanteController extends Controller
 
 
         return User::create($userAttributes);
-
     }
 
     /**
@@ -373,10 +402,7 @@ class ParticipanteController extends Controller
      * @param \App\Models\Participante $participante
      * @return \Illuminate\Http\Response
      */
-    public function show()
-    {
-
-    }
+    public function show() {}
 
     /**
      * Show the form for editing the specified resource.
@@ -390,12 +416,9 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::findOrFail($participante->atividade_id);
 
-        if(Auth::user()->perfil_id == 3)
-        {
+        if (Auth::user()->perfil_id == 3) {
             return view('gestor_institucional.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
-        }
-        else
-        {
+        } else {
             return view('participante.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
         }
     }
@@ -418,19 +441,15 @@ class ParticipanteController extends Controller
 
         $participante = Participante::findOrFail($request->id);
 
-        if(Auth::user()->perfil_id == 3)
-        {
+        if (Auth::user()->perfil_id == 3) {
             $usuario = User::findOrFail($participante->user_id);
 
             $usuario->name = $request->nome;
             $usuario->email = $request->email;
 
-            if($usuario->cpf)
-            {
+            if ($usuario->cpf) {
                 $usuario->cpf = $request->cpf;
-            }
-            else
-            {
+            } else {
                 $usuario->passaporte = $request->passaporte;
             }
 
@@ -476,7 +495,8 @@ class ParticipanteController extends Controller
         return view('participante.certificados', compact('naturezas'));
     }
 
-    public function filtro(){
+    public function filtro()
+    {
         $participacoes = Auth::user()->participacoes;
 
         $participacoes = $participacoes->filter(function ($participacao) {
@@ -486,25 +506,26 @@ class ParticipanteController extends Controller
         });
 
 
-        if(request('buscar_acao')){
+        if (request('buscar_acao')) {
 
             $participacoes = Participante::search_acao($participacoes, request('buscar_acao'));
         }
 
 
-        if(request('data')){
+        if (request('data')) {
             $participacoes = Participante::search_data($participacoes, request('data'));
         }
 
-        if(request('natureza')){
+        if (request('natureza')) {
             $participacoes = Participante::search_natureza($participacoes, request('natureza'));
         }
 
-        return view('participante.list_certificados',compact('participacoes'));
+        return view('participante.list_certificados', compact('participacoes'));
     }
 
 
-    public function import_participantes(Request $request, $atividade_id){
+    public function import_participantes(Request $request, $atividade_id)
+    {
         $atividade = Atividade::find($atividade_id);
 
         $inputFileType = IOFactory::identify($request->participantes_xlsx);
@@ -519,14 +540,13 @@ class ParticipanteController extends Controller
 
         for ($row = 2; $row <= $highestRow; ++$row) {
             //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
-            $cpf = Mask::mask(preg_replace('/\D/', '', $worksheet->getCell([2, $row])->getValue()) , "###.###.###-##");
+            $cpf = Mask::mask(preg_replace('/\D/', '', $worksheet->getCell([2, $row])->getValue()), "###.###.###-##");
             $user = User::where('cpf', '=', $cpf)->first();
 
             $confirm = True;
 
-            if(!$user)
-            {
-                try{
+            if (!$user) {
+                try {
 
                     $attributes = [
                         'nome' => $worksheet->getCell([1, $row])->getValue(),
@@ -539,19 +559,17 @@ class ParticipanteController extends Controller
                     ];
 
                     $user = $this->createUser($attributes);
-
                 } catch (\Throwable $th) {
                     $confirm = False;
 
-                    $message = $worksheet->getCell([1, $row])->getValue()." (".$th->getMessage().")";
+                    $message = $worksheet->getCell([1, $row])->getValue() . " (" . $th->getMessage() . ")";
 
                     array_push($participantes, $message);
                 }
             }
 
 
-            if($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first())
-            {
+            if ($confirm && !$user->participacoes()->where('atividade_id', '=', $atividade->id)->first()) {
                 $participante = new Participante();
                 $participante->carga_horaria = $worksheet->getCell([4, $row])->getValue();
                 $participante->atividade_id = $atividade_id;
@@ -559,16 +577,15 @@ class ParticipanteController extends Controller
 
                 $participante->save();
             }
-
         }
 
 
 
         $mensagem = "Participantes adicionados!";
 
-        if($participantes){
+        if ($participantes) {
             $mensagem = "Os seguintes participantes não puderam ser adicionados:\n"
-                .implode("  /  ",$participantes).".\n".
+                . implode("  /  ", $participantes) . ".\n" .
                 "\n Verifique os dados dos participantes e tente novamente.";
             return redirect(route('participante.index', ['atividade_id' => $atividade_id]))->with(['alert_mensage' => $mensagem]);
         }
@@ -579,7 +596,8 @@ class ParticipanteController extends Controller
     /**
      * @throws Exception
      */
-    public function import_trabalhos($atividade_id, Request $request){
+    public function import_trabalhos($atividade_id, Request $request)
+    {
         $atividade = Atividade::find($atividade_id);
 
         $inputFileType = IOFactory::identify($request->trabalhos_xlsx);
@@ -609,82 +627,79 @@ class ParticipanteController extends Controller
 
             $cell = 3;
             $tipo_autor = $worksheet->getCell([$cell, $row])->getValue();
-            if($tipo_autor !== null && (strtoupper($tipo_autor) === "AUTOR"||
-                    strtoupper($tipo_autor) === "COAUTOR")){
-            do{
+            if ($tipo_autor !== null && (strtoupper($tipo_autor) === "AUTOR" ||
+                strtoupper($tipo_autor) === "COAUTOR")) {
+                do {
 
-                $cpf = Mask::mask($worksheet->getCell([$cell + 3, $row])->getValue(), "###.###.###-##");
-                $user = User::where('cpf', '=', $cpf)->first();
+                    $cpf = Mask::mask($worksheet->getCell([$cell + 3, $row])->getValue(), "###.###.###-##");
+                    $user = User::where('cpf', '=', $cpf)->first();
 
-                $confirm = True;
+                    $confirm = True;
 
-                if(!$user)
-                {
-                    try{
+                    if (!$user) {
+                        try {
 
-                        $attributes = [
-                            'nome' => $worksheet->getCell([$cell+1, $row])->getValue(),
-                            'cpf'  => $cpf,
-                            'passaporte' => NULL,
-                            'email' => $worksheet->getCell([$cell+2, $row])->getValue(),
-                            'perfil_id' => 4,
-                            'instituicao' => 'Outra',
-                            'instituicao_id' => 2,
-                        ];
-
+                            $attributes = [
+                                'nome' => $worksheet->getCell([$cell + 1, $row])->getValue(),
+                                'cpf'  => $cpf,
+                                'passaporte' => NULL,
+                                'email' => $worksheet->getCell([$cell + 2, $row])->getValue(),
+                                'perfil_id' => 4,
+                                'instituicao' => 'Outra',
+                                'instituicao_id' => 2,
+                            ];
 
 
-                        $user = $this->createUser($attributes);
 
-                    } catch (\Throwable $th) {
-                        $confirm = False;
+                            $user = $this->createUser($attributes);
+                        } catch (\Throwable $th) {
+                            $confirm = False;
 
-                        $message = $worksheet->getCell([$cell+1, $row])->getValue()." (".$th->getMessage().")";
+                            $message = $worksheet->getCell([$cell + 1, $row])->getValue() . " (" . $th->getMessage() . ")";
 
-                        array_push($participantes, $message);
-                    }
-                }
-
-
-                if ($confirm &&
-                    (
-                        !$user->participacoes()->where('autor_trabalhos_id', '=', $trabalho->id)->first() ||
-                        !$user->participacoes()->where('coautor_trabalhos_id', '=', $trabalho->id)->first()
-                    ) )
-                {
-                    $participante = new Participante();
-                    $participante->carga_horaria = $worksheet->getCell([2, $row])->getValue();
-                    $participante->atividade_id = $atividade_id;
-                    $participante->user_id = $user->id;
-
-                    if(strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR"){
-                        $participante->autor_trabalhos_id = $trabalho->id;
-                    }else{
-                        $participante->coautor_trabalhos_id = $trabalho->id;
+                            array_push($participantes, $message);
+                        }
                     }
 
-                    $participante->save();
-                }
 
-                $cell = $cell + 4;
+                    if (
+                        $confirm &&
+                        (
+                            !$user->participacoes()->where('autor_trabalhos_id', '=', $trabalho->id)->first() ||
+                            !$user->participacoes()->where('coautor_trabalhos_id', '=', $trabalho->id)->first()
+                        )
+                    ) {
+                        $participante = new Participante();
+                        $participante->carga_horaria = $worksheet->getCell([2, $row])->getValue();
+                        $participante->atividade_id = $atividade_id;
+                        $participante->user_id = $user->id;
 
-            }while($worksheet->getCell([$cell, $row])->getValue() !== null && (strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR" ||
-                strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "COAUTOR"));
-        }
+                        if (strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR") {
+                            $participante->autor_trabalhos_id = $trabalho->id;
+                        } else {
+                            $participante->coautor_trabalhos_id = $trabalho->id;
+                        }
+
+                        $participante->save();
+                    }
+
+                    $cell = $cell + 4;
+                } while ($worksheet->getCell([$cell, $row])->getValue() !== null && (strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "AUTOR" ||
+                    strtoupper($worksheet->getCell([$cell, $row])->getValue()) === "COAUTOR"));
+            }
         }
 
 
 
         $mensagem = "Trabalhos e autores adicionados!";
 
-        if($participantes){
+        if ($participantes) {
             $mensagem = "Os seguintes participantes não puderam ser adicionados:\n"
-                .implode("  /  ",$participantes).".\n".
+                . implode("  /  ", $participantes) . ".\n" .
                 "\n Verifique os dados dos participantes e tente novamente.";
             return redirect(route('trabalho.index', ['atividade_id' => $atividade_id]))->with(['alert_mensage' => $mensagem]);
         }
 
         return redirect(route('trabalho.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
     }
-
 }

@@ -7,11 +7,17 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="/css/acoes/list.css">
+    <link rel="stylesheet" href="/css/pagination/custom-pagination.css">
 
     <style>
         .bootstrap-select .dropdown-menu {
             max-height: 400px !important;
             max-width: 300px !important;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
         }
     </style>
 @endsection
@@ -59,13 +65,45 @@
                 </div>
             </div>
 
+            <form action="{{ route('participante.index', ['atividade_id' => $atividade->id])}}" method="GET">
+                <div class="mt-2 mb-4 d-flex">
+                    <input type="text" class="form-control w-100" placeholder="Buscar participante..." name="filter[global]" value="{{ request()->query('filter')['global'] ?? '' }}">
+
+                    <button class="btn btn-danger flex-shrink-1 ms-2" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            @php
+                function sortLink($field, $label) {
+                    $currentSort = request('sort');
+                    $isDescending = $currentSort === $field;
+                    $newSort = $isDescending ? "-$field" : $field;
+
+                    $url = request()->fullUrlWithQuery(['sort' => $newSort]);
+
+                    $arrow = '';
+                    if ($currentSort === $field) {
+                        $arrow = '↑';
+                    } elseif ($currentSort === "-$field") {
+                        $arrow = '↓';
+                    }
+
+                    return "<a href=\"$url\">$label $arrow</a>";
+                }
+            @endphp
 
             <div class="row head-table d-flex align-items-center justify-content-center">
                 <div class="col-1 text-center">N°</div>
-                <div class="col-2"><span>Nome</span></div>
-                <div class="col-2"><span>E-mail</span></div>
-                <div class="col-2"><span>CPF/ Passaporte</span></div>
-                <div class="col-1"><span>CH</span></div>
+                <div class="col-2"><span>{!! sortLink('name', 'Nome') !!}</span></div>
+                <div class="col-2"><span>{!! sortLink('email', 'E-mail') !!}</span></div>
+                <div class="col-2"><span>{!! sortLink('cpf', 'CPF/ Passaporte') !!}</span></div>
+                <div class="col-1"><span>{!! sortLink('carga_horaria', 'CH') !!}</span></div>
                 <div class="col-2"><span>Atividade / Função</span></div>
                 <div class="col-2 text-center"><span>Funcionalidades</span></div>
             </div>
@@ -153,6 +191,10 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+
+        <div class="mt-4 custom-pagination">
+            {{ $participantes->appends(request()->except('page'))->links('pagination::bootstrap-4') }}
         </div>
     </section>
 
