@@ -166,6 +166,16 @@ class CertificadoModeloController extends Controller
 
         $modelo->update();
 
+        $user = auth()->user();
+        if ($user->perfil_id == 3)  {// se for o GESTOR mudando as imagens do MODELO
+            $modelosFilhos = CertificadoModelo::all()->where('unidade_administrativa_id', $user->unidade_administrativa_id);
+            foreach($modelosFilhos as $modeloFilho) {
+                $modeloFilho->fundo = $modelo->fundo;
+                $modeloFilho->verso = $modelo->verso;
+                $modeloFilho->update();
+            }
+        }
+
         return redirect(route('certificado_modelo.index'))->with(['mensagem' => "Modelo atualizado com sucesso"]);
     }
 
