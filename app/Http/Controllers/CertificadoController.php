@@ -157,7 +157,7 @@ class CertificadoController extends Controller
                                                 ->whereNull('certificados.deleted_at');
                                         })->get();
 
-        
+
         if($participantes->isEmpty())
         {
             return redirect()->back()->with(['error_mensage' => 'Todos os certificados desta atividade já foram emitidos']);
@@ -203,65 +203,6 @@ class CertificadoController extends Controller
         }
 
         return redirect(route('atividade.index', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
-    }
-
-    public function gerar_certificados_requisicao($acao_id)
-    {
-        $acao = Acao::findOrFail($acao_id);
-        $atividades = $acao->atividades()->get();
-
-        $message = AcaoValidator::validate_acao($acao);
-
-        if($message){
-            return redirect()->back()->with(['alert_mensage' => $message]);
-
-        }
-
-        $certificados_emitidos = collect();
-
-        foreach($atividades as $atividade)
-        {
-            $participantes = Participante::all()->where("atividade_id", $atividade->id);
-
-            $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", 1)->where("tipo_certificado", $atividade->descricao)->first();
-
-            if($certificado_modelo == null)
-            {
-                $certificado_modelo =  CertificadoModelo::where("unidade_administrativa_id", 1)->first();
-            }
-
-            if(!$certificado_modelo) return redirect()->back()->with(['alert_mensage' => 'É necessário ter pelo menos um modelo de certificado cadastrado para cada atividade da ação!']);
-
-            foreach($participantes as $participante)
-            {
-                $certificado = new Certificado();
-
-                $certificado->cpf_participante = $participante->user->cpf;
-                $certificado->codigo_validacao = Str::random(15);
-                $certificado->certificado_modelo_id = $certificado_modelo->id;
-                $certificado->atividade_id = $atividade->id;
-
-                $certificados_emitidos->push($certificado);
-            }
-        }
-
-        $certificados_emitidos->each(fn($certificado) => $certificado->save());
-
-            $acao->status = 'Aprovada';
-
-            $acao->update();
-
-            $atividades = $acao->atividades()->get();
-            foreach($atividades as $atividade)
-            {
-
-                Mail::to($atividade->participantes())->queue(new CertificadoDisponivel([
-                    'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao,
-                ]));
-            }
-            return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
-
-
     }
 
     public function ver_certificado($participante_id, $marca = null)
