@@ -31,7 +31,6 @@ class CertificadoApiService
             'unidade_administrativa_id' => self::UNIDADE_ADMINISTRATIVA_ID_PADRAO,
         ])->firstOrFail();
 
-        // A transação garante a integridade dos dados.
         return DB::transaction(function () use ($dadosValidados, $usuario) {
             $acoesCriadas = [];
             foreach ($dadosValidados as $dadosAcao) {
