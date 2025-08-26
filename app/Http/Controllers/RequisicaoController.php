@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCertificadoRequest;
+use App\Http\Requests\StoreCertificadoApiRequest;
 use App\Services\CertificadoApiService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
@@ -20,10 +20,10 @@ class RequisicaoController extends Controller
     /**
      * Lida com a requisição para criar certificados.
      *
-     * @param StoreCertificadoRequest $request
+     * @param StoreCertificadoApiRequest $request
      * @return JsonResponse
      */
-    public function criarCertificado(StoreCertificadoRequest $request): JsonResponse
+    public function criarCertificado(): JsonResponse
     {
         try {
             $acoesCriadas = $this->certificadoApiService->criarCertificados(
