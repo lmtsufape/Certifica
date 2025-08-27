@@ -33,7 +33,7 @@ class CertificadoApiService
             foreach ($dadosValidados as $dadosAcao) {
                 $acao = $this->criarAcao($dadosAcao, $user);
 
-                foreach ($dadosAcao['atividades'] as $dadosAtividade) {
+                foreach ($dadosAcao['acao']['atividades'] as $dadosAtividade) {
                     $this->criarAtividadeComParticipantes($acao, $dadosAtividade);
                 }
 
@@ -50,7 +50,7 @@ class CertificadoApiService
             'titulo' => $dadosAcao['acao']['titulo'],
             'data_inicio' => $dadosAcao['acao']['data_inicio'],
             'data_fim' => $dadosAcao['acao']['data_fim'],
-            'tipo_natureza' => $dadosAcao['tipo_natureza'],
+            'tipo_natureza' => $dadosAcao['acao']['tipo_natureza'],
             'natureza_id' => self::NATUREZA_ID_PADRAO,
             'usuario_id' => $user->id,
         ]);

@@ -28,22 +28,27 @@ class StoreCertificadoApiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // ações
             '*.acao' => 'required|array',
             '*.acao.titulo' => 'required|string|max:255',
             '*.acao.data_inicio' => 'required|date',
             '*.acao.data_fim' => 'required|date|after_or_equal:*.acao.data_inicio',
-            '*.tipo_natureza' => 'required|string',
-            '*.atividades' => 'required|array|min:1',
-            '*.atividades.*.descricao' => 'required|string',
-            '*.atividades.*.data_inicio' => 'required|date',
-            '*.atividades.*.data_fim' => 'required|date|after_or_equal:*.atividades.*.data_inicio',
-            '*.atividades.*.participantes' => 'required|array|min:1',
-            '*.atividades.*.participantes.*.nome' => 'required|string',
-            '*.atividades.*.participantes.*.email' => 'required|email',
-            '*.atividades.*.participantes.*.cpf' => 'required|string', // Considere adicionar uma regra de validação de CPF
-            '*.atividades.*.participantes.*.carga_horaria' => 'required|integer',
-            '*.atividades.*.participantes.*.instituicao' => 'required|string',
-            '*.atividades.*.participantes.*.curso' => 'nullable|string',
+            '*.acao.tipo_natureza' => 'required|string',
+
+            // atividades
+            '*.acao.atividades' => 'required|array|min:1',
+            '*.acao.atividades.*.descricao' => 'required|string',
+            '*.acao.atividades.*.data_inicio' => 'required|date',
+            '*.acao.atividades.*.data_fim' => 'required|date|after_or_equal:*.acao.atividades.*.data_inicio',
+
+            // participantes
+            '*.acao.atividades.*.participantes' => 'required|array|min:1',
+            '*.acao.atividades.*.participantes.*.nome' => 'required|string',
+            '*.acao.atividades.*.participantes.*.email' => 'required|email',
+            '*.acao.atividades.*.participantes.*.cpf' => 'required|string', // pode trocar por regra de CPF
+            '*.acao.atividades.*.participantes.*.carga_horaria' => 'required|integer|min:1',
+            '*.acao.atividades.*.participantes.*.instituicao' => 'required|string',
+            '*.acao.atividades.*.participantes.*.curso' => 'nullable|string',
         ];
     }
 }
