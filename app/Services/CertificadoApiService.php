@@ -26,15 +26,12 @@ class CertificadoApiService
      */
     public function criarCertificados(array $dadosValidados): array
     {
-        $usuario = User::where([
-            'perfil_id' => self::PERFIL_ID_PADRAO,
-            'unidade_administrativa_id' => self::UNIDADE_ADMINISTRATIVA_ID_PADRAO,
-        ])->firstOrFail();
+        $user = auth()->user();
 
-        return DB::transaction(function () use ($dadosValidados, $usuario) {
+        return DB::transaction(function () use ($dadosValidados, $user) {
             $acoesCriadas = [];
             foreach ($dadosValidados as $dadosAcao) {
-                $acao = $this->criarAcao($dadosAcao, $usuario);
+                $acao = $this->criarAcao($dadosAcao, $user);
 
                 foreach ($dadosAcao['atividades'] as $dadosAtividade) {
                     $this->criarAtividadeComParticipantes($acao, $dadosAtividade);
@@ -47,7 +44,7 @@ class CertificadoApiService
         });
     }
 
-    private function criarAcao(array $dadosAcao, User $usuario): Acao
+    private function criarAcao(array $dadosAcao, User $user): Acao
     {
         return Acao::create([
             'titulo' => $dadosAcao['acao']['titulo'],
@@ -55,7 +52,7 @@ class CertificadoApiService
             'data_fim' => $dadosAcao['acao']['data_fim'],
             'tipo_natureza' => $dadosAcao['tipo_natureza'],
             'natureza_id' => self::NATUREZA_ID_PADRAO,
-            'usuario_id' => $usuario->id,
+            'usuario_id' => $user->id,
         ]);
     }
 

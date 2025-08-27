@@ -23,9 +23,8 @@ class RequisicaoController extends Controller
      * @param StoreCertificadoApiRequest $request
      * @return JsonResponse
      */
-    public function criarCertificado(): JsonResponse
+    public function criarCertificado(StoreCertificadoApiRequest $request): JsonResponse
     {
-        dd('teste');
         try {
             $acoesCriadas = $this->certificadoApiService->criarCertificados(
                 $request->validated()

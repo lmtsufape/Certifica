@@ -61,7 +61,7 @@
                                         <div class="fw-bold">{{ $token->name }}</div>
                                         <div class="text-muted small">
                                             @if ($token->last_used_at)
-                                                Último acesso em: {{ $token->last_used_at->format('d/m/Y') }}
+                                                Último acesso em: {{ $token->last_used_at->format('d/m/Y H:i') }}
                                             @else
                                                 Nunca utilizado
                                             @endif
