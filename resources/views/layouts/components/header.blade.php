@@ -23,13 +23,8 @@
                         </button>
                         <div id="myDropdown" class="dropdown-content">
                             <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
-
-                            <!-- Link para Tokens de API Adicionado -->
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <a class="dropdown-item" href="{{ route('api-tokens.index') }}">{{ __('Tokens de API') }}</a>
-                            @endif
-
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Sair') }}</a>
+                            <a class="dropdown-item" href="{{ route('tokens.index') }}">{{ __('Tokens da API') }}</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -63,14 +58,9 @@
                     </button>
                     <div id="myDropdownResponsive" class="dropdown-content">
                         <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
-
-                        <!-- Link para Tokens de API Adicionado (Responsivo) -->
-                        @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                            <a class="dropdown-item" href="{{ route('api-tokens.index') }}">{{ __('Tokens de API') }}</a>
-                        @endif
-
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form-responsive').submit();">{{ __('Sair') }}</a>
-                        <form id="logout-form-responsive" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <a class="dropdown-item" href="{{ route('tokens.index') }}">{{ __('Tokens da API') }}</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </div>
