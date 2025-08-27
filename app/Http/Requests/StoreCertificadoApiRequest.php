@@ -13,10 +13,11 @@ class StoreCertificadoApiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Aqui você pode adicionar lógica de permissão.
-        // Por exemplo, verificar se o usuário autenticado tem um perfil específico.
-        // Retornar 'true' permite que a requisição prossiga.
-        return true;
+        if (auth()->user()->perfil_id == 3) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -26,7 +27,6 @@ class StoreCertificadoApiRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Toda a lógica de validação foi movida para cá.
         return [
             '*.acao' => 'required|array',
             '*.acao.titulo' => 'required|string|max:255',
