@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCertificadoApiRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize(): bool
     {
         $perfilIdPermitido = 3; // Id do perfil de gestor
@@ -20,35 +15,41 @@ class StoreCertificadoApiRequest extends FormRequest
             && $this->user()->unidade_administrativa_id === $unidadeAdministrativaIdPermitida;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules(): array
     {
         return [
-            // ações
-            '*.acao' => 'required|array',
-            '*.acao.titulo' => 'required|string|max:255',
-            '*.acao.data_inicio' => 'required|date',
-            '*.acao.data_fim' => 'required|date|after_or_equal:*.acao.data_inicio',
-            '*.acao.tipo_natureza' => 'required|string',
+            // ação
+            '*.titulo' => 'required|string|max:255',
+            '*.inicio' => 'required|date',
+            '*.fim' => 'required|date|after_or_equal:*.inicio',
+            '*.natureza' => 'required|string',
 
             // atividades
-            '*.acao.atividades' => 'required|array|min:1',
-            '*.acao.atividades.*.descricao' => 'required|string',
-            '*.acao.atividades.*.data_inicio' => 'required|date',
-            '*.acao.atividades.*.data_fim' => 'required|date|after_or_equal:*.acao.atividades.*.data_inicio',
+            '*.atividades' => 'required|array|min:1',
+            '*.atividades.*.descricao' => 'required|string',
+            '*.atividades.*.inicio' => 'required|date',
+            '*.atividades.*.fim' => 'required|date|after_or_equal:*.atividades.*.inicio',
 
             // participantes
-            '*.acao.atividades.*.participantes' => 'required|array|min:1',
-            '*.acao.atividades.*.participantes.*.nome' => 'required|string',
-            '*.acao.atividades.*.participantes.*.email' => 'required|email',
-            '*.acao.atividades.*.participantes.*.cpf' => 'required|string', // pode trocar por regra de CPF
-            '*.acao.atividades.*.participantes.*.carga_horaria' => 'required|integer|min:1',
-            '*.acao.atividades.*.participantes.*.instituicao' => 'required|string',
-            '*.acao.atividades.*.participantes.*.curso' => 'nullable|string',
+            '*.atividades.*.participantes' => 'required|array|min:1',
+            '*.atividades.*.participantes.*.nome' => 'required|string',
+            '*.atividades.*.participantes.*.email' => 'required|email',
+            '*.atividades.*.participantes.*.cpf' => [
+                'required',
+                'string',
+                'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/'
+            ],
+            '*.atividades.*.participantes.*.carga' => 'required|integer|min:1',
+            '*.atividades.*.participantes.*.instituicao' => 'required|string',
+            '*.atividades.*.participantes.*.curso' => 'nullable|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            '*.atividades.*.participantes.*.cpf.regex' =>
+                'O campo CPF para o participante deve estar no formato XXX.XXX.XXX-XX.',
         ];
     }
 }

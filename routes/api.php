@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         return $request->user();
     });
     
-    Route::post('/criar-certificado', [RequisicaoController::class, 'criarCertificado']);
+    Route::post('/criar-certificado', [RequisicaoController::class, 'criarCertificado'])->middleware('json.validate');
 });
 
 
