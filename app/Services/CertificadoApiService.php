@@ -34,7 +34,7 @@ class CertificadoApiService
         return DB::transaction(function () use ($dadosValidados, $userRequisitante) {
             $acoesCriadas = [];
             foreach ($dadosValidados as $dadosAcao) {
-                $acao = $this->criarAcao($dadosAcao, $userRequisitante);
+                $acao = $this->getOrCreateAcao($dadosAcao, $userRequisitante);
 
                 foreach ($dadosAcao['atividades'] as $dadosAtividade) {
                     $this->criarAtividadeComParticipantes($acao, $dadosAtividade);
@@ -47,18 +47,22 @@ class CertificadoApiService
         });
     }
 
-    private function criarAcao(array $dadosAcao, User $user): Acao
+    private function getOrCreateAcao(array $dadosAcao, User $user): Acao
     {
         $tipoNatureza = $this->getOrCreateTipoNatureza($dadosAcao['natureza']);
 
-        return Acao::create([
-            'titulo' => $dadosAcao['titulo'],
-            'data_inicio' => $dadosAcao['inicio'],
-            'data_fim' => $dadosAcao['fim'],
-            'tipo_natureza_id' => $tipoNatureza->id,
-            'usuario_id' => $user->id,
-            'unidade_administrativa_id' => self::UNIDADE_ADMINISTRATIVA_ID_PADRAO
-        ]);
+        return Acao::firstOrCreate(
+            [
+                'titulo' => $dadosAcao['titulo'],
+                'usuario_id' => $user->id
+            ],
+            [
+                'data_inicio' => $dadosAcao['inicio'],
+                'data_fim' => $dadosAcao['fim'],
+                'tipo_natureza_id' => $tipoNatureza->id,
+                'unidade_administrativa_id' => self::UNIDADE_ADMINISTRATIVA_ID_PADRAO,
+            ]
+        );
     }
 
     private function criarAtividadeComParticipantes(Acao $acao, array $dadosAtividade): void
