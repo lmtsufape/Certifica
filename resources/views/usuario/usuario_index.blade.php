@@ -106,6 +106,8 @@
                             Gestor Institucional
                         @elseif($user->perfil_id == 4)
                             Integrante
+                        @elseif($user->perfil_id == 5)
+                            Sistema
                         @endif
                     </div>
                     <div class="col-2 d-flex align-items-center">

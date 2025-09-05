@@ -54,6 +54,11 @@ class User extends Authenticatable
         'perfil_id'         => 'required',
     ];
 
+    // Regras para usuários de sistema (perfil_id = 5)
+    public static $service_rules = [
+        'name'              => 'required | string | max:255',
+        'email'             => 'required | string | email | max:255 |unique:users',
+    ];
 
     public static $edit_rules = [
         'name'              => 'required | string | max:255',
@@ -125,7 +130,7 @@ class User extends Authenticatable
             set: fn ($value) => strtolower($value),
         );
     }
-    
+
     public function instituicao__(){
         return $this->belongsTo(Instituicao::class, 'instituicao_id');
     }
