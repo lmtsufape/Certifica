@@ -139,7 +139,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
                         <span class="tittle-input">Tipo de usuário</span>
-                        <input class="w-100 input-text" type="text" value="Sistema" disabled>
+                        <input class="w-100 input-text" type="text" value="Sistema" readonly>
                     </div>
                 </div>
 

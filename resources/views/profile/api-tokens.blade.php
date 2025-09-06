@@ -30,6 +30,7 @@
                                 Gerar Token
                             </button>
                         </div>
+                        <input type="hidden" name="user_id" value="{{ $user_id }}">
                     </form>
                 </div>
             </div>

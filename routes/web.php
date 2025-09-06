@@ -156,7 +156,7 @@ Route::group(['middleware' => ['auth']], function()
     route::get('/filtro', [ParticipanteController::class, 'filtro'])->name('filtro');
 
     // Rotas para a Gestão de Tokens de API
-    Route::get('/user/api-tokens', [ApiTokenController::class, 'index'])->name('tokens.index');
+    Route::get('/user/{usuario_id}/api-tokens', [ApiTokenController::class, 'index'])->name('tokens.index');
     Route::post('/user/api-tokens', [ApiTokenController::class, 'store'])->name('tokens.store');
     Route::delete('/user/api-tokens/{tokenId}', [ApiTokenController::class, 'destroy'])->name('tokens.destroy');
 });

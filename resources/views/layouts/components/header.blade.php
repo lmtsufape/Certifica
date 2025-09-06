@@ -23,7 +23,6 @@
                         </button>
                         <div id="myDropdown" class="dropdown-content">
                             <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
-                            <a class="dropdown-item" href="{{ route('tokens.index') }}">{{ __('Tokens da API') }}</a>
                             <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -58,7 +57,6 @@
                     </button>
                     <div id="myDropdownResponsive" class="dropdown-content">
                         <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
-                        <a class="dropdown-item" href="{{ route('tokens.index') }}">{{ __('Tokens da API') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf

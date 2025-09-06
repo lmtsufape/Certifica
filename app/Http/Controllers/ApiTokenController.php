@@ -4,46 +4,48 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
+use App\Models\User;
 
 class ApiTokenController extends Controller
 {
-    /**
-     * Mostra a página de gestão de tokens de API.
-     */
-    public function index()
+    public function index($usuario_id)
     {
+        $user = User::findOrFail($usuario_id);
+
+        $this->authorize('viewTokens', $user);
+
         return view('profile.api-tokens', [
-            'tokens' => Auth::user()->tokens
+            'tokens' => $user->tokens,
+            'user_id' => $user->id
         ]);
     }
 
-    /**
-     * Cria um novo token de API.
-     */
     public function store(Request $request)
     {
         $request->validate([
             'token_name' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
         ]);
 
-        $user = Auth::user();
+        $user = User::find($request->user_id);
+
+        $this->authorize('createToken', $user);
 
         $token = $user->createToken($request->token_name);
 
-        // Redireciona de volta para a página com o novo token na sessão
         return back()->with('status', 'Token criado com sucesso!')
-                     ->with('plainTextToken', $token->plainTextToken);
+            ->with('plainTextToken', $token->plainTextToken);
     }
 
-    /**
-     * Revoga (apaga) um token de API.
-     */
     public function destroy($tokenId)
     {
-        $user = Auth::user();
+        $token = PersonalAccessToken::findOrFail($tokenId);
+        $user = $token->tokenable;
 
-        // Encontra o token pelo ID e garante que ele pertence ao utilizador logado antes de apagar.
-        $user->tokens()->where('id', $tokenId)->delete();
+        $this->authorize('revokeToken', $user);
+
+        $token->delete();
 
         return back()->with('status', 'Token revogado com sucesso!');
     }
