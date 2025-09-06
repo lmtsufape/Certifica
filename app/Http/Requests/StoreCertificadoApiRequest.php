@@ -8,11 +8,7 @@ class StoreCertificadoApiRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $perfilIdPermitido = 3; // Id do perfil de gestor
-        $unidadeAdministrativaIdPermitida = 1;
-
-        return $this->user()->perfil_id === $perfilIdPermitido
-            && $this->user()->unidade_administrativa_id === $unidadeAdministrativaIdPermitida;
+        return $this->user()->is_service_account;
     }
 
     public function rules(): array

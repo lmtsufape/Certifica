@@ -16,7 +16,7 @@ class CertificadoApiService
 {
     private const UNIDADE_ADMINISTRATIVA_ID_PADRAO = 1;
     private const CURSO_ID_PADRAO = 8;
-    private const PERFIL_ID_PADRAO_NOVO_USUARIO = 3; // Exemplo de um perfil padrão
+    private const PERFIL_ID_PADRAO_NOVO_USUARIO = 4; // Perfil de Participante
     private const NATUREZA_ID_PADRAO = 1; // ID padrão para a natureza
     private const INSTITUICAO_ID_PADRAO = 1; // Na criação de novo usuário
 
@@ -49,8 +49,6 @@ class CertificadoApiService
 
     private function getOrCreateAcao(array $dadosAcao, User $user): Acao
     {
-        $tipoNatureza = $this->getOrCreateTipoNatureza($dadosAcao['natureza']);
-
         return Acao::firstOrCreate(
             [
                 'titulo' => $dadosAcao['titulo'],
@@ -59,7 +57,7 @@ class CertificadoApiService
             [
                 'data_inicio' => $dadosAcao['inicio'],
                 'data_fim' => $dadosAcao['fim'],
-                'tipo_natureza_id' => $tipoNatureza->id,
+                'tipo_natureza_id' => $this->getOrCreateTipoNatureza($dadosAcao['natureza']),
                 'unidade_administrativa_id' => self::UNIDADE_ADMINISTRATIVA_ID_PADRAO,
             ]
         );
