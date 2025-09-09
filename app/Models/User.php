@@ -56,8 +56,9 @@ class User extends Authenticatable
 
     // Regras para usuários de sistema (perfil_id = 5)
     public static $service_rules = [
-        'name'              => 'required | string | max:255',
-        'email'             => 'required | string | email | max:255 |unique:users',
+        'name'                      => 'required | string | max:255',
+        'email'                     => 'required | string | email | max:255 |unique:users',
+        'unidade_administrativa_id' => 'required | int    | exists:unidade_administrativas,id',
     ];
 
     public static $edit_rules = [

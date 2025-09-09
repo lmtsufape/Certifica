@@ -119,10 +119,11 @@ class UsuarioController extends Controller
 
             $usuario->name = $request->name;
             $usuario->email = $request->email;
-            $usuario->password = Hash::make(\Illuminate\Support\Str::random(20));
+            $usuario->password = Hash::make(\Illuminate\Support\Str::random(20)); // Senha aleatoria
             $usuario->perfil_id = 5; // Sistema
-            $usuario->instituicao_id = 2;
+            $usuario->instituicao_id = 1; // UFAPE
             $usuario->is_service_account = true;
+            $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
             $usuario->save();
 
             return redirect(Route('usuario.index'))->with(['mensagem' => 'Usuário cadastrado !']);

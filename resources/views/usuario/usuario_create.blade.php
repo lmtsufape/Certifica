@@ -149,6 +149,20 @@
                         <input class="w-100 input-text" type="email" name="email" id="email_sistema" readonly>
                     </div>
                 </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column" id="unidade_administrativa">
+                        <span class="tittle-input">Unidade Administrativa</span>
+                        <select class="w-100 input-text" name="unidade_administrativa_id" required>
+                            <option selected hidden>Escolher...</option>
+                            @foreach ($unidade_administrativas as $unidade_administrativa)
+                                <option value="{{ $unidade_administrativa->id }}">
+                                    {{ $unidade_administrativa->descricao }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
             </div>
 
             {{-- Botões --}}
