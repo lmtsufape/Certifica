@@ -57,7 +57,7 @@ class CertificadoApiService
             [
                 'data_inicio' => $dadosAcao['inicio'],
                 'data_fim' => $dadosAcao['fim'],
-                'tipo_natureza_id' => $this->getOrCreateTipoNatureza($dadosAcao['natureza']),
+                'tipo_natureza_id' => $this->getOrCreateTipoNatureza($dadosAcao['natureza'])->id,
                 'unidade_administrativa_id' => self::UNIDADE_ADMINISTRATIVA_ID_PADRAO,
             ]
         );
