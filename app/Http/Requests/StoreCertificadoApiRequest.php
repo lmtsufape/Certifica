@@ -36,7 +36,6 @@ class StoreCertificadoApiRequest extends FormRequest
                 'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/'
             ],
             '*.atividades.*.participantes.*.carga' => 'required|integer|min:1',
-            '*.atividades.*.participantes.*.instituicao' => 'required|string',
             '*.atividades.*.participantes.*.curso' => 'nullable|string',
         ];
     }

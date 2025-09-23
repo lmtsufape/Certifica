@@ -81,8 +81,6 @@ class CertificadoApiService
                 'email' => $userParticipante->email,
                 'nome' => $userParticipante->name,
                 'carga_horaria' => $dadosParticipante['carga'],
-                // 'instituicao' => $dadosParticipante['instituicao'],
-                // 'json_cursos_ids' => json_encode([$cursoId]),
             ]);
         }
     }
