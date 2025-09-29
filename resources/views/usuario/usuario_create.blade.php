@@ -27,17 +27,21 @@
             @csrf
 
             {{-- Tipo de conta (fixo no topo) --}}
-            <div class="container mb-4">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-xl-6 campo spacing-row1 input-create-box">
-                        <span class="tittle-input">Tipo de conta</span>
-                        <select class="w-100 input-text" name="tipo_conta" id="tipo_conta" required>
-                            <option value="normal" selected>Normal</option>
-                            <option value="servico">Serviço</option>
-                        </select>
+            @if (Auth::user()->perfil_id == 1)
+                <div class="container mb-4">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-xl-6 campo spacing-row1 input-create-box">
+                            <span class="tittle-input">Tipo de conta</span>
+                            <select class="w-100 input-text" name="tipo_conta" id="tipo_conta" required>
+                                <option value="normal" selected>Normal</option>
+                                <option value="servico">Serviço</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <input type="hidden" name="tipo_conta" value="normal">
+            @endif
 
             {{-- Formulário Normal --}}
             <div id="form-normal" class="form-card">
@@ -49,6 +53,9 @@
                             <select class="w-100 input-text" name="perfil_id" id="select_perfil" required>
                                 <option value="" selected hidden>Escolher...</option>
                                 @foreach ($perfils as $perfil)
+                                    @if ($perfil->nome == 'Sistema')
+                                        @continue
+                                    @endif
                                     <option value="{{ $perfil->id }}">{{ $perfil->nome }}</option>
                                 @endforeach
                             </select>
@@ -128,42 +135,45 @@
             </div>
 
             {{-- Formulário Serviço --}}
-            <div id="form-servico" class="form-card" style="display:none;">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
-                        <span class="tittle-input">Nome do sistema</span>
-                        <input class="w-100 input-text" type="text" name="name" id="nome_sistema" required>
+            @if (Auth::user()->perfil_id == 1)
+                <div id="form-servico" class="form-card" style="display:none;">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
+                            <span class="tittle-input">Nome do sistema</span>
+                            <input class="w-100 input-text" type="text" name="name" id="nome_sistema" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
-                        <span class="tittle-input">Tipo de usuário</span>
-                        <input class="w-100 input-text" type="text" value="Sistema" readonly>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
+                            <span class="tittle-input">Tipo de usuário</span>
+                            <input class="w-100 input-text" type="text" value="Sistema" readonly>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
-                        <span class="tittle-input">E-mail (gerado automaticamente)</span>
-                        <input class="w-100 input-text" type="email" name="email" id="email_sistema" readonly>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column">
+                            <span class="tittle-input">E-mail (gerado automaticamente)</span>
+                            <input class="w-100 input-text" type="email" name="email" id="email_sistema" readonly>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column" id="unidade_administrativa">
-                        <span class="tittle-input">Unidade Administrativa</span>
-                        <select class="w-100 input-text" name="unidade_administrativa_id" required>
-                            <option selected hidden>Escolher...</option>
-                            @foreach ($unidade_administrativas as $unidade_administrativa)
-                                <option value="{{ $unidade_administrativa->id }}">
-                                    {{ $unidade_administrativa->descricao }}
-                                </option>
-                            @endforeach
-                        </select>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 campo spacing-row1 input-create-box d-flex flex-column"
+                            id="unidade_administrativa">
+                            <span class="tittle-input">Unidade Administrativa</span>
+                            <select class="w-100 input-text" name="unidade_administrativa_id" required>
+                                <option selected hidden>Escolher...</option>
+                                @foreach ($unidade_administrativas as $unidade_administrativa)
+                                    <option value="{{ $unidade_administrativa->id }}">
+                                        {{ $unidade_administrativa->descricao }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
 
             {{-- Botões --}}
             <div class="row d-flex justify-content-start align-items-center mt-4">
@@ -179,36 +189,36 @@
 
         <script src="/js/usuario/usuario-create.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                $('#tipo_conta').on('change', function() {
-                    if ($(this).val() === 'servico') {
-                        $('#form-normal').hide().find('input, select').prop('disabled', true);
-                        $('#form-servico').show().find('input, select').prop('disabled', false);
-                    } else {
-                        $('#form-servico').hide().find('input, select').prop('disabled', true);
-                        $('#form-normal').show().find('input, select').prop('disabled', false);
-                    }
+        @if (Auth::user()->perfil_id == 1)
+            <script>
+                $(document).ready(function() {
+                    $('#tipo_conta').on('change', function() {
+                        if ($(this).val() === 'servico') {
+                            $('#form-normal').hide().find('input, select').prop('disabled', true);
+                            $('#form-servico').show().find('input, select').prop('disabled', false);
+                        } else {
+                            $('#form-servico').hide().find('input, select').prop('disabled', true);
+                            $('#form-normal').show().find('input, select').prop('disabled', false);
+                        }
+                    });
+
+                    // Inicialmente desabilitar o formulário de serviço
+                    $('#form-servico').find('input, select').prop('disabled', true);
+
+                    $('#nome_sistema').on('input', function() {
+                        let nome = $(this).val()
+                            .normalize('NFD') // remove acentos
+                            .replace(/[\u0300-\u036f]/g, '') // remove marcas de acento
+                            .replace(/[^a-zA-Z0-9\s]/g, '') // remove símbolos e pontuação, inclusive @
+                            .trim()
+                            .toLowerCase()
+                            .replace(/\s+/g, '-'); // troca espaços por hífen
+
+                        $('#email_sistema').val(nome ? nome + '@example.com' : '');
+                    });
                 });
-
-                // Inicialmente desabilitar o formulário de serviço
-                $('#form-servico').find('input, select').prop('disabled', true);
-
-
-                $('#nome_sistema').on('input', function() {
-                    let nome = $(this).val()
-                        .normalize('NFD') // remove acentos
-                        .replace(/[\u0300-\u036f]/g, '') // remove marcas de acento
-                        .replace(/[^a-zA-Z0-9\s]/g, '') // remove símbolos e pontuação, inclusive @
-                        .trim()
-                        .toLowerCase()
-                        .replace(/\s+/g, '-'); // troca espaços por hífen
-
-                    $('#email_sistema').val(nome ? nome + '@example.com' : '');
-                });
-
-            });
-        </script>
+            </script>
+        @endif
     </section>
 @endsection
 
