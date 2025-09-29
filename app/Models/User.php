@@ -164,9 +164,4 @@ class User extends Authenticatable
         return $name;
 
     }
-
-
-
-
-
 }

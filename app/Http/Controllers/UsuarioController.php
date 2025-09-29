@@ -37,7 +37,8 @@ class UsuarioController extends Controller
             ->sortable();
 
         if (Auth::user()->perfil_id == 3) {
-            $query->whereNotIn('perfil_id', [1, 3]);
+            $query->whereNotIn('perfil_id', [1, 3])
+                  ->where('is_service_account', false);
         }
 
         $usuarios = $query->paginate(20)->appends(request()->query());
