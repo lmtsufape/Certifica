@@ -91,4 +91,28 @@ class UsuarioPolicy
     {
         //
     }
+
+    /**
+     * Só admins podem ver tokens de qualquer usuário.
+     */
+    public function viewTokens(User $authUser): bool
+    {
+        return $authUser->perfil_id === 1;
+    }
+
+    /**
+     * Só admins podem criar tokens, e apenas para contas de serviço.
+     */
+    public function createToken(User $authUser, User $targetUser): bool
+    {
+        return $authUser->perfil_id === 1 && $targetUser->is_service_account;
+    }
+
+    /**
+     * Só admins podem revogar tokens, e apenas de contas de serviço.
+     */
+    public function revokeToken(User $authUser, User $targetUser): bool
+    {
+        return $authUser->perfil_id === 1 && $targetUser->is_service_account;
+    }
 }

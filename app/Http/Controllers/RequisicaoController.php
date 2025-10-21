@@ -2,104 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Curso;
-use App\Models\User;
-use http\Encoding\Stream\Enbrotli;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCertificadoApiRequest;
+use App\Services\CertificadoApiService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class RequisicaoController extends Controller
 {
-    //
-    public function criarCertificado(Request $request)
+    /**
+     * Construtor para injetar as dependências (Service).
+     */
+    public function __construct(private CertificadoApiService $certificadoApiService)
     {
-        // Obtenha os dados do JSON enviado
-        $dadosJSON = json_decode($request->getContent(), true);
-
-        $usuario = User::where([
-            'perfil_id' => 3,
-            'unidade_administrativa_id' => 1,
-        ])->first();
-
-        foreach ($dadosJSON as $acaoJSON) {
-            $acaoController = new AcaoController();
-
-            // Criar uma nova ação usando o método store do AcaoController
-            $acao = $acaoController->requisicao(new Request([
-                'titulo' => $acaoJSON['acao']['titulo'],
-                'data_inicio' => $acaoJSON['acao']['data_inicio'],
-                'data_fim' => $acaoJSON['acao']['data_fim'],
-                'tipo_natureza' => $acaoJSON['tipo_natureza'],
-                'natureza_id' => 1,
-                'usuario_id' => $usuario->id
-                // Outros campos necessários para criar uma ação
-            ]));
-
-
-
-            // Criar atividades para a ação
-            foreach ($acaoJSON['atividades'] as $atividadeJSON) {
-                // Criar uma nova atividade associada à ação usando o método store do AtividadeController (assumindo que você tenha um controlador para atividades)
-                 $atividadeController = new AtividadeController();
-                 $atividade = $atividadeController->requisicao(new Request([
-                     'data_inicio' => $atividadeJSON['data_inicio'],
-                     'descricao' => $atividadeJSON['descricao'],
-                     'data_fim' => $atividadeJSON['data_fim'],
-                     'acao_id' => $acao->original['acao']['id']
-                     // Outros campos necessários para criar uma atividade
-                 ]));
-
-
-                 foreach ($atividadeJSON['participantes'] as $participanteJSON){
-                     $participanteController = new ParticipanteController();
-
-                     if (isset($participanteJSON['curso'])) {
-                         $cursos = Curso::where('nome', $participanteJSON['curso'])->first();
-
-                         if ($cursos) {
-                             $jsonCursosIds = json_encode([strval($cursos->id)]);
-                         } else {
-                             // Define um valor padrão (ID 8) se nenhum curso for encontrado
-                             $jsonCursosIds = json_encode(["8"]);
-                         }
-                     } else {
-                         // Se não houver valor para 'curso', define $jsonCursosIds como null
-                         $jsonCursosIds = null;
-                     }
-
-
-                     $participante = $participanteController->requisicao( new Request([
-                         'atividade_id' => $atividade->original['atividade']['id'],
-                         'cpf' => $participanteJSON['cpf'],
-                         'email' => $participanteJSON['email'],
-                         'nome' => $participanteJSON['nome'],
-                         'carga_horaria' => $participanteJSON['carga_horaria'],
-                         'instituicao' => $participanteJSON['instituicao'],
-                         'passaporte' => $participanteJSON['passaporte'],
-                         'json_cursos_ids' => $jsonCursosIds,
-                         'tipo' => $atividadeJSON['descricao'],
-                         'disciplina'=> $participanteJSON['disciplina'],
-						 'orientador'=> $participanteJSON['orientador'],
-						 'periodo_letivo'=> $participanteJSON['periodo_letivo'],
-						 'area'=> $participanteJSON['area'],
-						 'local_realizado'=> $participanteJSON['local_realizado'],
-						 'titulo_projeto'=> $participanteJSON['titulo_projeto']
-
-
-
-                     ]));
-                 }
-
-                // Lógica para criar atividades associadas à ação
-            }
-
-            $certificadoController = new CertificadoController();
-            $certificadoController->gerar_certificados_requisicao($acao->original['acao']['id']);
-
-            // Lógica para associar atividades à ação (relacionamento entre ação e atividade)
-        }
-
-        return response()->json(['mensagem' => 'Ações criadas com sucesso a partir do JSON']);
     }
 
+    /**
+     * Lida com a requisição para criar certificados.
+     *
+     * @param StoreCertificadoApiRequest $request
+     * @return JsonResponse
+     */
+    public function criarCertificado(StoreCertificadoApiRequest $request): JsonResponse
+    {
+        try {
+            $acoesCriadas = $this->certificadoApiService->criarCertificados(
+                $request->validated()
+            );
 
+            return response()->json([
+                'message' => 'Ações e certificados enfileirados para processamento com sucesso.',
+                'acoes_criadas' => count($acoesCriadas)
+            ], 201);
+
+        } catch (Throwable $e) {
+            Log::error('Erro no endpoint de criar certificado: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return response()->json(['message' => 'Ocorreu um erro interno ao processar a solicitação.'], 500);
+        }
+    }
 }

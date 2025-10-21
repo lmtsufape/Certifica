@@ -37,7 +37,8 @@ class UsuarioController extends Controller
             ->sortable();
 
         if (Auth::user()->perfil_id == 3) {
-            $query->whereNotIn('perfil_id', [1, 3]);
+            $query->whereNotIn('perfil_id', [1, 3])
+                  ->where('is_service_account', false);
         }
 
         $usuarios = $query->paginate(20)->appends(request()->query());
@@ -72,40 +73,62 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            DefaultValidator::validate($request->all(), User::$rules, User::$messages);
-        } catch (ValidationException $exception) {
-            return redirect(route('usuario.create'))
-                ->withErrors($exception->validator)->withInput();
-        }
+        if ($request->tipo_conta == 'normal') {
+            try {
+                DefaultValidator::validate($request->all(), User::$rules, User::$messages);
+            } catch (ValidationException $exception) {
+                return redirect(route('usuario.create'))
+                    ->withErrors($exception->validator)->withInput();
+            }
 
-        $usuario = new User();
+            $usuario = new User();
 
-        $usuario->name = $request->name;
-        $usuario->email = $request->email;
-        $usuario->password = Hash::make($request->password);
-        $usuario->perfil_id = $request->perfil_id;
-        $usuario->instituicao_id = 2;
+            $usuario->name = $request->name;
+            $usuario->email = $request->email;
+            $usuario->password = Hash::make($request->password);
+            $usuario->perfil_id = $request->perfil_id;
+            $usuario->instituicao_id = 2;
 
-        if ($request->perfil_id == 3) {
-            $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+            if ($request->perfil_id == 3) {
+                $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+            } else {
+
+                if ($request->cpf) {
+                    $usuario->cpf = $request->cpf;
+                }
+
+                if ($request->passaporte) {
+                    $usuario->passaporte = $request->passaporte;
+                }
+
+                $usuario->celular = $request->telefone;
+            }
+
+
+            $usuario->save();
+
+            return redirect(Route('usuario.index'))->with(['mensagem' => 'Usuário cadastrado !']);
         } else {
-
-            if ($request->cpf) {
-                $usuario->cpf = $request->cpf;
+            try {
+                DefaultValidator::validate($request->all(), User::$service_rules, User::$messages);
+            } catch (ValidationException $exception) {
+                return redirect(route('usuario.create'))
+                    ->withErrors($exception->validator)->withInput();
             }
 
-            if ($request->passaporte) {
-                $usuario->passaporte = $request->passaporte;
-            }
+            $usuario = new User();
 
-            $usuario->celular = $request->telefone;
+            $usuario->name = $request->name;
+            $usuario->email = $request->email;
+            $usuario->password = Hash::make(\Illuminate\Support\Str::random(20)); // Senha aleatoria
+            $usuario->perfil_id = 5; // Sistema
+            $usuario->instituicao_id = 1; // UFAPE
+            $usuario->is_service_account = true;
+            $usuario->unidade_administrativa_id = $request->unidade_administrativa_id;
+            $usuario->save();
+
+            return redirect(Route('usuario.index'))->with(['mensagem' => 'Usuário cadastrado !']);
         }
-
-
-        $usuario->save();
-
-        return redirect(Route('usuario.index'))->with(['mensagem' => 'Usuário cadastrado !']);
     }
 
     /**

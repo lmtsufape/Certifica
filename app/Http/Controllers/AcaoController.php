@@ -422,8 +422,15 @@ class AcaoController extends Controller
 
     public function filtro()
     {
-        $acoes = Auth::user()->acoes()->get();
-
+        if (Auth::user()->perfil_id == 3) {
+            $acoes = Acao::whereHas('user', function ($query) {
+                $query->where('unidade_administrativa_id', Auth::user()->unidade_administrativa_id)
+                      ->where('is_service_account', true)
+                      ->orWhere('id', Auth::id());
+            })->get();
+        } else {
+            $acoes = Auth::user()->acoes()->get();
+        }
 
         if (request('buscar_acao')) {
             $acoes = Acao::search_acao_by_name($acoes, request('buscar_acao'));

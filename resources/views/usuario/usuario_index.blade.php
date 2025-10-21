@@ -106,14 +106,21 @@
                             Gestor Institucional
                         @elseif($user->perfil_id == 4)
                             Integrante
+                        @elseif($user->perfil_id == 5)
+                            Sistema
                         @endif
                     </div>
                     <div class="col-2 d-flex align-items-center">
                         <div class="col-6 d-flex align-items-center justify-content-evenly">
+                            @if ($user->is_service_account)
+                                <span><a href="{{ route('tokens.index', ['usuario_id' => $user->id]) }}"><img
+                                            src="/images/acoes/listView/person-gear.svg" alt="tokens" title="tokens"></a></span>
+                            @endif
                             <span><a href="{{ route('usuario.edit', ['usuario_id' => $user->id]) }}"><img
                                         src="/images/acoes/listView/editar.svg" alt="Editar" title="Editar"></a></span>
                             <span><a href="{{ route('usuario.delete', ['usuario_id' => $user->id]) }}"><img
-                                        src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Editar"></a></span>
+                                        src="/images/acoes/listView/lixoIcon.svg" alt="Excluir" title="Excluir"></a></span>
+
                         </div>
                     </div>
                 </div>

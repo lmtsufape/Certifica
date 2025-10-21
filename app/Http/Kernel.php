@@ -77,6 +77,6 @@ class Kernel extends HttpKernel
         'checkAdministradorGestor' => CheckAdministradorGestor::class,
         'checkColaborador' => \App\Http\Middleware\CheckColaborador::class,
         'checkGestorColaborador' => \App\Http\Middleware\CheckGestorColaborador::class,
-
+        'json.validate' => \App\Http\Middleware\EnsureRequestIsJson::class,
     ];
 }

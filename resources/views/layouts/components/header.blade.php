@@ -52,10 +52,10 @@
                 <li><a class="dropdown-item" href="{{ route('validar_certificado.validar') }}">Verificação de Autenticidade</a></li>
                 <li><a class="dropdown-item" href="{{ route('home.contato') }}">Contato</a></li>
                 <li class="dropdown">
-                    <button onclick="toggleDropdown()" class="dropbtn">
+                    <button onclick="toggleDropdownResponsive()" class="dropbtn">
                         <span class="font-weight-bolder">Olá, </span>{{ explode(' ', Auth::user()->name)[0] }}
                     </button>
-                    <div id="myDropdown" class="dropdown-content">
+                    <div id="myDropdownResponsive" class="dropdown-content">
                         <a class="dropdown-item" href="{{ route('perfil.edit') }}">{{ __('Editar Perfil') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">{{ __('Sair') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -102,7 +102,7 @@
             background-color: #f9f9f9;
             min-width: 200px; /* Aumenta a largura mínima */
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
+            z-index: 1000; /* Aumentado z-index para garantir que fique na frente */
             right: 0;
             top: 100%;
         }
@@ -124,10 +124,17 @@
     </style>
 
     <script>
+        // Função para o dropdown principal
         function toggleDropdown() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
 
+        // Função separada para o dropdown responsivo para evitar conflitos
+        function toggleDropdownResponsive() {
+            document.getElementById("myDropdownResponsive").classList.toggle("show");
+        }
+
+        // Fecha os dropdowns se o usuário clicar fora deles
         window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");

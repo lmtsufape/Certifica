@@ -19,6 +19,7 @@ use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\TipoAtividadeController;
 use App\Http\Controllers\ColaboradorAcaoController;
+use App\Http\Controllers\ApiTokenController;
 
 
 
@@ -154,6 +155,10 @@ Route::group(['middleware' => ['auth']], function()
     route::get('/participante/certificado/{id}', [CertificadoController::class, 'ver_certificado_participante'])->name('participante.ver_certificado_participante');
     route::get('/filtro', [ParticipanteController::class, 'filtro'])->name('filtro');
 
+    // Rotas para a Gestão de Tokens de API
+    Route::get('/user/{usuario_id}/api-tokens', [ApiTokenController::class, 'index'])->name('tokens.index');
+    Route::post('/user/api-tokens', [ApiTokenController::class, 'store'])->name('tokens.store');
+    Route::delete('/user/api-tokens/{tokenId}', [ApiTokenController::class, 'destroy'])->name('tokens.destroy');
 });
 
 
