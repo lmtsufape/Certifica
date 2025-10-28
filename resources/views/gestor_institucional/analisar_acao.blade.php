@@ -123,6 +123,22 @@
                                 <a onclick="return confirm('Você tem certeza que deseja excluir esta atividade?')" href="{{ route('atividade.delete', ['atividade_id' => $atividade->id]) }}">
                                     <img src="/images/acoes/listView/lixoIcon.svg" alt="" title="Deletar">
                                 </a>
+
+                                @if (Auth::user()->perfil_id == 3)
+                                    @if ($participante->invalidar_reemitir_certificado($participante->id))
+                                        <a onclick="return confirm('Você tem certeza que deseja emitir/reemitir o certificado deste participante?')"
+                                            href="{{ route('participante.reemitir_certificado', ['participante_id' => $participante->id]) }}">
+                                            <img src="/images/acoes/listView/reemitir.svg" alt=""
+                                                title="Emitir/Reemitir Certificado">
+                                        </a>
+                                    @else
+                                        <a onclick="return confirm('Você tem certeza que deseja invalidar o certificado deste participante?')"
+                                            href="{{ route('participante.invalidar_certificado', ['participante_id' => $participante->id]) }}">
+                                            <img src="/images/acoes/listView/revogar.svg" alt=""
+                                                title="Invalidar Certificado">
+                                        </a>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     </div>
