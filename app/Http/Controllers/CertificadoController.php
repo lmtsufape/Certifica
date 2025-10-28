@@ -351,6 +351,30 @@ class CertificadoController extends Controller
         }
     }
 
+    public function invalidar_certificados_atividade($atividade_id)
+    {
+        $participantes = Participante::where('atividade_id', $atividade_id)->get();
+
+        foreach($participantes as $participante)
+        {
+            if($participante->user->cpf)
+            {
+                $certificado = Certificado::where('cpf_participante', $participante->user->cpf)->where('atividade_id', $participante->atividade->id)->first();
+            }
+            else
+            {
+                $certificado = Certificado::where('cpf_participante', $participante->user->passaporte)->where('atividade_id', $participante->atividade->id)->first();
+            }
+
+            if($certificado)
+            {
+                $certificado->delete();
+            }
+        }
+
+        return redirect()->back()->with(['mensagem' => 'Certificados invalidados com sucesso!']);
+    }
+
     public function reemitir_certificado($participante_id)
     {
         $participante = Participante::findOrFail($participante_id);
