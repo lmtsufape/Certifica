@@ -191,7 +191,7 @@ class CertificadoController extends Controller
 
         $atividade->update();
 
-        $participantes_user = $atividade->participantes_user($atividade);
+        /* $participantes_user = $atividade->participantes_user($atividade);
 
         $chunkedParticipantes = $participantes_user->chunk(99);
 
@@ -200,7 +200,7 @@ class CertificadoController extends Controller
             Mail::bcc($chunk)->queue(new CertificadoDisponivel([
                 'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao
             ]));
-        }
+        } */
 
         return redirect(route('atividade.index', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
     }
