@@ -269,6 +269,8 @@ Route::group(['middleware' => ['auth', 'checkGestorInstitucional']], function ()
 
     Route::get('/gestor/gerar_certificados/atividade/{atividade_id}', [CertificadoController::class, 'gerar_certificados_parcial'])->name('gestor.gerar_certificados_parcial');
 
+    Route::get('/gestor/invalidar_certificados/atividade/{atividade_id}', [CertificadoController::class, 'invalidar_certificados_atividade'])->name('gestor.invalidar_certificados_atividade');
+
     Route::get('/acoes_submetidas_list', [AcaoController::class, 'list_acoes_submetidas'])->name('acoes_submetidas_list');
 
     Route::get('/participante/preview_certificado/{participante_id}', [CertificadoController::class, 'previsualizar_certificado'])->name('certificado.preview');
