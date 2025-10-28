@@ -206,7 +206,7 @@
                             @else
                                 <a href="{{ Route('gestor.invalidar_certificados_atividade', ['atividade_id' => $atividade->id]) }}"
                                     onclick="return confirm('Você tem certeza que deseja invalidar os certificados desta atividade?')">
-                                    <img src="/images/acoes/listView/revogar.svg" alt="emitir certificados"
+                                    <img src="/images/acoes/listView/revogar.svg" alt="invalidar certificados"
                                         title="Invalidar Certificados">
                                 </a>
                             @endif
