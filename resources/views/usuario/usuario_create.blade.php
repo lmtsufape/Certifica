@@ -73,14 +73,14 @@
                             </select>
                         </div>
 
-                        <div id="select_pass_cpf" class="col-xl-4">
-                            <div class="d-flex align-items-center justify-content-around">
-                                <div style="margin:0 0 0 5px;" class="col-2">
+                        <div id="select_pass_cpf" class="col-xl-4 d-flex align-items-center">
+                            <div class="d-flex align-items-center gap-4">
+                                <label class="d-flex align-items-center gap-1 mb-0" style="cursor:pointer;">
                                     <input type="radio" name="cpf_pass" value="cpf" checked> CPF
-                                </div>
-                                <div style="margin:0 0 0 -10px;" class="col-10">
+                                </label>
+                                <label class="d-flex align-items-center gap-1 mb-0" style="cursor:pointer;">
                                     <input type="radio" name="cpf_pass" value="passaporte"> Passaporte
-                                </div>
+                                </label>
                             </div>
                         </div>
                     </div>

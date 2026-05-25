@@ -52,3 +52,15 @@ checkbox[1].addEventListener('click',(e)=>{
     cpf_div.style.display = "none"
 })
 
+cpf.addEventListener('input', function () {
+    let value = this.value.replace(/\D/g, '').slice(0, 11)
+    if (value.length > 9) {
+        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4')
+    } else if (value.length > 6) {
+        value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3')
+    } else if (value.length > 3) {
+        value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2')
+    }
+    this.value = value
+})
+
