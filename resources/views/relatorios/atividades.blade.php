@@ -106,7 +106,9 @@
 @section('javascript')
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
-    $(document).on('change', '#form :input', filtro);
+    $(document).on('change', '#form select', filtro);
+    $(document).on('input', '#form input[type="text"], #form input[type="date"]', filtro);
+    $(document).on('submit', '#form', function(e) { e.preventDefault(); });
 
     $(document).ready(function() {
         filtro();

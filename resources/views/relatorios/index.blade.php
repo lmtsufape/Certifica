@@ -105,22 +105,12 @@
     </section>
 @endsection
 
-
+@section('javascript')
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
-
 <script>
-    /* $(document).ready(function() {
-        filtro();
-    }); */
-
-    // $(document).bind('keyup', '.form', function(e) {
-    //     e.preventDefault();
-    //     filtro();
-
-    // });
-
-    $(document).on('change', '#form :input', filtro);
+    $(document).on('change', '#form select', filtro);
+    $(document).on('input', '#form input[type="text"]', filtro);
+    $(document).on('submit', '#form', function(e) { e.preventDefault(); });
 
     $(document).ready(function() {
         updateExportLink();
@@ -156,3 +146,4 @@
         $('#export-acoes').attr('href', dados ? baseUrl + '?' + dados : baseUrl);
     }
 </script>
+@endsection
