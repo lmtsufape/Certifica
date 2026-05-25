@@ -176,18 +176,16 @@ class RelatorioController extends Controller
 
 
         if(request('descricao')){
-
             $atividades = Atividade::search_atividade_by_descricao($atividades, request('descricao'));
-
         }
 
-//        if(request('data')){
-//            $atividades = Atividade::search_atividade_by_data($atividades, request('data'));
-//        }
-//
-//        if(request('buscar_participante')){
-//            $atividades = Atividade::search_atividade_by_participante($atividades, request('buscar_participante'));
-//        }
+        if(request('data')){
+            $atividades = Atividade::search_atividade_by_data($atividades, request('data'));
+        }
+
+        if(request('buscar_participante')){
+            $atividades = Atividade::search_atividade_by_participante($atividades, request('buscar_participante'));
+        }
 
 
 

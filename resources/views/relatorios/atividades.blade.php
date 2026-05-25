@@ -37,10 +37,10 @@
             </div>
         </div>
             <div class="row head-table search-box d-flex align-items-center justify-content-center">
-                <div class="col-4 d-flex flex-column align-items-start justify-content-center">
+                <div class="col d-flex flex-column align-items-start justify-content-center">
                     <span>Tipo de atividade/função</span>
                     <select class="input-box w-75"  name="descricao" id="descricao">
-                        <option value="" selected hidden>Escolher...</option>
+                        <option value="">Escolher...</option>
                         @foreach ($descricoes as $descricao)
                             <option value="{{ $descricao }}">{{ $descricao }}</option>
                         @endforeach
@@ -50,19 +50,22 @@
                     </select>
                 </div>
 
-                <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                <div class="col d-flex flex-column align-items-start justify-content-center">
                     <span>Entre a data</span>
-                    <div class="col-xl-4 campo spacing-row1 input-create-box">
-                        <input class="input-box w-200" type="date" name="data" id="data">
-                    </div>
+                    <input class="input-box w-75" type="date" name="data" id="data">
                 </div>
 
-                <div class="col-4 d-flex flex-column align-items-start justify-content-center">
+                <div class="col d-flex flex-column align-items-start justify-content-center">
                     <span>Nome do participante</span>
                     <input class="input-box w-75" type="text" name="buscar_participante" id="buscar_participante">
                 </div>
 
-
+                <div class="col d-flex align-items-center justify-content-center mt-4">
+                    <button type="button" id="limpar-filtros" class="button button-icon-spacing d-flex align-items-center justify-content-around between" style="background-color: white; color: #972E3F;">
+                        Limpar filtros
+                        <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                    </button>
+                </div>
             </div>
         </div>
         </form>
@@ -100,40 +103,36 @@
     </section>
 @endsection
 
-
+@section('javascript')
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
-
 <script>
+    $(document).on('change', '#form :input', filtro);
+
     $(document).ready(function() {
         filtro();
         updateExportLink();
-    });
 
-    $(document).bind('keyup', '.form', function(e) {
-        e.preventDefault();
-        filtro();
-
-    });
-
-    $(document).bind('change', '.form', function(e) {
-        e.preventDefault();
-        filtro();
-
+        $('#limpar-filtros').on('click', function() {
+            $('#descricao').val('');
+            $('#data').val('');
+            $('#buscar_participante').val('');
+            filtro();
+        });
     });
 
     function filtro() {
         var dados = $('#form').serialize();
         updateExportLink();
-        console.log(dados)
-        $.ajax({
-            url: "{{ route('relatorios.atividades_filtro', ['acao_id'=>$acao->id]) }}",
-            method: "GET",
-            data: dados
-        }).done(function(data) {
-            console.log(data)
-            $(".list").html(data);
-        });
+
+        $(".list").html('<p class="loading-message">Carregando...</p>');
+
+        $.get("{{ route('relatorios.atividades_filtro', ['acao_id'=>$acao->id]) }}", dados)
+            .done(function(data) {
+                $(".list").html(data);
+            })
+            .fail(function() {
+                $(".list").html('<p class="loading-message">Erro ao carregar os dados.</p>');
+            });
     }
 
     function updateExportLink() {
@@ -142,5 +141,5 @@
         $('#export-atividades').attr('href', dados ? baseUrl + '?' + dados : baseUrl);
     }
 </script>
-
+@endsection
 

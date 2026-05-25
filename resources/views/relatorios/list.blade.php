@@ -12,7 +12,7 @@
         </div>
     </div>
 @endforeach --}}
-@foreach($acoes as $acao)
+@forelse($acoes as $acao)
     <div class="row linha-table d-flex align-items-center justify-content-start">
         <div class="col-2 text-center titulo-span" title="{{$acao->titulo}}"><span>{{$acao->titulo}}</span></div>
         <div class="col-2 titulo-span text-center"><span class="spacing-col">{{$acao->tipo_natureza->natureza->descricao}}</span></div>
@@ -55,7 +55,13 @@
             </div>
         </div>
     </div>
-@endforeach
+@empty
+    <div class="row linha-table d-flex align-items-center justify-content-center">
+        <div class="col-12 text-center">
+            <strong>Nenhum resultado encontrado.</strong>
+        </div>
+    </div>
+@endforelse
 <script>
     $(".total").html("<strong class='d-flex justify-content-sm-end mb-5' style='font-size: 20px; margin-right: 20px;'>Total de certificados: {{$total}}</strong>");
 </script>

@@ -40,42 +40,47 @@
                 </div>
 
                 <div class="row head-table search-box d-flex align-items-center justify-content-center">
-                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
                         <span>Nome da Ação</span>
                         <input class="input-box w-75" type="text" name="buscar_acao" id="buscar_acao">
                     </div>
 
-                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
                         <span>Natureza</span>
                         <select class="input-box w-75" name="natureza" id="natureza">
-                            <option></option>
+                            <option value="">Escolher...</option>
                             @foreach ($naturezas as $natureza)
                                 <option value="{{ $natureza->id }}">{{ $natureza->descricao }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
                         <span>Tipo Natureza</span>
                         <select class="input-box w-75" name="tipo_natureza" id="tipo_natureza">
-                            <option></option>
+                            <option value="">Escolher...</option>
                             @foreach ($tipos_natureza as $tipo)
                                 <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="col-3 d-flex flex-column align-items-start justify-content-center">
+                    <div class="col d-flex flex-column align-items-start justify-content-center">
                         <span>Ano</span>
                         <select class="input-box w-75" name="ano" id="ano">
-                            <option></option>
+                            <option value="">Escolher...</option>
                             @foreach ($anos as $ano)
                                 <option value="{{ $ano }}">{{ $ano }}</option>
                             @endforeach
                         </select>
                     </div>
 
-
+                    <div class="col d-flex align-items-center justify-content-center mt-4">
+                        <button type="button" id="limpar-filtros" class="button button-icon-spacing d-flex align-items-center justify-content-around between" style="background-color: white; color: #972E3F;">
+                            Limpar filtros
+                            <img src="/images/acoes/listView/lixoIcon.svg" alt="">
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>
@@ -119,6 +124,14 @@
 
     $(document).ready(function() {
         updateExportLink();
+
+        $('#limpar-filtros').on('click', function() {
+            $('#buscar_acao').val('');
+            $('#natureza').val('');
+            $('#tipo_natureza').val('');
+            $('#ano').val('');
+            filtro();
+        });
     });
 
     function filtro() {
@@ -131,12 +144,6 @@
             .done(function(data) {
                 // Insere a resposta no HTML para executar scripts
                 $(".list").html(data);
-
-                // Verifica se o total de certificados é zero
-                var totalText = $(".total").text().trim();
-                if (totalText.includes("Total de certificados: 0")) {
-                    $(".list").html('<p class="loading-message">Nenhum resultado encontrado.</p>');
-                }
             })
             .fail(function() {
                 $(".list").html('<p class="loading-message">Erro ao carregar os dados.</p>');
