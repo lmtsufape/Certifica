@@ -91,21 +91,20 @@ class Atividade extends Model
 
     //######################### FILTROS ############################//
     public static function search_atividade_by_descricao($atividades, $descricao){
-
-        info($atividades);
-
-        return $atividades::where('descricao',$descricao)->get();
+        return $atividades->where('descricao', $descricao);
     }
 
     public static function search_atividade_by_data($atividades, $data){
         return $atividades->where('data_inicio', '<=', $data)
-            ->where('data_fim', '>=', $data)->get();
+            ->where('data_fim', '>=', $data);
     }
 
     public static function search_atividade_by_participante($atividades, $participante){
-        return $atividades::whereHas('participantes.user', function ($query) use ($participante) {
-            $query->where('name', $participante);
-        })->get();
+        return $atividades->filter(function($atividade) use ($participante) {
+            return $atividade->participantes()->whereHas('user', function($query) use ($participante) {
+                $query->where('name', 'ilike', '%' . $participante . '%');
+            })->exists();
+        });
     }
 
     public function emissao_parcial($atividade_id)

@@ -122,8 +122,10 @@ Route::group(['middleware' => 'checkAdministradorGestor'], function ()
         Route::get('/relatorios', [RelatorioController::class, 'index'])->name('index');
         Route::get('/relatorios/atividade/{acao_id}', [RelatorioController::class, 'atividades'])->name('atividades');
         Route::get('/relatorios/atividade/{acao_id}/filtro', [RelatorioController::class, 'atividades_filtro'])->name('atividades_filtro');
+        Route::get('/relatorios/atividade/{acao_id}/export', [RelatorioController::class, 'exportAtividades'])->name('export_atividades');
 
         Route::get('/relatorios/filtro', [RelatorioController::class, 'filtro'])->name('filtro');
+        Route::get('/relatorios/export', [RelatorioController::class, 'exportAcoes'])->name('export_acoes');
     });
 
 
