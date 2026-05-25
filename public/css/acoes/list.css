@@ -17,6 +17,12 @@
     min-height: 28vh;
 }
 
+.loading-message {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
 /*
 .list::-webkit-scrollbar{
     display: none;
@@ -151,6 +157,16 @@
 
 .button:hover{
     color: white;
+}
+
+.action-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.button-icon-spacing {
+    gap: 8px;
 }
 
 .button.btn-secondary{

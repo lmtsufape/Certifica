@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\RelatorioAcoesExport;
+use App\Exports\RelatorioAtividadesExport;
+use App\Services\RelatorioService;
 use App\Models\Atividade;
 use App\Models\TipoAtividade;
 use Illuminate\Http\Request;
@@ -12,11 +15,19 @@ use App\Models\TipoNatureza;
 use App\Models\Acao;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
 class RelatorioController extends Controller
 {
+    private $relatorioService;
+
+    public function __construct(RelatorioService $relatorioService)
+    {
+        $this->relatorioService = $relatorioService;
+    }
+
     public function index(){
         $naturezas = Natureza::all();
         $tipos_natureza = TipoNatureza::orderBy('descricao')->get();
@@ -165,18 +176,16 @@ class RelatorioController extends Controller
 
 
         if(request('descricao')){
-
             $atividades = Atividade::search_atividade_by_descricao($atividades, request('descricao'));
-
         }
 
-//        if(request('data')){
-//            $atividades = Atividade::search_atividade_by_data($atividades, request('data'));
-//        }
-//
-//        if(request('buscar_participante')){
-//            $atividades = Atividade::search_atividade_by_participante($atividades, request('buscar_participante'));
-//        }
+        if(request('data')){
+            $atividades = Atividade::search_atividade_by_data($atividades, request('data'));
+        }
+
+        if(request('buscar_participante')){
+            $atividades = Atividade::search_atividade_by_participante($atividades, request('buscar_participante'));
+        }
 
 
 
@@ -198,4 +207,22 @@ class RelatorioController extends Controller
         return view('relatorios.atividades_list', compact('atividades', 'acao'));
     }
 
+    public function exportAcoes()
+    {
+        $data = $this->relatorioService->getAcoesFiltradas(request()->all(), Auth::user());
+
+        return Excel::download(new RelatorioAcoesExport($data['acoes']), 'relatorio_acoes.xlsx');
+    }
+
+    
+    public function exportAtividades($acao_id)
+    {
+        $data = $this->relatorioService->getAtividades($acao_id, request()->all());
+        $acaoTitulo = $data['acao'] ? $data['acao']->titulo : '';
+
+        return Excel::download(
+            new RelatorioAtividadesExport($data['atividades'], $acaoTitulo),
+            'relatorio_atividades_acao_' . $acao_id . '.xlsx'
+        );
+    }
 }
