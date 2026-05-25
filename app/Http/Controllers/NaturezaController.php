@@ -108,7 +108,7 @@ class NaturezaController extends Controller
     {
         $natureza = Natureza::findOrFail($natureza_id);
 
-        if ($natureza->tipo_naturezas()->first()){
+        if ($natureza->tipoNatureza()->first()){
             return redirect(route('natureza.index'))
                 ->with(['error_mensage' => 'Tipo de Natureza não pode ser excluida. Tipo de Natureza vinculada a uma Natureza']);
         }
