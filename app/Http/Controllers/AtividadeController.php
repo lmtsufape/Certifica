@@ -50,7 +50,7 @@ class AtividadeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function create($acao_id)
+    public function create($acao_id)
     {
         $acao = Acao::findOrFail($acao_id);
         $descricoes = ['Avaliador(a)', 'Bolsista', 'Colaborador(a)', 'Comissão Organizadora', 'Conferencista', 'Coordenador(a)', 'Formador(a)', 'Ministrante', 'Orientador(a)',
@@ -62,9 +62,8 @@ class AtividadeController extends Controller
         $tipos_ordenados = array_merge($tipoAtividadeName, $descricoes);
         sort($tipos_ordenados);
 
-
-        return view('atividade.atividade_create',compact('acao','tipos_ordenados'));
-    }*/
+        return view('atividade.atividade_create', compact('acao', 'tipos_ordenados'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -77,7 +76,7 @@ class AtividadeController extends Controller
         try {
             AtividadeValidator::validate($request->all());
         } catch (ValidationException $exception) {
-            return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
+            return $this->redirectBackOnValidationFailure($request, $exception);
         }
 
         $acao = Acao::findOrFail($request->acao_id);
@@ -115,7 +114,7 @@ class AtividadeController extends Controller
         try {
             AtividadeValidator::validate($request->all());
         } catch (ValidationException $exception) {
-            return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
+            return $this->redirectBackOnValidationFailure($request, $exception);
         }
 
 
@@ -219,5 +218,18 @@ class AtividadeController extends Controller
 
         return redirect(Route('atividade.index', ['acao_id' => $atividade->acao_id]))
                                 ->with(['mensagem' => 'Atividade excluida com sucesso']);
+    }
+
+    private function redirectBackOnValidationFailure(Request $request, ValidationException $exception)
+    {
+        $acao = Acao::findOrFail($request->acao_id);
+
+        $routeName = (Auth::user()->perfil_id == 3 && $acao->usuario_id != Auth::user()->id)
+            ? 'gestor.analisar_acao'
+            : 'atividade.index';
+
+        return redirect(route($routeName, ['acao_id' => $request->acao_id]))
+            ->withErrors($exception->validator)
+            ->withInput();
     }
 }

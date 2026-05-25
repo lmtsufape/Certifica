@@ -56,27 +56,27 @@
                             <div class="col">
                                 <label for="descricao" class="form-label">Atividade / Função<span class="ast" style="color: red;">*</span></label>
                                 <select class="form-control" name="descricao" id="select_atividade">
-                                    <option value="" selected hidden>Escolher...</option>
+                                    <option value="" @selected(!old('descricao')) hidden>Escolher...</option>
                                     @foreach ($tipos_ordenados as $tipo)
-                                        <option value="{{ $tipo }}">{{ $tipo }}</option>
+                                        <option value="{{ $tipo }}" @selected(old('descricao') == $tipo)>{{ $tipo }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="col">
                                 <label for="titulo" class="form-label">Título da Atividade</label>
-                                <input type="text" class="form-control" name="titulo">
+                                <input type="text" class="form-control" name="titulo" value="{{ old('titulo') }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="data_inicio" class="form-label">Data de Início<span class="ast" style="color: red;">*</span></label>
-                                <input type="date" class="form-control" name="data_inicio">
+                                <input type="date" class="form-control" name="data_inicio" value="{{ old('data_inicio') }}">
                             </div>
                             <div class="col">
                                 <label for="data_fim" class="form-label">Data de Término<span class="ast" style="color: red;">*</span></label>
-                                <input type="date" class="form-control" name="data_fim">
+                                <input type="date" class="form-control" name="data_fim" value="{{ old('data_fim') }}">
                             </div>
                         </div>
                     </form>
@@ -84,8 +84,14 @@
 
                 <script>
                     document.getElementById('submitFormButton').addEventListener('click', function () {
-                        document.getElementById('atividadeForm').submit();  // Envia o formulário quando "Cadastrar" for clicado
+                        document.getElementById('atividadeForm').submit();
                     });
+
+                    @if ($errors->any() && old('acao_id') == $acao->id)
+                        document.addEventListener('DOMContentLoaded', function () {
+                            new bootstrap.Modal(document.getElementById('modalComponent')).show();
+                        });
+                    @endif
                 </script>
 
                 <div class="row head-table d-flex align-items-center justify-content-center">
