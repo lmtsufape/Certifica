@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\AcaoSubmetida;
 use App\Mail\CertificadoDisponivel;
+use App\Mail\CertificadoInvalidado;
+use App\Mail\CertificadoReemitido;
 use App\Models\Acao;
 use App\Models\Atividade;
 use App\Models\Certificado;
@@ -347,6 +349,10 @@ class CertificadoController extends Controller
         {
             $certificado->delete();
 
+            Mail::to($participante->user->email)->queue(new CertificadoInvalidado([
+                'acao' => $participante->atividade->acao->titulo,
+            ]));
+
             return redirect()->back()->with(['mensagem' => 'Certificado invalidado com sucesso, emita um novo!']);
         }
     }
@@ -354,6 +360,9 @@ class CertificadoController extends Controller
     public function invalidar_certificados_atividade($atividade_id)
     {
         $participantes = Participante::where('atividade_id', $atividade_id)->get();
+
+        $acao_titulo = null;
+        $users_para_notificar = collect();
 
         foreach($participantes as $participante)
         {
@@ -369,6 +378,20 @@ class CertificadoController extends Controller
             if($certificado)
             {
                 $certificado->delete();
+                $users_para_notificar->push($participante->user);
+
+                if(!$acao_titulo) {
+                    $acao_titulo = $participante->atividade->acao->titulo;
+                }
+            }
+        }
+
+        if($users_para_notificar->isNotEmpty() && $acao_titulo) {
+            $chunkedUsers = $users_para_notificar->chunk(99);
+            foreach($chunkedUsers as $chunk) {
+                Mail::bcc($chunk)->queue(new CertificadoInvalidado([
+                    'acao' => $acao_titulo,
+                ]));
             }
         }
 
@@ -412,6 +435,10 @@ class CertificadoController extends Controller
             $certificado->atividade_id = $participante->atividade->id;
 
             $certificado->save();
+
+            Mail::to($participante->user->email)->queue(new CertificadoReemitido([
+                'acao' => $participante->atividade->acao->titulo,
+            ]));
 
             return redirect()->back()->with(['mensagem' => 'Certificado emitido com sucesso!']);
         }
