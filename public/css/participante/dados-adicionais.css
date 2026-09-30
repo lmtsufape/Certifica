@@ -1,0 +1,45 @@
+.dados-adicionais {
+    width: 100%;
+    margin: 2rem 0 .75rem;
+    padding: 1.5rem;
+    border: 1px solid #d9aab2;
+    border-radius: .65rem;
+    background: #fffafb;
+}
+
+.dados-adicionais legend {
+    float: none;
+    width: auto;
+    margin: 0;
+    padding: 0 .65rem;
+    color: #972e3f;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.dados-adicionais-description {
+    margin: 0 0 1rem;
+    color: #666;
+    font-size: .95rem;
+}
+
+.dados-adicionais .form-label {
+    margin-bottom: .35rem;
+    color: #303030;
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+.dados-adicionais .form-control {
+    position: static;
+    min-height: 44px;
+    margin: 0;
+    padding: .55rem .75rem;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+}
+
+.dados-adicionais .form-control:focus {
+    border-color: #972e3f;
+    box-shadow: 0 0 0 .2rem rgba(151, 46, 63, .12);
+}
