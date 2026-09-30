@@ -7,6 +7,7 @@
 @section('css')
     <link rel="stylesheet" href="/css/acoes/create.css">
     <link rel="stylesheet" href="/css/cadastros/cadastrarAcao.css">
+    <link rel="stylesheet" href="/css/participante/dados-adicionais.css">
 @endsection
 
 @section('content')
@@ -47,6 +48,10 @@
                 @endif
 
             </div>
+
+            @if (Auth::user()->unidade_administrativa_id == 3 && $atividade->acao->unidade_administrativa_id == 3)
+                @include('participante._unidade_tres_fields', ['infoExterna' => $participante->infoExterna])
+            @endif
 
             <div class="row box">
                 <div

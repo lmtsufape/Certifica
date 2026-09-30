@@ -29,6 +29,8 @@ use App\Rules\Cpf;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date as ExcelDate;
+use Carbon\Carbon;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedSort;
@@ -212,7 +214,6 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::findOrFail($atividade_id);
         $instituicaos = Instituicao::all();
-
         if ($user) {
             return view('participante.participante_create', ['atividade' => $atividade, 'user' => $user, 'instituicaos' => $instituicaos, 'option' => $option]);
         }
@@ -245,6 +246,10 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::find($attributes['atividade_id']);
 
+        if ($this->isGestorUnidadeTres() && $atividade->acao->unidade_administrativa_id == 3) {
+            $request->validate($this->unidadeTresRules(), $this->unidadeTresMessages());
+        }
+
 
         if ($attributes['cpf']) {
             if ($atividade->participantes->where('user.cpf', $attributes['cpf'])->first()) {
@@ -268,7 +273,13 @@ class ParticipanteController extends Controller
         }
 
         $attributes['user_id'] = $user->id;
-        Participante::create($attributes);
+        $participante = Participante::create($attributes);
+
+        if ($this->isGestorUnidadeTres() && $atividade->acao->unidade_administrativa_id == 3) {
+            $infoExterna = InfoExternaParticipante::create($this->unidadeTresData($request));
+            $participante->info_externa_participante_id = $infoExterna->id;
+            $participante->save();
+        }
 
         return redirect(Route('participante.index', ['atividade_id' => $attributes['atividade_id']]))
             ->with(['mensagem' => 'Participante cadastrado com sucesso']);
@@ -417,7 +428,7 @@ class ParticipanteController extends Controller
         $atividade = Atividade::findOrFail($participante->atividade_id);
 
         if (Auth::user()->perfil_id == 3) {
-            return view('gestor_institucional.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
+            return view('gestor_institucional.participante_edit', compact('participante', 'atividade'));
         } else {
             return view('participante.participante_edit', ['participante' => $participante, 'atividade' => $atividade]);
         }
@@ -441,6 +452,10 @@ class ParticipanteController extends Controller
 
         $participante = Participante::findOrFail($request->id);
 
+        if ($this->isGestorUnidadeTres() && $participante->atividade->acao->unidade_administrativa_id == 3) {
+            $request->validate($this->unidadeTresRules(), $this->unidadeTresMessages());
+        }
+
         if (Auth::user()->perfil_id == 3) {
             $usuario = User::findOrFail($participante->user_id);
 
@@ -461,6 +476,18 @@ class ParticipanteController extends Controller
         $participante->atividade_id = $request->atividade_id;
 
         $participante->update();
+
+        if ($this->isGestorUnidadeTres() && $participante->atividade->acao->unidade_administrativa_id == 3) {
+            $infoExterna = $participante->infoExterna;
+
+            if ($infoExterna) {
+                $infoExterna->update($this->unidadeTresData($request));
+            } else {
+                $infoExterna = InfoExternaParticipante::create($this->unidadeTresData($request));
+                $participante->info_externa_participante_id = $infoExterna->id;
+                $participante->save();
+            }
+        }
 
         return redirect(Route('participante.index', ['atividade_id' => $request->atividade_id]))
             ->with(['mensagem' => 'Participante editado com sucesso']);
@@ -526,7 +553,13 @@ class ParticipanteController extends Controller
 
     public function import_participantes(Request $request, $atividade_id)
     {
-        $atividade = Atividade::find($atividade_id);
+        $request->validate([
+            'participantes_xlsx' => 'required|file|mimes:xlsx',
+        ]);
+
+        $atividade = Atividade::findOrFail($atividade_id);
+        $importacaoPrppgi = $this->isGestorUnidadeTres()
+            && $atividade->acao->unidade_administrativa_id == 3;
 
         $inputFileType = IOFactory::identify($request->participantes_xlsx);
         $reader = IOFactory::createReader($inputFileType);
@@ -534,13 +567,61 @@ class ParticipanteController extends Controller
         $spreadsheet = $reader->load($request->participantes_xlsx);
         $worksheet = $spreadsheet->getActiveSheet();
 
+        $cabecalhosEsperados = $importacaoPrppgi
+            ? [
+                'NOME', 'CPF', 'E-MAIL', 'CH', 'TITULO DO PLANO', 'CPF ORIENTADOR',
+                'NOME ORIENTADOR', 'EMAIL ORIENTADOR', 'TIPO NATUREZA PARTICIPANTE',
+                'INICIO', 'TERMINO',
+            ]
+            : ['NOME', 'CPF', 'E-MAIL', 'CH'];
+
+        if (!$this->spreadsheetHasHeaders($worksheet, $cabecalhosEsperados)) {
+            return redirect(route('participante.index', ['atividade_id' => $atividade_id]))
+                ->with([
+                    'alert_mensage' => 'O cabeçalho da planilha não corresponde ao modelo de importação desta unidade administrativa.',
+                ]);
+        }
+
         $highestRow = $worksheet->getHighestDataRow(); // e.g. 10
 
         $participantes = [];
 
         for ($row = 2; $row <= $highestRow; ++$row) {
+            if ($this->spreadsheetRowIsEmpty($worksheet, $row, $importacaoPrppgi ? 11 : 4)) {
+                continue;
+            }
+
             //$row[0] => Nome | $row[1] = CPF | $row[2] = E-mail | $row[3] = CH
             $cpf = Mask::mask(preg_replace('/\D/', '', $worksheet->getCell([2, $row])->getValue()), "###.###.###-##");
+            $dadosAdicionais = null;
+
+            if ($importacaoPrppgi) {
+                $dadosAdicionais = [
+                    'titulo_plano' => $worksheet->getCell([5, $row])->getValue(),
+                    'orientador_cpf' => Mask::mask(
+                        preg_replace('/\D/', '', $worksheet->getCell([6, $row])->getValue()),
+                        "###.###.###-##"
+                    ),
+                    'orientador' => $worksheet->getCell([7, $row])->getValue(),
+                    'orientador_email' => $worksheet->getCell([8, $row])->getValue(),
+                    'tipo_natureza_participante' => $worksheet->getCell([9, $row])->getValue(),
+                    'data_inicio_participante' => $this->spreadsheetDateToYmd($worksheet->getCell([10, $row])->getValue()),
+                    'data_fim_participante' => $this->spreadsheetDateToYmd($worksheet->getCell([11, $row])->getValue()),
+                ];
+
+                $validator = Validator::make(
+                    $dadosAdicionais,
+                    $this->unidadeTresRules(),
+                    $this->unidadeTresMessages()
+                );
+
+                if ($validator->fails()) {
+                    $participantes[] = 'Linha '.$row.' ('.$worksheet->getCell([1, $row])->getValue().'): '
+                        .$validator->errors()->first();
+                    continue;
+                }
+            }
+
             $user = User::where('cpf', '=', $cpf)->first();
 
             $confirm = True;
@@ -576,6 +657,21 @@ class ParticipanteController extends Controller
                 $participante->user_id = $user->id;
 
                 $participante->save();
+
+                if ($importacaoPrppgi) {
+                    $infoExterna = InfoExternaParticipante::create([
+                        'titulo_plano' => $dadosAdicionais['titulo_plano'],
+                        'orientador_cpf' => $dadosAdicionais['orientador_cpf'],
+                        'orientador' => $dadosAdicionais['orientador'],
+                        'orientador_email' => $dadosAdicionais['orientador_email'],
+                        'tipo_natureza_participante' => $dadosAdicionais['tipo_natureza_participante'],
+                        'data_inicio' => $dadosAdicionais['data_inicio_participante'],
+                        'data_fim' => $dadosAdicionais['data_fim_participante'],
+                    ]);
+
+                    $participante->info_externa_participante_id = $infoExterna->id;
+                    $participante->save();
+                }
             }
         }
 
@@ -701,5 +797,97 @@ class ParticipanteController extends Controller
         }
 
         return redirect(route('trabalho.index', ['atividade_id' => $atividade_id]))->with(['mensagem' => $mensagem]);
+    }
+
+    private function isGestorUnidadeTres(): bool
+    {
+        return Auth::check()
+            && Auth::user()->perfil_id == 3
+            && Auth::user()->unidade_administrativa_id == 3;
+    }
+
+    private function unidadeTresRules(): array
+    {
+        return [
+            'titulo_plano' => 'required|string|max:255',
+            'orientador' => 'required|string|max:255',
+            'orientador_cpf' => ['required', 'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/'],
+            'orientador_email' => 'required|email|max:255',
+            'data_inicio_participante' => 'required|date',
+            'data_fim_participante' => 'required|date|after_or_equal:data_inicio_participante',
+            'tipo_natureza_participante' => 'required|string|max:255',
+        ];
+    }
+
+    private function unidadeTresMessages(): array
+    {
+        return [
+            'titulo_plano.required' => 'O título do plano é obrigatório.',
+            'orientador.required' => 'O nome do orientador é obrigatório.',
+            'orientador_cpf.required' => 'O CPF do orientador é obrigatório.',
+            'orientador_cpf.regex' => 'O CPF do orientador deve estar no formato 000.000.000-00.',
+            'orientador_email.required' => 'O e-mail do orientador é obrigatório.',
+            'orientador_email.email' => 'Informe um e-mail válido para o orientador.',
+            'data_inicio_participante.required' => 'A data de início é obrigatória.',
+            'data_fim_participante.required' => 'A data de término é obrigatória.',
+            'data_fim_participante.after_or_equal' => 'A data de término deve ser igual ou posterior à data de início.',
+            'tipo_natureza_participante.required' => 'O tipo da natureza é obrigatório.',
+        ];
+    }
+
+    private function unidadeTresData(Request $request): array
+    {
+        return [
+            'titulo_plano' => $request->titulo_plano,
+            'orientador' => $request->orientador,
+            'orientador_cpf' => $request->orientador_cpf,
+            'orientador_email' => $request->orientador_email,
+            'data_inicio' => $request->data_inicio_participante,
+            'data_fim' => $request->data_fim_participante,
+            'tipo_natureza_participante' => $request->tipo_natureza_participante,
+        ];
+    }
+
+    private function spreadsheetDateToYmd($value): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        try {
+            if (is_numeric($value)) {
+                return ExcelDate::excelToDateTimeObject($value)->format('Y-m-d');
+            }
+
+            return Carbon::parse($value)->format('Y-m-d');
+        } catch (\Throwable $exception) {
+            return (string) $value;
+        }
+    }
+
+    private function spreadsheetHasHeaders($worksheet, array $expectedHeaders): bool
+    {
+        foreach ($expectedHeaders as $index => $expectedHeader) {
+            $actualHeader = mb_strtoupper(trim((string) $worksheet->getCell([$index + 1, 1])->getValue()));
+
+            if ($actualHeader !== $expectedHeader) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function spreadsheetRowIsEmpty($worksheet, int $row, int $columnCount): bool
+    {
+        for ($column = 1; $column <= $columnCount; $column++) {
+            $value = $worksheet->getCell([$column, $row])->getValue();
+
+            if ($value !== null && trim((string) $value) !== '') {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
