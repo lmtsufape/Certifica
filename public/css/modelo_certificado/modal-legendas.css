@@ -35,3 +35,58 @@ a:hover {
 
 }
 
+.variaveis-tabs .nav-link {
+    color: #6c1f2d;
+    font-weight: 700;
+}
+
+.variaveis-tabs .nav-link.active {
+    color: #972e3f;
+    border-top: 3px solid #972e3f;
+}
+
+.variaveis-tab-content {
+    padding-top: 1rem;
+}
+
+.variaveis-description {
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.variaveis-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .65rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.variaveis-list li {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    padding: .65rem .75rem;
+    border: 1px solid #e2e2e2;
+    border-radius: .35rem;
+    background: #fafafa;
+}
+
+.variaveis-list code {
+    color: #972e3f;
+    font-size: .95rem;
+    user-select: all;
+}
+
+.variaveis-list-exclusive li {
+    background: #fff6f7;
+    border-color: #e6bcc4;
+}
+
+@media (max-width: 767px) {
+    .variaveis-list {
+        grid-template-columns: 1fr;
+    }
+}
+

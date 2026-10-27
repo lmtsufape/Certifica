@@ -510,6 +510,33 @@ class CertificadoController extends Controller
         $data_inicio = Carbon::parse($atividade->data_inicio)->isoFormat('LL');
         $data_fim = Carbon::parse($atividade->data_fim)->isoFormat('LL');
 
+        $inicioParticipante = $info_extra_participante && $info_extra_participante->data_inicio
+            ? Carbon::parse($info_extra_participante->data_inicio)->isoFormat('LL')
+            : $data_inicio;
+        $terminoParticipante = $info_extra_participante && $info_extra_participante->data_fim
+            ? Carbon::parse($info_extra_participante->data_fim)->isoFormat('LL')
+            : $data_fim;
+
+        $descricaoTipoNatureza = $info_extra_participante && $info_extra_participante->tipo_natureza_participante
+            ? $info_extra_participante->tipo_natureza_participante
+            : $tipo_natureza->descricao;
+
+        if ($info_extra_participante) {
+            $modelo->texto = str_replace(
+                ['%titulo_plano%', '%cpf_orientador%', '%nome_orientador%', '%email_orientador%', '%tipo_natureza_participante%', '%inicio%', '%termino%'],
+                [
+                    $info_extra_participante->titulo_plano,
+                    $info_extra_participante->orientador_cpf,
+                    $info_extra_participante->orientador,
+                    $info_extra_participante->orientador_email,
+                    $descricaoTipoNatureza,
+                    $inicioParticipante,
+                    $terminoParticipante,
+                ],
+                $modelo->texto
+            );
+        }
+
         $pattern = '/\*[\wÀ-ú\%\.\,\_\-\(\)\#\@\!\'\ "]+\*/i';
         $replace = '<b>$0</b>';
 
@@ -542,10 +569,13 @@ class CertificadoController extends Controller
 
         } elseif ($info_extra_participante){
             $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%',
-                '%orientador%', '%periodo_letivo%', '%disciplina%', '%area%', '%titulo_projeto%', '%local_realizado%', '%titulo_atividade%');
+                '%orientador%', '%periodo_letivo%', '%disciplina%', '%area%', '%titulo_projeto%', '%local_realizado%', '%titulo_atividade%',
+                '%titulo_plano%', '%cpf_orientador%', '%nome_orientador%', '%email_orientador%', '%inicio%', '%termino%');
             $depois = array($participante->user->name, $acao->titulo, $participante->titulo, $atividade->descricao, $data_inicio, $data_fim,
                 $participante->carga_horaria, $natureza->descricao, $tipo_natureza->descricao, '', $curso, $info_extra_participante->orientador, $info_extra_participante->periodo_letivo,
-                $info_extra_participante->disciplina, $info_extra_participante->area, $info_extra_participante->titulo_projeto, $info_extra_participante->local_realizado, $atividade->titulo);
+                $info_extra_participante->disciplina, $info_extra_participante->area, $info_extra_participante->titulo_projeto, $info_extra_participante->local_realizado, $atividade->titulo,
+                $info_extra_participante->titulo_plano, $info_extra_participante->orientador_cpf, $info_extra_participante->orientador,
+                $info_extra_participante->orientador_email, $inicioParticipante, $terminoParticipante);
         }
         else{
             $antes = array('%participante%', '%acao%', '%nome_atividade%', '%atividade%', '%data_inicio%', '%data_fim%', '%carga_horaria%', '%natureza%', '%tipo_natureza%', '*', '%curso%', '%titulo_atividade%');

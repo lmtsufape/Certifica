@@ -10,6 +10,15 @@
 @endsection
 
 @section('content')
+    @php
+        $importacaoPrppgi = Auth::user()->perfil_id == 3
+            && Auth::user()->unidade_administrativa_id == 3
+            && $acao->unidade_administrativa_id == 3;
+        $modeloParticipantes = $importacaoPrppgi
+            ? '/files/modelo_prppgi.xlsx'
+            : '/files/modelo.xlsx';
+    @endphp
+
     <section class="view-list-acoes">
 
         <div class="container">
@@ -69,6 +78,7 @@
                         </div>
                     </div>
 
+                    @unless (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $acao->unidade_administrativa_id == 3)
                     <div class="row mb-3">
                         <div class="col">
                             <label for="data_inicio" class="form-label">Data de Início<span class="ast"
@@ -81,6 +91,7 @@
                             <input type="date" class="form-control" name="data_fim">
                         </div>
                     </div>
+                    @endunless
                 </form>
             </x-modal-component>
 
@@ -127,7 +138,7 @@
                         @unless ($atividade->certificados()->exists() && $atividade->acao->status == 'Devolvida')
                             @if ($acao->status == null || $acao->status == 'Devolvida')
                                 @if (!($atividade->descricao === 'Apresentação de Trabalho'))
-                                    <a href="/files/modelo.xlsx" title="Baixar Modelo">
+                                    <a href="{{ $modeloParticipantes }}" title="Baixar Modelo">
                                         <img src="/images/acoes/listView/anexo.svg">
                                     </a>
 
@@ -165,7 +176,7 @@
                         @if (Auth::user()->perfil_id == 3)
                             @if ($acao->status == 'Aprovada')
                                 @if ($atividade->descricao !== 'Apresentação de Trabalho')
-                                    <a href="/files/modelo.xlsx" title="Baixar Modelo">
+                                    <a href="{{ $modeloParticipantes }}" title="Baixar Modelo">
                                         <img src="/images/acoes/listView/anexo.svg">
                                     </a>
 
@@ -255,10 +266,19 @@
                                                     <li><i class="bi bi-check-circle text-success"></i> O arquivo deve
                                                         estar no formato <strong>XLSX</strong>, utilizado pelo Microsoft
                                                         Excel.</li>
-                                                    <li><i class="bi bi-check-circle text-success"></i> O cabeçalho deve
-                                                        conter apenas: <strong>NOME, CPF, E-MAIL, CH</strong>. Consulte o <a
-                                                            href="/files/modelo.xlsx">modelo de exemplo</a> para
-                                                        referência.</li>
+                                                    @if ($importacaoPrppgi)
+                                                        <li><i class="bi bi-check-circle text-success"></i> O cabeçalho deve conter:
+                                                            <strong>NOME, CPF, E-MAIL, CH, TITULO DO PLANO, CPF ORIENTADOR,
+                                                                NOME ORIENTADOR, EMAIL ORIENTADOR, TIPO NATUREZA PARTICIPANTE,
+                                                                INICIO e TERMINO</strong>.
+                                                        </li>
+                                                    @else
+                                                        <li><i class="bi bi-check-circle text-success"></i> O cabeçalho deve
+                                                            conter apenas: <strong>NOME, CPF, E-MAIL, CH</strong>.
+                                                        </li>
+                                                    @endif
+                                                    <li>Consulte o <a href="{{ $modeloParticipantes }}">modelo de exemplo</a>
+                                                        para referência.</li>
                                                 </ul>
                                             </div>
                                         </div>

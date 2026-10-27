@@ -74,13 +74,26 @@ class AtividadeController extends Controller
      */
     public function store(Request $request)
     {
+        $acao = Acao::findOrFail($request->acao_id);
+
+        if ($this->isGestorUnidadeTres() && $acao->unidade_administrativa_id == 3) {
+            $request->validate([
+                'titulo' => 'required|string|max:255',
+            ], [
+                'titulo.required' => 'O título da atividade é obrigatório.',
+            ]);
+
+            $request->merge([
+                'data_inicio' => $acao->data_inicio,
+                'data_fim' => $acao->data_fim,
+            ]);
+        }
+
         try {
             AtividadeValidator::validate($request->all());
         } catch (ValidationException $exception) {
             return redirect(route('atividade.create', ['acao_id' => $request->acao_id]))->withErrors($exception->validator)->withInput();;
         }
-
-        $acao = Acao::findOrFail($request->acao_id);
 
         if($request->descricao == 'Outra')
         {
@@ -177,6 +190,21 @@ class AtividadeController extends Controller
      */
     public function update(Request $request)
     {
+        $atividade = Atividade::findOrFail($request->id);
+
+        if ($this->isGestorUnidadeTres() && $atividade->acao->unidade_administrativa_id == 3) {
+            $request->validate([
+                'titulo' => 'required|string|max:255',
+            ], [
+                'titulo.required' => 'O título da atividade é obrigatório.',
+            ]);
+
+            $request->merge([
+                'data_inicio' => $atividade->data_inicio,
+                'data_fim' => $atividade->data_fim,
+            ]);
+        }
+
         try {
             AtividadeValidator::validate($request->all());
         } catch (ValidationException $exception) {
@@ -184,8 +212,6 @@ class AtividadeController extends Controller
                             ->withErrors($exception->validator)->withInput();
         }
 
-
-        $atividade = Atividade::findOrFail($request->id);
 
         //$atividade->status = $request->status;
         $atividade->descricao = $request->descricao;
@@ -219,5 +245,12 @@ class AtividadeController extends Controller
 
         return redirect(Route('atividade.index', ['acao_id' => $atividade->acao_id]))
                                 ->with(['mensagem' => 'Atividade excluida com sucesso']);
+    }
+
+    private function isGestorUnidadeTres(): bool
+    {
+        return Auth::check()
+            && Auth::user()->perfil_id == 3
+            && Auth::user()->unidade_administrativa_id == 3;
     }
 }

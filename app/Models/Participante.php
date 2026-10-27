@@ -65,7 +65,7 @@ class Participante extends Model
 
     public function infoExterna()
     {
-        return $this->hasOne(InfoExternaParticipante::class);
+        return $this->belongsTo(InfoExternaParticipante::class, 'info_externa_participante_id');
     }
 
 
