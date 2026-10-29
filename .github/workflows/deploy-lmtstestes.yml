@@ -1,0 +1,63 @@
+# Build das imagens no GitHub + deploy na homologação (servidor lmtstestes, sem SSH).
+# Workflows reutilizáveis e guia: https://github.com/lmtsufape/.github
+name: Deploy lmtstestes
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: "Rollback: SHA de um commit já implantado. Vazio = build e deploy do commit atual."
+        required: false
+        default: ""
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-app:
+    name: Imagem app
+    if: inputs.image-tag == ''
+    permissions:
+      contents: read
+      packages: write
+    uses: lmtsufape/.github/.github/workflows/docker-build-push.yml@main
+    with:
+      image: certifica-app
+      context: .
+      tag: ${{ github.sha }}
+
+  build-nginx:
+    name: Imagem nginx
+    if: inputs.image-tag == ''
+    permissions:
+      contents: read
+      packages: write
+    uses: lmtsufape/.github/.github/workflows/docker-build-push.yml@main
+    with:
+      image: certifica-nginx
+      context: .
+      file: docker/nginx/Dockerfile
+      tag: ${{ github.sha }}
+
+  deploy:
+    name: Deploy homologação
+    needs: [build-app, build-nginx]
+    if: >-
+      always() && github.ref == 'refs/heads/develop' &&
+      (inputs.image-tag != '' ||
+       (needs.build-app.result == 'success' && needs.build-nginx.result == 'success'))
+    permissions:
+      contents: read
+      packages: read
+    uses: lmtsufape/.github/.github/workflows/deploy-lmtstestes.yml@main
+    with:
+      project: certifica
+      image-tag: ${{ inputs.image-tag || github.sha }}
+      pre-up-run: |
+        php-fpm php artisan migrate --force
+      health-urls: http://127.0.0.1:30095/login
+    # Necessário para o workflow reutilizável enxergar o secret DEPLOY_ENV_FILE do environment
+    secrets: inherit

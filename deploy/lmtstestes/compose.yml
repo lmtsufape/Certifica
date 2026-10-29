@@ -1,0 +1,65 @@
+# Deploy do Certifica no servidor de testes lmtstestes (sem SSH).
+#
+# Usado pelo workflow reutilizável lmtsufape/.github/.github/workflows/deploy-lmtstestes.yml,
+# que gera o .env ao lado deste arquivo a partir do secret DEPLOY_ENV_FILE do environment
+# "homologacao" e acrescenta IMAGE_TAG. As imagens são construídas no GitHub Actions (GHCR).
+#
+# Mantém o projeto, a rede e o volume do banco do deploy manual antigo (certifica,
+# certifica_postgres). Uploads e certificados ficam no volume certifica_storage.
+name: certifica
+
+x-app: &app
+  image: ghcr.io/lmtsufape/certifica-app:${IMAGE_TAG:?IMAGE_TAG não definida}
+  restart: unless-stopped
+  env_file: .env
+  volumes:
+    - storage:/var/www/html/storage
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  nginx:
+    image: ghcr.io/lmtsufape/certifica-nginx:${IMAGE_TAG:?IMAGE_TAG não definida}
+    restart: unless-stopped
+    ports:
+      - "30095:80"
+    volumes:
+      - storage:/var/www/html/storage:ro
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    <<: *app
+
+  queue:
+    <<: *app
+    command: ["php", "artisan", "queue:work", "--sleep=3", "--tries=3", "--timeout=3600"]
+
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:?Defina DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME:?Defina DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres:
+    name: certifica_postgres
+    external: true
+  storage:
+    name: certifica_storage
+    external: true
+
+networks:
+  default:
+    name: certifica
+    external: true
