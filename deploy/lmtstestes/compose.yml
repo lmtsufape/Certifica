@@ -1,0 +1,71 @@
+# Deploy do Certifica no servidor de testes lmtstestes (sem SSH).
+#
+# Usado pelo workflow reutilizável lmtsufape/.github/.github/workflows/deploy-lmtstestes.yml,
+# que gera o .env ao lado deste arquivo a partir do secret DEPLOY_ENV_FILE do environment
+# "homologacao" e acrescenta IMAGE_TAG. As imagens são construídas no GitHub Actions (GHCR).
+#
+# Mantém o projeto, a rede e o volume do banco do deploy manual antigo (certifica,
+# certifica_postgres). Uploads e certificados ficam no volume certifica_storage.
+# Imagem base: serversideup/php (Nginx + PHP-FPM), ver Dockerfile na raiz.
+name: certifica
+
+x-app: &app
+  image: ghcr.io/lmtsufape/certifica-app:${IMAGE_TAG:?IMAGE_TAG não definida}
+  restart: unless-stopped
+  env_file: .env
+  environment:
+    # Configuração da imagem serversideup/php (equivale ao php.ini/nginx.conf da antiga lmts/*)
+    PHP_UPLOAD_MAX_FILE_SIZE: 256M
+    PHP_POST_MAX_SIZE: 256M
+    PHP_MEMORY_LIMIT: 256M
+    PHP_OPCACHE_ENABLE: "1"
+    NGINX_CLIENT_MAX_BODY_SIZE: 128M
+  volumes:
+    - storage:/var/www/html/storage
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  # Nginx + PHP-FPM no mesmo container
+  app:
+    <<: *app
+    ports:
+      - "30095:8080"
+
+  queue:
+    <<: *app
+    command: ["php", "/var/www/html/artisan", "queue:work", "--sleep=3", "--tries=3", "--timeout=3600"]
+    stop_signal: SIGTERM
+    # O healthcheck padrão da imagem testa o Nginx, que não roda neste serviço
+    healthcheck:
+      test: ["CMD", "healthcheck-queue"]
+      start_period: 10s
+
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:?Defina DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME:?Defina DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres:
+    name: certifica_postgres
+    external: true
+  storage:
+    name: certifica_storage
+    external: true
+
+networks:
+  default:
+    name: certifica
+    external: true

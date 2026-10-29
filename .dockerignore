@@ -1,0 +1,16 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+node_modules
+vendor
+public/storage
+public/hot
+storage/app/*
+!storage/app/.gitignore
+!storage/app/public
+storage/app/public/*
+!storage/app/public/.gitignore
+storage/logs/*.log
+deploy
