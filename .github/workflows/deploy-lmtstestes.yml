@@ -29,26 +29,13 @@ jobs:
       context: .
       tag: ${{ github.sha }}
 
-  build-nginx:
-    name: Imagem nginx
-    if: inputs.image-tag == ''
-    permissions:
-      contents: read
-      packages: write
-    uses: lmtsufape/.github/.github/workflows/docker-build-push.yml@main
-    with:
-      image: certifica-nginx
-      context: .
-      file: docker/nginx/Dockerfile
-      tag: ${{ github.sha }}
-
   deploy:
     name: Deploy homologação
-    needs: [build-app, build-nginx]
+    needs: [build-app]
     if: >-
       always() && github.ref == 'refs/heads/develop' &&
       (inputs.image-tag != '' ||
-       (needs.build-app.result == 'success' && needs.build-nginx.result == 'success'))
+       needs.build-app.result == 'success')
     permissions:
       contents: read
       packages: read
@@ -57,7 +44,7 @@ jobs:
       project: certifica
       image-tag: ${{ inputs.image-tag || github.sha }}
       pre-up-run: |
-        php-fpm php artisan migrate --force
+        app php artisan migrate --force
       health-urls: http://127.0.0.1:30095/login
     # Necessário para o workflow reutilizável enxergar o secret DEPLOY_ENV_FILE do environment
     secrets: inherit

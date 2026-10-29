@@ -6,12 +6,20 @@
 #
 # Mantém o projeto, a rede e o volume do banco do deploy manual antigo (certifica,
 # certifica_postgres). Uploads e certificados ficam no volume certifica_storage.
+# Imagem base: serversideup/php (Nginx + PHP-FPM), ver Dockerfile na raiz.
 name: certifica
 
 x-app: &app
   image: ghcr.io/lmtsufape/certifica-app:${IMAGE_TAG:?IMAGE_TAG não definida}
   restart: unless-stopped
   env_file: .env
+  environment:
+    # Configuração da imagem serversideup/php (equivale ao php.ini/nginx.conf da antiga lmts/*)
+    PHP_UPLOAD_MAX_FILE_SIZE: 256M
+    PHP_POST_MAX_SIZE: 256M
+    PHP_MEMORY_LIMIT: 256M
+    PHP_OPCACHE_ENABLE: "1"
+    NGINX_CLIENT_MAX_BODY_SIZE: 128M
   volumes:
     - storage:/var/www/html/storage
   depends_on:
@@ -19,22 +27,20 @@ x-app: &app
       condition: service_healthy
 
 services:
-  nginx:
-    image: ghcr.io/lmtsufape/certifica-nginx:${IMAGE_TAG:?IMAGE_TAG não definida}
-    restart: unless-stopped
-    ports:
-      - "30095:80"
-    volumes:
-      - storage:/var/www/html/storage:ro
-    depends_on:
-      - php-fpm
-
-  php-fpm:
+  # Nginx + PHP-FPM no mesmo container
+  app:
     <<: *app
+    ports:
+      - "30095:8080"
 
   queue:
     <<: *app
-    command: ["php", "artisan", "queue:work", "--sleep=3", "--tries=3", "--timeout=3600"]
+    command: ["php", "/var/www/html/artisan", "queue:work", "--sleep=3", "--tries=3", "--timeout=3600"]
+    stop_signal: SIGTERM
+    # O healthcheck padrão da imagem testa o Nginx, que não roda neste serviço
+    healthcheck:
+      test: ["CMD", "healthcheck-queue"]
+      start_period: 10s
 
   postgres:
     image: postgres:15
