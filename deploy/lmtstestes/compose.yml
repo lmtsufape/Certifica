@@ -43,7 +43,9 @@ services:
       start_period: 10s
 
   postgres:
-    image: postgres:15
+    # bookworm (glibc 2.36): mesma base do container que criou o banco. Trocar a base do Debian
+    # muda a versão de collation do glibc e exige REINDEX + ALTER DATABASE ... REFRESH COLLATION VERSION.
+    image: postgres:15-bookworm
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_DATABASE:?Defina DB_DATABASE}
