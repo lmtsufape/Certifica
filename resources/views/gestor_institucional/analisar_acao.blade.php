@@ -69,7 +69,7 @@
                             </div>
                         </div>
 
-                        @unless (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $acao->unidade_administrativa_id == 3)
+                        @unless (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $acao->usaFluxoPrppgi())
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="data_inicio" class="form-label">Data de Início<span class="ast" style="color: red;">*</span></label>

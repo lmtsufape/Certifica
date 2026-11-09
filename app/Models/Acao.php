@@ -13,7 +13,16 @@ class Acao extends Model
 
     protected $table = 'acaos';
 
-    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'tipo_natureza_id', 'usuario_id', 'anexo', 'unidade_administrativa_id', 'data_personalizada'];
+    protected $fillable = ['titulo', 'data_inicio', 'data_fim', 'tipo_natureza_id', 'usuario_id', 'anexo', 'unidade_administrativa_id', 'data_personalizada', 'fluxo_prppgi_ativo'];
+
+    protected $casts = [
+        'fluxo_prppgi_ativo' => 'boolean',
+    ];
+
+    public function usaFluxoPrppgi(): bool
+    {
+        return $this->unidade_administrativa_id == 3 && $this->fluxo_prppgi_ativo;
+    }
 
     public static $rules = [
         'titulo'                    => 'required|string|min:10',
