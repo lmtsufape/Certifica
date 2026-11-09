@@ -521,7 +521,7 @@ class CertificadoController extends Controller
             ? $info_extra_participante->tipo_natureza_participante
             : $tipo_natureza->descricao;
 
-        if ($info_extra_participante) {
+        if ($acao->usaFluxoPrppgi() && $info_extra_participante) {
             $modelo->texto = str_replace(
                 ['%titulo_plano%', '%cpf_orientador%', '%nome_orientador%', '%email_orientador%', '%tipo_natureza_participante%', '%inicio%', '%termino%'],
                 [

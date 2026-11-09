@@ -96,6 +96,9 @@ class AcaoController extends Controller
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
         $acao->data_personalizada = $request->data_personalizada;
+        $acao->fluxo_prppgi_ativo = Auth::user()->unidade_administrativa_id == 3
+            && $natureza->unidade_administrativa_id == 3
+            && $request->boolean('fluxo_prppgi_ativo');
 
         if (Auth::user()->perfil_id == 3) {
             $acao->anexo = null;
@@ -187,8 +190,9 @@ class AcaoController extends Controller
         $naturezas = Natureza::all()->sortBy('descricao');
 
         $nomeAnexo = $acao->anexo ? explode("/", $acao->anexo)[2] : "";
+        $podeAlterarFluxoPrppgi = !$acao->atividades()->exists();
 
-        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas', 'tipo_naturezas', 'nomeAnexo'));
+        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas', 'tipo_naturezas', 'nomeAnexo', 'podeAlterarFluxoPrppgi'));
     }
 
     /**
@@ -217,6 +221,14 @@ class AcaoController extends Controller
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
         $acao->data_personalizada = $request->data_personalizada;
+
+        if (!$acao->atividades()->exists()) {
+            if (Auth::user()->unidade_administrativa_id == 3 && $natureza->unidade_administrativa_id == 3) {
+                $acao->fluxo_prppgi_ativo = $request->boolean('fluxo_prppgi_ativo');
+            } elseif ($natureza->unidade_administrativa_id != 3) {
+                $acao->fluxo_prppgi_ativo = false;
+            }
+        }
 
         if ($request->file('anexo')) {
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
