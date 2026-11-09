@@ -120,7 +120,7 @@
 
             </div>
 
-            @if (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $atividade->acao->unidade_administrativa_id == 3)
+            @if (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $atividade->acao->usaFluxoPrppgi())
                 @include('participante._unidade_tres_fields')
             @endif
 
