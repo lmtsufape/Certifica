@@ -28,7 +28,6 @@ use ZipArchive;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AnalisarAcao;
-use App\Mail\CertificadoDisponivel;
 use App\Mail\AcaoSubmetida;
 use App\Mail\AcaoSubmetidaCoordenador;
 use App\Jobs\ZipCertificados;
@@ -370,17 +369,6 @@ class AcaoController extends Controller
         ]));
 
         if ($status == 'Aprovada') {
-            //enviar email para os integrantes
-            $participantes_user = $acao->participantes();
-
-            $chunkedParticipantes = $participantes_user->chunk(99);
-
-            foreach ($chunkedParticipantes as $chunk) {
-                Mail::bcc($chunk)->queue(new CertificadoDisponivel([
-                    'acao' => $acao->titulo,
-                ]));
-            }
-
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
         } else {
             return redirect(Route('gestor.acoes_submetidas'));
