@@ -44,7 +44,7 @@
                         value="{{ $atividade->titulo }}">
                 </div>
 
-                @unless (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $acao->unidade_administrativa_id == 3)
+                @unless (Auth::user()->perfil_id == 3 && Auth::user()->unidade_administrativa_id == 3 && $acao->usaFluxoPrppgi())
                 <div class="col-xl-2 campo spacing-row1 input-create-box">
                     <span class="tittle-input w-50">Data de Início<span class="ast" style="color: red;">*</span></span>
                     <input class="w-100 h-75" type="date" name="data_inicio" id=""

@@ -124,6 +124,25 @@
                     </div>
                 @endif
 
+                @if (Auth::user()->unidade_administrativa_id == 3)
+                    <div class="prppgi-flow-option">
+                        <div class="prppgi-flow-content">
+                            <label class="prppgi-flow-title" for="fluxoPrppgiAtivo">
+                                Ativar fluxo específico da PRPPGI
+                            </label>
+                            <p class="prppgi-flow-description">
+                                As atividades, os participantes e a importação utilizarão os campos específicos da PRPPGI.
+                            </p>
+                        </div>
+                        <label class="prppgi-switch" for="fluxoPrppgiAtivo" aria-label="Ativar fluxo específico da PRPPGI">
+                            <input type="hidden" name="fluxo_prppgi_ativo" value="0">
+                            <input type="checkbox" name="fluxo_prppgi_ativo"
+                                id="fluxoPrppgiAtivo" value="1" @checked(old('fluxo_prppgi_ativo'))>
+                            <span class="prppgi-switch-slider"></span>
+                        </label>
+                    </div>
+                @endif
+
                 <div class="row box col-xl-7">
                     <div class="d-flex align-items-center">
                         <label class="form-check-label me-2 mb-0" for="toggleDataPersonalizada" style="display: flex; align-items: center; margin-bottom: 0; margin-left: 0;">

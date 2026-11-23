@@ -76,11 +76,9 @@ class AtividadeController extends Controller
     {
         $acao = Acao::findOrFail($request->acao_id);
 
-        if ($this->isGestorUnidadeTres() && $acao->unidade_administrativa_id == 3) {
+        if ($this->isGestorUnidadeTres() && $acao->usaFluxoPrppgi()) {
             $request->validate([
-                'titulo' => 'required|string|max:255',
-            ], [
-                'titulo.required' => 'O título da atividade é obrigatório.',
+                'titulo' => 'nullable|string|max:255',
             ]);
 
             $request->merge([
@@ -192,11 +190,9 @@ class AtividadeController extends Controller
     {
         $atividade = Atividade::findOrFail($request->id);
 
-        if ($this->isGestorUnidadeTres() && $atividade->acao->unidade_administrativa_id == 3) {
+        if ($this->isGestorUnidadeTres() && $atividade->acao->usaFluxoPrppgi()) {
             $request->validate([
-                'titulo' => 'required|string|max:255',
-            ], [
-                'titulo.required' => 'O título da atividade é obrigatório.',
+                'titulo' => 'nullable|string|max:255',
             ]);
 
             $request->merge([

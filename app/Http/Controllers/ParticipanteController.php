@@ -246,7 +246,7 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::find($attributes['atividade_id']);
 
-        if ($this->isGestorUnidadeTres() && $atividade->acao->unidade_administrativa_id == 3) {
+        if ($this->isGestorUnidadeTres() && $atividade->acao->usaFluxoPrppgi()) {
             $request->validate($this->unidadeTresRules(), $this->unidadeTresMessages());
         }
 
@@ -275,7 +275,7 @@ class ParticipanteController extends Controller
         $attributes['user_id'] = $user->id;
         $participante = Participante::create($attributes);
 
-        if ($this->isGestorUnidadeTres() && $atividade->acao->unidade_administrativa_id == 3) {
+        if ($this->isGestorUnidadeTres() && $atividade->acao->usaFluxoPrppgi()) {
             $infoExterna = InfoExternaParticipante::create($this->unidadeTresData($request));
             $participante->info_externa_participante_id = $infoExterna->id;
             $participante->save();
@@ -452,7 +452,7 @@ class ParticipanteController extends Controller
 
         $participante = Participante::findOrFail($request->id);
 
-        if ($this->isGestorUnidadeTres() && $participante->atividade->acao->unidade_administrativa_id == 3) {
+        if ($this->isGestorUnidadeTres() && $participante->atividade->acao->usaFluxoPrppgi()) {
             $request->validate($this->unidadeTresRules(), $this->unidadeTresMessages());
         }
 
@@ -477,7 +477,7 @@ class ParticipanteController extends Controller
 
         $participante->update();
 
-        if ($this->isGestorUnidadeTres() && $participante->atividade->acao->unidade_administrativa_id == 3) {
+        if ($this->isGestorUnidadeTres() && $participante->atividade->acao->usaFluxoPrppgi()) {
             $infoExterna = $participante->infoExterna;
 
             if ($infoExterna) {
@@ -524,13 +524,43 @@ class ParticipanteController extends Controller
 
     public function filtro()
     {
-        $participacoes = Auth::user()->participacoes;
+        $user = Auth::user();
+        $relacoes = [
+            'user',
+            'infoExterna',
+            'atividade.acao.tipo_natureza.natureza',
+        ];
+
+        $participacoesProprias = $user->participacoes()
+            ->with($relacoes)
+            ->get();
+
+        $participacoesOrientadas = collect();
+
+        if ($user->cpf) {
+            $participacoesOrientadas = Participante::with($relacoes)
+                ->whereHas('infoExterna', function ($query) use ($user) {
+                    $query->where('orientador_cpf', $user->cpf);
+                })
+                ->whereHas('atividade.acao', function ($query) {
+                    $query->where('unidade_administrativa_id', 3)
+                        ->where('fluxo_prppgi_ativo', true);
+                })
+                ->get();
+        }
+
+        $participacoes = $participacoesProprias
+            ->merge($participacoesOrientadas)
+            ->unique('id')
+            ->values();
 
         $participacoes = $participacoes->filter(function ($participacao) {
-            return Certificado::where('cpf_participante', Auth::user()->cpf)
+            $documentoParticipante = $participacao->user->cpf ?: $participacao->user->passaporte;
+
+            return $documentoParticipante && Certificado::where('cpf_participante', $documentoParticipante)
                 ->where('atividade_id', $participacao->atividade->id)
                 ->exists();
-        });
+        })->values();
 
 
         if (request('buscar_acao')) {
@@ -559,7 +589,7 @@ class ParticipanteController extends Controller
 
         $atividade = Atividade::findOrFail($atividade_id);
         $importacaoPrppgi = $this->isGestorUnidadeTres()
-            && $atividade->acao->unidade_administrativa_id == 3;
+            && $atividade->acao->usaFluxoPrppgi();
 
         $inputFileType = IOFactory::identify($request->participantes_xlsx);
         $reader = IOFactory::createReader($inputFileType);

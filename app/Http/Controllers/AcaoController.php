@@ -28,7 +28,6 @@ use ZipArchive;
 use File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AnalisarAcao;
-use App\Mail\CertificadoDisponivel;
 use App\Mail\AcaoSubmetida;
 use App\Mail\AcaoSubmetidaCoordenador;
 use App\Jobs\ZipCertificados;
@@ -96,6 +95,9 @@ class AcaoController extends Controller
         $acao->usuario_id = $request->usuario_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
         $acao->data_personalizada = $request->data_personalizada;
+        $acao->fluxo_prppgi_ativo = Auth::user()->unidade_administrativa_id == 3
+            && $natureza->unidade_administrativa_id == 3
+            && $request->boolean('fluxo_prppgi_ativo');
 
         if (Auth::user()->perfil_id == 3) {
             $acao->anexo = null;
@@ -187,8 +189,9 @@ class AcaoController extends Controller
         $naturezas = Natureza::all()->sortBy('descricao');
 
         $nomeAnexo = $acao->anexo ? explode("/", $acao->anexo)[2] : "";
+        $podeAlterarFluxoPrppgi = !$acao->atividades()->exists();
 
-        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas', 'tipo_naturezas', 'nomeAnexo'));
+        return view('acao.acao_edit', compact('acao', 'natureza', 'tipo_natureza', 'naturezas', 'tipo_naturezas', 'nomeAnexo', 'podeAlterarFluxoPrppgi'));
     }
 
     /**
@@ -217,6 +220,14 @@ class AcaoController extends Controller
         $acao->tipo_natureza_id = $request->tipo_natureza_id;
         $acao->unidade_administrativa_id = $natureza->unidade_administrativa_id;
         $acao->data_personalizada = $request->data_personalizada;
+
+        if (!$acao->atividades()->exists()) {
+            if (Auth::user()->unidade_administrativa_id == 3 && $natureza->unidade_administrativa_id == 3) {
+                $acao->fluxo_prppgi_ativo = $request->boolean('fluxo_prppgi_ativo');
+            } elseif ($natureza->unidade_administrativa_id != 3) {
+                $acao->fluxo_prppgi_ativo = false;
+            }
+        }
 
         if ($request->file('anexo')) {
             $nomeAnexo = $request->file('anexo')->getClientOriginalName();
@@ -358,17 +369,6 @@ class AcaoController extends Controller
         ]));
 
         if ($status == 'Aprovada') {
-            //enviar email para os integrantes
-            $participantes_user = $acao->participantes();
-
-            $chunkedParticipantes = $participantes_user->chunk(99);
-
-            foreach ($chunkedParticipantes as $chunk) {
-                Mail::bcc($chunk)->queue(new CertificadoDisponivel([
-                    'acao' => $acao->titulo,
-                ]));
-            }
-
             return redirect(Route('gestor.gerar_certificados', ['acao_id' => $acao->id]));
         } else {
             return redirect(Route('gestor.acoes_submetidas'));

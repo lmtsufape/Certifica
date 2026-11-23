@@ -28,7 +28,6 @@ use App\Validates\AcaoValidator;
 use App\Models\User;
 use Dompdf\FontMetrics;
 use Dompdf\Options;
-use Illuminate\Support\Facades\DB;
 use function Symfony\Component\Translation\t;
 
 
@@ -63,12 +62,20 @@ class CertificadoController extends Controller
         }
 
         $certificados_emitidos = collect();
+        $emailsNotificar = collect();
 
         foreach($atividades as $atividade)
         {
-            $participantes = Participante::where('atividade_id', $atividade->id)->get()->filter(function($participante) use ($atividade) {
-                return Certificado::where('atividade_id', $atividade->id)->where('cpf_participante', $participante->user->cpf)->get()->isEmpty();
-            });
+            $participantes = Participante::with(['user', 'infoExterna'])
+                ->where('atividade_id', $atividade->id)
+                ->get()
+                ->filter(function ($participante) use ($atividade) {
+                    $documento = $participante->user->cpf ?: $participante->user->passaporte;
+
+                    return $documento && !Certificado::where('atividade_id', $atividade->id)
+                        ->where('cpf_participante', $documento)
+                        ->exists();
+                });
 
             $certificado_modelo = CertificadoModelo::where("unidade_administrativa_id", Auth::user()->unidade_administrativa_id )->where("tipo_certificado", $atividade->descricao)->first();
 
@@ -97,34 +104,25 @@ class CertificadoController extends Controller
                 $certificado->atividade_id = $atividade->id;
 
                 $certificados_emitidos->push($certificado);
+                $emailsNotificar = $emailsNotificar->concat(
+                    $this->emailsNotificacaoCertificado($participante, $acao)
+                );
             }
         }
 
         $certificados_emitidos->each(fn($certificado) => $certificado->save());
 
+        foreach ($this->normalizarEmailsNotificacao($emailsNotificar)->chunk(99) as $chunk) {
+            Mail::bcc($chunk->all())->queue(new CertificadoDisponivel([
+                'acao' => $acao->titulo,
+            ]));
+        }
+
         if (Auth::user()->perfil_id == 3 && $acao->usuario_id == Auth::user()->id)
         {
             $acao->status = 'Aprovada';
 
-            $participantes_user = $acao->atividade_participantes_user($acao);
-
             $acao->update();
-
-            if($participantes_user->isNotEmpty())
-            {
-                $participantes_user->each(function ($atividade_participantes) use ($acao){
-
-                    $chunkedParticipantes = $atividade_participantes['participantes']->chunk(99); // Divide em grupos de até 99 participantes
-
-                    foreach ($chunkedParticipantes as $chunk)
-                    {
-                        Mail::bcc($chunk)->queue(new CertificadoDisponivel([
-                            'acao' => $acao->titulo
-                        ]));
-                    }
-                });
-
-            }
 
                 return redirect(Route('acao.index'))->with(['mensagem' => 'Certificados Emitidos!']);
         }
@@ -137,25 +135,23 @@ class CertificadoController extends Controller
 
     public function gerar_certificados_parcial($atividade_id)
     {
-        $atividade = Atividade::findOrFail($atividade_id);
+        $atividade = Atividade::with(['participantes.user', 'participantes.infoExterna', 'acao'])->findOrFail($atividade_id);
 
-        $message = AcaoValidator::validate_acao($atividade->acao);
-
-        if($message)
-        {
-            return redirect()->back()->with(['alert_mensage' => $message]);
+        if ($atividade->participantes->isEmpty()) {
+            return redirect()->back()->with([
+                'alert_mensage' => 'É preciso existir pelo menos um participante nesta atividade para emitir os certificados.',
+            ]);
         }
 
         $certificados_emitidos = collect();
 
-        $participantes = Participante::where('participantes.atividade_id', $atividade_id)->join('users', 'users.id', '=', 'participantes.user_id')
-                                        ->whereNotExists(function ($query) use ($atividade_id) {
-                                            $query->select(DB::raw(1))
-                                                ->from('certificados')
-                                                ->whereRaw('certificados.cpf_participante = users.cpf')
-                                                ->where('certificados.atividade_id', $atividade_id)
-                                                ->whereNull('certificados.deleted_at');
-                                        })->get();
+        $participantes = $atividade->participantes->filter(function ($participante) use ($atividade_id) {
+            $documento = $participante->user->cpf ?: $participante->user->passaporte;
+
+            return $documento && !Certificado::where('atividade_id', $atividade_id)
+                ->where('cpf_participante', $documento)
+                ->exists();
+        });
 
 
         if($participantes->isEmpty())
@@ -177,7 +173,7 @@ class CertificadoController extends Controller
         {
             $certificado = new Certificado();
 
-            $certificado->cpf_participante = $participante->user->cpf;
+            $certificado->cpf_participante = $participante->user->cpf ?: $participante->user->passaporte;
             $certificado->codigo_validacao = Str::random(15);
             $certificado->certificado_modelo_id = $certificado_modelo->id;
             $certificado->atividade_id = $atividade->id;
@@ -191,16 +187,15 @@ class CertificadoController extends Controller
 
         $atividade->update();
 
-        /* $participantes_user = $atividade->participantes_user($atividade);
+        $emailsNotificar = $participantes->flatMap(function ($participante) use ($atividade) {
+            return $this->emailsNotificacaoCertificado($participante, $atividade->acao);
+        });
 
-        $chunkedParticipantes = $participantes_user->chunk(99);
-
-        foreach ($chunkedParticipantes as $chunk)
-        {
-            Mail::bcc($chunk)->queue(new CertificadoDisponivel([
-                'acao' => $atividade->acao->titulo, 'atividade' => $atividade->descricao
+        foreach ($this->normalizarEmailsNotificacao($emailsNotificar)->chunk(99) as $chunk) {
+            Mail::bcc($chunk->all())->queue(new CertificadoDisponivel([
+                'acao' => $atividade->acao->titulo,
             ]));
-        } */
+        }
 
         return redirect(route('atividade.index', ['acao_id' => $atividade->acao_id]))->with(['mensagem' => 'Certificados Emitidos!']);
     }
@@ -209,7 +204,7 @@ class CertificadoController extends Controller
     {
         Carbon::setLocale('pt_BR');
 
-        $participante = Participante::findOrFail($participante_id);
+        $participante = Participante::with(['user', 'infoExterna', 'atividade.acao'])->findOrFail($participante_id);
 
         $autorTrabalhoId = $participante->autor_trabalhos_id;
         $coautorTrabalhoId = $participante->coautor_trabalhos_id;
@@ -317,13 +312,19 @@ class CertificadoController extends Controller
 
     public function ver_certificado_participante($participante_id)
     {
-        $participante = Participante::findOrFail($participante_id);
+        $participante = Participante::with(['user', 'infoExterna', 'atividade.acao'])->findOrFail($participante_id);
+        $user = Auth::user();
 
-        if(Auth::user()->id == $participante->user->id){
+        $ehParticipante = $user->id == $participante->user_id;
+        $ehOrientadorPrppgi = $user->cpf
+            && $participante->atividade->acao->usaFluxoPrppgi()
+            && optional($participante->infoExterna)->orientador_cpf === $user->cpf;
+
+        if ($ehParticipante || $ehOrientadorPrppgi) {
             return $this->ver_certificado($participante_id);
         }
 
-        return redirect()->back()->withError('Você não pode vizualizar este certificado');
+        return redirect()->back()->withError('Você não pode visualizar este certificado');
     }
 
     public function invalidar_certificado($participante_id)
@@ -413,8 +414,36 @@ class CertificadoController extends Controller
 
             $certificado->save();
 
+            $emailsNotificar = $this->normalizarEmailsNotificacao(
+                $this->emailsNotificacaoCertificado($participante, $participante->atividade->acao)
+            );
+
+            Mail::bcc($emailsNotificar->all())->queue(new CertificadoDisponivel([
+                'acao' => $participante->atividade->acao->titulo,
+            ]));
+
             return redirect()->back()->with(['mensagem' => 'Certificado emitido com sucesso!']);
         }
+    }
+
+    private function emailsNotificacaoCertificado(Participante $participante, Acao $acao): array
+    {
+        $emails = [$participante->user->email];
+
+        if ($acao->usaFluxoPrppgi() && optional($participante->infoExterna)->orientador_email) {
+            $emails[] = $participante->infoExterna->orientador_email;
+        }
+
+        return $emails;
+    }
+
+    private function normalizarEmailsNotificacao($emails)
+    {
+        return collect($emails)
+            ->filter(fn ($email) => is_string($email) && filter_var(trim($email), FILTER_VALIDATE_EMAIL))
+            ->map(fn ($email) => trim($email))
+            ->unique(fn ($email) => mb_strtolower($email))
+            ->values();
     }
 
     /**
@@ -521,7 +550,7 @@ class CertificadoController extends Controller
             ? $info_extra_participante->tipo_natureza_participante
             : $tipo_natureza->descricao;
 
-        if ($info_extra_participante) {
+        if ($acao->usaFluxoPrppgi() && $info_extra_participante) {
             $modelo->texto = str_replace(
                 ['%titulo_plano%', '%cpf_orientador%', '%nome_orientador%', '%email_orientador%', '%tipo_natureza_participante%', '%inicio%', '%termino%'],
                 [
