@@ -524,13 +524,43 @@ class ParticipanteController extends Controller
 
     public function filtro()
     {
-        $participacoes = Auth::user()->participacoes;
+        $user = Auth::user();
+        $relacoes = [
+            'user',
+            'infoExterna',
+            'atividade.acao.tipo_natureza.natureza',
+        ];
+
+        $participacoesProprias = $user->participacoes()
+            ->with($relacoes)
+            ->get();
+
+        $participacoesOrientadas = collect();
+
+        if ($user->cpf) {
+            $participacoesOrientadas = Participante::with($relacoes)
+                ->whereHas('infoExterna', function ($query) use ($user) {
+                    $query->where('orientador_cpf', $user->cpf);
+                })
+                ->whereHas('atividade.acao', function ($query) {
+                    $query->where('unidade_administrativa_id', 3)
+                        ->where('fluxo_prppgi_ativo', true);
+                })
+                ->get();
+        }
+
+        $participacoes = $participacoesProprias
+            ->merge($participacoesOrientadas)
+            ->unique('id')
+            ->values();
 
         $participacoes = $participacoes->filter(function ($participacao) {
-            return Certificado::where('cpf_participante', Auth::user()->cpf)
+            $documentoParticipante = $participacao->user->cpf ?: $participacao->user->passaporte;
+
+            return $documentoParticipante && Certificado::where('cpf_participante', $documentoParticipante)
                 ->where('atividade_id', $participacao->atividade->id)
                 ->exists();
-        });
+        })->values();
 
 
         if (request('buscar_acao')) {

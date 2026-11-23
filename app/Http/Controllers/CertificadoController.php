@@ -62,11 +62,11 @@ class CertificadoController extends Controller
         }
 
         $certificados_emitidos = collect();
-        $usuariosNotificar = collect();
+        $emailsNotificar = collect();
 
         foreach($atividades as $atividade)
         {
-            $participantes = Participante::with('user')
+            $participantes = Participante::with(['user', 'infoExterna'])
                 ->where('atividade_id', $atividade->id)
                 ->get()
                 ->filter(function ($participante) use ($atividade) {
@@ -104,14 +104,16 @@ class CertificadoController extends Controller
                 $certificado->atividade_id = $atividade->id;
 
                 $certificados_emitidos->push($certificado);
-                $usuariosNotificar->push($participante->user);
+                $emailsNotificar = $emailsNotificar->concat(
+                    $this->emailsNotificacaoCertificado($participante, $acao)
+                );
             }
         }
 
         $certificados_emitidos->each(fn($certificado) => $certificado->save());
 
-        foreach ($usuariosNotificar->unique('id')->values()->chunk(99) as $chunk) {
-            Mail::bcc($chunk)->queue(new CertificadoDisponivel([
+        foreach ($this->normalizarEmailsNotificacao($emailsNotificar)->chunk(99) as $chunk) {
+            Mail::bcc($chunk->all())->queue(new CertificadoDisponivel([
                 'acao' => $acao->titulo,
             ]));
         }
@@ -133,7 +135,7 @@ class CertificadoController extends Controller
 
     public function gerar_certificados_parcial($atividade_id)
     {
-        $atividade = Atividade::with('participantes.user')->findOrFail($atividade_id);
+        $atividade = Atividade::with(['participantes.user', 'participantes.infoExterna', 'acao'])->findOrFail($atividade_id);
 
         if ($atividade->participantes->isEmpty()) {
             return redirect()->back()->with([
@@ -185,14 +187,12 @@ class CertificadoController extends Controller
 
         $atividade->update();
 
-        $participantesUser = $participantes
-            ->pluck('user')
-            ->filter()
-            ->unique('id')
-            ->values();
+        $emailsNotificar = $participantes->flatMap(function ($participante) use ($atividade) {
+            return $this->emailsNotificacaoCertificado($participante, $atividade->acao);
+        });
 
-        foreach ($participantesUser->chunk(99) as $chunk) {
-            Mail::bcc($chunk)->queue(new CertificadoDisponivel([
+        foreach ($this->normalizarEmailsNotificacao($emailsNotificar)->chunk(99) as $chunk) {
+            Mail::bcc($chunk->all())->queue(new CertificadoDisponivel([
                 'acao' => $atividade->acao->titulo,
             ]));
         }
@@ -204,7 +204,7 @@ class CertificadoController extends Controller
     {
         Carbon::setLocale('pt_BR');
 
-        $participante = Participante::findOrFail($participante_id);
+        $participante = Participante::with(['user', 'infoExterna', 'atividade.acao'])->findOrFail($participante_id);
 
         $autorTrabalhoId = $participante->autor_trabalhos_id;
         $coautorTrabalhoId = $participante->coautor_trabalhos_id;
@@ -312,13 +312,19 @@ class CertificadoController extends Controller
 
     public function ver_certificado_participante($participante_id)
     {
-        $participante = Participante::findOrFail($participante_id);
+        $participante = Participante::with(['user', 'infoExterna', 'atividade.acao'])->findOrFail($participante_id);
+        $user = Auth::user();
 
-        if(Auth::user()->id == $participante->user->id){
+        $ehParticipante = $user->id == $participante->user_id;
+        $ehOrientadorPrppgi = $user->cpf
+            && $participante->atividade->acao->usaFluxoPrppgi()
+            && optional($participante->infoExterna)->orientador_cpf === $user->cpf;
+
+        if ($ehParticipante || $ehOrientadorPrppgi) {
             return $this->ver_certificado($participante_id);
         }
 
-        return redirect()->back()->withError('Você não pode vizualizar este certificado');
+        return redirect()->back()->withError('Você não pode visualizar este certificado');
     }
 
     public function invalidar_certificado($participante_id)
@@ -408,12 +414,36 @@ class CertificadoController extends Controller
 
             $certificado->save();
 
-            Mail::to($participante->user)->queue(new CertificadoDisponivel([
+            $emailsNotificar = $this->normalizarEmailsNotificacao(
+                $this->emailsNotificacaoCertificado($participante, $participante->atividade->acao)
+            );
+
+            Mail::bcc($emailsNotificar->all())->queue(new CertificadoDisponivel([
                 'acao' => $participante->atividade->acao->titulo,
             ]));
 
             return redirect()->back()->with(['mensagem' => 'Certificado emitido com sucesso!']);
         }
+    }
+
+    private function emailsNotificacaoCertificado(Participante $participante, Acao $acao): array
+    {
+        $emails = [$participante->user->email];
+
+        if ($acao->usaFluxoPrppgi() && optional($participante->infoExterna)->orientador_email) {
+            $emails[] = $participante->infoExterna->orientador_email;
+        }
+
+        return $emails;
+    }
+
+    private function normalizarEmailsNotificacao($emails)
+    {
+        return collect($emails)
+            ->filter(fn ($email) => is_string($email) && filter_var(trim($email), FILTER_VALIDATE_EMAIL))
+            ->map(fn ($email) => trim($email))
+            ->unique(fn ($email) => mb_strtolower($email))
+            ->values();
     }
 
     /**
